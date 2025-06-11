@@ -4,7 +4,7 @@ import '../Routes/app_routes.dart';
 import '../helper/app_functions.dart';
 import '../theme/theme.dart';
 import '../utils/services/service_locator.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -14,15 +14,11 @@ class MyApp extends StatelessWidget {
     getIt<AppTheme>().isDark = false;
 
     return MaterialApp(
+      locale: context.locale,
+      supportedLocales: context.supportedLocales,
+      localizationsDelegates: context.localizationDelegates,
       navigatorObservers: [RouteObserverService()],
       debugShowCheckedModeBanner: false,
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [Locale('ar', ''), Locale('en', '')],
-      locale: const Locale('ar', ''),
       title: '',
       theme: getIt<AppTheme>().light(context),
       darkTheme: getIt<AppTheme>().dark(context),
