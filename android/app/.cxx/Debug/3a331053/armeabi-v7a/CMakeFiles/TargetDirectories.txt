@@ -1,0 +1,2 @@
+D:/Projects/My Mosque/property_ms/android/app/.cxx/Debug/3a331053/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/Projects/My Mosque/property_ms/android/app/.cxx/Debug/3a331053/armeabi-v7a/CMakeFiles/rebuild_cache.dir

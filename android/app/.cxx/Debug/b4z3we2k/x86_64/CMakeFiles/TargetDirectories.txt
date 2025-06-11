@@ -1,0 +1,2 @@
+C:/Users/moham/AndroidStudioProjects/flutter_projects/my-mosque-frontend/my_mosque_manager/android/app/.cxx/Debug/b4z3we2k/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/moham/AndroidStudioProjects/flutter_projects/my-mosque-frontend/my_mosque_manager/android/app/.cxx/Debug/b4z3we2k/x86_64/CMakeFiles/rebuild_cache.dir
