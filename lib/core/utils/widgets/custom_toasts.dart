@@ -37,7 +37,7 @@ class CustomToasts {
         child: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: ColorManager.colorToast,
+            color: ColorManager.whiteColor,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
@@ -121,8 +121,8 @@ class CustomToasts {
                         width: Get.width * 0.1,
                         child: Text(
                           buttonName ?? "",
-                          style: TextStyle(
-                            color: ColorManager.colorRed,
+                          style:const TextStyle(
+                            color: ColorManager.redColor,
                             fontWeight: FontWeight.w600,
                             fontSize: 13,
                             decoration: TextDecoration.underline,

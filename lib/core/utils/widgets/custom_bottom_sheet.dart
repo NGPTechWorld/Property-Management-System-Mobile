@@ -45,11 +45,11 @@ Future showCustomBottomSheet({
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   AppBar(
-                    backgroundColor: ColorManager.colorWhite,
+                    backgroundColor: ColorManager.whiteColor,
                     title: Text(
                       title,
                       style: Get.textTheme.headlineSmall!.copyWith(
-                        color: ColorManager.colorFontPrimary,
+                        color: ColorManager.colorPrimary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -57,7 +57,7 @@ Future showCustomBottomSheet({
                     leading: UnconstrainedBox(
                       child: CircleAvatar(
                         radius: AppSize.s18,
-                        backgroundColor: ColorManager.colorDoveGray50,
+                        backgroundColor: ColorManager.primary2Color,
                         child: IconButton(
                           onPressed:
                               cancelOnPressed ??
@@ -66,7 +66,7 @@ Future showCustomBottomSheet({
                               },
                           icon: Assets.icons.cancelIcon.svg(
                             colorFilter: ColorFilter.mode(
-                              ColorManager.colorDoveGray800,
+                              ColorManager.primary6Color,
                               BlendMode.srcIn,
                             ),
                           ),
@@ -79,7 +79,7 @@ Future showCustomBottomSheet({
                           padding: const EdgeInsets.only(right: 10),
                           child: CircleAvatar(
                             radius: 18,
-                            backgroundColor: ColorManager.colorBackground,
+                            backgroundColor: ColorManager.containerPrimary,
                             child: IconButton(
                               onPressed: iconOnPressed,
                               icon: SvgPicture.asset(iconPath),

@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:property_ms/core/services/cache/cache_keys.dart';
-import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:property_ms/core/translations/app_translation.dart';
 import 'package:property_ms/core/themes/theme_manager.dart';
 import '../Routes/navigation_manager.dart';
@@ -14,12 +12,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cacheService = Get.find<CacheService>();
+    //final cacheService = Get.find<CacheService>();
     return GetMaterialApp(
       translations: AppTranslations(),
       // useInheritedMediaQuery: true,
       // builder: DevicePreview.appBuilder,
-      locale: Locale(cacheService.getData(key: kLanguageCode)),
+      locale: const Locale('ar'),
       // locale: const Locale('en'),
       theme: LightModeTheme().themeData,
       themeMode: ThemeMode.light,

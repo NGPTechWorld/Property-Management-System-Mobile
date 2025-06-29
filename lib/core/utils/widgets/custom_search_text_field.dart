@@ -32,7 +32,7 @@ class CustomSearchTextField extends StatelessWidget {
         constraints: const BoxConstraints(minHeight: 55),
         hintText: hint,
         hintStyle: TextStyle(
-          color: ColorManager.colorDoveGray300,
+          color: ColorManager.primary4Color,
           fontWeight: FontWeight.w400,
           fontSize: FontSize.s14,
         ),
@@ -42,7 +42,7 @@ class CustomSearchTextField extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.all(0),
         filled: true,
-        fillColor: fillColor ?? ColorManager.colorWhite,
+        fillColor: fillColor ?? ColorManager.whiteColor,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: Colors.transparent),

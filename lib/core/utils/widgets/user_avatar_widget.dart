@@ -15,7 +15,7 @@ class UserAvatarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: radius,
-      backgroundColor: ColorManager.colorWhite,
+      backgroundColor: ColorManager.whiteColor,
       backgroundImage:
           user.image == null
               ? Assets.images.user.provider()

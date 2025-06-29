@@ -122,7 +122,7 @@ class CustomTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(borderRadius),
                 borderSide:
                     enabledBorderSide ??
-                    BorderSide(color: ColorManager.colorTextFieldEnabledBorder),
+                    BorderSide(color: ColorManager.primary4Color),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
@@ -132,19 +132,15 @@ class CustomTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(borderRadius),
                 borderSide:
                     focusedBorderSide ??
-                    BorderSide(color: ColorManager.colorTextFieldFocusedBorder),
+                    BorderSide(color: ColorManager.primary4Color),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
-                borderSide: BorderSide(
-                  color: ColorManager.colorTextFieldErrorBorder,
-                ),
+                borderSide: BorderSide(color: ColorManager.redColor),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
-                borderSide: BorderSide(
-                  color: ColorManager.colorTextFieldErrorBorder,
-                ),
+                borderSide: BorderSide(color: ColorManager.redColor),
               ),
             ),
             onTapOutside: (PointerDownEvent event) {

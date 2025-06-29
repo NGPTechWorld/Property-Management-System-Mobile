@@ -57,7 +57,12 @@ flutter_icons:
 flutter:
   uses-material-design: true
   assets:
-    - assets/
+    - assets/images/
+    - assets/icons/
+    - assets/fonts/
+    - assets/videos/
+    - assets/lang/
+    
   fonts:
     - family: Cairo
       fonts:

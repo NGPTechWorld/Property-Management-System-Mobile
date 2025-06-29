@@ -47,27 +47,32 @@ class AppButton extends StatelessWidget {
       constraints: BoxConstraints(minHeight: minHeight),
       decoration: BoxDecoration(
         color: withGradiant ? null : backgroundColor,
-        gradient: withGradiant
-            ? const LinearGradient(
-                begin: AlignmentDirectional.bottomStart,
-                end: Alignment.topRight,
-                colors: [ColorManager.colorPrimary, ColorManager.colorPrimary2],
-              )
-            : null,
+        gradient:
+            withGradiant
+                ? const LinearGradient(
+                  begin: AlignmentDirectional.bottomStart,
+                  end: Alignment.topRight,
+                  colors: [
+                    ColorManager.colorPrimary,
+                    ColorManager.firstDarkColor,
+                  ],
+                )
+                : null,
         borderRadius: BorderRadius.circular(radius ?? AppPadding.p12),
         border: border,
       ),
       child: ElevatedButton(
-        onPressed: !enabled
-            ? null
-            : loadingMode
-            ? null
-            : () {
-                if (onPressed != null) {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                  onPressed!();
-                }
-              },
+        onPressed:
+            !enabled
+                ? null
+                : loadingMode
+                ? null
+                : () {
+                  if (onPressed != null) {
+                    FocusManager.instance.primaryFocus?.unfocus();
+                    onPressed!();
+                  }
+                },
         style: ElevatedButton.styleFrom(
           elevation: 0,
           foregroundColor: Colors.grey,
@@ -85,23 +90,24 @@ class AppButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(radius ?? AppPadding.p8),
           ),
         ),
-        child: loadingMode
-            ? const Center(
-                child: SpinKitThreeBounce(
-                  color: ColorManager.colorSpin,
-                  size: 18,
-                ),
-              )
-            : Row(
-                textDirection: textDirection,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  icon != null ? icon! : const SizedBox.shrink(),
-                  icon != null && text != null
-                      ? const SizedBox(width: 8)
-                      : const SizedBox.shrink(),
-                  text != null
-                      ? Text(
+        child:
+            loadingMode
+                ? const Center(
+                  child: SpinKitThreeBounce(
+                    color: ColorManager.containerSec,
+                    size: 18,
+                  ),
+                )
+                : Row(
+                  textDirection: textDirection,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    icon != null ? icon! : const SizedBox.shrink(),
+                    icon != null && text != null
+                        ? const SizedBox(width: 8)
+                        : const SizedBox.shrink(),
+                    text != null
+                        ? Text(
                           text!,
                           style: TextStyle(
                             color: fontColor,
@@ -109,9 +115,9 @@ class AppButton extends StatelessWidget {
                             fontWeight: fontWeight,
                           ),
                         )
-                      : const SizedBox.shrink(),
-                ],
-              ),
+                        : const SizedBox.shrink(),
+                  ],
+                ),
       ),
     );
   }

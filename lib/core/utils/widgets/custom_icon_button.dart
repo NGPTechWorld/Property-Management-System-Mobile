@@ -38,7 +38,7 @@ class CustomIconButton extends StatelessWidget {
             loadingMode
                 ? const Center(
                   child: SpinKitThreeBounce(
-                    color: ColorManager.colorRed,
+                    color: ColorManager.redColor,
                     size: AppSize.s14,
                   ),
                 )
