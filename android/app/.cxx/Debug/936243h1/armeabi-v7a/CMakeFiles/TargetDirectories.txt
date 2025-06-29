@@ -1,2 +1,0 @@
-D:/Projects/My Mosque/my-mosque-frontend/my_mosque_manager/android/app/.cxx/Debug/936243h1/armeabi-v7a/CMakeFiles/edit_cache.dir
-D:/Projects/My Mosque/my-mosque-frontend/my_mosque_manager/android/app/.cxx/Debug/936243h1/armeabi-v7a/CMakeFiles/rebuild_cache.dir

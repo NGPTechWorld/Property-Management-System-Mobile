@@ -1,3 +1,0 @@
-class TemplateTEntity {
-  TemplateTEntity();
-}

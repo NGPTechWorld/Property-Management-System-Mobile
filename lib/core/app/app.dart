@@ -1,31 +1,39 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../Routes/app_router.dart';
+import 'package:get/get.dart';
+import 'package:property_ms/core/services/cache/cache_keys.dart';
+import 'package:property_ms/core/services/cache/cache_service.dart';
+import 'package:property_ms/core/translations/app_translation.dart';
+import 'package:property_ms/core/themes/theme_manager.dart';
+import '../Routes/navigation_manager.dart';
 import '../Routes/app_routes.dart';
-import '../helper/app_functions.dart';
-import '../theme/theme.dart';
-import '../utils/services/service_locator.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    getIt<AppTheme>().isDark = false;
-
-    return MaterialApp(
-      locale: context.locale,
-      supportedLocales: context.supportedLocales,
-      localizationsDelegates: context.localizationDelegates,
-      navigatorObservers: [RouteObserverService()],
-      debugShowCheckedModeBanner: false,
-      title: '',
-      theme: getIt<AppTheme>().light(context),
-      darkTheme: getIt<AppTheme>().dark(context),
+    final cacheService = Get.find<CacheService>();
+    return GetMaterialApp(
+      translations: AppTranslations(),
+      // useInheritedMediaQuery: true,
+      // builder: DevicePreview.appBuilder,
+      locale: Locale(cacheService.getData(key: kLanguageCode)),
+      // locale: const Locale('en'),
+      theme: LightModeTheme().themeData,
       themeMode: ThemeMode.light,
-      onGenerateRoute: AppRouter().generateRoute,
-      //? here you can add the initial route for your app
-      initialRoute: AppRoutes.splashScreen,
+      debugShowCheckedModeBanner: false,
+      getPages: NavigationManager.getPages,
+      initialRoute: AppRoutes.splashRoute,
+      fallbackLocale: const Locale('ar'),
+      supportedLocales: AppTranslations.supportedLocales,
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        DefaultCupertinoLocalizations.delegate,
+      ],
     );
   }
 }

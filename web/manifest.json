@@ -1,6 +1,6 @@
 {
-    "name": "my_mosque_manager",
-    "short_name": "my_mosque_manager",
+    "name": "property_ms",
+    "short_name": "property_ms",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

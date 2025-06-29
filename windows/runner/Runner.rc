@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "my_mosque_manager" "\0"
+            VALUE "FileDescription", "property_ms" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "my_mosque_manager" "\0"
+            VALUE "InternalName", "property_ms" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2025 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "my_mosque_manager.exe" "\0"
-            VALUE "ProductName", "my_mosque_manager" "\0"
+            VALUE "OriginalFilename", "property_ms.exe" "\0"
+            VALUE "ProductName", "property_ms" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

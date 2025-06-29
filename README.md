@@ -1,4 +1,4 @@
-# my_mosque_manager
+# property_ms
 
 A new Flutter project.
 

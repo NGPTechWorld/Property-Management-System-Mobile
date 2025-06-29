@@ -1,23 +1,20 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:property_ms/core/translations/localization_service.dart';
-import 'core/app/app.dart';
-import 'core/utils/services/service_locator.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
+import 'package:property_ms/core/app/app.dart';
+import 'package:property_ms/core/config/app_binding.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-  await initApp();
-
-  final savedLocale = await LocalizationService.loadSavedLocale();
+  // await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  AppBinding().dependencies();
+  await AppBinding.init();
 
   runApp(
-    EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('ar')],
-      path: 'assets/langs',
-      fallbackLocale: const Locale('en'),
-      startLocale: savedLocale,
-      child: const MyApp(),
+    DevicePreview(
+      builder: (context) => const MyApp(),
+      enabled: F, // enable if u want to test devices
     ),
   );
 }
