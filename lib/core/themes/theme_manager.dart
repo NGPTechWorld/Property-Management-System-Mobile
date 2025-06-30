@@ -16,7 +16,7 @@ class LightModeTheme implements MainThemeApp {
     primaryColor: ColorManager.colorPrimary,
     cardColor: ColorManager.containerPrimary,
     scaffoldBackgroundColor: ColorManager.containerPrimary,
-    disabledColor: ColorManager.primary3Color,
+    disabledColor: ColorManager.primary6Color,
     splashColor: ColorManager.containerPrimary,
     popupMenuTheme: const PopupMenuThemeData(
       surfaceTintColor: ColorManager.containerPrimary,
@@ -27,15 +27,16 @@ class LightModeTheme implements MainThemeApp {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,
-        foregroundColor: Colors.grey,
+        foregroundColor: ColorManager.primary7Color,
         backgroundColor: ColorManager.primary3Color,
         shadowColor: Colors.transparent,
       ),
     ),
     // Text color
-    primaryColorLight: ColorManager.colorPrimary,
-    primaryColorDark: ColorManager.firstDarkColor,
-    hintColor: ColorManager.middileColor,
+    // Text color
+    primaryColorLight: ColorManager.blackColor,
+    primaryColorDark: ColorManager.primary6Color,
+    hintColor: ColorManager.primary4Color,
     fontFamily: AppTranslations.appFontFamily,
     //TODO: change if u want
     textTheme: TextTheme(
@@ -134,7 +135,7 @@ class LightModeTheme implements MainThemeApp {
     ),
     appBarTheme: AppBarTheme(
       centerTitle: false,
-      backgroundColor: ColorManager.whiteColor,
+      backgroundColor: ColorManager.firstDarkColor,
       elevation: 0,
       iconTheme: const IconThemeData(
         color: ColorManager.primary7Color,
@@ -143,7 +144,7 @@ class LightModeTheme implements MainThemeApp {
       titleTextStyle: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: FontSize.s18,
-        color: ColorManager.containerPrimary,
+        color: ColorManager.whiteColor,
         fontFamily: AppTranslations.appFontFamily,
       ),
     ),
