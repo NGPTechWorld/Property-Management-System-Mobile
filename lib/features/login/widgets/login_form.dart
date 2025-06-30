@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/core/utils/widgets/custom_text_field.dart';
 import 'package:property_ms/features/login/login_controller.dart';
 
 class LoginForm extends GetView<LoginController> {
@@ -29,16 +30,12 @@ class LoginForm extends GetView<LoginController> {
           ),
         ),
         TextField(controller: controller.usernameController),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: AppPadding.p16),
-          child: Text(
-            "كلمة السر",
-            style: Theme.of(
-              context,
-            ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
-          ),
+        CustomTextField(
+          title: "كلمة السر",
+          hint: "ادخل كلمة السر",
+          textEditingController: controller.passwordController,
+          textInputType: TextInputType.visiblePassword,
         ),
-        TextField(controller: controller.passwordController),
       ],
     );
   }

@@ -19,6 +19,7 @@ abstract class ColorManager {
   static const Color containerPrimary = Color(0xffEFF4F6);
   static const Color containerSec = Color(0xffF5F4F8);
   static const Color whiteColor = Color(0xffFFFFFF);
+  static const Color backgroundColor = Color(0xffFFFFFF);
   static const Color blackColor = Color(0xff000000);
   static const Color transparentColor = Colors.transparent;
   static const Color textColor = Color(0xff2D4456);
