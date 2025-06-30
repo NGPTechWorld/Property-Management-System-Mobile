@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/default_button.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
-import 'package:property_ms/features/login/login_controller.dart';
+import 'package:property_ms/features/auth/login/login_controller.dart';
 
 class LoginButton extends GetView<LoginController> {
   const LoginButton({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
-import 'package:property_ms/features/login/login_controller.dart';
+import 'package:property_ms/features/auth/login/login_controller.dart';
 
 class LogoApp extends GetView<LoginController> {
   const LogoApp({super.key});
