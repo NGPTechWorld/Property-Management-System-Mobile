@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import '../color_manager.dart';
 import '../values_manager.dart';
 
-class CustomTextField extends StatelessWidget {
-  const CustomTextField({
+class CustomTextFieldSec extends StatelessWidget {
+  const CustomTextFieldSec({
     super.key,
     required this.title,
     required this.hint,
@@ -15,7 +15,7 @@ class CustomTextField extends StatelessWidget {
     this.obscureText = false,
     this.onTap,
     this.validator,
-    this.fillColor = ColorManager.backgroundColor,
+    required this.fillColor,
     this.autoValidateMode = AutovalidateMode.disabled,
     this.maxLines = 1,
     this.minLines = 1,
@@ -96,7 +96,7 @@ class CustomTextField extends StatelessWidget {
             ),
             textAlign: textAlign,
             cursorHeight: 20,
-            cursorColor: ColorManager.middileColor,
+            cursorColor: ColorManager.colorPrimary,
             decoration: InputDecoration(
               counterText: '',
               constraints: BoxConstraints(minHeight: minHeight),
@@ -122,7 +122,7 @@ class CustomTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(borderRadius),
                 borderSide:
                     enabledBorderSide ??
-                    BorderSide(color: ColorManager.primary6Color),
+                    BorderSide(color: ColorManager.primary4Color),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
@@ -132,7 +132,7 @@ class CustomTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(borderRadius),
                 borderSide:
                     focusedBorderSide ??
-                    BorderSide(color: ColorManager.middileColor),
+                    BorderSide(color: ColorManager.primary4Color),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
@@ -140,7 +140,7 @@ class CustomTextField extends StatelessWidget {
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
-                borderSide: BorderSide(color: ColorManager.middileColor),
+                borderSide: BorderSide(color: ColorManager.redColor),
               ),
             ),
             onTapOutside: (PointerDownEvent event) {
