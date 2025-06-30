@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:property_ms/core/Routes/app_routes.dart';
+import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/features/auth/login/login_controller.dart';
 import 'package:property_ms/features/auth/login/login_page.dart';
 import 'package:property_ms/features/splash/splash_controller.dart';

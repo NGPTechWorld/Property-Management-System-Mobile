@@ -11,4 +11,5 @@ abstract class CacheService extends GetxService {
   Future<bool> removeData({required String key});
   Future<bool> containsKey({required String key});
   Future<bool> clearData();
+  
 }

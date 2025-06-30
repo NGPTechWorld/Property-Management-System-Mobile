@@ -19,7 +19,9 @@ class LoginButton extends GetView<LoginController> {
             child: Obx(
               () => DefaultButton(
                 text: "تسجيل الدخول",
-                onPressed: () {},
+                onPressed: () {
+                  controller.next();
+                },
                 disabled: controller.loadingState.value == LoadingState.loading,
               ),
             ),

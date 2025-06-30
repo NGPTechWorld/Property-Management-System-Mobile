@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 
-import '../../core/Routes/app_routes.dart';
+import '../../core/routes/app_routes.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});

@@ -8,9 +8,8 @@ class AppBinding extends Bindings {
   @override
   void dependencies() {
     Get.put<CacheService>(GetStorageHelper());
-
     Get.put(ApiService());
-
+    
     //TODO: un comment this when firebase is ready
     // Get.put(NotificationRepo()).initialize();
     // Get.put(UsersRepo());

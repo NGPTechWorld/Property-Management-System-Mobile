@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/translations/app_translation.dart';
 import 'package:property_ms/core/themes/theme_manager.dart';
-import '../Routes/navigation_manager.dart';
-import '../Routes/app_routes.dart';
+import '../routes/navigation_manager.dart';
+import '../routes/app_routes.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MyApp extends StatelessWidget {
@@ -15,8 +16,8 @@ class MyApp extends StatelessWidget {
     //final cacheService = Get.find<CacheService>();
     return GetMaterialApp(
       translations: AppTranslations(),
-      // useInheritedMediaQuery: true,
-      // builder: DevicePreview.appBuilder,
+      useInheritedMediaQuery: true,
+      builder: DevicePreview.appBuilder,
       locale: const Locale('ar'),
       // locale: const Locale('en'),
       theme: LightModeTheme().themeData,
