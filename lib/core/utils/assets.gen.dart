@@ -197,6 +197,14 @@ class $AssetsIconsGen {
   SvgGenImage get notificationIcon =>
       const SvgGenImage('assets/icons/notification_icon.svg');
 
+  /// File path: assets/icons/office_services_card.svg
+  SvgGenImage get officeServicesCard =>
+      const SvgGenImage('assets/icons/office_services_card.svg');
+
+  /// File path: assets/icons/offices_property_card.svg
+  SvgGenImage get officesPropertyCard =>
+      const SvgGenImage('assets/icons/offices_property_card.svg');
+
   /// File path: assets/icons/password_icon.svg
   SvgGenImage get passwordIcon =>
       const SvgGenImage('assets/icons/password_icon.svg');
@@ -207,6 +215,10 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/phone.svg
   SvgGenImage get phone => const SvgGenImage('assets/icons/phone.svg');
+
+  /// File path: assets/icons/property_card.svg
+  SvgGenImage get propertyCard =>
+      const SvgGenImage('assets/icons/property_card.svg');
 
   /// File path: assets/icons/reports.svg
   SvgGenImage get reports => const SvgGenImage('assets/icons/reports.svg');
@@ -243,6 +255,10 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/telegram.svg
   SvgGenImage get telegram => const SvgGenImage('assets/icons/telegram.svg');
+
+  /// File path: assets/icons/tourisem_card.svg
+  SvgGenImage get tourisemCard =>
+      const SvgGenImage('assets/icons/tourisem_card.svg');
 
   /// File path: assets/icons/upload_icon.svg
   SvgGenImage get uploadIcon =>
@@ -318,9 +334,12 @@ class $AssetsIconsGen {
     mailIcon,
     moreIcon,
     notificationIcon,
+    officeServicesCard,
+    officesPropertyCard,
     passwordIcon,
     pencilIcon,
     phone,
+    propertyCard,
     reports,
     resumeManageIcon,
     searchIcon,
@@ -331,6 +350,7 @@ class $AssetsIconsGen {
     summaryIcon,
     supportIcon,
     telegram,
+    tourisemCard,
     uploadIcon,
     userAccountIcon,
     userFollow2Icon,
@@ -356,12 +376,26 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [logo, user];
 }
 
+class $AssetsLangGen {
+  const $AssetsLangGen();
+
+  /// File path: assets/lang/ar.json
+  String get ar => 'assets/lang/ar.json';
+
+  /// File path: assets/lang/en.json
+  String get en => 'assets/lang/en.json';
+
+  /// List of all assets
+  List<String> get values => [ar, en];
+}
+
 class Assets {
   const Assets._();
 
   static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsLangGen lang = $AssetsLangGen();
 }
 
 class AssetGenImage {

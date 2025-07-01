@@ -10,14 +10,14 @@ import 'package:property_ms/features/splash/splash_page.dart';
 abstract class NavigationManager {
   static final getPages = [
     GetPage(
-      name: AppRoutes.splashRoute,
-      page: () => const SplashPage(),
-      binding: BindingsBuilder.put(() => SplashController()),
-    ),
-    GetPage(
       name: AppRoutes.mainRoute,
       page: () => const MainPage(),
       binding: BindingsBuilder.put(() => MainController()),
+    ),
+    GetPage(
+      name: AppRoutes.splashRoute,
+      page: () => const SplashPage(),
+      binding: BindingsBuilder.put(() => SplashController()),
     ),
     GetPage(
       name: AppRoutes.loginRoute,
