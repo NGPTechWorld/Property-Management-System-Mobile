@@ -68,12 +68,12 @@ class LightModeTheme implements MainThemeApp {
       bodyLarge: TextStyle(
         color: ColorManager.primary7Color,
         fontWeight: FontWeight.bold,
-        fontSize: FontSize.s14,
+        fontSize: FontSize.s16,
       ),
       bodyMedium: TextStyle(
         color: ColorManager.primary7Color,
         fontWeight: FontWeight.w600,
-        fontSize: FontSize.s13,
+        fontSize: FontSize.s14,
       ),
       bodySmall: TextStyle(
         color: ColorManager.primary7Color,

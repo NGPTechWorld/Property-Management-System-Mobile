@@ -1,8 +1,14 @@
-import 'package:get/get.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'package:property_ms/core/utils/assets.gen.dart';
+import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
+import 'package:property_ms/features/home_page/widgets/header_home.dart';
+import 'package:property_ms/features/home_page/widgets/property_rent_card.dart';
+
 import 'home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -10,59 +16,35 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      appBar: NormalAppBar(title: "HomePage"),
-      body: Column(children: [HeaderHome()]),
-    );
-  }
-}
-
-class HeaderHome extends StatelessWidget {
-  const HeaderHome({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: AppPadding.p8,
-        horizontal: AppPadding.p16,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+    Get.put(HomeController());
+    return Scaffold(
+      appBar: const NormalAppBar(title: "HomePage"),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Assets.images.officePropertyCard.image(),
-          const SizedBox(height: AppSize.s12),
-          Row(
+          const HeaderHome(),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Flexible(
-                flex: 3,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: AppSize.sWidth * 0.75,
-                      alignment: Alignment.center,
-                      child: Assets.images.propertyCard.image(),
-                    ),
-                    const SizedBox(height: AppSize.s14),
-                    Container(
-                      width: AppSize.sWidth * 0.75,
-                      alignment: Alignment.center,
-                      child: Assets.images.tourisemCard.image(),
-                    ),
-                  ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14),
+                child: Text(
+                  "عقارات مميزة",
+                  style: Get.textTheme.headlineMedium!.copyWith(
+                    color: ColorManager.secoundColor,
+                  ),
                 ),
               ),
-              Flexible(
-                flex: 2,
-                child: Column(
-                  children: [
-                    Container(
-                      height: AppSize.sHeight * 0.235,
-                      alignment: Alignment.centerLeft,
-                      child: Assets.images.officeServicesCard.image(),
-                    ),
-                  ],
+              const SizedBox(height: 16),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(
+                    controller.propertyList.length,
+                    (index) =>
+                        PropertyRentCard(model: controller.propertyList[index]),
+                  ),
                 ),
               ),
             ],

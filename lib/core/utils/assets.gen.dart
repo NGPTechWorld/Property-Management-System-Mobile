@@ -361,6 +361,10 @@ class $AssetsImagesGen {
   AssetGenImage get propertyCard =>
       const AssetGenImage('assets/images/property_card.png');
 
+  /// File path: assets/images/property_image.png
+  AssetGenImage get propertyImage =>
+      const AssetGenImage('assets/images/property_image.png');
+
   /// File path: assets/images/tourisem_card.png
   AssetGenImage get tourisemCard =>
       const AssetGenImage('assets/images/tourisem_card.png');
@@ -374,6 +378,7 @@ class $AssetsImagesGen {
     officePropertyCard,
     officeServicesCard,
     propertyCard,
+    propertyImage,
     tourisemCard,
     user,
   ];
