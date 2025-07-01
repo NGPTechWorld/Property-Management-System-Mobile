@@ -197,14 +197,6 @@ class $AssetsIconsGen {
   SvgGenImage get notificationIcon =>
       const SvgGenImage('assets/icons/notification_icon.svg');
 
-  /// File path: assets/icons/office_services_card.svg
-  SvgGenImage get officeServicesCard =>
-      const SvgGenImage('assets/icons/office_services_card.svg');
-
-  /// File path: assets/icons/offices_property_card.svg
-  SvgGenImage get officesPropertyCard =>
-      const SvgGenImage('assets/icons/offices_property_card.svg');
-
   /// File path: assets/icons/password_icon.svg
   SvgGenImage get passwordIcon =>
       const SvgGenImage('assets/icons/password_icon.svg');
@@ -215,10 +207,6 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/phone.svg
   SvgGenImage get phone => const SvgGenImage('assets/icons/phone.svg');
-
-  /// File path: assets/icons/property_card.svg
-  SvgGenImage get propertyCard =>
-      const SvgGenImage('assets/icons/property_card.svg');
 
   /// File path: assets/icons/reports.svg
   SvgGenImage get reports => const SvgGenImage('assets/icons/reports.svg');
@@ -255,10 +243,6 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/telegram.svg
   SvgGenImage get telegram => const SvgGenImage('assets/icons/telegram.svg');
-
-  /// File path: assets/icons/tourisem_card.svg
-  SvgGenImage get tourisemCard =>
-      const SvgGenImage('assets/icons/tourisem_card.svg');
 
   /// File path: assets/icons/upload_icon.svg
   SvgGenImage get uploadIcon =>
@@ -334,12 +318,9 @@ class $AssetsIconsGen {
     mailIcon,
     moreIcon,
     notificationIcon,
-    officeServicesCard,
-    officesPropertyCard,
     passwordIcon,
     pencilIcon,
     phone,
-    propertyCard,
     reports,
     resumeManageIcon,
     searchIcon,
@@ -350,7 +331,6 @@ class $AssetsIconsGen {
     summaryIcon,
     supportIcon,
     telegram,
-    tourisemCard,
     uploadIcon,
     userAccountIcon,
     userFollow2Icon,
@@ -369,11 +349,34 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
+  /// File path: assets/images/office_property_card.png
+  AssetGenImage get officePropertyCard =>
+      const AssetGenImage('assets/images/office_property_card.png');
+
+  /// File path: assets/images/office_services_card.png
+  AssetGenImage get officeServicesCard =>
+      const AssetGenImage('assets/images/office_services_card.png');
+
+  /// File path: assets/images/property_card.png
+  AssetGenImage get propertyCard =>
+      const AssetGenImage('assets/images/property_card.png');
+
+  /// File path: assets/images/tourisem_card.png
+  AssetGenImage get tourisemCard =>
+      const AssetGenImage('assets/images/tourisem_card.png');
+
   /// File path: assets/images/user.png
   AssetGenImage get user => const AssetGenImage('assets/images/user.png');
 
   /// List of all assets
-  List<AssetGenImage> get values => [logo, user];
+  List<AssetGenImage> get values => [
+    logo,
+    officePropertyCard,
+    officeServicesCard,
+    propertyCard,
+    tourisemCard,
+    user,
+  ];
 }
 
 class $AssetsLangGen {

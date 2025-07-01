@@ -24,7 +24,7 @@ class MainPage extends GetView<MainController> {
           ),
         ],
       ),
-      bottomNavigationBar: MainPageNavBar(),
+      bottomNavigationBar: const MainPageNavBar(),
     );
   }
 }
@@ -51,6 +51,7 @@ class MainPageNavBar extends GetView<MainController> {
         child: ClipRRect(
           borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
           child: BottomNavigationBar(
+            backgroundColor: ColorManager.whiteColor,
             currentIndex: controller.pageIndex.value,
             onTap: (index) => controller.changePage(index),
             items:
@@ -69,11 +70,11 @@ class MainPageNavBar extends GetView<MainController> {
                       ),
                       child:
                           item.value.icon?.svg(
-                            width: AppSize.sWidth * 0.058,
+                            width: AppSize.s26,
                             colorFilter: ColorFilter.mode(
                               controller.pageIndex.value == item.key
                                   ? ColorManager.colorPrimary
-                                  : ColorManager.blackColor,
+                                  : ColorManager.primary5Color,
                               BlendMode.srcIn,
                             ),
                           ) ??

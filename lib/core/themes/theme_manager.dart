@@ -15,7 +15,7 @@ class LightModeTheme implements MainThemeApp {
     colorScheme: ColorScheme.fromSeed(seedColor: ColorManager.colorPrimary),
     primaryColor: ColorManager.colorPrimary,
     cardColor: ColorManager.containerPrimary,
-    scaffoldBackgroundColor: ColorManager.containerPrimary,
+    scaffoldBackgroundColor: ColorManager.primary1Color,
     disabledColor: ColorManager.primary6Color,
     splashColor: ColorManager.containerPrimary,
     popupMenuTheme: const PopupMenuThemeData(
@@ -135,7 +135,7 @@ class LightModeTheme implements MainThemeApp {
     ),
     appBarTheme: AppBarTheme(
       centerTitle: false,
-      backgroundColor: ColorManager.firstDarkColor,
+      backgroundColor: ColorManager.colorPrimary,
       elevation: 0,
       iconTheme: const IconThemeData(
         color: ColorManager.primary7Color,
