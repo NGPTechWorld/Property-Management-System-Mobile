@@ -356,12 +356,26 @@ class $AssetsImagesGen {
   List<AssetGenImage> get values => [logo, user];
 }
 
+class $AssetsLangGen {
+  const $AssetsLangGen();
+
+  /// File path: assets/lang/ar.json
+  String get ar => 'assets/lang/ar.json';
+
+  /// File path: assets/lang/en.json
+  String get en => 'assets/lang/en.json';
+
+  /// List of all assets
+  List<String> get values => [ar, en];
+}
+
 class Assets {
   const Assets._();
 
   static const $AssetsFontsGen fonts = $AssetsFontsGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsImagesGen images = $AssetsImagesGen();
+  static const $AssetsLangGen lang = $AssetsLangGen();
 }
 
 class AssetGenImage {
