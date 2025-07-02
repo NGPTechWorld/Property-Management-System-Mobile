@@ -28,7 +28,7 @@ class NormalAppBar extends StatelessWidget implements PreferredSizeWidget {
       preferredSize: const Size.fromHeight(kToolbarHeight),
       child: Container(
         decoration: const BoxDecoration(
-          color: ColorManager.colorPrimary,
+          color: ColorManager.primaryColor,
           borderRadius: BorderRadius.vertical(
             bottom: Radius.circular(24), // ← هون الحواف الدائرية من تحت
           ),
