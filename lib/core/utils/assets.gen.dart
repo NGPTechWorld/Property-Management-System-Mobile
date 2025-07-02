@@ -397,19 +397,6 @@ class $AssetsLangGen {
   List<String> get values => [ar, en];
 }
 
-class $AssetsLangGen {
-  const $AssetsLangGen();
-
-  /// File path: assets/lang/ar.json
-  String get ar => 'assets/lang/ar.json';
-
-  /// File path: assets/lang/en.json
-  String get en => 'assets/lang/en.json';
-
-  /// List of all assets
-  List<String> get values => [ar, en];
-}
-
 class Assets {
   const Assets._();
 
