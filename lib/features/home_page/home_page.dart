@@ -32,7 +32,7 @@ class HomePage extends GetView<HomeController> {
                 child: Text(
                   "عقارات مميزة",
                   style: Get.textTheme.headlineMedium!.copyWith(
-                    color: ColorManager.secoundColor,
+                    color: ColorManager.secColor,
                   ),
                 ),
               ),

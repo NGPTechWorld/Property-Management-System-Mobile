@@ -73,7 +73,7 @@ class MainPageNavBar extends GetView<MainController> {
                             width: AppSize.s26,
                             colorFilter: ColorFilter.mode(
                               controller.pageIndex.value == item.key
-                                  ? ColorManager.colorPrimary
+                                  ? ColorManager.primaryColor
                                   : ColorManager.primary5Color,
                               BlendMode.srcIn,
                             ),

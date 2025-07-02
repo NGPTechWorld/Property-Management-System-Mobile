@@ -61,7 +61,7 @@ class PropertyRentCard extends StatelessWidget {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: ColorManager.firstDarkColor,
+                        color: ColorManager.primaryDark,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
@@ -86,7 +86,7 @@ class PropertyRentCard extends StatelessWidget {
                     Text(
                       model.title,
                       style: Get.textTheme.bodyLarge!.copyWith(
-                        color: ColorManager.secoundColor,
+                        color: ColorManager.secColor,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -97,7 +97,7 @@ class PropertyRentCard extends StatelessWidget {
                         Text(
                           model.rate.toString(),
                           style: Get.textTheme.bodyLarge!.copyWith(
-                            color: ColorManager.secoundColor,
+                            color: ColorManager.secColor,
                           ),
                         ),
                       ],
@@ -115,7 +115,7 @@ class PropertyRentCard extends StatelessWidget {
                           model.location,
                           style: Get.textTheme.bodySmall!.copyWith(
                             fontWeight: FontWeight.bold,
-                            color: ColorManager.secoundColor,
+                            color: ColorManager.secColor,
                           ),
                         ),
                       ],
@@ -126,13 +126,13 @@ class PropertyRentCard extends StatelessWidget {
                         Text(
                           ' \$${model.price.toString()}',
                           style: Get.textTheme.bodyLarge!.copyWith(
-                            color: ColorManager.secoundColor,
+                            color: ColorManager.secColor,
                           ),
                         ),
                         Text(
                           ' ${model.priceUnit}',
                           style: Get.textTheme.bodyLarge!.copyWith(
-                            color: ColorManager.secoundColor,
+                            color: ColorManager.secColor,
                             fontSize: 12,
                           ),
                         ),
