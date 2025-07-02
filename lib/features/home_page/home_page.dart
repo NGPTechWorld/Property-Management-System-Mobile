@@ -28,47 +28,48 @@ class HomePage extends GetView<HomeController> {
           children: [
             const HeaderHome(),
             TopProperty(controller: controller),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 14),
-                  child: Text(
-                    "أفضل المكاتب",
-                    style: Get.textTheme.headlineMedium!.copyWith(
-                      color: ColorManager.secColor,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 16),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: List.generate(controller.propertyList.length, (
-                      index,
-                    ) {
-                      final item = controller.propertyList[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 6),
-                        child: OfficeCard(
-                          model: OfficeCardModel(
-                            title: "title",
-                            type: "type",
-                            location: "location moadjodfj kdfndf",
-                            rate: 4.5,
-                            image: Assets.images.propertyImage,
-                          ),
-                        ),
-                      );
-                    }),
-                  ),
-                ),
-                const SizedBox(height: 16),
-              ],
-            ),
+            TopOffice(controller: controller),
           ],
         ),
       ),
+    );
+  }
+}
+
+class TopOffice extends StatelessWidget {
+  const TopOffice({super.key, required this.controller});
+
+  final HomeController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14),
+          child: Text(
+            "أفضل المكاتب",
+            style: Get.textTheme.headlineMedium!.copyWith(
+              color: ColorManager.secColor,
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: List.generate(controller.topOffices.length, (index) {
+              final item = controller.topOffices[index];
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6),
+                child: OfficeCard(model: item),
+              );
+            }),
+          ),
+        ),
+        const SizedBox(height: 16),
+      ],
     );
   }
 }

@@ -15,7 +15,7 @@ class LightModeTheme implements MainThemeApp {
     colorScheme: ColorScheme.fromSeed(seedColor: ColorManager.primaryColor),
     primaryColor: ColorManager.primaryColor,
     cardColor: ColorManager.cardBack2,
-    scaffoldBackgroundColor: ColorManager.cardBack2,
+    scaffoldBackgroundColor: ColorManager.cardBackground,
     disabledColor: ColorManager.grey2,
     splashColor: ColorManager.cardBack2,
     popupMenuTheme: const PopupMenuThemeData(

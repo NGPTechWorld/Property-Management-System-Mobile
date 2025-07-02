@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 
 class OfficeCardModel {
   final String title;
@@ -80,18 +79,23 @@ class OfficeCard extends StatelessWidget {
           ),
 
           // const SizedBox(width: 12),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Expanded(
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Center(
-                    child: Text(model.title, style: Get.textTheme.bodyLarge),
+                    child: Text(
+                      overflow: TextOverflow.ellipsis,
+                      model.title,
+                      style: Get.textTheme.bodyMedium!.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 4),
-
                   Row(
                     children: [
                       const Icon(
@@ -101,11 +105,11 @@ class OfficeCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Expanded(
-                        child: AutoSizeText(
-                          model.location,
-                          maxLines: 1,
+                        child: Text(
                           overflow: TextOverflow.ellipsis,
+                          model.location,
                           style: Get.textTheme.bodySmall!.copyWith(
+                            fontSize: FontSize.s10,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

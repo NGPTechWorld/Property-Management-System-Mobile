@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
     //final cacheService = Get.find<CacheService>();
     return GetMaterialApp(
       translations: AppTranslations(),
-      // useInheritedMediaQuery: true,
-      // builder: DevicePreview.appBuilder,
+      useInheritedMediaQuery: true,
+      builder: DevicePreview.appBuilder,
       locale: const Locale('ar'),
       // locale: const Locale('en'),
       theme: LightModeTheme().themeData,

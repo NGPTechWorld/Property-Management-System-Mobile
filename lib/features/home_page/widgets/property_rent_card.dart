@@ -102,14 +102,18 @@ class PropertyRentCard extends StatelessWidget {
             ),
 
             // const SizedBox(width: 12),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Expanded(
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(model.title, style: Get.textTheme.bodyLarge),
+                    Text(
+                      model.title,
+                      style: Get.textTheme.bodyLarge,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                     const SizedBox(height: 4),
                     Row(
                       children: [
@@ -130,13 +134,15 @@ class PropertyRentCard extends StatelessWidget {
                       children: [
                         const Icon(
                           Icons.location_on,
-                          color: ColorManager.redColor,
+                          color: ColorManager.primary5Color,
                           size: 18,
                         ),
                         const SizedBox(width: 4),
                         Text(
+                          overflow: TextOverflow.ellipsis,
                           model.location,
                           style: Get.textTheme.bodySmall!.copyWith(
+                            fontSize: FontSize.s10,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

@@ -101,55 +101,58 @@ class PropertySaleCard extends StatelessWidget {
             // const SizedBox(width: 12),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(model.title, style: Get.textTheme.bodyLarge),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.area_chart,
-                          color: ColorManager.primary5Color,
-                          size: 18,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    model.title,
+                    style: Get.textTheme.bodyLarge,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.area_chart,
+                        color: ColorManager.primary5Color,
+                        size: 18,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        model.area.toString(),
+                        style: Get.textTheme.bodyLarge,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.location_on,
+                        color: ColorManager.redColor,
+                        size: 18,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        model.location,
+                        style: Get.textTheme.bodySmall!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: FontSize.s10,
                         ),
-                        const SizedBox(width: 4),
-                        Text(
-                          model.area.toString(),
-                          style: Get.textTheme.bodyLarge,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 4),
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.location_on,
-                          color: ColorManager.redColor,
-                          size: 18,
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          model.location,
-                          style: Get.textTheme.bodySmall!.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      children: [
-                        Text(
-                          ' \$${model.price.toString()}',
-                          style: Get.textTheme.bodyLarge,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Text(
+                        ' \$${model.price.toString()}',
+                        style: Get.textTheme.bodyLarge,
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],

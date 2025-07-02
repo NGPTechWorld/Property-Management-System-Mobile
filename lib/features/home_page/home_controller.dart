@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
+import 'package:property_ms/features/home_page/widgets/office_card.dart';
 
 import 'package:property_ms/features/home_page/widgets/property_rent_card.dart';
 import 'package:property_ms/features/home_page/widgets/property_sale_card.dart';
@@ -35,6 +36,36 @@ class HomeController extends GetxController {
       priceUnit: 'شهري',
       rate: 4.2,
       price: 1800,
+      image: Assets.images.propertyImage,
+    ),
+  ];
+  final topOffices = [
+    OfficeCardModel(
+      title: "مكتب ابو سمير",
+      type: "سياحي",
+      location: 'دمشق القديمة',
+      rate: 4.5,
+      image: Assets.images.propertyImage,
+    ),
+    OfficeCardModel(
+      title: "مكتب ابو سمير",
+      type: "سياحي",
+      location: 'دمشق القديمة',
+      rate: 4.5,
+      image: Assets.images.propertyImage,
+    ),
+    OfficeCardModel(
+      title: "مكتب ابو سمير",
+      type: "سياحي",
+      location: 'دمشق القديمة',
+      rate: 4.5,
+      image: Assets.images.propertyImage,
+    ),
+    OfficeCardModel(
+      title: "مكتب ابو سمير",
+      type: "سياحي",
+      location: 'دمشق القديمة',
+      rate: 4.5,
       image: Assets.images.propertyImage,
     ),
   ];
