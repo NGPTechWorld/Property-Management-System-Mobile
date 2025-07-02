@@ -15,7 +15,7 @@ class CustomTextField extends StatelessWidget {
     this.obscureText = false,
     this.onTap,
     this.validator,
-    this.fillColor = ColorManager.backgroundColor,
+    this.fillColor = ColorManager.white,
     this.autoValidateMode = AutovalidateMode.disabled,
     this.maxLines = 1,
     this.minLines = 1,
@@ -96,7 +96,7 @@ class CustomTextField extends StatelessWidget {
             ),
             textAlign: textAlign,
             cursorHeight: 20,
-            cursorColor: ColorManager.middileColor,
+            cursorColor: ColorManager.primaryDark,
             decoration: InputDecoration(
               counterText: '',
               constraints: BoxConstraints(minHeight: minHeight),
@@ -122,7 +122,7 @@ class CustomTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(borderRadius),
                 borderSide:
                     enabledBorderSide ??
-                    BorderSide(color: ColorManager.primary6Color),
+                    const BorderSide(color: ColorManager.cardHead),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
@@ -132,15 +132,15 @@ class CustomTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(borderRadius),
                 borderSide:
                     focusedBorderSide ??
-                    BorderSide(color: ColorManager.middileColor),
+                    const BorderSide(color: ColorManager.primaryDark),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
-                borderSide: BorderSide(color: ColorManager.redColor),
+                borderSide: const BorderSide(color: ColorManager.redColor),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
-                borderSide: BorderSide(color: ColorManager.middileColor),
+                borderSide: const BorderSide(color: ColorManager.primaryDark),
               ),
             ),
             onTapOutside: (PointerDownEvent event) {

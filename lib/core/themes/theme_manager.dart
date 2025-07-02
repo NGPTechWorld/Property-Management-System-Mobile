@@ -12,174 +12,165 @@ class LightModeTheme implements MainThemeApp {
   @override
   ThemeData themeData = ThemeData(
     dividerColor: Colors.transparent,
-    colorScheme: ColorScheme.fromSeed(seedColor: ColorManager.colorPrimary),
-    primaryColor: ColorManager.colorPrimary,
-    cardColor: ColorManager.containerPrimary,
-    scaffoldBackgroundColor: ColorManager.primary1Color,
-    disabledColor: ColorManager.primary6Color,
-    splashColor: ColorManager.containerPrimary,
+    colorScheme: ColorScheme.fromSeed(seedColor: ColorManager.primaryColor),
+    primaryColor: ColorManager.primaryColor,
+    cardColor: ColorManager.cardBack2,
+    scaffoldBackgroundColor: ColorManager.cardBack2,
+    disabledColor: ColorManager.grey2,
+    splashColor: ColorManager.cardBack2,
     popupMenuTheme: const PopupMenuThemeData(
-      surfaceTintColor: ColorManager.containerPrimary,
+      surfaceTintColor: ColorManager.cardBack2,
       shadowColor: Colors.black,
-      color: ColorManager.whiteColor,
+      color: ColorManager.white,
     ),
-    iconTheme: const IconThemeData(color: ColorManager.primary7Color),
+    iconTheme: const IconThemeData(color: ColorManager.secColor),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         elevation: 0,
-        foregroundColor: ColorManager.primary7Color,
+        foregroundColor: Colors.grey,
         backgroundColor: ColorManager.primary3Color,
         shadowColor: Colors.transparent,
       ),
     ),
     // Text color
-    // Text color
-    primaryColorLight: ColorManager.blackColor,
-    primaryColorDark: ColorManager.primary6Color,
-    hintColor: ColorManager.primary4Color,
+    primaryColorLight: ColorManager.primaryColor,
+    primaryColorDark: ColorManager.primaryDark,
+    hintColor: ColorManager.primaryDark,
     fontFamily: AppTranslations.appFontFamily,
-    //TODO: change if u want
     textTheme: TextTheme(
       headlineLarge: TextStyle(
-        color: ColorManager.primary7Color,
+        color: ColorManager.secColor,
         fontWeight: FontWeight.w800,
         fontSize: FontSize.s22,
       ),
       headlineMedium: TextStyle(
-        color: ColorManager.primary7Color,
+        color: ColorManager.secColor,
         fontWeight: FontWeight.w800,
         fontSize: FontSize.s18,
       ),
       headlineSmall: TextStyle(
-        color: ColorManager.primary7Color,
+        color: ColorManager.secColor,
         fontSize: FontSize.s16,
         fontWeight: FontWeight.w600,
       ),
       displayMedium: TextStyle(
-        color: ColorManager.primary7Color,
+        color: ColorManager.secColor,
         fontWeight: FontWeight.bold,
         fontSize: FontSize.s16,
       ),
       displaySmall: TextStyle(
-        color: ColorManager.primary7Color,
+        color: ColorManager.secColor,
         fontWeight: FontWeight.w600,
         fontSize: FontSize.s14,
       ),
       bodyLarge: TextStyle(
-        color: ColorManager.primary7Color,
+        color: ColorManager.secColor,
         fontWeight: FontWeight.bold,
         fontSize: FontSize.s16,
       ),
       bodyMedium: TextStyle(
-        color: ColorManager.primary7Color,
+        color: ColorManager.secColor,
         fontWeight: FontWeight.w600,
         fontSize: FontSize.s14,
       ),
       bodySmall: TextStyle(
-        color: ColorManager.primary7Color,
+        color: ColorManager.secColor,
         fontWeight: FontWeight.normal,
         fontSize: FontSize.s12,
       ),
-
-      /// 1. title large
       titleLarge: TextStyle(
-        color: ColorManager.primary7Color,
+        color: ColorManager.secColor,
         fontWeight: FontWeight.bold,
         fontSize: FontSize.s15,
       ),
       titleMedium: TextStyle(
-        color: ColorManager.primary7Color,
+        color: ColorManager.secColor,
         fontWeight: FontWeight.bold,
         fontSize: FontSize.s13,
       ),
-      //TODO: change if u want
-      //I use this in small title in home page
       titleSmall: TextStyle(
-        color: ColorManager.primary7Color,
+        color: ColorManager.secColor,
         fontWeight: FontWeight.bold,
         fontSize: FontSize.s14,
       ),
-      // use this in label of icons in popupmenu
       labelLarge: TextStyle(
-        color: ColorManager.primary7Color,
+        color: ColorManager.secColor,
         fontWeight: FontWeight.w600,
         fontSize: FontSize.s16,
       ),
       labelMedium: TextStyle(
-        color: ColorManager.primary7Color,
+        color: ColorManager.secColor,
         fontWeight: FontWeight.w500,
         fontSize: FontSize.s12,
       ),
       labelSmall: TextStyle(
-        color: ColorManager.primary7Color,
+        color: ColorManager.secColor,
         fontSize: FontSize.s11,
         fontWeight: FontWeight.normal,
       ),
     ),
-    dividerTheme: const DividerThemeData(color: ColorManager.blackColor),
+    dividerTheme: const DividerThemeData(color: ColorManager.black),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      backgroundColor: ColorManager.whiteColor,
+      backgroundColor: ColorManager.white,
       type: BottomNavigationBarType.fixed,
-      selectedItemColor: ColorManager.colorPrimary,
-      unselectedItemColor: ColorManager.blackColor,
+      selectedItemColor: ColorManager.primaryColor,
+      unselectedItemColor: ColorManager.black,
       selectedLabelStyle: TextStyle(
         fontWeight: FontWeight.w800,
         fontSize: FontSize.s12,
-        color: ColorManager.colorPrimary,
+        color: ColorManager.primaryColor,
       ),
       unselectedLabelStyle: TextStyle(
         fontWeight: FontWeight.w600,
         fontSize: FontSize.s12,
-        color: ColorManager.blackColor,
+        color: ColorManager.black,
       ),
     ),
     appBarTheme: AppBarTheme(
       centerTitle: false,
-      backgroundColor: ColorManager.colorPrimary,
+      backgroundColor: ColorManager.whiteColor,
       elevation: 0,
       iconTheme: const IconThemeData(
-        color: ColorManager.primary7Color,
+        color: ColorManager.secColor,
         size: AppSize.s20,
       ),
       titleTextStyle: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: FontSize.s18,
-        color: ColorManager.whiteColor,
+        color: ColorManager.cardBack2,
         fontFamily: AppTranslations.appFontFamily,
       ),
     ),
-    dialogTheme: DialogThemeData(backgroundColor: ColorManager.whiteColor),
+    dialogTheme: const DialogThemeData(backgroundColor: ColorManager.white),
     datePickerTheme: DatePickerThemeData(
-      backgroundColor: ColorManager.whiteColor,
+      backgroundColor: ColorManager.white,
       elevation: 1,
       weekdayStyle: TextStyle(
-        color: ColorManager.primary4Color,
+        color: ColorManager.grey3,
         fontWeight: FontWeight.bold,
         fontSize: FontSize.s16,
       ),
       dayStyle: TextStyle(
-        color: ColorManager.containerPrimary,
+        color: ColorManager.cardBack2,
         fontWeight: FontWeight.w600,
         fontSize: FontSize.s14,
       ),
     ),
-    // input decoration theme (text form field)
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: ColorManager.whiteColor,
+      fillColor: ColorManager.white,
       contentPadding: const EdgeInsets.symmetric(
         horizontal: AppPadding.p16,
         vertical: AppPadding.p20,
       ),
-      // hint style
       hintStyle: TextStyle(
-        color: ColorManager.primary7Color,
+        color: ColorManager.secColor,
         fontWeight: FontWeight.w500,
         fontSize: FontSize.s12,
         fontFamily: AppTranslations.appFontFamily,
       ),
       labelStyle: TextStyle(
-        color: ColorManager.primary7Color,
+        color: ColorManager.secColor,
         fontWeight: FontWeight.w500,
         fontFamily: AppTranslations.appFontFamily,
       ),
@@ -188,39 +179,35 @@ class LightModeTheme implements MainThemeApp {
         fontWeight: FontWeight.w500,
         fontFamily: AppTranslations.appFontFamily,
       ),
-      disabledBorder: OutlineInputBorder(
+      disabledBorder: const OutlineInputBorder(
         borderSide: BorderSide(
-          color: ColorManager.firstDarkColor,
+          color: ColorManager.primaryDark,
           width: AppSize.s1_5,
         ),
         borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
       ),
-      // enabled border style
-      enabledBorder: OutlineInputBorder(
+      enabledBorder: const OutlineInputBorder(
         borderSide: BorderSide(
-          color: ColorManager.firstDarkColor,
+          color: ColorManager.primaryDark,
+          width: AppSize.s1_5,
+        ),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s10)),
+      ),
+      focusedBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: ColorManager.primaryDark,
           width: AppSize.s1_5,
         ),
         borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
       ),
-      // focused border style
-      focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(
-          color: ColorManager.firstDarkColor,
-          width: AppSize.s1_5,
-        ),
-        borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
-      ),
-      // error border style
-      errorBorder: OutlineInputBorder(
+      errorBorder: const OutlineInputBorder(
         borderSide: BorderSide(
           color: ColorManager.redColor,
           width: AppSize.s1_5,
         ),
         borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
       ),
-      // focused border style
-      focusedErrorBorder: OutlineInputBorder(
+      focusedErrorBorder: const OutlineInputBorder(
         borderSide: BorderSide(
           color: ColorManager.redColor,
           width: AppSize.s1_5,

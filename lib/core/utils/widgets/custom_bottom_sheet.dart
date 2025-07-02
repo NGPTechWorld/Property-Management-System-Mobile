@@ -45,11 +45,11 @@ Future showCustomBottomSheet({
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   AppBar(
-                    backgroundColor: ColorManager.whiteColor,
+                    backgroundColor: ColorManager.white,
                     title: Text(
                       title,
                       style: Get.textTheme.headlineSmall!.copyWith(
-                        color: ColorManager.colorPrimary,
+                        color: ColorManager.primaryColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -57,7 +57,7 @@ Future showCustomBottomSheet({
                     leading: UnconstrainedBox(
                       child: CircleAvatar(
                         radius: AppSize.s18,
-                        backgroundColor: ColorManager.primary2Color,
+                        backgroundColor: ColorManager.cardBack2,
                         child: IconButton(
                           onPressed:
                               cancelOnPressed ??
@@ -65,8 +65,8 @@ Future showCustomBottomSheet({
                                 Get.back();
                               },
                           icon: Assets.icons.cancelIcon.svg(
-                            colorFilter: ColorFilter.mode(
-                              ColorManager.primary6Color,
+                            colorFilter: const ColorFilter.mode(
+                              ColorManager.cardHead,
                               BlendMode.srcIn,
                             ),
                           ),
@@ -79,7 +79,7 @@ Future showCustomBottomSheet({
                           padding: const EdgeInsets.only(right: 10),
                           child: CircleAvatar(
                             radius: 18,
-                            backgroundColor: ColorManager.containerPrimary,
+                            backgroundColor: ColorManager.cardBack2,
                             child: IconButton(
                               onPressed: iconOnPressed,
                               icon: SvgPicture.asset(iconPath),

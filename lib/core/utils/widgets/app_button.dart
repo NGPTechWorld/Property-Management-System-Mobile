@@ -10,7 +10,7 @@ class AppButton extends StatelessWidget {
     super.key,
     this.text,
     this.icon,
-    this.backgroundColor = ColorManager.colorPrimary,
+    this.backgroundColor = ColorManager.primaryColor,
     this.fontColor = Colors.white,
     this.onPressed,
     this.padding,
@@ -52,10 +52,7 @@ class AppButton extends StatelessWidget {
                 ? const LinearGradient(
                   begin: AlignmentDirectional.bottomStart,
                   end: Alignment.topRight,
-                  colors: [
-                    ColorManager.colorPrimary,
-                    ColorManager.firstDarkColor,
-                  ],
+                  colors: [ColorManager.primaryColor, ColorManager.primaryDark],
                 )
                 : null,
         borderRadius: BorderRadius.circular(radius ?? AppPadding.p12),
@@ -94,7 +91,7 @@ class AppButton extends StatelessWidget {
             loadingMode
                 ? const Center(
                   child: SpinKitThreeBounce(
-                    color: ColorManager.containerSec,
+                    color: ColorManager.cardBackground,
                     size: 18,
                   ),
                 )
