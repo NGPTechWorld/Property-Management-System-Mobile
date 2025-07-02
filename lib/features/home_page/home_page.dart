@@ -7,7 +7,9 @@ import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
 import 'package:property_ms/features/home_page/widgets/header_home.dart';
+import 'package:property_ms/features/home_page/widgets/office_card.dart';
 import 'package:property_ms/features/home_page/widgets/property_rent_card.dart';
+import 'package:property_ms/features/home_page/widgets/property_sale_card.dart';
 
 import 'home_controller.dart';
 
@@ -19,38 +21,96 @@ class HomePage extends GetView<HomeController> {
     Get.put(HomeController());
     return Scaffold(
       appBar: const NormalAppBar(title: "HomePage"),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const HeaderHome(),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
-                child: Text(
-                  "عقارات مميزة",
-                  style: Get.textTheme.headlineMedium!.copyWith(
-                    color: ColorManager.secColor,
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const HeaderHome(),
+            TopProperty(controller: controller),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 14),
+                  child: Text(
+                    "أفضل المكاتب",
+                    style: Get.textTheme.headlineMedium!.copyWith(
+                      color: ColorManager.secColor,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(
-                    controller.propertyList.length,
-                    (index) =>
-                        PropertyRentCard(model: controller.propertyList[index]),
+                const SizedBox(height: 16),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(controller.propertyList.length, (
+                      index,
+                    ) {
+                      final item = controller.propertyList[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        child: OfficeCard(
+                          model: OfficeCardModel(
+                            title: "title",
+                            type: "type",
+                            location: "location moadjodfj kdfndf",
+                            rate: 4.5,
+                            image: Assets.images.propertyImage,
+                          ),
+                        ),
+                      );
+                    }),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+                const SizedBox(height: 16),
+              ],
+            ),
+          ],
+        ),
       ),
+    );
+  }
+}
+
+class TopProperty extends StatelessWidget {
+  const TopProperty({super.key, required this.controller});
+
+  final HomeController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 14),
+          child: Text(
+            "عقارات مميزة",
+            style: Get.textTheme.headlineMedium!.copyWith(
+              color: ColorManager.secColor,
+            ),
+          ),
+        ),
+        const SizedBox(height: 16),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: List.generate(controller.propertyList.length, (index) {
+              final item = controller.propertyList[index];
+
+              if (item is PropertyRentCardModel) {
+                return PropertyRentCard(model: item);
+              } else if (item is PropertySaleCardModel) {
+                return PropertySaleCard(model: item);
+              } else {
+                return const SizedBox();
+              }
+            }),
+          ),
+        ),
+        const SizedBox(height: 16),
+      ],
     );
   }
 }
