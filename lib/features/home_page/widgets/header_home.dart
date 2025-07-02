@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
@@ -53,6 +52,7 @@ class HeaderHome extends StatelessWidget {
               ),
             ],
           ),
+          const SizedBox(height: AppPadding.p8),
         ],
       ),
     );

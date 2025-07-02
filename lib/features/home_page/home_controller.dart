@@ -4,6 +4,7 @@ import 'package:property_ms/features/home_page/widgets/office_card.dart';
 
 import 'package:property_ms/features/home_page/widgets/property_rent_card.dart';
 import 'package:property_ms/features/home_page/widgets/property_sale_card.dart';
+import 'package:property_ms/features/home_page/widgets/services_card.dart';
 
 class HomeController extends GetxController {
   final propertyList = [
@@ -66,6 +67,30 @@ class HomeController extends GetxController {
       type: "سياحي",
       location: 'دمشق القديمة',
       rate: 4.5,
+      image: Assets.images.propertyImage,
+    ),
+  ];
+
+  final topServices = [
+    ServicesCardModel(
+      title: "ابو يحيى",
+      location: 'دمشق القديمة',
+      tupe: "تصوير احترافي",
+      rate: 4.3,
+      image: Assets.images.propertyImage,
+    ),
+    ServicesCardModel(
+      title: "ابو يحيى",
+      location: 'دمشق القديمة',
+      tupe: "تصوير احترافي",
+      rate: 4.3,
+      image: Assets.images.propertyImage,
+    ),
+    ServicesCardModel(
+      title: "ابو يحيى",
+      location: 'دمشق القديمة',
+      tupe: "تصوير احترافي",
+      rate: 4.3,
       image: Assets.images.propertyImage,
     ),
   ];

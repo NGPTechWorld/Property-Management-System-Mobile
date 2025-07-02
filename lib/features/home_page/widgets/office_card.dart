@@ -48,8 +48,6 @@ class OfficeCard extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-
-                // SizedBox(height: AppSize.sHeight * 0.101),
                 Positioned(
                   bottom: 0,
                   left: 0,
