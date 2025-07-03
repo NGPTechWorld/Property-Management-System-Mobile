@@ -32,6 +32,7 @@ class CustomTextField extends StatelessWidget {
     this.focusedBorderSide,
     this.contentPadding,
     this.prefixConstraints = const BoxConstraints(minWidth: 0, minHeight: 0),
+    this.hasBorder = true,
   });
 
   final String? title;
@@ -60,9 +61,15 @@ class CustomTextField extends StatelessWidget {
   final EdgeInsets? contentPadding;
   final BorderSide? enabledBorderSide;
   final BorderSide? focusedBorderSide;
+  final bool hasBorder;
 
   @override
   Widget build(BuildContext context) {
+    final transparentBorder = OutlineInputBorder(
+      borderRadius: BorderRadius.circular(borderRadius),
+      borderSide: const BorderSide(color: Colors.transparent),
+    );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment:
@@ -118,30 +125,49 @@ class CustomTextField extends StatelessWidget {
               ),
               filled: true,
               fillColor: fillColor,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
-                borderSide:
-                    enabledBorderSide ??
-                    const BorderSide(color: ColorManager.cardHead),
-              ),
-              disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
-                borderSide: const BorderSide(color: Colors.transparent),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
-                borderSide:
-                    focusedBorderSide ??
-                    const BorderSide(color: ColorManager.primaryDark),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
-                borderSide: const BorderSide(color: ColorManager.redColor),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
-                borderSide: const BorderSide(color: ColorManager.primaryDark),
-              ),
+              enabledBorder:
+                  hasBorder
+                      ? OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(borderRadius),
+                        borderSide:
+                            enabledBorderSide ??
+                            const BorderSide(color: ColorManager.cardHead),
+                      )
+                      : transparentBorder,
+              disabledBorder:
+                  hasBorder
+                      ? OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(borderRadius),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      )
+                      : transparentBorder,
+              focusedBorder:
+                  hasBorder
+                      ? OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(borderRadius),
+                        borderSide:
+                            focusedBorderSide ??
+                            const BorderSide(color: ColorManager.primaryDark),
+                      )
+                      : transparentBorder,
+              errorBorder:
+                  hasBorder
+                      ? OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(borderRadius),
+                        borderSide: const BorderSide(
+                          color: ColorManager.redColor,
+                        ),
+                      )
+                      : transparentBorder,
+              focusedErrorBorder:
+                  hasBorder
+                      ? OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(borderRadius),
+                        borderSide: const BorderSide(
+                          color: ColorManager.primaryDark,
+                        ),
+                      )
+                      : transparentBorder,
             ),
             onTapOutside: (PointerDownEvent event) {
               FocusManager.instance.primaryFocus?.unfocus();
