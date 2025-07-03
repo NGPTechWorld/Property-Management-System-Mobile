@@ -8,7 +8,9 @@ environment:
   sdk: ^3.7.2
 
 dependencies:
+  auto_size_text: ^3.0.0
   cached_network_image: ^3.4.1
+  carousel_slider: ^5.1.1
   connectivity_plus: ^6.1.4
   cupertino_icons: ^1.0.8
   dartz: ^0.10.1
@@ -60,7 +62,6 @@ flutter:
     - assets/images/
     - assets/icons/
     - assets/fonts/
-    - assets/videos/
     - assets/lang/
 
   fonts:

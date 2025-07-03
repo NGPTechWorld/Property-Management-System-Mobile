@@ -15,7 +15,7 @@ class LightModeTheme implements MainThemeApp {
     colorScheme: ColorScheme.fromSeed(seedColor: ColorManager.primaryColor),
     primaryColor: ColorManager.primaryColor,
     cardColor: ColorManager.cardBack2,
-    scaffoldBackgroundColor: ColorManager.cardBack2,
+    scaffoldBackgroundColor: ColorManager.cardBackground,
     disabledColor: ColorManager.grey2,
     splashColor: ColorManager.cardBack2,
     popupMenuTheme: const PopupMenuThemeData(
@@ -128,7 +128,7 @@ class LightModeTheme implements MainThemeApp {
     ),
     appBarTheme: AppBarTheme(
       centerTitle: false,
-      backgroundColor: ColorManager.whiteColor,
+      backgroundColor: Colors.transparent,
       elevation: 0,
       iconTheme: const IconThemeData(
         color: ColorManager.secColor,
@@ -180,24 +180,15 @@ class LightModeTheme implements MainThemeApp {
         fontFamily: AppTranslations.appFontFamily,
       ),
       disabledBorder: const OutlineInputBorder(
-        borderSide: BorderSide(
-          color: ColorManager.primaryDark,
-          width: AppSize.s1_5,
-        ),
+        borderSide: BorderSide(color: ColorManager.grey3, width: AppSize.s1_5),
         borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
       ),
       enabledBorder: const OutlineInputBorder(
-        borderSide: BorderSide(
-          color: ColorManager.primaryDark,
-          width: AppSize.s1_5,
-        ),
+        borderSide: BorderSide(color: ColorManager.grey3, width: AppSize.s1_5),
         borderRadius: const BorderRadius.all(Radius.circular(AppSize.s10)),
       ),
       focusedBorder: const OutlineInputBorder(
-        borderSide: BorderSide(
-          color: ColorManager.primaryDark,
-          width: AppSize.s1_5,
-        ),
+        borderSide: BorderSide(color: ColorManager.grey3, width: AppSize.s1_5),
         borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
       ),
       errorBorder: const OutlineInputBorder(

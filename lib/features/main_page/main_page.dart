@@ -34,8 +34,6 @@ class MainPageNavBar extends GetView<MainController> {
 
   @override
   Widget build(BuildContext context) {
-    final navBarHeight = AppSize.sHeight * 0.1;
-
     return Obx(() {
       return AnimatedSwitcher(
         duration: const Duration(milliseconds: 500),
@@ -53,14 +51,21 @@ class MainPageNavBar extends GetView<MainController> {
           child: BottomNavigationBar(
             backgroundColor: ColorManager.whiteColor,
             currentIndex: controller.pageIndex.value,
+
+            selectedLabelStyle: TextStyle(
+              fontSize: FontSize.s12,
+              fontWeight: FontWeight.bold,
+              color: ColorManager.primaryColor,
+            ),
+            unselectedItemColor: ColorManager.primary5Color,
             onTap: (index) => controller.changePage(index),
             items:
                 [
                   NavBarItem('home'.tr, Assets.icons.homeIcon),
-                  NavBarItem('offices'.tr, Assets.icons.shopIcon),
-                  NavBarItem('ecploration'.tr, Assets.icons.shopIcon),
-                  NavBarItem('reservation'.tr, Assets.icons.adsIcon),
-                  NavBarItem('profile'.tr, Assets.icons.userAccountIcon),
+                  NavBarItem('المكاتب', Assets.icons.property),
+                  NavBarItem('استكشاف'.tr, Assets.icons.exploration),
+                  NavBarItem('الحجوزات'.tr, Assets.icons.adsIcon),
+                  NavBarItem('حسابي'.tr, Assets.icons.userAccountIcon),
                 ].asMap().entries.map((item) {
                   return BottomNavigationBarItem(
                     icon: Padding(
@@ -81,6 +86,7 @@ class MainPageNavBar extends GetView<MainController> {
                           SizedBox(height: AppSize.sHeight * 0.025),
                     ),
                     label: item.value.name,
+
                   );
                 }).toList(),
           ),
