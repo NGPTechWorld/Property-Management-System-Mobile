@@ -8,7 +8,6 @@ import 'widgets/login_form.dart';
 import 'widgets/logo_app.dart';
 
 class LoginPage extends GetView<LoginController> {
-  
   const LoginPage({super.key});
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,7 @@ class LoginPage extends GetView<LoginController> {
           padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [LogoApp(), LoginForm(), LoginButton(),],
+            children: [LogoApp(withTitle: true), LoginForm(), LoginButton()],
           ),
         ),
       ),
