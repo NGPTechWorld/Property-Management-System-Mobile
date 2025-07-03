@@ -47,6 +47,7 @@ abstract class AppSize {
   static const double s190 = 190.0;
   static double sWidth = MediaQuery.sizeOf(Get.context!).width;
   static double sHeight = MediaQuery.sizeOf(Get.context!).height;
+  static double sStatusBarHeight = MediaQuery.of(Get.context!).padding.top;
 }
 
 abstract class FontSize {

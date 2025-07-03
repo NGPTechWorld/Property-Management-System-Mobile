@@ -122,7 +122,7 @@ class CustomTextField extends StatelessWidget {
                 borderRadius: BorderRadius.circular(borderRadius),
                 borderSide:
                     enabledBorderSide ??
-                    const BorderSide(color: ColorManager.cardHead),
+                    const BorderSide(color: ColorManager.primary4Color),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
