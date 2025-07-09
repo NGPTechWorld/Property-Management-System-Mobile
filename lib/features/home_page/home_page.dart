@@ -4,11 +4,12 @@ import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
 import 'package:property_ms/features/home_page/widgets/header_home.dart';
-import 'package:property_ms/features/home_page/widgets/office_card.dart';
-import 'package:property_ms/features/home_page/widgets/property_rent_card.dart';
-import 'package:property_ms/features/home_page/widgets/property_sale_card.dart';
-import 'package:property_ms/features/home_page/widgets/services_card.dart';
+
+import 'package:property_ms/features/widgets/property_rent_card.dart';
+import 'package:property_ms/features/widgets/property_sale_card.dart';
+
 import 'package:property_ms/features/widgets/top_offices.dart';
+import 'package:property_ms/features/widgets/top_services_card.dart';
 
 import 'home_controller.dart';
 
@@ -40,7 +41,7 @@ class HomePage extends GetView<HomeController> {
 class TopServices extends StatelessWidget {
   const TopServices({super.key, required this.controller});
 
-  final HomeController controller;
+  final controller;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +65,7 @@ class TopServices extends StatelessWidget {
               final item = controller.topServices[index];
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: ServicesCard(model: item),
+                child: TopServicesCard(model: item),
               );
             }),
           ),
@@ -74,7 +75,6 @@ class TopServices extends StatelessWidget {
     );
   }
 }
-
 
 class TopProperty extends StatelessWidget {
   const TopProperty({super.key, required this.controller});

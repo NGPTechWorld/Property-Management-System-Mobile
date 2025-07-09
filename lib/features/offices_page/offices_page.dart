@@ -1,3 +1,4 @@
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
@@ -5,6 +6,7 @@ import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/custom_text_field.dart';
 import 'package:property_ms/features/offices_page/widgets/ads_slider_widget.dart';
+import 'package:property_ms/features/widgets/card_filter.dart';
 import 'package:property_ms/features/offices_page/widgets/office_card_style2.dart';
 import 'package:property_ms/features/widgets/top_offices.dart';
 
@@ -22,7 +24,55 @@ class OfficesPage extends GetView<OfficesController> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const AppBarSearch(title: "المكاتب"),
+            Obx(
+              () => Stack(
+                children: [
+                  AnimatedSize(
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeInOutCubic,
+                    child: Container(
+                      height:
+                          controller.isFiltterShow.value
+                              ? 170 + AppSize.sStatusBarHeight
+                              : 0,
+                      decoration: const BoxDecoration(
+                        color: ColorManager.lightPrimaryColor,
+                        borderRadius: BorderRadius.vertical(
+                          bottom: Radius.circular(24),
+                        ),
+                      ),
+                      child:
+                          controller.isFiltterShow.value
+                              ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Obx(() {
+                                  return Row(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: List.generate(
+                                      controller.cardFilters.length,
+                                      (index) => CardFilter(
+                                        model: controller.cardFilters[index],
+                                        isSelect:
+                                            controller
+                                                .selectedFilterIndex
+                                                .value ==
+                                            index,
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              )
+                              : null,
+                    ),
+                  ),
+                  AppBarSearch(
+                    title: "المكاتب",
+                    controller: controller,
+                    isLocation: true,
+                  ),
+                ],
+              ),
+            ),
             const AdsSliderWidget(),
             TopOffice(controller: controller),
             AllOffices(controller: controller),
@@ -75,8 +125,17 @@ class AllOffices extends StatelessWidget {
 }
 
 class AppBarSearch extends StatelessWidget {
+  final controller;
   final String title;
-  const AppBarSearch({super.key, required this.title});
+  final bool isLocation;
+  final bool isBack;
+  const AppBarSearch({
+    super.key,
+    required this.title,
+    required this.controller,
+    required this.isLocation,
+    this.isBack = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -91,15 +150,35 @@ class AppBarSearch extends StatelessWidget {
           SizedBox(height: AppSize.sStatusBarHeight),
           SizedBox(
             width: AppSize.sWidth,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 16, right: 16),
-              child: Text(
-                title,
-                style: Get.textTheme.headlineMedium!.copyWith(
-                  color: ColorManager.whiteColor,
-                  fontWeight: FontWeight.bold,
+            child: Row(
+              children: [
+                // IconButton(
+                //   onPressed: () => Get.back(),
+                //   icon: ,
+                // ),
+                isBack
+                    ? Padding(
+                      padding: const EdgeInsets.only(top: 14, right: 8),
+                      child: GestureDetector(
+                        onTap: () => Get.back(),
+                        child: const Icon(
+                          Icons.close,
+                          color: ColorManager.whiteColor,
+                        ),
+                      ),
+                    )
+                    : Container(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 14, right: 16),
+                  child: Text(
+                    title,
+                    style: Get.textTheme.headlineMedium!.copyWith(
+                      color: ColorManager.whiteColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
           ),
           SizedBox(
@@ -114,6 +193,7 @@ class AppBarSearch extends StatelessWidget {
                       title: null,
                       hint: "بحث",
                       minHeight: 50,
+                      borderRadius: 72,
                       textEditingController: TextEditingController(),
                       textInputType: TextInputType.text,
                       suffixIcon: Padding(
@@ -128,15 +208,23 @@ class AppBarSearch extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
-                  Assets.icons.filterSvgrepoCom.svg(
-                    width: 30,
-                    colorFilter: const ColorFilter.mode(
-                      ColorManager.whiteColor,
-                      BlendMode.srcIn,
+                  GestureDetector(
+                    onTap: () {
+                      controller.isFiltterShow.value =
+                          !controller.isFiltterShow.value;
+                    },
+                    child: Assets.icons.filterSvgrepoCom.svg(
+                      width: 30,
+                      colorFilter: const ColorFilter.mode(
+                        ColorManager.whiteColor,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
-                  const SizedBox(width: 8),
-                  Assets.icons.mapIcon.svg(width: 30),
+                  isLocation ? const SizedBox(width: 8) : Container(),
+                  isLocation
+                      ? Assets.icons.mapIcon.svg(width: 30)
+                      : Container(),
                 ],
               ),
             ),

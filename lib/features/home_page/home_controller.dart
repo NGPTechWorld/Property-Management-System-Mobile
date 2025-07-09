@@ -1,12 +1,13 @@
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
-import 'package:property_ms/features/home_page/widgets/office_card.dart';
-
-import 'package:property_ms/features/home_page/widgets/property_rent_card.dart';
-import 'package:property_ms/features/home_page/widgets/property_sale_card.dart';
-import 'package:property_ms/features/home_page/widgets/services_card.dart';
+import 'package:property_ms/data/entity/services_card_model.dart';
+import 'package:property_ms/features/main_page/main_controller.dart';
+import 'package:property_ms/features/widgets/office_card.dart';
+import 'package:property_ms/features/widgets/property_rent_card.dart';
+import 'package:property_ms/features/widgets/property_sale_card.dart';
 
 class HomeController extends GetxController {
+  final mainController = Get.find<MainController>();
   final propertyList = [
     PropertyRentCardModel(
       title: 'شقة 100 م²',

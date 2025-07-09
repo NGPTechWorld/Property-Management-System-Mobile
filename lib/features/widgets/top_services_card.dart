@@ -1,27 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/data/entity/services_card_model.dart';
 
-class ServicesCardModel {
-  final String title;
-  final String location;
-  final String tupe;
-  final double rate;
-  final AssetGenImage image;
-  ServicesCardModel({
-    required this.title,
-    required this.location,
-    required this.tupe,
-    required this.rate,
-    required this.image,
-  });
-}
 
-class ServicesCard extends StatelessWidget {
+class TopServicesCard extends StatelessWidget {
   final ServicesCardModel model;
-  const ServicesCard({super.key, required this.model});
+  const TopServicesCard({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {

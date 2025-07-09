@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:property_ms/core/Routes/app_routes.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/features/home_page/home_controller.dart';
 
-class HeaderHome extends StatelessWidget {
+class HeaderHome extends GetView<HomeController> {
   const HeaderHome({super.key});
 
   @override
@@ -15,7 +18,14 @@ class HeaderHome extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Assets.images.officePropertyCard.image(width: AppSize.sWidth),
+          GestureDetector(
+            onTap: () {
+              controller.mainController.changePage(1);
+            },
+            child: Assets.images.officePropertyCard.image(
+              width: AppSize.sWidth,
+            ),
+          ),
           const SizedBox(height: AppSize.s12),
           Row(
             children: [
@@ -42,10 +52,13 @@ class HeaderHome extends StatelessWidget {
                 flex: 2,
                 child: Column(
                   children: [
-                    Container(
-                      height: AppSize.sHeight * 0.235,
-                      alignment: Alignment.centerLeft,
-                      child: Assets.images.officeServicesCard.image(),
+                    GestureDetector(
+                      onTap: () => Get.toNamed(AppRoutes.servicesRoute),
+                      child: Container(
+                        height: AppSize.sHeight * 0.235,
+                        alignment: Alignment.centerLeft,
+                        child: Assets.images.officeServicesCard.image(),
+                      ),
                     ),
                   ],
                 ),

@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/features/widgets/office_card.dart';
+import 'package:property_ms/data/entity/services_card_model.dart';
 
-class OfficeCardStyle2 extends StatelessWidget {
-  final OfficeCardModel model;
-  const OfficeCardStyle2({super.key, required this.model});
+class ServiceCardStyle2 extends StatelessWidget {
+  final ServicesCardModel model;
+  const ServiceCardStyle2({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +54,24 @@ class OfficeCardStyle2 extends StatelessWidget {
                   Row(
                     children: [
                       const Icon(
+                        Icons.home_repair_service,
+                        color: ColorManager.primary5Color,
+                        size: 18,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        overflow: TextOverflow.ellipsis,
+                        model.tupe,
+                        style: Get.textTheme.bodySmall!.copyWith(
+                          fontSize: FontSize.s10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      const Icon(
                         Icons.location_on,
                         color: ColorManager.primary5Color,
                         size: 18,
@@ -69,25 +87,18 @@ class OfficeCardStyle2 extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.star,
-                        color: ColorManager.yello,
-                        size: 18,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        model.rate.toString(),
-                        style: Get.textTheme.bodyLarge,
-                      ),
-                    ],
-                  ),
 
                   // const SizedBox(height: 8),
                 ],
               ),
             ),
+          ),
+          Row(
+            children: [
+              const Icon(Icons.star, color: ColorManager.yello, size: 18),
+              const SizedBox(width: 4),
+              Text(model.rate.toString(), style: Get.textTheme.bodyLarge),
+            ],
           ),
           Assets.icons.arrowPrevSmall.svg(
             colorFilter: const ColorFilter.mode(
