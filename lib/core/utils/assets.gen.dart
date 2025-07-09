@@ -123,6 +123,9 @@ class $AssetsIconsGen {
   SvgGenImage get editUserIcon =>
       const SvgGenImage('assets/icons/edit_user_icon.svg');
 
+  /// File path: assets/icons/eye_hide.svg
+  SvgGenImage get eyeHide => const SvgGenImage('assets/icons/eye_hide.svg');
+
   /// File path: assets/icons/eye_icon.svg
   SvgGenImage get eyeIcon => const SvgGenImage('assets/icons/eye_icon.svg');
 
@@ -155,6 +158,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/gender_icon.svg
   SvgGenImage get genderIcon =>
       const SvgGenImage('assets/icons/gender_icon.svg');
+
+  /// File path: assets/icons/google.svg
+  SvgGenImage get google => const SvgGenImage('assets/icons/google.svg');
 
   /// File path: assets/icons/graphics.svg
   SvgGenImage get graphics => const SvgGenImage('assets/icons/graphics.svg');
@@ -297,6 +303,7 @@ class $AssetsIconsGen {
     dateIcon,
     deleteIcon,
     editUserIcon,
+    eyeHide,
     eyeIcon,
     facebook,
     favorite,
@@ -306,6 +313,7 @@ class $AssetsIconsGen {
     filterIcon,
     folderIcon,
     genderIcon,
+    google,
     graphics,
     helpIcon,
     homeIcon,

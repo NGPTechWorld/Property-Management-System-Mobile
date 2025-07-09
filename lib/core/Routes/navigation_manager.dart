@@ -1,7 +1,16 @@
-import 'package:get/get.dart';
+import 'package:get/get_instance/src/bindings_interface.dart';
+import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/features/auth/login/login_controller.dart';
 import 'package:property_ms/features/auth/login/login_page.dart';
+import 'package:property_ms/features/auth/otp/otp_controller.dart';
+import 'package:property_ms/features/auth/otp/otp_page.dart';
+import 'package:property_ms/features/auth/resetpassword/reset_password_controller.dart';
+import 'package:property_ms/features/auth/resetpassword/reset_password_page.dart';
+import 'package:property_ms/features/auth/signup/signup_1/signup_controller.dart';
+import 'package:property_ms/features/auth/signup/signup_1/signup_page.dart';
+import 'package:property_ms/features/auth/signup/signup_2/signup_2_controller.dart';
+import 'package:property_ms/features/auth/signup/signup_2/signup_2_page.dart';
 import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/main_page/main_page.dart';
 import 'package:property_ms/features/splash/splash_controller.dart';
@@ -24,10 +33,25 @@ abstract class NavigationManager {
       page: () => const LoginPage(),
       binding: BindingsBuilder.put(() => LoginController()),
     ),
-    // GetPage(
-    //   name: AppRoutes.loginRoute,
-    //   page: () => LoginPage(),
-    //   binding: BindingsBuilder.put(() => LoginPageController()),
-    // ),
+    GetPage(
+      name: AppRoutes.signUp1Route,
+      page: () => const SignupPage(),
+      binding: BindingsBuilder.put(() => SignupController()),
+    ),
+    GetPage(
+      name: AppRoutes.signUp2Route,
+      page: () => const Signup2Page(),
+      binding: BindingsBuilder.put(() => Signup2Controller()),
+    ),
+    GetPage(
+      name: AppRoutes.otpRoute,
+      page: () => const OtpPage(),
+      binding: BindingsBuilder.put(() => OtpController()),
+    ),
+    GetPage(
+      name: AppRoutes.resetPasswordRoute,
+      page: () => const ResetPasswordPage(),
+      binding: BindingsBuilder.put(() => ResetPasswordController()),
+    ),
   ];
 }
