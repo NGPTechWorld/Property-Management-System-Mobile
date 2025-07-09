@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../color_manager.dart';
 import '../values_manager.dart';
 
@@ -33,6 +34,7 @@ class CustomTextField extends StatelessWidget {
     this.contentPadding,
     this.prefixConstraints = const BoxConstraints(minWidth: 0, minHeight: 0),
     this.hasBorder = true,
+    this.hintColor,
   });
 
   final String? title;
@@ -62,6 +64,7 @@ class CustomTextField extends StatelessWidget {
   final BorderSide? enabledBorderSide;
   final BorderSide? focusedBorderSide;
   final bool hasBorder;
+  final Color? hintColor;
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +111,11 @@ class CustomTextField extends StatelessWidget {
               counterText: '',
               constraints: BoxConstraints(minHeight: minHeight),
               hintText: hint,
+              hintStyle: TextStyle(
+                color: hintColor ?? Colors.grey, // fallback to default if null
+                fontSize: FontSize.s14,
+                fontWeight: FontWeight.w400,
+              ),
               isDense: true,
               prefixIconConstraints: prefixConstraints,
               prefixIcon:
@@ -118,7 +126,10 @@ class CustomTextField extends StatelessWidget {
                         child: icon,
                       ),
               contentPadding: contentPadding ?? const EdgeInsets.all(14),
-              suffixIcon: suffixIcon,
+              suffixIcon: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: suffixIcon,
+              ),
               suffixIconConstraints: const BoxConstraints(
                 minWidth: 0,
                 minHeight: 0,
