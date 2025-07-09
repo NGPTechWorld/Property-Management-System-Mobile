@@ -65,10 +65,28 @@ class DefaultFirebaseOptions {
     projectId: 'propely-c52b7',
     storageBucket: 'propely-c52b7.firebasestorage.app',
   );
+
 }
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
-    
+void showNotification(RemoteMessage message) async {
+  const AndroidNotificationDetails androidPlatformChannelSpecifics =
+      AndroidNotificationDetails(
+    'your_channel_id',
+    'your_channel_name',
+    importance: Importance.max,
+    priority: Priority.high,
+  );
+  const NotificationDetails platformChannelSpecifics =
+      NotificationDetails(android: androidPlatformChannelSpecifics);
+  await flutterLocalNotificationsPlugin.show(
+    0,
+    message.notification?.title,
+    message.notification?.body,
+    platformChannelSpecifics,
+    payload: 'Default_Sound',
+  );
+}
 class PushNotification {
   static final cache = Get.find<CacheService>();
   static FirebaseMessaging messaging = FirebaseMessaging.instance;
