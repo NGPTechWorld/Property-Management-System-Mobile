@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/default_button.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
@@ -19,10 +20,9 @@ class LoginButton extends GetView<LoginController> {
             child: Obx(
               () => DefaultButton(
                 text: "تسجيل الدخول",
-                onPressed: () {
-                  controller.next();
-                },
+                onPressed: () {},
                 disabled: controller.loadingState.value == LoadingState.loading,
+                color: ColorManager.primaryDark,
               ),
             ),
           ),
