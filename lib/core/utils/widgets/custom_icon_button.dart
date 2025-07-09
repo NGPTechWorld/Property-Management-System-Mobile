@@ -26,7 +26,7 @@ class CustomIconButton extends StatelessWidget {
       height: 42,
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
-          foregroundColor: ColorManager.colorPrimary,
+          foregroundColor: ColorManager.primaryColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),

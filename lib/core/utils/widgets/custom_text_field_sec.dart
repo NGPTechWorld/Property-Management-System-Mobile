@@ -96,7 +96,7 @@ class CustomTextFieldSec extends StatelessWidget {
             ),
             textAlign: textAlign,
             cursorHeight: 20,
-            cursorColor: ColorManager.colorPrimary,
+            cursorColor: ColorManager.primaryColor,
             decoration: InputDecoration(
               counterText: '',
               constraints: BoxConstraints(minHeight: minHeight),
@@ -122,7 +122,7 @@ class CustomTextFieldSec extends StatelessWidget {
                 borderRadius: BorderRadius.circular(borderRadius),
                 borderSide:
                     enabledBorderSide ??
-                    BorderSide(color: ColorManager.primary4Color),
+                    const BorderSide(color: ColorManager.grey3),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
@@ -132,15 +132,15 @@ class CustomTextFieldSec extends StatelessWidget {
                 borderRadius: BorderRadius.circular(borderRadius),
                 borderSide:
                     focusedBorderSide ??
-                    BorderSide(color: ColorManager.primary4Color),
+                    const BorderSide(color: ColorManager.grey3),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
-                borderSide: BorderSide(color: ColorManager.redColor),
+                borderSide: const BorderSide(color: ColorManager.redColor),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(borderRadius),
-                borderSide: BorderSide(color: ColorManager.redColor),
+                borderSide: const BorderSide(color: ColorManager.redColor),
               ),
             ),
             onTapOutside: (PointerDownEvent event) {

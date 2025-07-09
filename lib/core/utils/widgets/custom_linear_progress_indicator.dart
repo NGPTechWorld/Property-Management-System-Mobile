@@ -24,9 +24,9 @@ class CustomLinearProgressIndicator extends StatelessWidget {
         // current / max
         value: currentValue / maxValue,
         minHeight: minHeight,
-        backgroundColor: ColorManager.primary2Color,
+        backgroundColor: ColorManager.cardBack2,
         valueColor: AlwaysStoppedAnimation<Color>(
-          valueColor ?? ColorManager.colorPrimary,
+          valueColor ?? ColorManager.primaryColor,
         ),
         borderRadius: BorderRadius.circular(AppSize.s10),
       ),

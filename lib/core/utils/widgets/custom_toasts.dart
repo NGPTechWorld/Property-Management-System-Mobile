@@ -37,7 +37,7 @@ class CustomToasts {
         child: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: ColorManager.whiteColor,
+            color: ColorManager.white,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(

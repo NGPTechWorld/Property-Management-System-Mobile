@@ -28,13 +28,11 @@ class NormalAppBar extends StatelessWidget implements PreferredSizeWidget {
       preferredSize: const Size.fromHeight(kToolbarHeight),
       child: Container(
         decoration: const BoxDecoration(
-          color: ColorManager.colorPrimary,
-          borderRadius: BorderRadius.vertical(
-            bottom: Radius.circular(24), // ← هون الحواف الدائرية من تحت
-          ),
+          color: ColorManager.primaryColor,
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(24)),
         ),
         child: AppBar(
-          backgroundColor: Colors.transparent, // ← ضروري حتى يبين الـ Container
+          backgroundColor: Colors.transparent,
           elevation: 0,
           scrolledUnderElevation: 0,
           centerTitle: centerTitle,
@@ -53,7 +51,17 @@ class NormalAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   )
                   : null,
-          actions: actions,
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
+              child: Assets.icons.notificationIcon.svg(
+                colorFilter: const ColorFilter.mode(
+                  ColorManager.cardBackground,
+                  BlendMode.srcIn,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

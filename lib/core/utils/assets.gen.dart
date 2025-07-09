@@ -123,6 +123,10 @@ class $AssetsIconsGen {
   SvgGenImage get editUserIcon =>
       const SvgGenImage('assets/icons/edit_user_icon.svg');
 
+  /// File path: assets/icons/exploration.svg
+  SvgGenImage get exploration =>
+      const SvgGenImage('assets/icons/exploration.svg');
+
   /// File path: assets/icons/eye_icon.svg
   SvgGenImage get eyeIcon => const SvgGenImage('assets/icons/eye_icon.svg');
 
@@ -143,6 +147,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/file-zipper.svg
   SvgGenImage get fileZipper =>
       const SvgGenImage('assets/icons/file-zipper.svg');
+
+  /// File path: assets/icons/filter-svgrepo-com.svg
+  SvgGenImage get filterSvgrepoCom =>
+      const SvgGenImage('assets/icons/filter-svgrepo-com.svg');
 
   /// File path: assets/icons/filter_icon.svg
   SvgGenImage get filterIcon =>
@@ -190,6 +198,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/mail_icon.svg
   SvgGenImage get mailIcon => const SvgGenImage('assets/icons/mail_icon.svg');
 
+  /// File path: assets/icons/map_icon.svg
+  SvgGenImage get mapIcon => const SvgGenImage('assets/icons/map_icon.svg');
+
   /// File path: assets/icons/more_icon.svg
   SvgGenImage get moreIcon => const SvgGenImage('assets/icons/more_icon.svg');
 
@@ -207,6 +218,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/phone.svg
   SvgGenImage get phone => const SvgGenImage('assets/icons/phone.svg');
+
+  /// File path: assets/icons/property.svg
+  SvgGenImage get property => const SvgGenImage('assets/icons/property.svg');
 
   /// File path: assets/icons/reports.svg
   SvgGenImage get reports => const SvgGenImage('assets/icons/reports.svg');
@@ -243,6 +257,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/telegram.svg
   SvgGenImage get telegram => const SvgGenImage('assets/icons/telegram.svg');
+
+  /// File path: assets/icons/tourisem.svg
+  SvgGenImage get tourisem => const SvgGenImage('assets/icons/tourisem.svg');
 
   /// File path: assets/icons/upload_icon.svg
   SvgGenImage get uploadIcon =>
@@ -297,12 +314,14 @@ class $AssetsIconsGen {
     dateIcon,
     deleteIcon,
     editUserIcon,
+    exploration,
     eyeIcon,
     facebook,
     favorite,
     filePencil,
     filePlusAlt,
     fileZipper,
+    filterSvgrepoCom,
     filterIcon,
     folderIcon,
     genderIcon,
@@ -316,11 +335,13 @@ class $AssetsIconsGen {
     linkIcon,
     locationIcon,
     mailIcon,
+    mapIcon,
     moreIcon,
     notificationIcon,
     passwordIcon,
     pencilIcon,
     phone,
+    property,
     reports,
     resumeManageIcon,
     searchIcon,
@@ -331,6 +352,7 @@ class $AssetsIconsGen {
     summaryIcon,
     supportIcon,
     telegram,
+    tourisem,
     uploadIcon,
     userAccountIcon,
     userFollow2Icon,
@@ -361,6 +383,10 @@ class $AssetsImagesGen {
   AssetGenImage get propertyCard =>
       const AssetGenImage('assets/images/property_card.png');
 
+  /// File path: assets/images/property_image.png
+  AssetGenImage get propertyImage =>
+      const AssetGenImage('assets/images/property_image.png');
+
   /// File path: assets/images/tourisem_card.png
   AssetGenImage get tourisemCard =>
       const AssetGenImage('assets/images/tourisem_card.png');
@@ -374,6 +400,7 @@ class $AssetsImagesGen {
     officePropertyCard,
     officeServicesCard,
     propertyCard,
+    propertyImage,
     tourisemCard,
     user,
   ];

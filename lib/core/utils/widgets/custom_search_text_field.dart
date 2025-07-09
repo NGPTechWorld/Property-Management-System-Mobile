@@ -26,13 +26,13 @@ class CustomSearchTextField extends StatelessWidget {
       controller: controller,
       style: TextStyle(fontSize: FontSize.s14, fontWeight: FontWeight.w400),
       cursorHeight: 20,
-      cursorColor: ColorManager.colorPrimary,
+      cursorColor: ColorManager.primaryColor,
       textInputAction: TextInputAction.search,
       decoration: InputDecoration(
         constraints: const BoxConstraints(minHeight: 55),
         hintText: hint,
         hintStyle: TextStyle(
-          color: ColorManager.primary4Color,
+          color: ColorManager.grey3,
           fontWeight: FontWeight.w400,
           fontSize: FontSize.s14,
         ),
@@ -42,7 +42,7 @@ class CustomSearchTextField extends StatelessWidget {
         ),
         contentPadding: const EdgeInsets.all(0),
         filled: true,
-        fillColor: fillColor ?? ColorManager.whiteColor,
+        fillColor: fillColor ?? ColorManager.white,
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(color: Colors.transparent),
