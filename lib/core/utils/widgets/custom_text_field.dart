@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../color_manager.dart';
 import '../values_manager.dart';
 
@@ -32,6 +33,8 @@ class CustomTextField extends StatelessWidget {
     this.focusedBorderSide,
     this.contentPadding,
     this.prefixConstraints = const BoxConstraints(minWidth: 0, minHeight: 0),
+    this.hasBorder = true,
+    this.hintColor,
   });
 
   final String? title;
@@ -60,9 +63,16 @@ class CustomTextField extends StatelessWidget {
   final EdgeInsets? contentPadding;
   final BorderSide? enabledBorderSide;
   final BorderSide? focusedBorderSide;
+  final bool hasBorder;
+  final Color? hintColor;
 
   @override
   Widget build(BuildContext context) {
+    final transparentBorder = OutlineInputBorder(
+      borderRadius: BorderRadius.circular(borderRadius),
+      borderSide: const BorderSide(color: Colors.transparent),
+    );
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment:
@@ -101,6 +111,11 @@ class CustomTextField extends StatelessWidget {
               counterText: '',
               constraints: BoxConstraints(minHeight: minHeight),
               hintText: hint,
+              hintStyle: TextStyle(
+                color: hintColor ?? Colors.grey, // fallback to default if null
+                fontSize: FontSize.s14,
+                fontWeight: FontWeight.w400,
+              ),
               isDense: true,
               prefixIconConstraints: prefixConstraints,
               prefixIcon:
@@ -111,37 +126,59 @@ class CustomTextField extends StatelessWidget {
                         child: icon,
                       ),
               contentPadding: contentPadding ?? const EdgeInsets.all(14),
-              suffixIcon: suffixIcon,
+              suffixIcon: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: suffixIcon,
+              ),
               suffixIconConstraints: const BoxConstraints(
                 minWidth: 0,
                 minHeight: 0,
               ),
               filled: true,
               fillColor: fillColor,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
-                borderSide:
-                    enabledBorderSide ??
-                    const BorderSide(color: ColorManager.primary4Color),
-              ),
-              disabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
-                borderSide: const BorderSide(color: Colors.transparent),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
-                borderSide:
-                    focusedBorderSide ??
-                    const BorderSide(color: ColorManager.primaryDark),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
-                borderSide: const BorderSide(color: ColorManager.redColor),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(borderRadius),
-                borderSide: const BorderSide(color: ColorManager.primaryDark),
-              ),
+               enabledBorder:
+                  hasBorder
+                      ? OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(borderRadius),
+                        borderSide:
+                            enabledBorderSide ??
+                            const BorderSide(color: ColorManager.cardHead),
+                      )
+                      : transparentBorder,
+              disabledBorder:
+                  hasBorder
+                      ? OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(borderRadius),
+                        borderSide: const BorderSide(color: Colors.transparent),
+                      )
+                      : transparentBorder,
+              focusedBorder:
+                  hasBorder
+                      ? OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(borderRadius),
+                        borderSide:
+                            focusedBorderSide ??
+                            const BorderSide(color: ColorManager.primaryDark),
+                      )
+                      : transparentBorder,
+              errorBorder:
+                  hasBorder
+                      ? OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(borderRadius),
+                        borderSide: const BorderSide(
+                          color: ColorManager.redColor,
+                        ),
+                      )
+                      : transparentBorder,
+              focusedErrorBorder:
+                  hasBorder
+                      ? OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(borderRadius),
+                        borderSide: const BorderSide(
+                          color: ColorManager.primaryDark,
+                        ),
+                      )
+                      : transparentBorder,
             ),
             onTapOutside: (PointerDownEvent event) {
               FocusManager.instance.primaryFocus?.unfocus();

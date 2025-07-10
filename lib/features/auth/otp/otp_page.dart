@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/screen_bottom_effect.dart';
-import 'package:property_ms/features/auth/login/login_controller.dart';
-import 'package:property_ms/features/auth/login/widgets/visitor_button.dart';
+import 'package:property_ms/features/auth/otp/widgets/otp_header_section.dart';
+import 'package:property_ms/features/auth/otp/widgets/otp_input_field.dart';
+import 'package:property_ms/features/auth/otp/widgets/otp_submit_button.dart';
+import 'package:property_ms/features/auth/otp/widgets/resend_code_text.dart';
 
-import '../../../core/utils/widgets/logo_app.dart';
-import 'widgets/login_button.dart';
-import 'widgets/login_form.dart';
+import 'otp_controller.dart';
 
-class LoginPage extends GetView<LoginController> {
-  const LoginPage({super.key});
+class OtpPage extends GetView<OtpController> {
+  const OtpPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +24,14 @@ class LoginPage extends GetView<LoginController> {
               child: const Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    LogoApp(withTitle: true),
-                    LoginForm(),
-                    LoginButton(),
-                    VisitorButton(),
+                    OtpHeaderSection(),
+                    OtpInputField(),
+                    SizedBox(height: AppSize.s20),
+                    ResendCodeText(),
+                    SizedBox(height: AppSize.s100),
+                    OtpSubmitButton(),
                   ],
                 ),
               ),

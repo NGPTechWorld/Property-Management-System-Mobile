@@ -17,6 +17,7 @@ class DefaultButton extends StatelessWidget {
     this.iconPath,
     this.iconSize,
     this.icon,
+    this.applyIconColor = true,
   }) : assert(
          iconPath == null || icon == null,
          'Cannot provide both iconPath and icon',
@@ -35,6 +36,7 @@ class DefaultButton extends StatelessWidget {
   final String? iconPath;
   final double? iconSize;
   final IconData? icon;
+  final bool applyIconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +69,10 @@ class DefaultButton extends StatelessWidget {
                     iconPath!,
                     width: actualIconSize,
                     height: actualIconSize,
-                    colorFilter: ColorFilter.mode(fgColor, BlendMode.srcIn),
+                    colorFilter:
+                        applyIconColor
+                            ? ColorFilter.mode(fgColor, BlendMode.srcIn)
+                            : null,
                   )
                   : icon != null
                   ? Icon(icon, size: actualIconSize, color: fgColor)
