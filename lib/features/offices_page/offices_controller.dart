@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
-import 'package:property_ms/features/widgets/office_card.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
+import 'package:property_ms/features/widgets/office_card.dart';
 
 class OfficesController extends GetxController {
   final sliderIndex = 0.obs;
@@ -22,21 +22,21 @@ class OfficesController extends GetxController {
       image: Assets.images.propertyImage,
     ),
     OfficeCardModel(
-      title: "مكتب ابو سمير",
+      title: "مكتب الاحتراف",
       type: "سياحي",
       location: 'دمشق القديمة',
       rate: 4.5,
       image: Assets.images.propertyImage,
     ),
     OfficeCardModel(
-      title: "مكتب ابو سمير",
+      title: "مكتب التميز",
       type: "سياحي",
       location: 'دمشق القديمة',
       rate: 4.5,
       image: Assets.images.propertyImage,
     ),
     OfficeCardModel(
-      title: "مكتب ابو سمير",
+      title: "مكتب الحوت",
       type: "سياحي",
       location: 'دمشق القديمة',
       rate: 4.5,

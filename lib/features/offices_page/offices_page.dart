@@ -1,6 +1,6 @@
-
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:property_ms/core/Routes/app_routes.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
@@ -113,7 +113,15 @@ class AllOffices extends StatelessWidget {
                   vertical: 6,
                   horizontal: AppPadding.p14,
                 ),
-                child: OfficeCardStyle2(model: item),
+                child: GestureDetector(
+                  onTap: () {
+                    Get.toNamed(
+                      AppRoutes.officeDetails,
+                      arguments: item, 
+                    );
+                  },
+                  child: OfficeCardStyle2(model: item),
+                ),
               );
             }),
           ),

@@ -8,4 +8,5 @@ abstract class AppRoutes {
   static const String signUp2Route = "/signUp2";
   static const String otpRoute = "/otp";
   static const String resetPasswordRoute = "/resetPassword";
+  static const String officeDetails = "/officeDetails";
 }

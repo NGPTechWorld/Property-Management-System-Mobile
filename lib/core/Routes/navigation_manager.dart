@@ -13,6 +13,8 @@ import 'package:property_ms/features/auth/signup/signup_2/signup_2_controller.da
 import 'package:property_ms/features/auth/signup/signup_2/signup_2_page.dart';
 import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/main_page/main_page.dart';
+import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_controller.dart';
+import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_page.dart';
 import 'package:property_ms/features/services_page/services_controller.dart';
 import 'package:property_ms/features/services_page/services_page.dart';
 import 'package:property_ms/features/splash/splash_controller.dart';
@@ -59,6 +61,11 @@ abstract class NavigationManager {
       name: AppRoutes.resetPasswordRoute,
       page: () => const ResetPasswordPage(),
       binding: BindingsBuilder.put(() => ResetPasswordController()),
+    ),
+    GetPage(
+      name: AppRoutes.officeDetails,
+      page: () =>  const OfficeDetailsPage(),
+      binding: BindingsBuilder.put(() => OfficeDetailsController()),
     ),
     // GetPage(
     //   name: AppRoutes.loginRoute,
