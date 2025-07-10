@@ -123,6 +123,13 @@ class $AssetsIconsGen {
   SvgGenImage get editUserIcon =>
       const SvgGenImage('assets/icons/edit_user_icon.svg');
 
+  /// File path: assets/icons/exploration.svg
+  SvgGenImage get exploration =>
+      const SvgGenImage('assets/icons/exploration.svg');
+
+  /// File path: assets/icons/eye_hide.svg
+  SvgGenImage get eyeHide => const SvgGenImage('assets/icons/eye_hide.svg');
+
   /// File path: assets/icons/eye_icon.svg
   SvgGenImage get eyeIcon => const SvgGenImage('assets/icons/eye_icon.svg');
 
@@ -313,6 +320,8 @@ class $AssetsIconsGen {
     dateIcon,
     deleteIcon,
     editUserIcon,
+    exploration,
+    eyeHide,
     eyeIcon,
     facebook,
     favorite,

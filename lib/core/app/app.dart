@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
       getPages: NavigationManager.getPages,
-      initialRoute: AppRoutes.mainRoute,
+      initialRoute: AppRoutes.splashRoute,
       fallbackLocale: const Locale('ar'),
       supportedLocales: AppTranslations.supportedLocales,
       localizationsDelegates: const [

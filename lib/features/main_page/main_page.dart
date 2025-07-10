@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
@@ -58,7 +59,12 @@ class MainPageNavBar extends GetView<MainController> {
               color: ColorManager.primaryColor,
             ),
             unselectedItemColor: ColorManager.primary5Color,
-            onTap: (index) => controller.changePage(index),
+            onTap: (index) {
+              controller.changePage(index);
+              if (index == 4) {
+                Get.toNamed(AppRoutes.loginRoute);
+              }
+            },
             items:
                 [
                   NavBarItem('home'.tr, Assets.icons.homeIcon),
@@ -86,7 +92,6 @@ class MainPageNavBar extends GetView<MainController> {
                           SizedBox(height: AppSize.sHeight * 0.025),
                     ),
                     label: item.value.name,
-
                   );
                 }).toList(),
           ),

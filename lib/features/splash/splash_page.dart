@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashPage> {
     //todo: this is a placeholder:
     //! @MohamadAliAlnuaimi please check the auth state here:
     Future.delayed(const Duration(seconds: 2), () {
-      // Navigator.pushReplacementNamed(Get.context!, AppRoutes.loginRoute);
+      Navigator.pushReplacementNamed(Get.context!, AppRoutes.mainRoute);
     });
   }
 
