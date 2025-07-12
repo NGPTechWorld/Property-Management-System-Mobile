@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:property_ms/core/Routes/app_routes.dart';
+import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/features/home_page/home_controller.dart';

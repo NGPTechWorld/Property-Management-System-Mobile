@@ -13,6 +13,7 @@ abstract class ColorManager {
   // Card Colors
   static const Color cardBackground = Color(0xffF5F4F8);
   static const Color cardBack2 = Color(0xffEFF4F6);
+  static const Color cardBack3 = Color(0xFFF1F6FA);
   static const Color cardHead = Color(0xff3D468F);
 
   // Other Colors
@@ -27,6 +28,8 @@ abstract class ColorManager {
   static const Color orangeColor = Color(0xFFFA712D);
   static const Color greenColor = Color(0xff43aa8b);
   static const Color transparentColor = Colors.transparent;
+  static const Color purble = Color(0xff3D468F);
+  static const Color lightPurble = Color(0xffDCE1FF);
 
   // Material Grey Shades
   static Color greyColor100 = Colors.grey.shade100;

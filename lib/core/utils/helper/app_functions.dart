@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:property_ms/core/utils/widgets/photo_view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AppFunctions {
   // Arabic Checker
@@ -89,6 +90,16 @@ class AppFunctions {
     Get.to(
       () => PhotoViewWidget(imagePath: safePath, isNetworkImage: isNetwork),
     );
+  }
+
+  // Call Number
+  static void callPhoneNumber(String phoneNumber) async {
+    final Uri phoneUri = Uri(scheme: 'tel', path: phoneNumber);
+    if (await canLaunchUrl(phoneUri)) {
+      await launchUrl(phoneUri);
+    } else {
+      Get.snackbar('خطأ', 'لا يمكن إجراء الاتصال بالرقم $phoneNumber');
+    }
   }
 
   static Future<List<PlatformFile>?> multiFilePicker() async {
