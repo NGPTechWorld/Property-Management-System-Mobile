@@ -34,10 +34,13 @@ class HeaderHome extends GetView<HomeController> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      width: AppSize.sWidth * 0.75,
-                      alignment: Alignment.center,
-                      child: Assets.images.propertyCard.image(),
+                    GestureDetector(
+                      onTap: () => Get.toNamed(AppRoutes.propertyRoute),
+                      child: Container(
+                        width: AppSize.sWidth * 0.75,
+                        alignment: Alignment.center,
+                        child: Assets.images.propertyCard.image(),
+                      ),
                     ),
                     const SizedBox(height: AppSize.s14),
                     Container(
