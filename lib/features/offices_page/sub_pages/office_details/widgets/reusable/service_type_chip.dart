@@ -10,26 +10,7 @@ class ServiceTypeChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (label == 'عقاري') {
-      return Container(
-        padding: const EdgeInsets.symmetric(
-          vertical: AppPadding.p4,
-          horizontal: AppPadding.p16,
-        ),
-        decoration: BoxDecoration(
-          border: Border.all(color: ColorManager.primaryColor, width: 2),
-          borderRadius: BorderRadius.circular(30),
-          color: ColorManager.cardBack2,
-        ),
-        child: Text(
-          label,
-          style: Get.textTheme.bodySmall!.copyWith(
-            color: ColorManager.primaryColor,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      );
-    } else {
+    if (label == 'سياحي') {
       return Container(
         padding: const EdgeInsets.symmetric(
           vertical: AppPadding.p4,
@@ -44,6 +25,25 @@ class ServiceTypeChip extends StatelessWidget {
           label,
           style: Get.textTheme.bodySmall!.copyWith(
             color: ColorManager.purble,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      );
+    } else {
+      return Container(
+        padding: const EdgeInsets.symmetric(
+          vertical: AppPadding.p4,
+          horizontal: AppPadding.p16,
+        ),
+        decoration: BoxDecoration(
+          border: Border.all(color: ColorManager.primaryColor, width: 2),
+          borderRadius: BorderRadius.circular(30),
+          color: ColorManager.cardBack2,
+        ),
+        child: Text(
+          label,
+          style: Get.textTheme.bodySmall!.copyWith(
+            color: ColorManager.primaryColor,
             fontWeight: FontWeight.w600,
           ),
         ),

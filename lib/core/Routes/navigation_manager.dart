@@ -17,6 +17,7 @@ import 'package:property_ms/features/offices_page/sub_pages/office_details/offic
 import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_page.dart';
 import 'package:property_ms/features/services_page/services_controller.dart';
 import 'package:property_ms/features/services_page/services_page.dart';
+import 'package:property_ms/features/services_page/sub_pages/services_details/service_detail/service_detail_page.dart';
 import 'package:property_ms/features/splash/splash_controller.dart';
 import 'package:property_ms/features/splash/splash_page.dart';
 
@@ -64,8 +65,13 @@ abstract class NavigationManager {
     ),
     GetPage(
       name: AppRoutes.officeDetails,
-      page: () =>  const OfficeDetailsPage(),
+      page: () => const OfficeDetailsPage(),
       binding: BindingsBuilder.put(() => OfficeDetailsController()),
+    ),
+    GetPage(
+      name: AppRoutes.serviceDetails,
+      page: () => const ServiceDetailPage(),
+      binding: BindingsBuilder.put(() => ServicesController()),
     ),
     // GetPage(
     //   name: AppRoutes.loginRoute,
