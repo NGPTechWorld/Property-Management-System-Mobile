@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/lacation_card.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/map_button.dart';
@@ -11,7 +10,7 @@ class LocationRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [LocationCard(loctation: location), const MapButton()],
+      children: [LocationCard(location: location), const MapButton()],
     );
   }
 }

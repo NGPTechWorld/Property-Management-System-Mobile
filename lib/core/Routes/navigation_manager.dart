@@ -15,9 +15,13 @@ import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/main_page/main_page.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_controller.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_page.dart';
+import 'package:property_ms/features/offices_page/sub_pages/report/report_office_controller.dart';
+import 'package:property_ms/features/offices_page/sub_pages/report/report_office_page.dart';
 import 'package:property_ms/features/services_page/services_controller.dart';
 import 'package:property_ms/features/services_page/services_page.dart';
-import 'package:property_ms/features/services_page/sub_pages/services_details/service_detail/service_detail_page.dart';
+import 'package:property_ms/features/services_page/sub_pages/report/report_service_controller.dart';
+import 'package:property_ms/features/services_page/sub_pages/report/report_service_page.dart';
+import 'package:property_ms/features/services_page/sub_pages/services_details/service_detail_page.dart';
 import 'package:property_ms/features/splash/splash_controller.dart';
 import 'package:property_ms/features/splash/splash_page.dart';
 
@@ -72,6 +76,16 @@ abstract class NavigationManager {
       name: AppRoutes.serviceDetails,
       page: () => const ServiceDetailPage(),
       binding: BindingsBuilder.put(() => ServicesController()),
+    ),
+    GetPage(
+      name: AppRoutes.reportOfficePage,
+      page: () => const ReportOfficePage(),
+      binding: BindingsBuilder.put(() => ReportOfficeController()),
+    ),
+    GetPage(
+      name: AppRoutes.reportServicePage,
+      page: () => const ReportServicePage(),
+      binding: BindingsBuilder.put(() => ReportServiceController()),
     ),
     // GetPage(
     //   name: AppRoutes.loginRoute,
