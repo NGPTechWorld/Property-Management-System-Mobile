@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/features/offices_page/offices_page.dart';
 import 'package:property_ms/features/property_page/widgets/property_slider_widget.dart';
+import 'package:property_ms/features/widgets/app_bar_search.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
 import 'package:property_ms/features/widgets/property_rent_card2_small.dart';
 import 'package:property_ms/features/widgets/property_sale_card2_small.dart';
@@ -20,62 +20,107 @@ class PropertyPage extends GetView<PropertyController> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Obx(
-              () => Stack(
-                children: [
-                  AnimatedSize(
-                    duration: const Duration(milliseconds: 400),
-                    curve: Curves.easeInOutCubic,
-                    child: Container(
-                      height:
-                          controller.isFiltterShow.value
-                              ? 170 + AppSize.sStatusBarHeight
-                              : 0,
-                      decoration: const BoxDecoration(
-                        color: ColorManager.lightPrimaryColor,
-                        borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(24),
-                        ),
-                      ),
-                      child:
-                          controller.isFiltterShow.value
-                              ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Obx(() {
-                                  return Row(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: List.generate(
-                                      controller.cardFilters.length,
-                                      (index) => CardFilter(
-                                        model: controller.cardFilters[index],
-                                        isSelect:
-                                            controller
-                                                .selectedFilterIndex
-                                                .value ==
-                                            index,
-                                      ),
-                                    ),
-                                  );
-                                }),
-                              )
-                              : null,
-                    ),
-                  ),
-                  AppBarSearch(
-                    title: "عقارات",
-                    controller: controller,
-                    isLocation: true,
-                    isBack: true,
-                  ),
-                ],
-              ),
-            ),
+            AppBarProperty(controller: controller),
             const SizedBox(height: AppSize.s8),
             const PropertySliderWidget(),
             const AllProperty(),
           ],
         ),
       ),
+    );
+  }
+}
+
+class AppBarProperty extends StatelessWidget {
+  const AppBarProperty({super.key, required this.controller});
+
+  final PropertyController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Column(
+          children: [
+            Obx(
+              () => AnimatedSize(
+                duration: const Duration(milliseconds: 400),
+                curve: Curves.easeInOutCubic,
+                child: Container(
+                  height:
+                      controller.isFiltterShow.value
+                          ? 170 + AppSize.sStatusBarHeight
+                          : 0,
+                  decoration: BoxDecoration(
+                    color: ColorManager.lightPrimaryColor,
+                    border: Border.all(color: ColorManager.primary6Color),
+                  ),
+                  child:
+                      controller.isFiltterShow.value
+                          ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: List.generate(
+                                controller.cardFilters.length,
+                                (index) => GestureDetector(
+                                  onTap: () {
+                                    controller.selectFilter(index);
+                                  },
+                                  child: CardFilter(
+                                    model: controller.cardFilters[index],
+                                    isSelect:
+                                        controller.selectedFilterIndex.value ==
+                                        index,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                          : null,
+                ),
+              ),
+            ),
+            Obx(
+              () => AnimatedSize(
+                duration: const Duration(milliseconds: 400),
+                curve: Curves.easeInOutCubic,
+                child: Container(
+                  height: controller.isFiltterShow.value ? AppSize.s50 : 0,
+                  decoration: const BoxDecoration(
+                    color: ColorManager.lightPrimaryColor,
+                  ),
+                  child:
+                      controller.isFiltterShow.value
+                          ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: List.generate(
+                                controller.cardFilters.length,
+                                (index) => CardFilter(
+                                  model: controller.cardFilters[index],
+                                  isSelect:
+                                      controller.selectedFilterIndex.value ==
+                                      index,
+                                ),
+                              ),
+                            ),
+                          )
+                          : null,
+                ),
+              ),
+            ),
+          ],
+        ),
+
+        AppBarSearch(
+          title: "عقارات",
+          controller: controller,
+          isLocation: true,
+          isBack: true,
+        ),
+      ],
     );
   }
 }

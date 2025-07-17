@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
-import 'package:property_ms/features/widgets/card_filter.dart';
 import 'package:property_ms/features/widgets/office_card.dart';
 import 'package:property_ms/features/widgets/property_rent_card2_small.dart';
 import 'package:property_ms/features/widgets/property_sale_card2_small.dart';
@@ -14,8 +13,6 @@ class OfficeDetailsController extends GetxController
   // filter
   RxInt selectedFilterIndex = 0.obs;
   RxBool isFiltterShow = false.obs;
-
-  final cardFilters = [];
 
   void selectFilter(int index) {
     selectedFilterIndex.value = index;
@@ -136,23 +133,6 @@ class OfficeDetailsController extends GetxController
     // Tabbar
     tabController = TabController(length: tabs.length, vsync: this);
     office = Get.arguments as OfficeCardModel;
-
-    // filter
-    cardFilters.assignAll([
-      CardFilterModel(title: "الكل", index: 0, onTap: () => selectFilter(0)),
-      CardFilterModel(
-        title: "للإيجار",
-        index: 1,
-        onTap: () => selectFilter(1),
-        icon: Assets.icons.tourisem,
-      ),
-      CardFilterModel(
-        title: "للبيع",
-        index: 2,
-        onTap: () => selectFilter(2),
-        icon: Assets.icons.property,
-      ),
-    ]);
 
     filteredProperties.assignAll(officeProperties);
 

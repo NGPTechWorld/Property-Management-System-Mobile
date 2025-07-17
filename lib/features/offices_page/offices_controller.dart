@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
-import 'package:property_ms/features/widgets/card_filter.dart';
 import 'package:property_ms/features/widgets/office_card.dart';
 
 class OfficesController extends GetxController {
   final sliderIndex = 0.obs;
+  RxInt selectedFilterIndex = 1.obs;
+  RxBool isFiltterShow = false.obs;
+
   final adsSliderImages =
       <String>[
         "https://cdn.create.vista.com/downloads/61354a3a-e21b-430a-b271-b7c7a0197718_1024.jpeg",
@@ -44,10 +46,6 @@ class OfficesController extends GetxController {
     ),
   ];
 
-  RxInt selectedFilterIndex = 0.obs;
-  RxBool isFiltterShow = false.obs;
-
-  final cardFilters = [];
   void selectFilter(int index) {
     selectedFilterIndex.value = index;
   }
@@ -56,20 +54,5 @@ class OfficesController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    cardFilters.assignAll([
-      CardFilterModel(title: "الكل", index: 0, onTap: () => selectFilter(0)),
-      CardFilterModel(
-        title: "سياحي",
-        index: 1,
-        onTap: () => selectFilter(1),
-        icon: Assets.icons.tourisem,
-      ),
-      CardFilterModel(
-        title: "عقاري",
-        index: 2,
-        onTap: () => selectFilter(2),
-        icon: Assets.icons.property,
-      ),
-    ]);
   }
 }

@@ -1,11 +1,10 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:property_ms/core/routes/app_routes.dart';
-import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/core/utils/widgets/custom_text_field.dart';
 import 'package:property_ms/features/offices_page/widgets/ads_slider_widget.dart';
+import 'package:property_ms/features/widgets/app_bar_search.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
 import 'package:property_ms/features/offices_page/widgets/office_card_style2.dart';
 import 'package:property_ms/features/widgets/top_offices.dart';
@@ -24,58 +23,10 @@ class OfficesPage extends GetView<OfficesController> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Obx(
-              () => Stack(
-                children: [
-                  AnimatedSize(
-                    duration: const Duration(milliseconds: 400),
-                    curve: Curves.easeInOutCubic,
-                    child: Container(
-                      height:
-                          controller.isFiltterShow.value
-                              ? 170 + AppSize.sStatusBarHeight
-                              : 0,
-                      decoration: const BoxDecoration(
-                        color: ColorManager.lightPrimaryColor,
-                        borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(24),
-                        ),
-                      ),
-                      child:
-                          controller.isFiltterShow.value
-                              ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Obx(() {
-                                  return Row(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: List.generate(
-                                      controller.cardFilters.length,
-                                      (index) => CardFilter(
-                                        model: controller.cardFilters[index],
-                                        isSelect:
-                                            controller
-                                                .selectedFilterIndex
-                                                .value ==
-                                            index,
-                                      ),
-                                    ),
-                                  );
-                                }),
-                              )
-                              : null,
-                    ),
-                  ),
-                  AppBarSearch(
-                    title: "المكاتب",
-                    controller: controller,
-                    isLocation: true,
-                  ),
-                ],
-              ),
-            ),
+            const AppBarOffices(),
             const AdsSliderWidget(),
             TopOffice(controller: controller),
-            AllOffices(controller: controller),
+            const AllOffices(),
           ],
         ),
       ),
@@ -83,10 +34,66 @@ class OfficesPage extends GetView<OfficesController> {
   }
 }
 
-class AllOffices extends StatelessWidget {
-  const AllOffices({super.key, required this.controller});
+class AppBarOffices extends GetView<OfficesController> {
+  const AppBarOffices({super.key});
 
-  final OfficesController controller;
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => Stack(
+        children: [
+          AnimatedSize(
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeInOutCubic,
+            child: Container(
+              height:
+                  controller.isFiltterShow.value
+                      ? 170 + AppSize.sStatusBarHeight
+                      : 0,
+              decoration: const BoxDecoration(
+                color: ColorManager.lightPrimaryColor,
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(24),
+                ),
+              ),
+              child:
+                  controller.isFiltterShow.value
+                      ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: List.generate(
+                            cardFilterDefault.length,
+                            (index) => GestureDetector(
+                              onTap: () {
+                                controller.selectFilter(index);
+                              },
+                              child: CardFilter(
+                                model: cardFilterDefault[index],
+                                isSelect:
+                                    controller.selectedFilterIndex.value ==
+                                    index,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                      : null,
+            ),
+          ),
+          AppBarSearch(
+            title: "المكاتب",
+            isLocation: true,
+            controller: controller,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AllOffices extends GetView<OfficesController> {
+  const AllOffices({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -125,117 +132,6 @@ class AllOffices extends StatelessWidget {
         ),
         const SizedBox(height: AppSize.s16),
       ],
-    );
-  }
-}
-
-class AppBarSearch extends StatelessWidget {
-  final controller;
-  final String title;
-  final bool isLocation;
-  final bool isBack;
-  const AppBarSearch({
-    super.key,
-    required this.title,
-    required this.controller,
-    required this.isLocation,
-    this.isBack = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 120 + AppSize.sStatusBarHeight,
-      decoration: const BoxDecoration(
-        color: ColorManager.primaryColor,
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(24)),
-      ),
-      child: Column(
-        children: [
-          SizedBox(height: AppSize.sStatusBarHeight),
-          SizedBox(
-            width: AppSize.sWidth,
-            child: Row(
-              children: [
-                // IconButton(
-                //   onPressed: () => Get.back(),
-                //   icon: ,
-                // ),
-                isBack
-                    ? Padding(
-                      padding: const EdgeInsets.only(top: 14, right: 8),
-                      child: GestureDetector(
-                        onTap: () => Get.back(),
-                        child: const Icon(
-                          Icons.close,
-                          color: ColorManager.whiteColor,
-                        ),
-                      ),
-                    )
-                    : Container(),
-                Padding(
-                  padding: const EdgeInsets.only(top: 14, right: 16),
-                  child: Text(
-                    title,
-                    style: Get.textTheme.headlineMedium!.copyWith(
-                      color: ColorManager.whiteColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: 80,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Expanded(
-                    child: CustomTextField(
-                      title: null,
-                      hint: "بحث",
-                      minHeight: 50,
-                      borderRadius: 72,
-                      textEditingController: TextEditingController(),
-                      textInputType: TextInputType.text,
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: Assets.icons.searchIcon.svg(
-                          colorFilter: const ColorFilter.mode(
-                            ColorManager.primary5Color,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  GestureDetector(
-                    onTap: () {
-                      controller.isFiltterShow.value =
-                          !controller.isFiltterShow.value;
-                    },
-                    child: Assets.icons.filterSvgrepoCom.svg(
-                      width: 30,
-                      colorFilter: const ColorFilter.mode(
-                        ColorManager.whiteColor,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                  ),
-                  isLocation ? const SizedBox(width: 8) : Container(),
-                  isLocation
-                      ? Assets.icons.mapIcon.svg(width: 30)
-                      : Container(),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
