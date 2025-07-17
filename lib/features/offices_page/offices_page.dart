@@ -4,6 +4,7 @@ import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/features/offices_page/widgets/ads_slider_widget.dart';
+import 'package:property_ms/features/offices_page/widgets/filter_pro.dart';
 import 'package:property_ms/features/widgets/app_bar_search.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
 import 'package:property_ms/features/offices_page/widgets/office_card_style2.dart';
@@ -69,6 +70,9 @@ class AppBarOffices extends GetView<OfficesController> {
                               cardFilterDefault.length,
                               (index) => GestureDetector(
                                 onTap: () {
+                                  if (index == 0) {
+                                    FilterPro.showAnswer();
+                                  }
                                   controller.selectFilter(index);
                                 },
                                 child: CardFilter(

@@ -387,6 +387,10 @@ class $AssetsImagesGen {
   AssetGenImage get officeServicesCard =>
       const AssetGenImage('assets/images/office_services_card.png');
 
+  /// File path: assets/images/property.png
+  AssetGenImage get property =>
+      const AssetGenImage('assets/images/property.png');
+
   /// File path: assets/images/property_card.png
   AssetGenImage get propertyCard =>
       const AssetGenImage('assets/images/property_card.png');
@@ -394,6 +398,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/property_image.png
   AssetGenImage get propertyImage =>
       const AssetGenImage('assets/images/property_image.png');
+
+  /// File path: assets/images/tourisem.png
+  AssetGenImage get tourisem =>
+      const AssetGenImage('assets/images/tourisem.png');
 
   /// File path: assets/images/tourisem_card.png
   AssetGenImage get tourisemCard =>
@@ -407,8 +415,10 @@ class $AssetsImagesGen {
     logo,
     officePropertyCard,
     officeServicesCard,
+    property,
     propertyCard,
     propertyImage,
+    tourisem,
     tourisemCard,
     user,
   ];
