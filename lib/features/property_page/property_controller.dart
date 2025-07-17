@@ -24,6 +24,17 @@ class PropertyController extends GetxController {
   final maxPrice = 500.0.obs;
   final selectedQuestionPT = 0.obs;
 
+  final List<CardFilterModel> cardFilter = [
+    CardFilterModel(title: "الكل"),
+    CardFilterModel(title: "بيع", icon: Assets.icons.property),
+    CardFilterModel(title: "إيجار", icon: Assets.icons.property),
+    CardFilterModel(title: "الأحدث"),
+    CardFilterModel(title: "السعر الأعلى"),
+    CardFilterModel(title: "السعر الأقل"),
+    CardFilterModel(title: "المساحة الأكبر"),
+    CardFilterModel(title: "المساحة الأصغر"),
+  ];
+
   List<QuestionModel> questionsFilters = [
     QuestionModel(
       title: "المحافظة",

@@ -11,6 +11,7 @@ import 'package:property_ms/data/enums/tourism_place_electricity_status.dart';
 import 'package:property_ms/data/enums/tourism_place_extras.dart';
 import 'package:property_ms/data/enums/tourism_place_pool_status.dart';
 import 'package:property_ms/features/tourisem_page/widgets/filter_pro_tourisem.dart';
+import 'package:property_ms/features/widgets/card_filter.dart';
 import 'package:property_ms/features/widgets/question_bottum_sheets/question_type_widget.dart';
 
 import 'package:property_ms/features/widgets/tourisem_card.dart';
@@ -24,6 +25,15 @@ class TourisemController extends GetxController {
   final minPrice = 0.0.obs;
   final maxPrice = 500.0.obs;
   final selectedQuestionPT = 0.obs;
+
+  final List<CardFilterModel> cardFilter = [
+    CardFilterModel(title: "الكل"),
+    CardFilterModel(title: "الأحدث"),
+    CardFilterModel(title: "السعر الأعلى"),
+    CardFilterModel(title: "السعر الأقل"),
+    CardFilterModel(title: "المساحة الأكبر"),
+    CardFilterModel(title: "المساحة الأصغر"),
+  ];
 
   final tourisemSlider = [
     TourisemCardModel(

@@ -57,13 +57,13 @@ class AppBarTourisem extends StatelessWidget {
                     () => Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: List.generate(
-                        cardFilterDefault.length,
+                        controller.cardFilter.length,
                         (index) => GestureDetector(
                           onTap: () {
                             controller.selectFilter(index);
                           },
                           child: CardFilter(
-                            model: cardFilterDefault[index],
+                            model: controller.cardFilter[index],
                             isSelect:
                                 controller.selectedFilterIndex.value == index,
                           ),
