@@ -39,60 +39,46 @@ class AppBarServices extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () => Stack(
-        children: [
-          AnimatedSize(
-            duration: const Duration(milliseconds: 400),
-            curve: Curves.easeInOutCubic,
-            child: Container(
-               width: AppSize.sWidth,
-              height:
-                  controller.isFiltterShow.value
-                      ? 170 + AppSize.sStatusBarHeight
-                      : 0,
-              decoration: const BoxDecoration(
-                color: ColorManager.lightPrimaryColor,
-                borderRadius: BorderRadius.vertical(
-                  bottom: Radius.circular(24),
+    return Stack(
+      children: [
+        Container(
+          width: AppSize.sWidth,
+          height: 170 + AppSize.sStatusBarHeight,
+          decoration: const BoxDecoration(
+            color: ColorManager.lightPrimaryColor,
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(24)),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Obx(
+                () => Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: List.generate(
+                    controller.cardFiltter.length,
+                    (index) => GestureDetector(
+                      onTap: () {
+                        controller.selectFilter(index);
+                      },
+                      child: CardFilter(
+                        model: controller.cardFiltter[index],
+                        isSelect: controller.selectedFilterIndex.value == index,
+                      ),
+                    ),
+                  ),
                 ),
               ),
-              child:
-                  controller.isFiltterShow.value
-                      ? Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: List.generate(
-                              controller.cardFiltter.length,
-                              (index) => GestureDetector(
-                                onTap: () {
-                                  controller.selectFilter(index);
-                                },
-                                child: CardFilter(
-                                  model: controller.cardFiltter[index],
-                                  isSelect:
-                                      controller.selectedFilterIndex.value ==
-                                      index,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      )
-                      : null,
             ),
           ),
-          AppBarSearch(
-            title: "مزودي الخدمات",
-            controller: controller,
-            isLocation: false,
-            isBack: true,
-          ),
-        ],
-      ),
+        ),
+        AppBarSearch(
+          title: "مزودي الخدمات",
+          onTapFilter: controller.openFilterPagePro,
+          isLocation: false,
+          isBack: true,
+        ),
+      ],
     );
   }
 }

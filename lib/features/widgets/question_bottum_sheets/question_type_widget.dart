@@ -26,8 +26,10 @@ class QuestionModel {
 }
 
 class QuestionTypeWidget {
-  static showAnswer({required QuestionModel question}) {
-    showModalBottomSheet(
+  static showAnswer({
+    required QuestionModel question,
+  }) async {
+    return showModalBottomSheet(
       context: Get.context!,
       isScrollControlled: true,
       backgroundColor: ColorManager.cardBackground,
@@ -105,7 +107,7 @@ class QuestionTypeWidget {
                                         question.answers[index].id;
                                     question.controller.text =
                                         question.answers[index].name;
-                                    //controller.selectAnwser(question);
+    
                                     Get.back();
                                   },
                                 ),

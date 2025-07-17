@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
+import 'package:property_ms/features/offices_page/widgets/filter_pro_office.dart';
 import 'package:property_ms/features/widgets/office_card.dart';
 import 'package:property_ms/features/widgets/question_bottum_sheets/question_type_widget.dart';
 
 class OfficesController extends GetxController {
   final sliderIndex = 1.obs;
-  RxInt selectedFilterIndex = 1.obs;
+  RxInt selectedFilterIndex = 0.obs;
   RxBool isFiltterShow = false.obs;
   RxInt selectedIndexRateFilter = 3.obs;
   final adsSliderImages =
@@ -74,5 +75,9 @@ class OfficesController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+  }
+
+  openFilterPagePro() {
+    FilterProOffice.showAnswer();
   }
 }

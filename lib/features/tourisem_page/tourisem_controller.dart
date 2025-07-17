@@ -88,4 +88,7 @@ class TourisemController extends GetxController {
   void selectFilter(int index) {
     selectedFilterIndex.value = index;
   }
+  openFilterPagePro() {
+    
+  }
 }

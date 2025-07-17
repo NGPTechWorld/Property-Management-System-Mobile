@@ -10,7 +10,7 @@ import 'package:property_ms/core/utils/widgets/custom_text_field.dart';
 import 'package:property_ms/features/offices_page/offices_controller.dart';
 import 'package:property_ms/features/widgets/question_bottum_sheets/question_type_widget.dart';
 
-class FilterPro {
+class FilterProOffice {
   static showAnswer() {
     final controller = Get.find<OfficesController>();
     showModalBottomSheet(

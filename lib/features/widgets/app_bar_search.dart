@@ -10,12 +10,12 @@ class AppBarSearch extends StatelessWidget {
   final String title;
   final bool isLocation;
   final bool isBack;
-  final controller;
+  final Function onTapFilter;
   const AppBarSearch({
     super.key,
     required this.title,
     required this.isLocation,
-    required this.controller,
+    required this.onTapFilter,
     this.isBack = false,
   });
 
@@ -92,8 +92,7 @@ class AppBarSearch extends StatelessWidget {
                   const SizedBox(width: 8),
                   GestureDetector(
                     onTap: () {
-                      controller.isFiltterShow.value =
-                          !controller.isFiltterShow.value;
+                      onTapFilter();
                     },
                     child: Assets.icons.filterSvgrepoCom.svg(
                       width: 30,

@@ -125,7 +125,7 @@ class AppBarTourisem extends StatelessWidget {
 
         AppBarSearch(
           title: "سياحة",
-          controller: controller,
+          onTapFilter: controller.openFilterPagePro,
           isLocation: true,
           isBack: true,
         ),
