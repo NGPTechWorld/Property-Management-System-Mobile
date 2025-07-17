@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 
 class OfficeAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -8,7 +10,6 @@ class OfficeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: ColorManager.lightPrimaryColor,
-
       actions: [
         PopupMenuButton<String>(
           icon: const Icon(Icons.more_vert),
@@ -19,23 +20,7 @@ class OfficeAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           onSelected: (value) {
             if (value == 'إبلاغ') {
-              showDialog(
-                context: context,
-                builder:
-                    (context) => AlertDialog(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      title: const Text('إبلاغ'),
-                      content: const Text('قيد التطوير   🚀🚀'),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: const Text('إغلاق'),
-                        ),
-                      ],
-                    ),
-              );
+              Get.toNamed(AppRoutes.reportOfficePage);
             } else if (value == 'الإعدادات') {
               showDialog(
                 context: context,

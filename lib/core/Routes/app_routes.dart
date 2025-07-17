@@ -9,4 +9,7 @@ abstract class AppRoutes {
   static const String otpRoute = "/otp";
   static const String resetPasswordRoute = "/resetPassword";
   static const String officeDetails = "/officeDetails";
+  static const String serviceDetails = "/serviceDetails";
+  static const String reportOfficePage = "/reportOfficePage";
+  static const String reportServicePage = "/reportServicePage";
 }
