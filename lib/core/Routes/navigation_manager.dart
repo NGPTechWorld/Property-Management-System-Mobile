@@ -26,6 +26,8 @@ import 'package:property_ms/features/services_page/sub_pages/report/report_servi
 import 'package:property_ms/features/services_page/sub_pages/services_details/service_detail_page.dart';
 import 'package:property_ms/features/splash/splash_controller.dart';
 import 'package:property_ms/features/splash/splash_page.dart';
+import 'package:property_ms/features/tourisem_page/tourisem_controller.dart';
+import 'package:property_ms/features/tourisem_page/tourisem_page.dart';
 
 abstract class NavigationManager {
   static final getPages = [
@@ -93,6 +95,11 @@ abstract class NavigationManager {
       name: AppRoutes.reportServicePage,
       page: () => const ReportServicePage(),
       binding: BindingsBuilder.put(() => ReportServiceController()),
+    ),
+    GetPage(
+      name: AppRoutes.tourisemRoute,
+      page: () => const TourisemPage(),
+      binding: BindingsBuilder.put(() => TourisemController()),
     ),
     // GetPage(
     //   name: AppRoutes.loginRoute,

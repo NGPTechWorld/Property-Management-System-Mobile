@@ -1,4 +1,5 @@
 enum PropertyServiceProviderType {
+  all('الكل'),
   electrician('كهربائي'),
   plumber('سبّاك (تمديدات صحية)'),
   painter('دهّان'),
@@ -30,7 +31,7 @@ enum PropertyServiceProviderType {
   factory PropertyServiceProviderType.fromValue(String value) {
     return PropertyServiceProviderType.values.firstWhere(
       (e) => e.value == value,
-      orElse: () => PropertyServiceProviderType.electrician,
+      orElse: () => PropertyServiceProviderType.all,
     );
   }
 }

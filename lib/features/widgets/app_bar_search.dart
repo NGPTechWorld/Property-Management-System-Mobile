@@ -103,6 +103,7 @@ class AppBarSearch extends StatelessWidget {
                       ),
                     ),
                   ),
+
                   isLocation ? const SizedBox(width: 8) : Container(),
                   isLocation
                       ? Assets.icons.mapIcon.svg(width: 30)

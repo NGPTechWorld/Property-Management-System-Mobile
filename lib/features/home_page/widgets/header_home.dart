@@ -43,10 +43,13 @@ class HeaderHome extends GetView<HomeController> {
                       ),
                     ),
                     const SizedBox(height: AppSize.s14),
-                    Container(
-                      width: AppSize.sWidth * 0.75,
-                      alignment: Alignment.center,
-                      child: Assets.images.tourisemCard.image(),
+                    GestureDetector(
+                      onTap: () => Get.toNamed(AppRoutes.tourisemRoute),
+                      child: Container(
+                        width: AppSize.sWidth * 0.75,
+                        alignment: Alignment.center,
+                        child: Assets.images.tourisemCard.image(),
+                      ),
                     ),
                   ],
                 ),

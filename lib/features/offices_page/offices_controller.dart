@@ -4,10 +4,10 @@ import 'package:property_ms/features/widgets/office_card.dart';
 import 'package:property_ms/features/widgets/question_bottum_sheets/question_type_widget.dart';
 
 class OfficesController extends GetxController {
-  final sliderIndex = 0.obs;
+  final sliderIndex = 1.obs;
   RxInt selectedFilterIndex = 1.obs;
   RxBool isFiltterShow = false.obs;
-   RxInt selectedIndexRateFilter = 3.obs;
+  RxInt selectedIndexRateFilter = 3.obs;
   final adsSliderImages =
       <String>[
         "https://cdn.create.vista.com/downloads/61354a3a-e21b-430a-b271-b7c7a0197718_1024.jpeg",

@@ -18,6 +18,13 @@ final List<CardFilterModel> cardFilterDefault = [
   CardFilterModel(title: "عقاري", icon: Assets.icons.property),
 ];
 
+final List<CardFilterModel> cardFilterDefaultPro = [
+  CardFilterModel(title: "فلترة متقدمة"),
+  CardFilterModel(title: "الكل"),
+  CardFilterModel(title: "سياحي", icon: Assets.icons.tourisem),
+  CardFilterModel(title: "عقاري", icon: Assets.icons.property),
+];
+
 class CardFilter extends StatelessWidget {
   final CardFilterModel model;
   final bool isSelect;

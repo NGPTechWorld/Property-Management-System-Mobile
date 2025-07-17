@@ -67,16 +67,17 @@ class AppBarOffices extends GetView<OfficesController> {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: List.generate(
-                              cardFilterDefault.length,
+                              cardFilterDefaultPro.length,
                               (index) => GestureDetector(
                                 onTap: () {
                                   if (index == 0) {
                                     FilterPro.showAnswer();
+                                  } else {
+                                    controller.selectFilter(index);
                                   }
-                                  controller.selectFilter(index);
                                 },
                                 child: CardFilter(
-                                  model: cardFilterDefault[index],
+                                  model: cardFilterDefaultPro[index],
                                   isSelect:
                                       controller.selectedFilterIndex.value ==
                                       index,
