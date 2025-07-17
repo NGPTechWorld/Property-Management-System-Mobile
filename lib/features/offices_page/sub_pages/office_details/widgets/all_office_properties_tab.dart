@@ -16,17 +16,20 @@ class AllOfficePropertiesTab extends GetView<OfficeDetailsController> {
         children: [
           const SizedBox(height: AppSize.s16),
           Obx(() {
-            return Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: List.generate(
-                cardFilterDefault.length,
-                (index) => GestureDetector(
-                  onTap: () {
-                    controller.selectFilter(index);
-                  },
-                  child: CardFilter(
-                    model: cardFilterDefault[index],
-                    isSelect: controller.selectedFilterIndex.value == index,
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: List.generate(
+                  cardFilterDefault.length,
+                  (index) => GestureDetector(
+                    onTap: () {
+                      controller.selectFilter(index);
+                    },
+                    child: CardFilter(
+                      model: cardFilterDefault[index],
+                      isSelect: controller.selectedFilterIndex.value == index,
+                    ),
                   ),
                 ),
               ),

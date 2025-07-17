@@ -46,6 +46,7 @@ class AppBarOffices extends GetView<OfficesController> {
             duration: const Duration(milliseconds: 400),
             curve: Curves.easeInOutCubic,
             child: Container(
+              width: AppSize.sWidth,
               height:
                   controller.isFiltterShow.value
                       ? 170 + AppSize.sStatusBarHeight
@@ -60,19 +61,22 @@ class AppBarOffices extends GetView<OfficesController> {
                   controller.isFiltterShow.value
                       ? Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: List.generate(
-                            cardFilterDefault.length,
-                            (index) => GestureDetector(
-                              onTap: () {
-                                controller.selectFilter(index);
-                              },
-                              child: CardFilter(
-                                model: cardFilterDefault[index],
-                                isSelect:
-                                    controller.selectedFilterIndex.value ==
-                                    index,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: List.generate(
+                              cardFilterDefault.length,
+                              (index) => GestureDetector(
+                                onTap: () {
+                                  controller.selectFilter(index);
+                                },
+                                child: CardFilter(
+                                  model: cardFilterDefault[index],
+                                  isSelect:
+                                      controller.selectedFilterIndex.value ==
+                                      index,
+                                ),
                               ),
                             ),
                           ),

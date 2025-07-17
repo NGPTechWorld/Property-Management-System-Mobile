@@ -33,10 +33,7 @@ class ServicesPage extends GetView<ServicesController> {
 }
 
 class AppBarServices extends StatelessWidget {
-  const AppBarServices({
-    super.key,
-    required this.controller,
-  });
+  const AppBarServices({super.key, required this.controller});
 
   final ServicesController controller;
 
@@ -49,6 +46,7 @@ class AppBarServices extends StatelessWidget {
             duration: const Duration(milliseconds: 400),
             curve: Curves.easeInOutCubic,
             child: Container(
+               width: AppSize.sWidth,
               height:
                   controller.isFiltterShow.value
                       ? 170 + AppSize.sStatusBarHeight
@@ -63,21 +61,22 @@ class AppBarServices extends StatelessWidget {
                   controller.isFiltterShow.value
                       ? Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: List.generate(
-                            cardFilterDefault.length,
-                            (index) => GestureDetector(
-                              onTap: () {
-                                controller.selectFilter(index);
-                              },
-                              child: CardFilter(
-                                model: cardFilterDefault[index],
-                                isSelect:
-                                    controller
-                                        .selectedFilterIndex
-                                        .value ==
-                                    index,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: List.generate(
+                              controller.cardFiltter.length,
+                              (index) => GestureDetector(
+                                onTap: () {
+                                  controller.selectFilter(index);
+                                },
+                                child: CardFilter(
+                                  model: controller.cardFiltter[index],
+                                  isSelect:
+                                      controller.selectedFilterIndex.value ==
+                                      index,
+                                ),
                               ),
                             ),
                           ),

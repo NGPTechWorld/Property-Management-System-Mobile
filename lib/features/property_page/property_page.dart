@@ -47,6 +47,7 @@ class AppBarProperty extends StatelessWidget {
                 duration: const Duration(milliseconds: 400),
                 curve: Curves.easeInOutCubic,
                 child: Container(
+                  width: AppSize.sWidth,
                   height:
                       controller.isFiltterShow.value
                           ? 170 + AppSize.sStatusBarHeight
@@ -59,19 +60,24 @@ class AppBarProperty extends StatelessWidget {
                       controller.isFiltterShow.value
                           ? Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: List.generate(
-                                controller.cardFilters.length,
-                                (index) => GestureDetector(
-                                  onTap: () {
-                                    controller.selectFilter(index);
-                                  },
-                                  child: CardFilter(
-                                    model: controller.cardFilters[index],
-                                    isSelect:
-                                        controller.selectedFilterIndex.value ==
-                                        index,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: List.generate(
+                                  controller.cardFilters.length,
+                                  (index) => GestureDetector(
+                                    onTap: () {
+                                      controller.selectFilter(index);
+                                    },
+                                    child: CardFilter(
+                                      model: controller.cardFilters[index],
+                                      isSelect:
+                                          controller
+                                              .selectedFilterIndex
+                                              .value ==
+                                          index,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -86,6 +92,7 @@ class AppBarProperty extends StatelessWidget {
                 duration: const Duration(milliseconds: 400),
                 curve: Curves.easeInOutCubic,
                 child: Container(
+                  width: AppSize.sWidth,
                   height: controller.isFiltterShow.value ? AppSize.s50 : 0,
                   decoration: const BoxDecoration(
                     color: ColorManager.lightPrimaryColor,
@@ -94,15 +101,18 @@ class AppBarProperty extends StatelessWidget {
                       controller.isFiltterShow.value
                           ? Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: List.generate(
-                                controller.cardFilters.length,
-                                (index) => CardFilter(
-                                  model: controller.cardFilters[index],
-                                  isSelect:
-                                      controller.selectedFilterIndex.value ==
-                                      index,
+                            child: SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: List.generate(
+                                  controller.cardFilters.length,
+                                  (index) => CardFilter(
+                                    model: controller.cardFilters[index],
+                                    isSelect:
+                                        controller.selectedFilterIndex.value ==
+                                        index,
+                                  ),
                                 ),
                               ),
                             ),
