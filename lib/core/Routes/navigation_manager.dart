@@ -15,6 +15,8 @@ import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/main_page/main_page.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_controller.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_page.dart';
+import 'package:property_ms/features/property_page/property_controller.dart';
+import 'package:property_ms/features/property_page/property_page.dart';
 import 'package:property_ms/features/offices_page/sub_pages/report/report_office_controller.dart';
 import 'package:property_ms/features/offices_page/sub_pages/report/report_office_page.dart';
 import 'package:property_ms/features/services_page/services_controller.dart';
@@ -71,6 +73,11 @@ abstract class NavigationManager {
       name: AppRoutes.officeDetails,
       page: () => const OfficeDetailsPage(),
       binding: BindingsBuilder.put(() => OfficeDetailsController()),
+    ),
+    GetPage(
+      name: AppRoutes.propertyRoute,
+      page: () => const PropertyPage(),
+      binding: BindingsBuilder.put(() => PropertyController()),
     ),
     GetPage(
       name: AppRoutes.serviceDetails,

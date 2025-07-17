@@ -4,8 +4,8 @@ import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/features/home_page/home_page.dart';
-import 'package:property_ms/features/offices_page/offices_page.dart';
 import 'package:property_ms/features/services_page/widgets/service_card_style2.dart';
+import 'package:property_ms/features/widgets/app_bar_search.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
 
 import 'services_controller.dart';
@@ -21,61 +21,78 @@ class ServicesPage extends GetView<ServicesController> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Obx(
-              () => Stack(
-                children: [
-                  AnimatedSize(
-                    duration: const Duration(milliseconds: 400),
-                    curve: Curves.easeInOutCubic,
-                    child: Container(
-                      height:
-                          controller.isFiltterShow.value
-                              ? 170 + AppSize.sStatusBarHeight
-                              : 0,
-                      decoration: const BoxDecoration(
-                        color: ColorManager.lightPrimaryColor,
-                        borderRadius: BorderRadius.vertical(
-                          bottom: Radius.circular(24),
-                        ),
-                      ),
-                      child:
-                          controller.isFiltterShow.value
-                              ? Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Obx(() {
-                                  return Row(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: List.generate(
-                                      controller.cardFilters.length,
-                                      (index) => CardFilter(
-                                        model: controller.cardFilters[index],
-                                        isSelect:
-                                            controller
-                                                .selectedFilterIndex
-                                                .value ==
-                                            index,
-                                      ),
-                                    ),
-                                  );
-                                }),
-                              )
-                              : null,
-                    ),
-                  ),
-                  AppBarSearch(
-                    title: "مزودي الخدمات",
-                    controller: controller,
-                    isLocation: false,
-                    isBack: true,
-                  ),
-                ],
-              ),
-            ),
+            AppBarServices(controller: controller),
             const SizedBox(height: AppSize.s14),
             TopServices(controller: controller),
             AllServices(controller: controller),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class AppBarServices extends StatelessWidget {
+  const AppBarServices({
+    super.key,
+    required this.controller,
+  });
+
+  final ServicesController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+      () => Stack(
+        children: [
+          AnimatedSize(
+            duration: const Duration(milliseconds: 400),
+            curve: Curves.easeInOutCubic,
+            child: Container(
+              height:
+                  controller.isFiltterShow.value
+                      ? 170 + AppSize.sStatusBarHeight
+                      : 0,
+              decoration: const BoxDecoration(
+                color: ColorManager.lightPrimaryColor,
+                borderRadius: BorderRadius.vertical(
+                  bottom: Radius.circular(24),
+                ),
+              ),
+              child:
+                  controller.isFiltterShow.value
+                      ? Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: List.generate(
+                            cardFilterDefault.length,
+                            (index) => GestureDetector(
+                              onTap: () {
+                                controller.selectFilter(index);
+                              },
+                              child: CardFilter(
+                                model: cardFilterDefault[index],
+                                isSelect:
+                                    controller
+                                        .selectedFilterIndex
+                                        .value ==
+                                    index,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                      : null,
+            ),
+          ),
+          AppBarSearch(
+            title: "مزودي الخدمات",
+            controller: controller,
+            isLocation: false,
+            isBack: true,
+          ),
+        ],
       ),
     );
   }

@@ -19,10 +19,15 @@ class AllOfficePropertiesTab extends GetView<OfficeDetailsController> {
             return Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: List.generate(
-                controller.cardFilters.length,
-                (index) => CardFilter(
-                  model: controller.cardFilters[index],
-                  isSelect: controller.selectedFilterIndex.value == index,
+                cardFilterDefault.length,
+                (index) => GestureDetector(
+                  onTap: () {
+                    controller.selectFilter(index);
+                  },
+                  child: CardFilter(
+                    model: cardFilterDefault[index],
+                    isSelect: controller.selectedFilterIndex.value == index,
+                  ),
                 ),
               ),
             );

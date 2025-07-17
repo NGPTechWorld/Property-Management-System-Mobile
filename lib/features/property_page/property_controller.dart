@@ -1,26 +1,62 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
-import 'package:property_ms/features/widgets/office_card.dart';
+import 'package:property_ms/features/widgets/card_filter.dart';
+import 'package:property_ms/features/widgets/property_rent_card.dart';
 import 'package:property_ms/features/widgets/property_rent_card2_small.dart';
+import 'package:property_ms/features/widgets/property_sale_card.dart';
 import 'package:property_ms/features/widgets/property_sale_card2_small.dart';
 
-class OfficeDetailsController extends GetxController
-    with GetSingleTickerProviderStateMixin {
-  // office model id
-  late final OfficeCardModel office;
+class PropertyController extends GetxController {
+  final sliderIndex = 0.obs;
+  final selectedFilterIndex = 0.obs;
+  final selectedSumFilterIndex = 0.obs;
 
-  // filter
-  RxInt selectedFilterIndex = 0.obs;
-  RxBool isFiltterShow = false.obs;
+  final isFiltterShow = false.obs;
+ late final List<CardFilterModel> cardFilters = [
+    CardFilterModel(title: "الكل"),
+    CardFilterModel(title: "سياحي", icon: Assets.icons.tourisem),
+    CardFilterModel(title: "عقاري", icon: Assets.icons.property),
+  ];
+  late final List<CardFilterModel> cardSubFilters = [
+    CardFilterModel(title: "الكل"),
+   
+  ];
 
-  void selectFilter(int index) {
-    selectedFilterIndex.value = index;
-    updateFilteredProperties();
-  }
+  final propertySlider = [
+    PropertyRentCardModel(
+      title: 'شقة 100 م²',
+      location: 'دمشق, شعلان',
+      priceUnit: 'شهري',
+      rate: 4.5,
+      price: 2500,
+      image: Assets.images.propertyImage,
+    ),
+    PropertySaleCardModel(
+      title: 'بيت 120 م²',
+      location: 'دمشق القديمة',
+      area: 120,
+      price: 2500,
+      image: Assets.images.officePropertyCard,
+    ),
+    PropertyRentCardModel(
+      title: 'شقة 120 م²',
+      location: 'دمشق, أبو رمانة',
+      priceUnit: 'شهري',
+      rate: 4.8,
+      price: 3000,
+      image: Assets.images.propertyImage,
+    ),
+    PropertyRentCardModel(
+      title: 'بيت عربي',
+      location: 'دمشق القديمة',
+      priceUnit: 'شهري',
+      rate: 4.2,
+      price: 1800,
+      image: Assets.images.propertyImage,
+    ),
+  ];
 
-  // officeProperties
-  final officeProperties = [
+  final allProperties = [
     PropertyRentCard2SmallModel(
       title: 'شقة',
       location: 'دمشق, المزة',
@@ -98,52 +134,7 @@ class OfficeDetailsController extends GetxController
     ),
   ];
 
-  //! Tabbar
-  late TabController tabController;
-
-  final tabs = ["جميع العقارات", "معلومات الحساب"];
-
-  //! list obs for filter
-
-  RxList<dynamic> filteredProperties = <dynamic>[].obs;
-
-  void updateFilteredProperties() {
-    if (selectedFilterIndex.value == 0) {
-      // Show all
-      filteredProperties.assignAll(officeProperties);
-    } else if (selectedFilterIndex.value == 1) {
-      // Example filter for rent properties
-      filteredProperties.assignAll(
-        officeProperties
-            .where((p) => p is PropertyRentCard2SmallModel)
-            .toList(),
-      );
-    } else if (selectedFilterIndex.value == 2) {
-      // Example filter for sale properties
-      filteredProperties.assignAll(
-        officeProperties
-            .where((p) => p is PropertySaleCard2SmallModel)
-            .toList(),
-      );
-    }
-  }
-
-  @override
-  void onInit() {
-    // Tabbar
-    tabController = TabController(length: tabs.length, vsync: this);
-    office = Get.arguments as OfficeCardModel;
-
-    filteredProperties.assignAll(officeProperties);
-
-    //! @OsamaZerkawi first of init  Call the API for getting properties and profile details
-    super.onInit();
-  }
-
-  @override
-  void onClose() {
-    // Tabbar
-    tabController.dispose();
-    super.onClose();
+  void selectFilter(int index) {
+    selectedFilterIndex.value = index;
   }
 }
