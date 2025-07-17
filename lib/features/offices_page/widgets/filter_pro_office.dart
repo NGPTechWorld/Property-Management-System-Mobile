@@ -61,10 +61,11 @@ class FilterProOffice {
                             controller.govermentQuestion.controller,
                         textInputType: TextInputType.text,
                         fillColor: ColorManager.whiteColor,
-                        onTap: () {
-                          QuestionTypeWidget.showAnswer(
-                            question: controller.govermentQuestion,
-                          );
+                        onTap: () async {
+                          await QuestionTypeWidget.showAnswer(question: controller.govermentQuestion);
+                          controller.onGovernorateSelected(
+                              controller.govermentQuestion.controller.text,
+                            );
                         },
                         suffixIcon: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),

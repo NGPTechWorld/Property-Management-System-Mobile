@@ -7,7 +7,6 @@ import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/app_button.dart';
 import 'package:property_ms/core/utils/widgets/custom_text_field.dart';
-import 'package:property_ms/features/offices_page/offices_controller.dart';
 import 'package:property_ms/features/services_page/services_controller.dart';
 import 'package:property_ms/features/widgets/question_bottum_sheets/question_type_widget.dart';
 
@@ -62,10 +61,12 @@ class FilterProService {
                             controller.govermentQuestion.controller,
                         textInputType: TextInputType.text,
                         fillColor: ColorManager.whiteColor,
-                        onTap: () {
-                          QuestionTypeWidget.showAnswer(
+                        onTap: () async {
+                          await QuestionTypeWidget.showAnswer(
                             question: controller.govermentQuestion,
-                    
+                          );
+                          controller.onGovernorateSelected(
+                            controller.govermentQuestion.controller.text,
                           );
                         },
                         suffixIcon: Padding(
@@ -89,7 +90,6 @@ class FilterProService {
                         onTap: () {
                           QuestionTypeWidget.showAnswer(
                             question: controller.locationQuestion,
-                            
                           );
                         },
                         suffixIcon: Padding(
@@ -125,7 +125,7 @@ class FilterProService {
   }
 
   static Widget _buildRatingRow() {
-    final controller = Get.find<OfficesController>();
+    final controller = Get.find<ServicesController>();
     List<int> stars = [1, 2, 3, 4, 5];
     return Obx(
       () => Row(
