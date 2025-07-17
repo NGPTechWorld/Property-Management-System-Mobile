@@ -9,7 +9,6 @@ import 'package:property_ms/features/auth/resetpassword/reset_password_controlle
 import 'package:property_ms/features/auth/resetpassword/reset_password_page.dart';
 import 'package:property_ms/features/auth/signup/signup_1/signup_controller.dart';
 import 'package:property_ms/features/auth/signup/signup_1/signup_page.dart';
-import 'package:property_ms/features/auth/signup/signup_2/signup_2_controller.dart';
 import 'package:property_ms/features/auth/signup/signup_2/signup_2_page.dart';
 import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/main_page/main_page.dart';
@@ -56,11 +55,7 @@ abstract class NavigationManager {
       page: () => const SignupPage(),
       binding: BindingsBuilder.put(() => SignupController()),
     ),
-    GetPage(
-      name: AppRoutes.signUp2Route,
-      page: () => const Signup2Page(),
-      binding: BindingsBuilder.put(() => Signup2Controller()),
-    ),
+    GetPage(name: AppRoutes.signUp2Route, page: () => const Signup2Page()),
     GetPage(
       name: AppRoutes.otpRoute,
       page: () => const OtpPage(),

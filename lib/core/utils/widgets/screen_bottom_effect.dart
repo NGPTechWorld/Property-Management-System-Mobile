@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
+
 class ScreenBottomEffect extends StatelessWidget {
   const ScreenBottomEffect({super.key});
 
@@ -13,7 +13,7 @@ class ScreenBottomEffect extends StatelessWidget {
       right: 0,
       child: IgnorePointer(
         child: Container(
-          height: Get.context!.height * 0.2,
+          height: Get.context!.height * 0.15,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
