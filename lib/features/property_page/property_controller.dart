@@ -19,18 +19,11 @@ class PropertyController extends GetxController {
   final sliderIndex = 0.obs;
   final selectedFilterIndex = 0.obs;
   final selectedSumFilterIndex = 0.obs;
-  final isFiltterShow = false.obs;
+
   final minPrice = 0.0.obs;
   final maxPrice = 500.0.obs;
   final selectedQuestionPT = 0.obs;
-  late final List<CardFilterModel> cardFilters = [
-    CardFilterModel(title: "الكل"),
-    CardFilterModel(title: "سياحي", icon: Assets.icons.tourisem),
-    CardFilterModel(title: "عقاري", icon: Assets.icons.property),
-  ];
-  late final List<CardFilterModel> cardSubFilters = [
-    CardFilterModel(title: "الكل"),
-  ];
+
   List<QuestionModel> questionsFilters = [
     QuestionModel(
       title: "المحافظة",

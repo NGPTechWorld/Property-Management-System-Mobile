@@ -57,13 +57,13 @@ class AppBarProperty extends StatelessWidget {
                     () => Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: List.generate(
-                        controller.cardFilters.length,
+                        cardFilterDefault.length,
                         (index) => GestureDetector(
                           onTap: () {
                             controller.selectFilter(index);
                           },
                           child: CardFilter(
-                            model: controller.cardFilters[index],
+                            model: cardFilterDefault[index],
                             isSelect:
                                 controller.selectedFilterIndex.value == index,
                           ),

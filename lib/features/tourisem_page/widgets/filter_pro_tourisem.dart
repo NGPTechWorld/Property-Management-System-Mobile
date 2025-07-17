@@ -8,12 +8,11 @@ import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/app_button.dart';
 import 'package:property_ms/core/utils/widgets/custom_text_field.dart';
-import 'package:property_ms/features/property_page/property_controller.dart';
-import 'package:property_ms/features/widgets/card_filter.dart';
+import 'package:property_ms/features/tourisem_page/tourisem_controller.dart';
 import 'package:property_ms/features/widgets/question_bottum_sheets/question_type_widget.dart';
 
-class FilterProProperty {
-  static showAnswer(PropertyController controller) {
+class FilterProTourisem {
+  static showAnswer(TourisemController controller) {
     showModalBottomSheet(
       context: Get.context!,
       isScrollControlled: true,
@@ -54,49 +53,30 @@ class FilterProProperty {
                         ),
                       ),
                       const SizedBox(height: AppSize.s24),
-                      Row(
-                        children: [
-                          Text("نوع العقار:", style: Get.textTheme.titleMedium),
-                          Expanded(
-                            child: Obx(
-                              () => Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  GestureDetector(
-                                    onTap:
-                                        () =>
-                                            controller
-                                                .selectedQuestionPT
-                                                .value = 0,
-                                    child: CardFilter(
-                                      model: cardFilterTypeProp[0],
-                                      isSelect:
-                                          controller.selectedQuestionPT.value ==
-                                          0,
-                                    ),
-                                  ),
-                                  const SizedBox(width: AppSize.s12),
-                                  GestureDetector(
-                                    onTap:
-                                        () =>
-                                            controller
-                                                .selectedQuestionPT
-                                                .value = 1,
-                                    child: CardFilter(
-                                      model: cardFilterTypeProp[1],
-                                      isSelect:
-                                          controller.selectedQuestionPT.value ==
-                                          1,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                      const FormQuestions(),
+                      CustomTextField(
+                        title: controller.quastionExtra.title,
+                        hint: "إختر الجواب",
+                        readOnly: true,
+                        textEditingController:
+                            controller.quastionExtra.controller,
+                        textInputType: TextInputType.text,
+                        fillColor: ColorManager.whiteColor,
+                        onTap: () async {
+                          await QuestionTypeWidget.showAnswer(
+                            question: controller.quastionExtra,
+                          );
+                        },
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: Transform.rotate(
+                            angle: -pi / 2,
+                            child: Assets.icons.arrowBackIcon.svg(
+                              width: AppSize.s22,
                             ),
                           ),
-                        ],
+                        ),
                       ),
-                      const SizedBox(height: AppSize.s24),
-                      const FormQuestions(),
                       Text("مجال السعر:", style: Get.textTheme.titleMedium),
                       Obx(() {
                         return Padding(
@@ -192,7 +172,7 @@ class FilterProProperty {
   }
 }
 
-class FormQuestions extends GetView<PropertyController> {
+class FormQuestions extends GetView<TourisemController> {
   const FormQuestions({super.key});
 
   @override

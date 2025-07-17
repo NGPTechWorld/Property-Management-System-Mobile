@@ -41,82 +41,36 @@ class AppBarTourisem extends StatelessWidget {
       children: [
         Column(
           children: [
-            Obx(
-              () => AnimatedSize(
-                duration: const Duration(milliseconds: 400),
-                curve: Curves.easeInOutCubic,
-                child: Container(
-                  width: AppSize.sWidth,
-                  height:
-                      controller.isFiltterShow.value
-                          ? 170 + AppSize.sStatusBarHeight
-                          : 0,
-                  decoration: BoxDecoration(
-                    color: ColorManager.lightPrimaryColor,
-                    border: Border.all(color: ColorManager.primary6Color),
-                  ),
-                  child:
-                      controller.isFiltterShow.value
-                          ? Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: List.generate(
-                                  controller.cardFilters.length,
-                                  (index) => GestureDetector(
-                                    onTap: () {
-                                      controller.selectFilter(index);
-                                    },
-                                    child: CardFilter(
-                                      model: controller.cardFilters[index],
-                                      isSelect:
-                                          controller
-                                              .selectedFilterIndex
-                                              .value ==
-                                          index,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                          : null,
-                ),
+            Container(
+              width: AppSize.sWidth,
+              height: 170 + AppSize.sStatusBarHeight,
+
+              decoration: BoxDecoration(
+                color: ColorManager.lightPrimaryColor,
+                border: Border.all(color: ColorManager.primary6Color),
               ),
-            ),
-            Obx(
-              () => AnimatedSize(
-                duration: const Duration(milliseconds: 400),
-                curve: Curves.easeInOutCubic,
-                child: Container(
-                  width: AppSize.sWidth,
-                  height: controller.isFiltterShow.value ? AppSize.s50 : 0,
-                  decoration: const BoxDecoration(
-                    color: ColorManager.lightPrimaryColor,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Obx(
+                    () => Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: List.generate(
+                        cardFilterDefault.length,
+                        (index) => GestureDetector(
+                          onTap: () {
+                            controller.selectFilter(index);
+                          },
+                          child: CardFilter(
+                            model: cardFilterDefault[index],
+                            isSelect:
+                                controller.selectedFilterIndex.value == index,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                  child:
-                      controller.isFiltterShow.value
-                          ? Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: List.generate(
-                                  controller.cardFilters.length,
-                                  (index) => CardFilter(
-                                    model: controller.cardFilters[index],
-                                    isSelect:
-                                        controller.selectedFilterIndex.value ==
-                                        index,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          )
-                          : null,
                 ),
               ),
             ),

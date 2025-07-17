@@ -18,6 +18,11 @@ final List<CardFilterModel> cardFilterDefault = [
   CardFilterModel(title: "عقاري", icon: Assets.icons.property),
 ];
 
+final List<CardFilterModel> cardFilterTypeProp = [
+  CardFilterModel(title: "بيع", icon: Assets.icons.property),
+  CardFilterModel(title: "إيجار", icon: Assets.icons.property),
+];
+
 final List<CardFilterModel> cardFilterDefaultPro = [
   CardFilterModel(title: "فلترة متقدمة"),
   CardFilterModel(title: "الكل"),
