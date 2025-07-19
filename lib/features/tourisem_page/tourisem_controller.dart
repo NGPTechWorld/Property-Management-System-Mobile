@@ -13,7 +13,6 @@ import 'package:property_ms/data/enums/tourism_place_pool_status.dart';
 import 'package:property_ms/features/tourisem_page/widgets/filter_pro_tourisem.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
 import 'package:property_ms/features/widgets/question_bottum_sheets/question_type_widget.dart';
-
 import 'package:property_ms/features/widgets/tourisem_card.dart';
 import 'package:property_ms/features/widgets/tourisem_card_small.dart';
 

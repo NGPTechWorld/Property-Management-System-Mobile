@@ -1,11 +1,13 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/features/tourisem_page/widgets/tourisem_slider_widget.dart';
 import 'package:property_ms/features/widgets/app_bar_search.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
 import 'package:property_ms/features/widgets/tourisem_card_small.dart';
+
 import 'tourisem_controller.dart';
 
 class TourisemPage extends GetView<TourisemController> {
@@ -111,7 +113,14 @@ class AllTourisem extends GetView<TourisemController> {
             controller.allTourisems.length,
             (index) => Padding(
               padding: const EdgeInsets.only(bottom: AppPadding.p12),
-              child: TourisemCardSmall(model: controller.allTourisems[index]),
+              child: GestureDetector(
+                onTap:
+                    () => Get.toNamed(
+                      AppRoutes.tourismDetailsPage,
+                      arguments: controller.allTourisems[index],
+                    ),
+                child: TourisemCardSmall(model: controller.allTourisems[index]),
+              ),
             ),
           ),
         ),
