@@ -48,7 +48,7 @@ class PriceSection extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black,
-                    fontSize: FontSize.s24,
+                    fontSize: FontSize.s16,
                   ),
                 ),
               ],

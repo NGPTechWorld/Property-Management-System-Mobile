@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:property_ms/core/utils/assets.gen.dart';
+import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/features/offices_page/widgets/office_card_style2.dart';
 import 'package:property_ms/features/property_details/property_details_controller.dart';
@@ -10,53 +10,100 @@ import 'package:property_ms/features/property_details/widget/property_details_wi
 import 'package:property_ms/features/property_details/widget/property_header.dart';
 import 'package:property_ms/features/property_details/widget/related_properties_widgets.dart';
 import 'package:property_ms/features/property_details/widget/room_details_widget.dart';
-import 'package:property_ms/features/widgets/office_card.dart';
+import 'package:shimmer/shimmer.dart';
 
 class PropertyDetailsPage extends GetView<PropertyDetailsController> {
   const PropertyDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    const double appBarHeight = AppSize.s100 * 2.5;
+
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: AppPadding.p24),
-          child: Column(
-            children: [
-              ImageCarousel(controller: controller),
-              Container(
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      body: SafeArea(
+        top: false,
+        child: NestedScrollView(
+          controller: controller.scrollController,
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              SliverAppBar(
+                expandedHeight: appBarHeight,
+                toolbarHeight: kToolbarHeight + AppSize.s10,
+                // pinned: true,
+                elevation: 0,
+                // backgroundColor: Colors.black,
+                leading: IconButton(
+                  icon: Container(
+                    height: AppSize.s40,
+                    width: AppSize.s40,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: ColorManager.primaryColor,
+                    ),
+                    alignment: Alignment.center,
+                    child: const Icon(Icons.chevron_left, color: Colors.white),
+                  ),
+                  onPressed: () => Get.back(),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const PropertyHeader(),
-                    const SizedBox(height: AppSize.s24),
-                    Text(
-                      'المكتب المسؤول',
-                      style: Get.textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: AppSize.s12),
-                    OfficeCardStyle2(
-                      model: OfficeCardModel(
-                        title: 'مكتب أبو فراس',
-                        type: 'عقاري',
-                        location: 'دمشق, ميدان',
-                        rate: 4.75,
-                        image: Assets.images.propertyImage,
-                      ),
-                    ),
-                    const PropertyDetailsWidget(),
-                    const RoomDetailsWidget(),
-                    RelatedPropertiesWidgets(controller: controller),
-                  ],
+                flexibleSpace: FlexibleSpaceBar(
+                  collapseMode: CollapseMode.pin,
+                  titlePadding: EdgeInsets.zero,
+                  expandedTitleScale: 1.1,
+                  background: Obx(() {
+                    return controller.isLoadingImages.value
+                        ? Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            height: appBarHeight,
+                            width: double.infinity,
+                            color: Colors.white,
+                          ),
+                        )
+                        : ImageCarousel(
+                          controller: controller,
+                          height: appBarHeight,
+                        );
+                  }),
                 ),
               ),
-            ],
+            ];
+          },
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.only(bottom: AppPadding.p24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(24),
+                    ),
+                  ),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppPadding.p16,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const PropertyHeader(),
+                      const SizedBox(height: AppSize.s24),
+                      Text(
+                        'المكتب المسؤول',
+                        style: Get.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: AppSize.s12),
+                      OfficeCardStyle2(model: controller.repsonsibleOffice),
+                      const PropertyDetailsWidget(),
+                      const RoomDetailsWidget(),
+                      RelatedPropertiesWidgets(controller: controller),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -64,15 +111,11 @@ class PropertyDetailsPage extends GetView<PropertyDetailsController> {
         price: '\$30,000',
         onPressed: () {
           // Booking logic here
-          // print('Booking requested!');
         },
       ),
     );
   }
 }
-
-
-
 // class FeaturesGrid extends StatelessWidget {
 //   const FeaturesGrid({super.key});
 
