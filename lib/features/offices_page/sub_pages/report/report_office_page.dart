@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/features/offices_page/sub_pages/report/report_office_controller.dart';
+import 'package:property_ms/features/widgets/report_form_reuseable/report_controller.dart';
 import 'package:property_ms/features/widgets/report_form_reuseable/report_form.dart';
 
 class ReportOfficePage extends GetView<ReportOfficeController> {
@@ -10,7 +11,7 @@ class ReportOfficePage extends GetView<ReportOfficeController> {
 
   @override
   Widget build(BuildContext context) {
-    // Get.put(ReportController(), permanent: true);
+    Get.put(ReportController(), permanent: true);
 
     return Scaffold(
       backgroundColor: ColorManager.cardBackground,
