@@ -8,7 +8,7 @@ import 'package:property_ms/features/widgets/property_sale_card2_small.dart';
 class OfficeDetailsController extends GetxController
     with GetSingleTickerProviderStateMixin {
   // office model id
-  late final OfficeCardModel office;
+  final OfficeCardModel office = Get.arguments as OfficeCardModel;
 
   // filter
   RxInt selectedFilterIndex = 0.obs;
@@ -132,7 +132,6 @@ class OfficeDetailsController extends GetxController
   void onInit() {
     // Tabbar
     tabController = TabController(length: tabs.length, vsync: this);
-    office = Get.arguments as OfficeCardModel;
 
     filteredProperties.assignAll(officeProperties);
 
