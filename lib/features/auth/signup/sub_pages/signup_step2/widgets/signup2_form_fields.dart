@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/widgets/custom_text_field.dart';
-import 'package:property_ms/features/auth/signup/signup_1/signup_controller.dart';
+import 'package:property_ms/features/auth/signup/signup_controller.dart';
 
 class Signup2FormFields extends GetView<SignupController> {
   const Signup2FormFields({super.key});
@@ -90,6 +90,8 @@ class Signup2FormFields extends GetView<SignupController> {
               validator: (value) {
                 if (value == null || value.trim().isEmpty) {
                   return "هذا الحقل مطلوب";
+                } else if (value != controller.passwordController.text) {
+                  return "كلمة السر ليست متطابقة!";
                 }
                 return null;
               },

@@ -15,7 +15,7 @@ void main() async {
   runApp(
     DevicePreview(
       builder: (context) => const MyApp(),
-      enabled: true, // enable if u want to test devices
+      enabled: false, // enable if u want to test devices
     ),
   );
 }

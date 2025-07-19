@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/features/exploration_page/exploration_page.dart';
 import 'package:property_ms/features/home_page/home_page.dart';
@@ -8,6 +9,7 @@ import 'package:property_ms/features/profile_page/profile_page.dart';
 import 'package:property_ms/features/reservation_page/reservation_page.dart';
 
 class MainController extends GetxController {
+  final CacheService cacheService = Get.find<CacheService>();
   PageController pageController = PageController();
   final pages = [
     const HomePage(),

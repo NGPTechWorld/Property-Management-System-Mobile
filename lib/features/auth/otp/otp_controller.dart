@@ -1,24 +1,34 @@
 import 'dart:async';
 
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/routes/app_routes.dart';
+import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
+import 'package:property_ms/data/enums/loading_state_enum.dart';
+import 'package:property_ms/data/repos/users_repositories.dart';
 
 class OtpController extends GetxController {
-  final String email = "email@gmail.com";
+  final loadingState = LoadingState.idle.obs;
+  final UsersRepositories userRepo = Get.find<UsersRepositories>();
+  final otpController = TextEditingController();
+  final String email = Get.arguments['email'];
   final RxString pin1 = ''.obs;
+  final String type = Get.arguments['type'];
 
   // Timer related
   final isResendEnabled = false.obs;
-  final countdown = 180.obs; 
+  final countdown = 180.obs;
   Timer? _timer;
   @override
   void onInit() {
     super.onInit();
-    startResendCountdown(); 
+    resendOtp();
+    startResendCountdown();
   }
 
   void startResendCountdown() {
     isResendEnabled.value = false;
-    countdown.value = 180;
+    countdown.value = 300;
 
     _timer?.cancel();
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -31,11 +41,24 @@ class OtpController extends GetxController {
     });
   }
 
-  void resendOtp() {
-    if (!isResendEnabled.value) return;
+  Future<void> resendOtp() async {
+    loadingState.value = LoadingState.loading;
 
-    // TODO: Trigger OTP resend logic here
-    print("OTP Resent!");
+    final response = await userRepo.resentOtp(email: email, type: type);
+
+    if (!response.success) {
+      loadingState.value = LoadingState.hasError;
+      CustomToasts(
+        message: response.getErrorMessage(),
+        type: CustomToastType.error,
+      ).show();
+      return;
+    }
+    CustomToasts(
+      message: response.successMessage!,
+      type: CustomToastType.success,
+    ).show();
+    loadingState.value = LoadingState.doneWithData;
 
     startResendCountdown(); // restart timer after resend
   }
@@ -46,14 +69,27 @@ class OtpController extends GetxController {
     super.onClose();
   }
 
-  void verifyOtp(String pin) {
-    print("OTP entered: $pin");
-    // Example logic
-    if (pin == "1234") {
-      Get.snackbar("Success", "OTP is correct ${pin}");
-    } else {
-      Get.snackbar("Error", "Invalid OTP");
+  Future<void> verifyOtp() async {
+    loadingState.value = LoadingState.loading;
+
+    final response = await userRepo.confirem(
+      email: email,
+      otp: otpController.text,
+    );
+
+    if (!response.success) {
+      loadingState.value = LoadingState.hasError;
+      CustomToasts(
+        message: response.getErrorMessage(),
+        type: CustomToastType.error,
+      ).show();
+      return;
     }
-    // Add your OTP verification logic here
+    CustomToasts(
+      message: response.successMessage!,
+      type: CustomToastType.success,
+    ).show();
+    Get.offAllNamed(AppRoutes.loginRoute);
+    loadingState.value = LoadingState.doneWithData;
   }
 }

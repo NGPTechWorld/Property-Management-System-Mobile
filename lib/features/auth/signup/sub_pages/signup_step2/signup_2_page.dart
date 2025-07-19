@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/logo_app.dart';
 import 'package:property_ms/core/utils/widgets/screen_bottom_effect.dart';
-import 'package:property_ms/features/auth/signup/signup_1/signup_controller.dart';
+import 'package:property_ms/features/auth/signup/signup_controller.dart';
 
 import 'widgets/signup2_header.dart';
 import 'widgets/signup2_form_fields.dart';

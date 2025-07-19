@@ -14,6 +14,8 @@ class OtpPage extends GetView<OtpController> {
 
   @override
   Widget build(BuildContext context) {
+    // Get.delete<OtpController>();
+    // Get.put(OtpController());
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(

@@ -12,25 +12,32 @@ class OtpInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<OtpController>();
     return Center(
-      child: Pinput(
-        onCompleted: (pin) => controller.pin1.value = pin,
-        focusedPinTheme: PinTheme(
-          textStyle: TextStyle(
-            fontSize: FontSize.s20, // or 20
-            fontWeight: FontWeight.w600,
-          ),
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: Pinput(
+          keyboardType: TextInputType.text,
+          onCompleted: (pin) => controller.pin1.value = pin,
+          controller: controller.otpController,
 
-          width: AppSize.sWidth * .17,
-          height: AppSize.sWidth * .17,
-          decoration: BoxDecoration(
-            border: Border.all(color: ColorManager.primaryDark),
-            borderRadius: BorderRadius.circular(10),
+          focusedPinTheme: PinTheme(
+            textStyle: TextStyle(
+              fontSize: FontSize.s20, // or 20
+              fontWeight: FontWeight.w600,
+            ),
+
+            width: AppSize.sWidth * .17,
+            height: AppSize.sWidth * .17,
+            decoration: BoxDecoration(
+              border: Border.all(color: ColorManager.primaryDark),
+              borderRadius: BorderRadius.circular(10),
+            ),
           ),
+          autofocus: true,
+          validator: (pin) {
+            if (pin == null || pin.trim().isEmpty) return "هذا الحقل مطلوب";
+            return null;
+          },
         ),
-        autofocus: true,
-        validator: (pin) {
-          // Optionally implement validator
-        },
       ),
     );
   }

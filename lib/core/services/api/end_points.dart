@@ -1,6 +1,14 @@
 class EndPoints {
-  static const String baseUrl = "https://api.example.com";
-  static const String templateT = "$baseUrl/templateT";
+  static const String baseUrl = "http://192.168.1.6:3000";
+  static const String templateT = "/templateT";
+
+  //Auth
+  static const String signup = "/mobile-auth/signup";
+  static const String confirm = "/mobile-auth/confirm";
+  static const String login = "/mobile-auth/login";
+  static const String refresh = "/mobile-auth/refresh";
+  static const String resendOtp = "/mobile-auth/resend-otp";
+  static const String resetPassword = "/mobile-auth/reset-password";
   //! here you can add more end points for your requests
 }
 
@@ -8,6 +16,6 @@ class ApiKey {
   static const String message = "message";
   static const String statusCode = "status_code";
   static const String data = "data";
-  //! don't add  key here add them to the models classes 
+  //! don't add  key here add them to the models classes
   //! here we put key that we use them in all of our requests only
 }

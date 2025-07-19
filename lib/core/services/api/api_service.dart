@@ -1,11 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' as getx;
+import 'package:property_ms/core/services/api/end_points.dart';
 import 'package:property_ms/core/services/cache/cache_keys.dart';
 import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
-const kBaseUrl = "http://BASEURL/api/";
 const kImagesUrl = "";
 
 enum Method { get, post, put, delete, patch }
@@ -44,7 +44,7 @@ class ApiService extends getx.GetxService {
 
   BaseOptions get baseOptions {
     return BaseOptions(
-      baseUrl: kBaseUrl,
+      baseUrl: EndPoints.baseUrl,
       connectTimeout: const Duration(milliseconds: 30 * 1000),
       receiveTimeout: const Duration(milliseconds: 30 * 1000),
       headers: header(),

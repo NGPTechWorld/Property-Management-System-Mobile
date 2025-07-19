@@ -18,7 +18,6 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     Get.put(HomeController());
-
     return Scaffold(
       appBar: const NormalAppBar(title: "الصفحة الرئيسة"),
       body: SingleChildScrollView(
