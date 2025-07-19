@@ -39,7 +39,11 @@ class LoginController extends GetxController {
       if (response.networkFailure!.code == 403) {
         Get.toNamed(
           AppRoutes.otpRoute,
-          arguments: {'type': "signup", "email": emailController.text},
+          arguments: {
+            'type': "signup",
+            "email": emailController.text,
+            "isLoginPage": true,
+          },
         );
       }
       return;

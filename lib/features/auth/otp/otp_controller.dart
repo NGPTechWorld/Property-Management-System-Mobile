@@ -14,6 +14,7 @@ class OtpController extends GetxController {
   final String email = Get.arguments['email'];
   final RxString pin1 = ''.obs;
   final String type = Get.arguments['type'];
+  final bool isLoginPage = Get.arguments['isLoginPage'] ?? false;
 
   // Timer related
   final isResendEnabled = false.obs;
@@ -22,7 +23,9 @@ class OtpController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    resendOtp();
+    if (isLoginPage) {
+      resendOtp();
+    }
     startResendCountdown();
   }
 
