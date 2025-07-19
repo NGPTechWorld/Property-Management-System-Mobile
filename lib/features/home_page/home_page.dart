@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
 import 'package:property_ms/features/home_page/widgets/header_home.dart';
-
 import 'package:property_ms/features/widgets/property_rent_card.dart';
 import 'package:property_ms/features/widgets/property_sale_card.dart';
-
 import 'package:property_ms/features/widgets/top_offices.dart';
 import 'package:property_ms/features/widgets/top_services_card.dart';
 
@@ -28,6 +27,14 @@ class HomePage extends GetView<HomeController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const HeaderHome(),
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  Get.toNamed(AppRoutes.propertyDetailsPage);
+                },
+                child: Text('show property details'),
+              ),
+            ),
             TopProperty(controller: controller),
             TopOffice(controller: controller),
             TopServices(controller: controller),

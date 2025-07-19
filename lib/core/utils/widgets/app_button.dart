@@ -23,6 +23,7 @@ class AppButton extends StatelessWidget {
     this.loadingMode = false,
     this.enabled = true,
     this.border,
+    this.iconOnLeft = false,
   });
 
   final String? text;
@@ -40,6 +41,7 @@ class AppButton extends StatelessWidget {
   final bool loadingMode;
   final bool enabled;
   final BoxBorder? border;
+  final bool iconOnLeft;
 
   @override
   Widget build(BuildContext context) {
@@ -98,22 +100,36 @@ class AppButton extends StatelessWidget {
                 : Row(
                   textDirection: textDirection,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    icon != null ? icon! : const SizedBox.shrink(),
-                    icon != null && text != null
-                        ? const SizedBox(width: 8)
-                        : const SizedBox.shrink(),
-                    text != null
-                        ? Text(
-                          text!,
-                          style: TextStyle(
-                            color: fontColor,
-                            fontSize: fontSize ?? FontSize.s14,
-                            fontWeight: fontWeight,
-                          ),
-                        )
-                        : const SizedBox.shrink(),
-                  ],
+                  children:
+                      iconOnLeft
+                          ? [
+                            if (text != null)
+                              Text(
+                                text!,
+                                style: TextStyle(
+                                  color: fontColor,
+                                  fontSize: fontSize ?? FontSize.s14,
+                                  fontWeight: fontWeight,
+                                ),
+                              ),
+                            if (icon != null && text != null)
+                              const SizedBox(width: 8),
+                            if (icon != null) icon!,
+                          ]
+                          : [
+                            if (icon != null) icon!,
+                            if (icon != null && text != null)
+                              const SizedBox(width: 8),
+                            if (text != null)
+                              Text(
+                                text!,
+                                style: TextStyle(
+                                  color: fontColor,
+                                  fontSize: fontSize ?? FontSize.s14,
+                                  fontWeight: fontWeight,
+                                ),
+                              ),
+                          ],
                 ),
       ),
     );
