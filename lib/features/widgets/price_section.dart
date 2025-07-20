@@ -5,9 +5,15 @@ import 'package:property_ms/core/utils/widgets/app_button.dart';
 
 class PriceSection extends StatelessWidget {
   final String price;
+  final String? payrate;
   final VoidCallback onPressed;
 
-  const PriceSection({super.key, required this.price, required this.onPressed});
+  const PriceSection({
+    super.key,
+    required this.price,
+    this.payrate,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +49,27 @@ class PriceSection extends StatelessWidget {
                   style: TextStyle(color: Colors.black54, fontSize: 14),
                 ),
                 const SizedBox(height: 4),
-                Text(
-                  price,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                    fontSize: FontSize.s16,
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      price,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                        fontSize: FontSize.s20,
+                      ),
+                    ),
+                    if (payrate != null && payrate!.isNotEmpty) ...[
+                      const SizedBox(width: AppSize.s16),
+                      Text(
+                        payrate!,
+                        style: TextStyle(
+                          color: ColorManager.primaryDark,
+                          fontSize: FontSize.s16,
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
               ],
             ),
