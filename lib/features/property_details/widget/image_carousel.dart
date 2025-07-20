@@ -1,18 +1,32 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:property_ms/core/utils/color_manager.dart';
-import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/features/property_details/property_details_controller.dart';
 
 class ImageCarousel extends StatelessWidget {
-  final PropertyDetailsController controller;
+  final List<ImageProvider> images;
   final double height;
+  final RxInt? currentIndex;
+  final Color activeDotColor;
+  final Color inactiveDotColor;
+  final Function(int)? onPageChanged;
+  final bool autoPlay;
 
-  const ImageCarousel({super.key, required this.controller, this.height = 300});
+  const ImageCarousel({
+    super.key,
+    required this.images,
+    this.height = 300,
+    this.currentIndex,
+    this.activeDotColor = Colors.blue,
+    this.inactiveDotColor = Colors.white,
+    this.onPageChanged,
+    this.autoPlay = true,
+  });
 
   @override
   Widget build(BuildContext context) {
+    // Local reactive index if external one isn't provided
+    final RxInt localIndex = (currentIndex ?? RxInt(0));
+
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
@@ -20,31 +34,29 @@ class ImageCarousel extends StatelessWidget {
           options: CarouselOptions(
             height: height,
             viewportFraction: 1.0,
-            autoPlay: true,
+            autoPlay: autoPlay,
             onPageChanged: (index, reason) {
-              controller.sliderIndex.value = index;
+              localIndex.value = index;
+              onPageChanged?.call(index);
             },
           ),
           items:
-              controller.images.map((asset) {
+              images.map((image) {
                 return Container(
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: asset.provider(),
-                      fit: BoxFit.cover,
-                    ),
+                    image: DecorationImage(image: image, fit: BoxFit.cover),
                   ),
                 );
               }).toList(),
         ),
         Positioned(
-          bottom: AppSize.s16,
+          bottom: 16,
           child: Obx(
             () => Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
-                controller.images.length,
+                images.length,
                 (index) => Container(
                   width: 8,
                   height: 8,
@@ -52,9 +64,9 @@ class ImageCarousel extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color:
-                        controller.sliderIndex.value == index
-                            ? ColorManager.primaryColor
-                            : ColorManager.white,
+                        localIndex.value == index
+                            ? activeDotColor
+                            : inactiveDotColor,
                   ),
                 ),
               ),

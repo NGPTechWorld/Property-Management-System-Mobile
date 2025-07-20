@@ -21,7 +21,7 @@ class TourisemSliderWidget extends GetView<TourisemController> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
             child: Text(
-              "أمكان سياحية مميزة",
+              "أماكن سياحية مميزة",
               style: Get.textTheme.headlineMedium!.copyWith(
                 color: ColorManager.secColor,
               ),
