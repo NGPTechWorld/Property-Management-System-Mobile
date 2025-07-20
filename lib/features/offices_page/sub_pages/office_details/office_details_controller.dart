@@ -9,6 +9,7 @@ class OfficeDetailsController extends GetxController
     with GetSingleTickerProviderStateMixin {
   // office model id
   final OfficeCardModel office = Get.arguments as OfficeCardModel;
+  RxDouble rating = 0.0.obs;
 
   // filter
   RxInt selectedFilterIndex = 0.obs;
@@ -98,6 +99,17 @@ class OfficeDetailsController extends GetxController
     ),
   ];
 
+  //! Rating update
+  void updateRating(double newRating) {
+    rating.value = newRating;
+
+    // Optional: update the model
+    // model.rate = newRating.toString();
+
+    // Optional: send rating to backend or local DB
+    print('Updated rating: $newRating');
+  }
+
   //! Tabbar
   late TabController tabController;
 
@@ -130,9 +142,9 @@ class OfficeDetailsController extends GetxController
 
   @override
   void onInit() {
+    rating.value = double.tryParse(office.rate.toString()) ?? 0.0;
     // Tabbar
     tabController = TabController(length: tabs.length, vsync: this);
-
     filteredProperties.assignAll(officeProperties);
 
     //! @OsamaZerkawi first of init  Call the API for getting properties and profile details

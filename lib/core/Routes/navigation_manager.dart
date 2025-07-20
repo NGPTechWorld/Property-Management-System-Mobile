@@ -24,6 +24,7 @@ import 'package:property_ms/features/services_page/services_controller.dart';
 import 'package:property_ms/features/services_page/services_page.dart';
 import 'package:property_ms/features/services_page/sub_pages/report/report_service_controller.dart';
 import 'package:property_ms/features/services_page/sub_pages/report/report_service_page.dart';
+import 'package:property_ms/features/services_page/sub_pages/services_details/service_detail_controller.dart';
 import 'package:property_ms/features/services_page/sub_pages/services_details/service_detail_page.dart';
 import 'package:property_ms/features/splash/splash_controller.dart';
 import 'package:property_ms/features/splash/splash_page.dart';
@@ -83,7 +84,7 @@ abstract class NavigationManager {
     GetPage(
       name: AppRoutes.serviceDetails,
       page: () => const ServiceDetailPage(),
-      binding: BindingsBuilder.put(() => ServicesController()),
+      binding: BindingsBuilder.put(() => ServiceDetailController()),
     ),
     GetPage(
       name: AppRoutes.reportOfficePage,

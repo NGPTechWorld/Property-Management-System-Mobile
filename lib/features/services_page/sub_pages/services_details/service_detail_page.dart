@@ -88,28 +88,36 @@ class ServiceDetailPage extends GetView<ServiceDetailController> {
           ),
 
           // Scrollable content
-          const Expanded(
+          Expanded(
             child: SingleChildScrollView(
-              padding: EdgeInsets.only(bottom: AppPadding.p24),
+              padding: const EdgeInsets.only(bottom: AppPadding.p24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  SizedBox(height: AppSize.s24),
-                  SectionLabel(title: 'تفاصيل الخدمة'),
-                  ServiceDescription(),
-                  SizedBox(height: AppSize.s24),
-                  ServiceRatingRow(serviceType: 'test', rate: '3.5'),
-                  SizedBox(height: AppSize.s24),
-                  SectionLabel(title: 'الموقع'),
-                  ServiceLocation(),
-                  SizedBox(height: AppSize.s24),
-                  SectionLabel(title: 'أوقات الدوام :'),
-                  SizedBox(height: AppSize.s8),
-                  WorkingHoursRow(startTime: '10:30', endTime: '10:30'),
-                  SizedBox(height: AppSize.s24),
-                  SectionLabel(title: 'تواصل مع المكتب:'),
-                  SizedBox(height: AppSize.s16),
-                  SocialIconsRow(
+                  const SizedBox(height: AppSize.s24),
+                  const SectionLabel(title: 'تفاصيل الخدمة'),
+                  const ServiceDescription(),
+                  const SizedBox(height: AppSize.s24),
+                  Obx(
+                    () => ServiceRatingRow(
+                      serviceType: 'test',
+                      rate: controller.rating.value.toString(),
+                      onRatingChanged: (newRating) {
+                        controller.updateOfficeRating(newRating);
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: AppSize.s24),
+                  const SectionLabel(title: 'الموقع'),
+                  const ServiceLocation(),
+                  const SizedBox(height: AppSize.s24),
+                  const SectionLabel(title: 'أوقات الدوام :'),
+                  const SizedBox(height: AppSize.s8),
+                  const WorkingHoursRow(startTime: '10:30', endTime: '10:30'),
+                  const SizedBox(height: AppSize.s24),
+                  const SectionLabel(title: 'تواصل مع المكتب:'),
+                  const SizedBox(height: AppSize.s16),
+                  const SocialIconsRow(
                     instagramUrl: 'https://www.instagram.com/flutter.dev/',
                     whatsappUrl: 'https://wa.me/0988861119',
                     facebookUrl: 'https://www.facebook.com/fluttercommunity',
