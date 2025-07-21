@@ -108,6 +108,7 @@ class CurrentBillCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: Get.textTheme.bodyLarge!.copyWith(
                       fontSize: FontSize.s12,
+                      color: ColorManager.cardHead,
                     ),
                   ),
                 ],
