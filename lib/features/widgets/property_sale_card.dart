@@ -59,9 +59,9 @@ class PropertySaleCard extends StatelessWidget {
                     backgroundColor: ColorManager.cardBackground,
                     child: IconButton(
                       onPressed: () {},
-                      icon: Assets.icons.favorite.svg(
+                      icon: Assets.icons.favoriteFillIcon.svg(
                         colorFilter: const ColorFilter.mode(
-                          ColorManager.redColor,
+                          ColorManager.grey3,
                           BlendMode.srcIn,
                         ),
                       ),

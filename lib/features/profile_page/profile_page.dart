@@ -14,7 +14,7 @@ class ProfilePage extends GetView<ProfileController> {
   Widget build(BuildContext context) {
     Get.put(ProfileController());
     return Scaffold(
-      appBar: const NormalAppBar(title: "املف الشخصي"),
+      appBar: const NormalAppBar(title: "الملف الشخصي"),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,

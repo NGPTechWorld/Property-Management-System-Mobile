@@ -73,11 +73,11 @@ class PropertyRentCard2Small extends StatelessWidget {
                         color: ColorManager.cardBackground,
                       ),
                       child: Center(
-                        child: Assets.icons.favorite.svg(
-                          width: 24,
-                          height: 24,
+                        child: Assets.icons.favoriteFillIcon.svg(
+                          width: 16, // 👈 حجم الأيقونة
+
                           colorFilter: const ColorFilter.mode(
-                            ColorManager.redColor,
+                            ColorManager.grey3,
                             BlendMode.srcIn,
                           ),
                         ),
@@ -184,13 +184,13 @@ class PropertyRentCard2Small extends StatelessWidget {
 
             Container(
               padding: const EdgeInsets.all(4),
-              decoration: const BoxDecoration(
-                color: ColorManager.primaryColor,
+              decoration: BoxDecoration(
                 shape: BoxShape.circle,
+                color: ColorManager.primaryDark.withAlpha(20),
               ),
               child: Assets.icons.arrowPrevSmall.svg(
                 colorFilter: const ColorFilter.mode(
-                  ColorManager.white,
+                  ColorManager.primaryDark,
                   BlendMode.srcIn,
                 ),
               ),

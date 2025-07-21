@@ -142,6 +142,13 @@ class $AssetsIconsGen {
   /// File path: assets/icons/favorite.svg
   SvgGenImage get favorite => const SvgGenImage('assets/icons/favorite.svg');
 
+  /// File path: assets/icons/favorite2.svg
+  SvgGenImage get favorite2 => const SvgGenImage('assets/icons/favorite2.svg');
+
+  /// File path: assets/icons/favorite_fill_icon.svg
+  SvgGenImage get favoriteFillIcon =>
+      const SvgGenImage('assets/icons/favorite_fill_icon.svg');
+
   /// File path: assets/icons/file-pencil.svg
   SvgGenImage get filePencil =>
       const SvgGenImage('assets/icons/file-pencil.svg');
@@ -273,6 +280,9 @@ class $AssetsIconsGen {
   SvgGenImage get supportIcon =>
       const SvgGenImage('assets/icons/support_icon.svg');
 
+  /// File path: assets/icons/target.svg
+  SvgGenImage get target => const SvgGenImage('assets/icons/target.svg');
+
   /// File path: assets/icons/telegram.svg
   SvgGenImage get telegram => const SvgGenImage('assets/icons/telegram.svg');
 
@@ -338,6 +348,8 @@ class $AssetsIconsGen {
     eyeIcon,
     facebook,
     favorite,
+    favorite2,
+    favoriteFillIcon,
     filePencil,
     filePlusAlt,
     fileZipper,
@@ -375,6 +387,7 @@ class $AssetsIconsGen {
     starCircle,
     summaryIcon,
     supportIcon,
+    target,
     telegram,
     tourisem,
     uploadIcon,
