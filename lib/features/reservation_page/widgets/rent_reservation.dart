@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:property_ms/features/reservation_page/sub_pages/reservation_details/reservation_details.dart';
 import 'package:property_ms/features/reservation_page/widgets/reservation_card.dart';
 
 class RentReservation extends StatelessWidget {
@@ -9,15 +11,18 @@ class RentReservation extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          ReservationCard(
-            model: ReservationCardModel(
-              title: "بيت 200م",
-              location: "دمشق , ميدان",
-              endDate: '2025-12-20',
-              startDate: '2025-05-20',
-              image: "image",
-              state: "مؤجر",
-              type: "إيجار",
+          GestureDetector(
+            onTap: () => Get.to(const ReservationDetails()),
+            child: ReservationCard(
+              model: ReservationCardModel(
+                title: "بيت 200م",
+                location: "دمشق , ميدان",
+                endDate: '2025-12-20',
+                startDate: '2025-05-20',
+                image: "image",
+                state: "مؤجر",
+                type: "إيجار",
+              ),
             ),
           ),
           ReservationCard(
