@@ -10,6 +10,7 @@ class PropertySaleCardModel {
   final double area;
   final double price;
   final AssetGenImage image;
+  
   PropertySaleCardModel({
     required this.title,
     required this.location,
