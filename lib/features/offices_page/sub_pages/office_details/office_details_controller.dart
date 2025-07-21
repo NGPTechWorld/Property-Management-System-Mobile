@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
+import 'package:property_ms/features/offices_page/sub_pages/office_details/models/office_profile_model.dart';
 import 'package:property_ms/features/widgets/office_card.dart';
 import 'package:property_ms/features/widgets/property_rent_card2_small.dart';
 import 'package:property_ms/features/widgets/property_sale_card2_small.dart';
@@ -19,6 +20,18 @@ class OfficeDetailsController extends GetxController
     selectedFilterIndex.value = index;
     updateFilteredProperties();
   }
+
+  //office profile model
+  final officeProfileModel = OfficeProfileModel(
+    title: 'مكتب الطاحون',
+    image: Assets.images.officePropertyCard,
+    serviceType: 'عقاري',
+    rate: '4.5',
+    location: 'دمشق ميدان',
+    startWork: '09:30',
+    endWork: '09:00',
+    officeNumber: '0987654321',
+  );
 
   // officeProperties
   final officeProperties = [
@@ -127,14 +140,14 @@ class OfficeDetailsController extends GetxController
       // Example filter for rent properties
       filteredProperties.assignAll(
         officeProperties
-            .where((p) => p is PropertyRentCard2SmallModel)
+            .whereType<PropertyRentCard2SmallModel>()
             .toList(),
       );
     } else if (selectedFilterIndex.value == 2) {
       // Example filter for sale properties
       filteredProperties.assignAll(
         officeProperties
-            .where((p) => p is PropertySaleCard2SmallModel)
+            .whereType<PropertySaleCard2SmallModel>()
             .toList(),
       );
     }

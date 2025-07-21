@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/time_card.dart';
+import 'package:property_ms/features/widgets/office_profile_reusable_widgets/time_card.dart';
 
 class WorkingHoursRow extends StatelessWidget {
   const WorkingHoursRow({

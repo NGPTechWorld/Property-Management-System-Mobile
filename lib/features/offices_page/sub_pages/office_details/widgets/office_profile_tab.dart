@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/models/office_profile_model.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_controller.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/contact_card.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/location_row.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/section_label.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/service_rating_row.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/social_icons_row.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/working_hours_row.dart';
+import 'package:property_ms/features/widgets/office_profile_reusable_widgets/contact_card.dart';
+import 'package:property_ms/features/widgets/office_profile_reusable_widgets/location_row.dart';
+import 'package:property_ms/features/widgets/office_profile_reusable_widgets/section_label.dart';
+import 'package:property_ms/features/widgets/office_profile_reusable_widgets/service_rating_row.dart';
+import 'package:property_ms/features/widgets/office_profile_reusable_widgets/social_icons_row.dart';
+import 'package:property_ms/features/widgets/office_profile_reusable_widgets/working_hours_row.dart';
 
 class OfficeProfileTab extends GetView<OfficeDetailsController> {
   const OfficeProfileTab({super.key, required this.model});

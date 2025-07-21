@@ -1,26 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/routes/app_routes.dart';
-import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/contact_card.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/image_with_title_section.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/lacation_card.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/section_label.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/service_rating_row.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/social_icons_row.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/working_hours_row.dart';
-
-import 'service_detail_controller.dart';
+import 'package:property_ms/features/services_page/sub_pages/services_details/service_detail_controller.dart';
+import 'package:property_ms/features/widgets/office_profile_reusable_widgets/contact_card.dart';
+import 'package:property_ms/features/widgets/office_profile_reusable_widgets/image_with_title_section.dart';
+import 'package:property_ms/features/widgets/office_profile_reusable_widgets/lacation_card.dart';
+import 'package:property_ms/features/widgets/office_profile_reusable_widgets/section_label.dart';
+import 'package:property_ms/features/widgets/office_profile_reusable_widgets/service_rating_row.dart';
+import 'package:property_ms/features/widgets/office_profile_reusable_widgets/social_icons_row.dart';
+import 'package:property_ms/features/widgets/office_profile_reusable_widgets/working_hours_row.dart';
 
 class ServiceDetailPage extends GetView<ServiceDetailController> {
   const ServiceDetailPage({super.key});
-  //! @OsamaZerkawi Create Model here
+
   @override
   Widget build(BuildContext context) {
+    final service = controller.serviceDetaitModel;
+
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         backgroundColor: ColorManager.lightPrimaryColor,
         actions: [
           PopupMenuButton<String>(
@@ -83,8 +84,8 @@ class ServiceDetailPage extends GetView<ServiceDetailController> {
         children: [
           // Fixed image section
           ImageWithTitleSection(
-            image: Assets.images.propertyCard.image().image,
-            title: 'المصور علي',
+            image: AssetImage(service.image),
+            title: service.title,
           ),
 
           // Scrollable content
@@ -96,31 +97,55 @@ class ServiceDetailPage extends GetView<ServiceDetailController> {
                 children: [
                   const SizedBox(height: AppSize.s24),
                   const SectionLabel(title: 'تفاصيل الخدمة'),
-                  const ServiceDescription(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppPadding.p16,
+                      vertical: AppPadding.p8,
+                    ),
+                    child: Text(
+                      service.description,
+                      style: Get.textTheme.bodyMedium?.copyWith(
+                        color: ColorManager.textColor1,
+                        height: 1.7,
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: AppSize.s24),
                   Obx(
                     () => ServiceRatingRow(
-                      serviceType: 'test',
+                      serviceType: service.serviceType,
                       rate: controller.rating.value.toString(),
-                      onRatingChanged: (newRating) {
-                        controller.updateOfficeRating(newRating);
-                      },
+                      onRatingChanged: controller.updateOfficeRating,
                     ),
                   ),
                   const SizedBox(height: AppSize.s24),
                   const SectionLabel(title: 'الموقع'),
-                  const ServiceLocation(),
+                  Center(
+                    child: SizedBox(
+                      width: AppSize.sWidth * .80,
+                      height: AppSize.s90,
+                      child: LocationCard(
+                        location: service.location,
+                        direction: Axis.horizontal,
+                        spacing: AppPadding.p50,
+                        iconSize: 48,
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: AppSize.s24),
                   const SectionLabel(title: 'أوقات الدوام :'),
                   const SizedBox(height: AppSize.s8),
-                  const WorkingHoursRow(startTime: '10:30', endTime: '10:30'),
+                  WorkingHoursRow(
+                    startTime: service.startWork,
+                    endTime: service.endWork,
+                  ),
                   const SizedBox(height: AppSize.s24),
                   const SectionLabel(title: 'تواصل مع المكتب:'),
                   const SizedBox(height: AppSize.s16),
-                  const SocialIconsRow(
-                    instagramUrl: 'https://www.instagram.com/flutter.dev/',
-                    whatsappUrl: 'https://wa.me/0988861119',
-                    facebookUrl: 'https://www.facebook.com/fluttercommunity',
+                  SocialIconsRow(
+                    instagramUrl: service.instagramUrl,
+                    whatsappUrl: service.whatsappUrl,
+                    facebookUrl: service.facebookUrl,
                   ),
                 ],
               ),
@@ -128,48 +153,10 @@ class ServiceDetailPage extends GetView<ServiceDetailController> {
           ),
         ],
       ),
-      bottomNavigationBar: const SafeArea(
-        child: ContactCard(phoneNumber: '0987654321', name: 'المصور علي 2'),
-      ),
-    );
-  }
-}
-
-class ServiceLocation extends StatelessWidget {
-  const ServiceLocation({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        width: AppSize.sWidth * .80,
-        height: AppSize.s90,
-        child: const LocationCard(
-          location: 'دمشق ميدان',
-          direction: Axis.horizontal,
-          spacing: AppPadding.p50,
-          iconSize: 48,
-        ),
-      ),
-    );
-  }
-}
-
-class ServiceDescription extends StatelessWidget {
-  const ServiceDescription({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppPadding.p16,
-        vertical: AppPadding.p8,
-      ),
-      child: Text(
-        'هذه الخدمة تقدم تصويراً احترافياً للعقارات مع إضاءة متقنة وزوايا تصوير مميزة لعرض العقار بأفضل صورة. نستخدم أحدث المعدات والتقنيات لضمان جودة عالية.',
-        style: Get.textTheme.bodyMedium?.copyWith(
-          color: ColorManager.textColor1,
-          height: 1.7,
+      bottomNavigationBar: SafeArea(
+        child: ContactCard(
+          phoneNumber: service.phoneNumber,
+          name: service.title,
         ),
       ),
     );

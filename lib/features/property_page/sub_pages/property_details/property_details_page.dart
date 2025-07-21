@@ -3,12 +3,12 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/features/offices_page/widgets/office_card_style2.dart';
-import 'package:property_ms/features/property_details/property_details_controller.dart';
-import 'package:property_ms/features/property_details/widget/image_carousel.dart';
-import 'package:property_ms/features/property_details/widget/property_details_widget.dart';
-import 'package:property_ms/features/property_details/widget/property_header.dart';
-import 'package:property_ms/features/property_details/widget/related_properties_widgets.dart';
-import 'package:property_ms/features/property_details/widget/room_details_widget.dart';
+import 'package:property_ms/features/property_page/sub_pages/property_details/property_details_controller.dart';
+import 'package:property_ms/features/widgets/property_reusable_widget/image_carousel.dart';
+import 'package:property_ms/features/property_page/sub_pages/property_details/widget/property_details_widget.dart';
+import 'package:property_ms/features/property_page/sub_pages/property_details/widget/property_header.dart';
+import 'package:property_ms/features/property_page/sub_pages/property_details/widget/related_properties_widgets.dart';
+import 'package:property_ms/features/property_page/sub_pages/property_details/widget/room_details_widget.dart';
 import 'package:property_ms/features/widgets/price_section.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -122,7 +122,7 @@ class PropertyDetailsPage extends GetView<PropertyDetailsController> {
   }
 }
 
-//! @OsamaZerkawi : kept them for their look 
+//! kept them for their look 
 // class FeaturesGrid extends StatelessWidget {
 //   const FeaturesGrid({
 //     super.key,

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/features/property_details/widget/details_container.dart';
-import 'package:property_ms/features/property_details/widget/model/detail_item.dart';
+import 'package:property_ms/features/widgets/property_reusable_widget/details_container.dart';
 
 class RoomDetailsWidget extends StatelessWidget {
   const RoomDetailsWidget({super.key});

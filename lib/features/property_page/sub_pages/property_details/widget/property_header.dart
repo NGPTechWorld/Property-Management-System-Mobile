@@ -4,8 +4,8 @@ import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/app_button.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/lacation_card.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/widgets/reusable/map_button.dart';
+import 'package:property_ms/features/widgets/office_profile_reusable_widgets/lacation_card.dart';
+import 'package:property_ms/features/widgets/office_profile_reusable_widgets/map_button.dart';
 
 class PropertyHeader extends StatelessWidget {
   const PropertyHeader({super.key});
