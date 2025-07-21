@@ -24,9 +24,12 @@ import 'package:property_ms/features/services_page/services_controller.dart';
 import 'package:property_ms/features/services_page/services_page.dart';
 import 'package:property_ms/features/services_page/sub_pages/report/report_service_controller.dart';
 import 'package:property_ms/features/services_page/sub_pages/report/report_service_page.dart';
+import 'package:property_ms/features/services_page/sub_pages/services_details/service_detail_controller.dart';
 import 'package:property_ms/features/services_page/sub_pages/services_details/service_detail_page.dart';
 import 'package:property_ms/features/splash/splash_controller.dart';
 import 'package:property_ms/features/splash/splash_page.dart';
+import 'package:property_ms/features/tourisem_page/sub_pages/tourism_details/tourism_details_controller.dart';
+import 'package:property_ms/features/tourisem_page/sub_pages/tourism_details/tourism_details_page.dart';
 import 'package:property_ms/features/tourisem_page/tourisem_controller.dart';
 import 'package:property_ms/features/tourisem_page/tourisem_page.dart';
 
@@ -81,7 +84,7 @@ abstract class NavigationManager {
     GetPage(
       name: AppRoutes.serviceDetails,
       page: () => const ServiceDetailPage(),
-      binding: BindingsBuilder.put(() => ServicesController()),
+      binding: BindingsBuilder.put(() => ServiceDetailController()),
     ),
     GetPage(
       name: AppRoutes.reportOfficePage,
@@ -102,6 +105,11 @@ abstract class NavigationManager {
       name: AppRoutes.tourisemRoute,
       page: () => const TourisemPage(),
       binding: BindingsBuilder.put(() => TourisemController()),
+    ),
+    GetPage(
+      name: AppRoutes.tourismDetailsPage,
+      page: () => const TourismDetailsPage(),
+      binding: BindingsBuilder.put(() => TourismDetailsController()),
     ),
     // GetPage(
     //   name: AppRoutes.loginRoute,

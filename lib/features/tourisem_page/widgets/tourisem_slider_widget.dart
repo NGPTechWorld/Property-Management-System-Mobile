@@ -1,4 +1,5 @@
 import 'dart:math';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,7 +21,7 @@ class TourisemSliderWidget extends GetView<TourisemController> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
             child: Text(
-              "أمكان سياحية مميزة",
+              "أماكن سياحية مميزة",
               style: Get.textTheme.headlineMedium!.copyWith(
                 color: ColorManager.secColor,
               ),

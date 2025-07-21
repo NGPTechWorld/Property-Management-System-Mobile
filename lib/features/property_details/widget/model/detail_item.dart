@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ! @Osama move it to resusabel
 class DetailItem {
   final String label;
   final String value;

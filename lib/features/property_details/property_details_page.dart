@@ -5,11 +5,11 @@ import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/features/offices_page/widgets/office_card_style2.dart';
 import 'package:property_ms/features/property_details/property_details_controller.dart';
 import 'package:property_ms/features/property_details/widget/image_carousel.dart';
-import 'package:property_ms/features/property_details/widget/price_section.dart';
 import 'package:property_ms/features/property_details/widget/property_details_widget.dart';
 import 'package:property_ms/features/property_details/widget/property_header.dart';
 import 'package:property_ms/features/property_details/widget/related_properties_widgets.dart';
 import 'package:property_ms/features/property_details/widget/room_details_widget.dart';
+import 'package:property_ms/features/widgets/price_section.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PropertyDetailsPage extends GetView<PropertyDetailsController> {
@@ -61,8 +61,13 @@ class PropertyDetailsPage extends GetView<PropertyDetailsController> {
                           ),
                         )
                         : ImageCarousel(
-                          controller: controller,
-                          height: appBarHeight,
+                          images:
+                              controller.images
+                                  .map((asset) => asset.provider())
+                                  .toList(),
+                          currentIndex: controller.sliderIndex,
+                          activeDotColor: ColorManager.primaryColor,
+                          inactiveDotColor: Colors.grey.shade300,
                         );
                   }),
                 ),
@@ -116,39 +121,60 @@ class PropertyDetailsPage extends GetView<PropertyDetailsController> {
     );
   }
 }
+
+//! @OsamaZerkawi : kept them for their look 
 // class FeaturesGrid extends StatelessWidget {
-//   const FeaturesGrid({super.key});
+//   const FeaturesGrid({
+//     super.key,
+//     required this.features,
+//     this.icon = const Icon(Icons.check_circle, size: 16, color: Colors.green),
+//     this.crossAxisCount = 2,
+//     this.childAspectRatio = 4,
+//     this.crossAxisSpacing = 8,
+//     this.mainAxisSpacing = 8,
+//     this.backgroundColor = const Color(0xFFF0F0F0), // Light grey fallback
+//     this.textStyle,
+//   });
+
+//   final List<String> features;
+//   final Icon icon;
+//   final int crossAxisCount;
+//   final double childAspectRatio;
+//   final double crossAxisSpacing;
+//   final double mainAxisSpacing;
+//   final Color backgroundColor;
+//   final TextStyle? textStyle;
 
 //   @override
 //   Widget build(BuildContext context) {
-//     final features = ["موقف سيارات", "حديقة", "مصعد", "انترنت", "تكييف", "أمن"];
-
 //     return GridView.builder(
 //       shrinkWrap: true,
 //       physics: const NeverScrollableScrollPhysics(),
 //       itemCount: features.length,
-//       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//         crossAxisCount: 2,
-//         childAspectRatio: 4,
-//         crossAxisSpacing: 8,
-//         mainAxisSpacing: 8,
+//       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+//         crossAxisCount: crossAxisCount,
+//         childAspectRatio: childAspectRatio,
+//         crossAxisSpacing: crossAxisSpacing,
+//         mainAxisSpacing: mainAxisSpacing,
 //       ),
 //       itemBuilder: (context, index) {
 //         return Container(
 //           decoration: BoxDecoration(
-//             color: ColorManager.cardBack3,
-//             borderRadius: BorderRadius.circular(AppSize.s8),
+//             color: backgroundColor,
+//             borderRadius: BorderRadius.circular(8),
 //           ),
-//           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p12),
+//           padding: const EdgeInsets.symmetric(horizontal: 12),
 //           child: Row(
 //             children: [
-//               const Icon(
-//                 Icons.check_circle,
-//                 size: 16,
-//                 color: ColorManager.greenColor,
+//               icon,
+//               const SizedBox(width: 8),
+//               Expanded(
+//                 child: Text(
+//                   features[index],
+//                   style: textStyle ?? Theme.of(context).textTheme.bodyMedium,
+//                   overflow: TextOverflow.ellipsis,
+//                 ),
 //               ),
-//               const SizedBox(width: AppSize.s8),
-//               Text(features[index]),
 //             ],
 //           ),
 //         );

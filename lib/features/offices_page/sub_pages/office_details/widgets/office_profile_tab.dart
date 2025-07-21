@@ -26,8 +26,15 @@ class OfficeProfileTab extends GetView<OfficeDetailsController> {
             const SizedBox(height: AppSize.s24),
 
             const SectionLabel(title: 'نشاط المكتب'),
-            ServiceRatingRow(serviceType: model.serviceType, rate: model.rate),
-
+            Obx(
+              () => ServiceRatingRow(
+                serviceType: model.serviceType,
+                rate: controller.rating.value.toString(),
+                onRatingChanged: (newRating) {
+                  controller.updateRating(newRating);
+                },
+              ),
+            ),
             const SizedBox(height: AppSize.s24),
             const SectionLabel(title: 'الموقع:'),
             const SizedBox(height: AppSize.s8),
