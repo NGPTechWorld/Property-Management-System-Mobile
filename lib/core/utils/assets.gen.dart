@@ -91,6 +91,9 @@ class $AssetsIconsGen {
   SvgGenImage get arrowBackIcon =>
       const SvgGenImage('assets/icons/arrow_back_icon.svg');
 
+  /// File path: assets/icons/box.svg
+  SvgGenImage get box => const SvgGenImage('assets/icons/box.svg');
+
   /// File path: assets/icons/call_icon.svg
   SvgGenImage get callIcon => const SvgGenImage('assets/icons/call_icon.svg');
 
@@ -201,6 +204,9 @@ class $AssetsIconsGen {
   SvgGenImage get locationIcon =>
       const SvgGenImage('assets/icons/location_icon.svg');
 
+  /// File path: assets/icons/logout.svg
+  SvgGenImage get logout => const SvgGenImage('assets/icons/logout.svg');
+
   /// File path: assets/icons/mail_icon.svg
   SvgGenImage get mailIcon => const SvgGenImage('assets/icons/mail_icon.svg');
 
@@ -224,6 +230,9 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/phone.svg
   SvgGenImage get phone => const SvgGenImage('assets/icons/phone.svg');
+
+  /// File path: assets/icons/posts.svg
+  SvgGenImage get posts => const SvgGenImage('assets/icons/posts.svg');
 
   /// File path: assets/icons/property.svg
   SvgGenImage get property => const SvgGenImage('assets/icons/property.svg');
@@ -311,6 +320,7 @@ class $AssetsIconsGen {
     advertisimentIcon,
     arrowPrevSmall,
     arrowBackIcon,
+    box,
     callIcon,
     cameraAddIcon,
     cancelIcon,
@@ -342,6 +352,7 @@ class $AssetsIconsGen {
     layoutListIcon,
     linkIcon,
     locationIcon,
+    logout,
     mailIcon,
     mapIcon,
     moreIcon,
@@ -349,6 +360,7 @@ class $AssetsIconsGen {
     passwordIcon,
     pencilIcon,
     phone,
+    posts,
     property,
     reports,
     resumeManageIcon,

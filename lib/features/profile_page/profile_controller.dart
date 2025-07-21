@@ -11,4 +11,5 @@ class ProfileController extends GetxController {
     mainController.changePage(0);
     Get.snackbar("نجاح", "تم تسجيل الخروج");
   }
+  
 }
