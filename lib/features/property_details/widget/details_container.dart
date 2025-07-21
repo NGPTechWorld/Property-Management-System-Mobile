@@ -6,7 +6,7 @@ import 'package:property_ms/features/property_details/widget/model/detail_item.d
 
 class DetailsContainer extends StatelessWidget {
   final List<DetailItem> details;
-
+  // ! @Osama move it to resusabel
   const DetailsContainer({super.key, required this.details});
 
   @override
