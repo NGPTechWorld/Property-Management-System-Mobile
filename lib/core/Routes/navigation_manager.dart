@@ -42,7 +42,7 @@ abstract class NavigationManager {
     ),
     GetPage(
       name: AppRoutes.splashRoute,
-      page: () => const SplashPage(),
+      page: () => SplashPage(),
       binding: BindingsBuilder.put(() => SplashController()),
     ),
     GetPage(

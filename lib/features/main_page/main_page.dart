@@ -66,7 +66,8 @@ class MainPageNavBar extends GetView<MainController> {
               final user = controller.cacheService.getData(key: kUserToken);
               log(user.toString());
               if (index == 4 && user == null) {
-                Get.offAllNamed(AppRoutes.loginRoute);
+                // Get.offAllNamed(AppRoutes.loginRoute);
+                controller.changePage(index);
               } else {
                 controller.changePage(index);
               }

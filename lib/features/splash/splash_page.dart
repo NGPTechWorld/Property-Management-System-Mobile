@@ -1,32 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
+import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/core/utils/widgets/bubble_background.dart';
+import 'splash_controller.dart';
 
-import '../../core/routes/app_routes.dart';
+class SplashPage extends StatelessWidget {
+  SplashPage({super.key});
 
-class SplashPage extends StatefulWidget {
-  const SplashPage({super.key});
-
-  @override
-  State<SplashPage> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashPage> {
-  @override
-  void initState() {
-    super.initState();
-    //todo: this is a placeholder:
-    //! @MohamadAliAlnuaimi please check the auth state here:
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacementNamed(Get.context!, AppRoutes.mainRoute);
-    });
-  }
-
+  final SplashController controller = Get.put(SplashController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Center(child: Assets.images.logo.image(fit: BoxFit.contain)),
+      body: Stack(
+        children: [
+          const BubbleBackground(),
+          Center(
+            child: AnimatedBuilder(
+              animation: controller.animationController,
+              builder: (context, child) {
+                return Opacity(
+                  opacity: controller.opacityAnimation.value,
+                  child: Transform.scale(
+                    scale: controller.scaleAnimation.value,
+                    child: Assets.icons.logo.svg(
+                      fit: BoxFit.contain,
+                      width: AppSize.sWidth * 0.30,
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

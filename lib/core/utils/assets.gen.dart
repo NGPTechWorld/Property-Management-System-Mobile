@@ -204,6 +204,9 @@ class $AssetsIconsGen {
   SvgGenImage get locationIcon =>
       const SvgGenImage('assets/icons/location_icon.svg');
 
+  /// File path: assets/icons/logo.svg
+  SvgGenImage get logo => const SvgGenImage('assets/icons/logo.svg');
+
   /// File path: assets/icons/logout.svg
   SvgGenImage get logout => const SvgGenImage('assets/icons/logout.svg');
 
@@ -352,6 +355,7 @@ class $AssetsIconsGen {
     layoutListIcon,
     linkIcon,
     locationIcon,
+    logo,
     logout,
     mailIcon,
     mapIcon,
