@@ -1,5 +1,6 @@
 import 'package:get/get_instance/src/bindings_interface.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:get/route_manager.dart';
 import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/features/auth/login/login_controller.dart';
 import 'package:property_ms/features/auth/login/login_page.dart';
@@ -80,6 +81,8 @@ abstract class NavigationManager {
       name: AppRoutes.propertyRoute,
       page: () => const PropertyPage(),
       binding: BindingsBuilder.put(() => PropertyController()),
+      // transition: Transition.native,
+      // transitionDuration: const Duration(milliseconds: 500),
     ),
     GetPage(
       name: AppRoutes.serviceDetails,
