@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/features/offices_page/widgets/office_card_style2.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/property_details_controller.dart';
-import 'package:property_ms/features/widgets/property_reusable_widget/image_carousel.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/property_details_widget.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/property_header.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/related_properties_widgets.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/room_details_widget.dart';
 import 'package:property_ms/features/widgets/price_section.dart';
+import 'package:property_ms/features/widgets/property_reusable_widget/image_carousel.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PropertyDetailsPage extends GetView<PropertyDetailsController> {
@@ -29,9 +30,7 @@ class PropertyDetailsPage extends GetView<PropertyDetailsController> {
               SliverAppBar(
                 expandedHeight: appBarHeight,
                 toolbarHeight: kToolbarHeight + AppSize.s10,
-                // pinned: true,
                 elevation: 0,
-                // backgroundColor: Colors.black,
                 leading: IconButton(
                   icon: Container(
                     height: AppSize.s40,
@@ -62,8 +61,10 @@ class PropertyDetailsPage extends GetView<PropertyDetailsController> {
                         )
                         : ImageCarousel(
                           images:
-                              controller.images
-                                  .map((asset) => asset.provider())
+                              controller.propertyDetails.images
+                                  .map<ImageProvider<Object>>(
+                                    (asset) => asset.provider(),
+                                  )
                                   .toList(),
                           currentIndex: controller.sliderIndex,
                           activeDotColor: ColorManager.primaryColor,
@@ -91,7 +92,7 @@ class PropertyDetailsPage extends GetView<PropertyDetailsController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const PropertyHeader(),
+                      PropertyHeader(model: controller.propertyDetails),
                       const SizedBox(height: AppSize.s24),
                       Text(
                         'المكتب المسؤول',
@@ -100,9 +101,21 @@ class PropertyDetailsPage extends GetView<PropertyDetailsController> {
                         ),
                       ),
                       const SizedBox(height: AppSize.s12),
-                      OfficeCardStyle2(model: controller.repsonsibleOffice),
-                      const PropertyDetailsWidget(),
-                      const RoomDetailsWidget(),
+                      GestureDetector(
+                        onDoubleTap:
+                            () => Get.toNamed(
+                              AppRoutes.officeDetails,
+                              arguments:
+                                  controller.propertyDetails.responsibleOffice,
+                            ),
+                        child: OfficeCardStyle2(
+                          model: controller.propertyDetails.responsibleOffice,
+                        ),
+                      ),
+                      PropertyDetailsWidget(model: controller.propertyDetails),
+                      RoomDetailsWidget(
+                        roomDetails: controller.propertyDetails.roomDetails,
+                      ),
                       RelatedPropertiesWidgets(controller: controller),
                     ],
                   ),
@@ -112,6 +125,7 @@ class PropertyDetailsPage extends GetView<PropertyDetailsController> {
           ),
         ),
       ),
+
       bottomNavigationBar: PriceSection(
         price: '\$30,000',
         onPressed: () {
@@ -121,7 +135,6 @@ class PropertyDetailsPage extends GetView<PropertyDetailsController> {
     );
   }
 }
-
 //! kept them for their look 
 // class FeaturesGrid extends StatelessWidget {
 //   const FeaturesGrid({

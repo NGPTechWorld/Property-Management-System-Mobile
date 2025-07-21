@@ -4,11 +4,15 @@ import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/app_button.dart';
+import 'package:property_ms/features/property_page/sub_pages/property_details/model/property_details_model.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/lacation_card.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/map_button.dart';
 
 class PropertyHeader extends StatelessWidget {
-  const PropertyHeader({super.key});
+  final PropertyDetailsModel model;
+
+  const PropertyHeader({super.key, required this.model});
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -17,11 +21,11 @@ class PropertyHeader extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Row(
+            Row(
               children: [
-                Icon(Icons.access_time),
-                SizedBox(width: AppSize.s18),
-                Text('تاريخ النشر :  2015/4/23'),
+                const Icon(Icons.access_time),
+                const SizedBox(width: AppSize.s18),
+                Text('تاريخ النشر :  ${model.publishDate}'),
               ],
             ),
             Padding(
@@ -33,7 +37,7 @@ class PropertyHeader extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
-                  'للبيع',
+                  model.status,
                   style: Get.textTheme.bodySmall!.copyWith(
                     color: ColorManager.whiteColor,
                     fontWeight: FontWeight.bold,
@@ -47,7 +51,7 @@ class PropertyHeader extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "العنوان:  بيت أبو العود",
+              "العنوان: ${model.title}",
               style: Get.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.bold,
                 color: ColorManager.primaryDark,
@@ -68,9 +72,9 @@ class PropertyHeader extends StatelessWidget {
           ],
         ),
         const SizedBox(height: AppSize.s16),
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [LocationCard(location: 'ريف,دمشق قدسيا'), MapButton()],
+          children: [LocationCard(location: model.location), const MapButton()],
         ),
       ],
     );

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/features/property_page/sub_pages/property_details/model/property_details_model.dart';
 import 'package:property_ms/features/widgets/property_reusable_widget/details_container.dart';
 
 class PropertyDetailsWidget extends StatelessWidget {
-  const PropertyDetailsWidget({super.key});
+  final PropertyDetailsModel model;
+
+  const PropertyDetailsWidget({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -22,23 +25,35 @@ class PropertyDetailsWidget extends StatelessWidget {
           details: [
             DetailItem(
               label: "المساحة",
-              value: "120 م²",
+              value: model.area,
               icon: Icons.square_foot,
             ),
             DetailItem(
               label: "نوع الملكية",
-              value: "سكني",
+              value: model.ownershipType,
               icon: Icons.home_work_outlined,
             ),
-            DetailItem(label: "الجهة", value: "جنوبية", icon: Icons.explore),
-            DetailItem(label: "الفرش", value: "مفروش", icon: Icons.weekend),
+            DetailItem(
+              label: "الجهة",
+              value: model.orientation,
+              icon: Icons.explore,
+            ),
+            DetailItem(
+              label: "الفرش",
+              value: model.furnishing,
+              icon: Icons.weekend,
+            ),
             DetailItem(
               label: "عدد الغرف",
-              value: "3",
+              value: model.roomCount.toString(),
               icon: Icons.meeting_room_outlined,
             ),
-            DetailItem(label: "التقسيط", value: "متاح", icon: Icons.payments),
-            DetailItem(label: "الطابق", value: "الثالث", icon: Icons.stairs),
+            DetailItem(
+              label: "التقسيط",
+              value: model.installmentAvailable,
+              icon: Icons.payments,
+            ),
+            DetailItem(label: "الطابق", value: model.floor, icon: Icons.stairs),
           ],
         ),
       ],
