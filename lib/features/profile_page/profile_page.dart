@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
@@ -34,7 +35,7 @@ class ProfilePage extends GetView<ProfileController> {
               title: "ممتلكاتي",
               icon: Assets.icons.box,
               onTap: () {
-                log("test");
+                Get.toNamed(AppRoutes.mySalesRoute);
               },
             ),
             SettingsCard(

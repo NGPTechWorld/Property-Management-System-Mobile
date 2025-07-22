@@ -11,10 +11,13 @@ import 'package:property_ms/features/auth/resetpassword/reset_password_page.dart
 import 'package:property_ms/features/auth/signup/signup_controller.dart';
 import 'package:property_ms/features/auth/signup/signup_page.dart';
 import 'package:property_ms/features/auth/signup/sub_pages/signup_step2/signup_2_page.dart';
+import 'package:property_ms/features/contract_details/contract_details.dart';
 import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/main_page/main_page.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_controller.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_page.dart';
+import 'package:property_ms/features/profile_page/sub_pages/my_sales_page/my_sales_controller.dart';
+import 'package:property_ms/features/profile_page/sub_pages/my_sales_page/my_sales_page.dart';
 import 'package:property_ms/features/property_page/property_controller.dart';
 import 'package:property_ms/features/property_page/property_page.dart';
 import 'package:property_ms/features/offices_page/sub_pages/report/report_office_controller.dart';
@@ -113,6 +116,15 @@ abstract class NavigationManager {
       name: AppRoutes.tourismDetailsPage,
       page: () => const TourismDetailsPage(),
       binding: BindingsBuilder.put(() => TourismDetailsController()),
+    ),
+    GetPage(
+      name: AppRoutes.mySalesRoute,
+      page: () => const MySalesPage(),
+      binding: BindingsBuilder.put(() => MySalesController()),
+    ),
+    GetPage(
+      name: AppRoutes.contractDetailsRoute,
+      page: () => const ContractDetails(),
     ),
     // GetPage(
     //   name: AppRoutes.loginRoute,

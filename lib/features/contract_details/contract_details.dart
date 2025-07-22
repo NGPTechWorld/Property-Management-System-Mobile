@@ -1,37 +1,67 @@
+import 'dart:developer';
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/features/reservation_page/sub_pages/reservation_details/reservation_details_controller.dart';
+import 'package:property_ms/features/contract_details/contract_details_controller.dart';
+import 'package:property_ms/features/profile_page/sub_pages/my_sales_page/widgets/sale_card.dart';
+
 import 'package:property_ms/features/reservation_page/widgets/reservation_card.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/tab/tab_body.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/tab/tab_title.dart';
 
-class ReservationDetails extends GetView<ReservationDetailsController> {
-  const ReservationDetails({super.key});
+class ContractDetails extends GetView<ContractDetailsController> {
+  const ContractDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
-    Get.put(ReservationDetailsController());
+    Get.put(ContractDetailsController());
+    log(controller.typeContract.value.name);
     return Scaffold(
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const HearderReservationDetails(),
+
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ReservationCard(
-              model: ReservationCardModel(
-                title: "بيت 200م",
-                location: "دمشق , ميدان",
-                endDate: '2025-12-20',
-                startDate: '2025-05-20',
-                image: "image",
-                state: "مؤجر",
-                type: "إيجار",
-              ),
-            ),
+            child:
+                controller.typeContract.value == ContractTypes.rentProperty
+                    ? ReservationCard(
+                      model: ReservationCardModel(
+                        title: "بيت 200م",
+                        location: "دمشق , ميدان",
+                        endDate: '2025-12-20',
+                        startDate: '2025-05-20',
+                        image: "image",
+                        state: "مؤجر",
+                        type: "إيجار",
+                      ),
+                    )
+                    : controller.typeContract.value == ContractTypes.rentToursem
+                    ? ReservationCard(
+                      model: ReservationCardModel(
+                        title: "فيلا 200م",
+                        location: "دمشق , ميدان",
+                        endDate: '2025-12-20',
+                        startDate: '2025-05-20',
+                        image: "image",
+                        state: "محجوز",
+                        type: "سياحي",
+                      ),
+                    )
+                    : SaleCard(
+                      model: SaleCardModel(
+                        title: "بيت 200م",
+                        location: "دمشق, ميدان",
+                        startDate: "2025-07-12",
+                        image: "",
+                        state: "تم البيع",
+                        price: "\$ 30k",
+                      ),
+                    ),
           ),
           TabTitle(
             tabs: controller.tabs,
@@ -192,8 +222,7 @@ class PastBillCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "الشهر "
-                        "1",
+                        "تاريخ الدفع ",
                         overflow: TextOverflow.ellipsis,
                         style: Get.textTheme.bodyLarge!.copyWith(
                           fontSize: FontSize.s12,
@@ -210,6 +239,29 @@ class PastBillCard extends StatelessWidget {
                     ],
                   ),
                 ),
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "السبب ",
+                        overflow: TextOverflow.ellipsis,
+                        style: Get.textTheme.bodyLarge!.copyWith(
+                          fontSize: FontSize.s12,
+                        ),
+                      ),
+                      Text(
+                        "الشهر 1",
+                        overflow: TextOverflow.ellipsis,
+                        style: Get.textTheme.bodyLarge!.copyWith(
+                          fontSize: FontSize.s12,
+                          color: ColorManager.cardHead,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -242,14 +294,14 @@ class PastBillCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "تاريخ الدفع ",
+                        "المبلغ",
                         overflow: TextOverflow.ellipsis,
                         style: Get.textTheme.bodyLarge!.copyWith(
                           fontSize: FontSize.s12,
                         ),
                       ),
                       Text(
-                        "2025-05-20",
+                        "\$500",
                         overflow: TextOverflow.ellipsis,
                         style: Get.textTheme.bodyLarge!.copyWith(
                           fontSize: FontSize.s12,
@@ -311,7 +363,7 @@ class PastBillCard extends StatelessWidget {
   }
 }
 
-class HearderReservationDetails extends StatelessWidget {
+class HearderReservationDetails extends GetView<ContractDetailsController> {
   const HearderReservationDetails({super.key});
 
   @override
@@ -341,13 +393,15 @@ class HearderReservationDetails extends StatelessWidget {
                   fontSize: FontSize.s24,
                 ),
               ),
-              Text(
-                "شهرياً",
-                overflow: TextOverflow.ellipsis,
-                style: Get.textTheme.bodyLarge!.copyWith(
-                  fontSize: FontSize.s14,
-                ),
-              ),
+              controller.typeContract.value == ContractTypes.rentProperty
+                  ? Text(
+                    "شهرياً",
+                    overflow: TextOverflow.ellipsis,
+                    style: Get.textTheme.bodyLarge!.copyWith(
+                      fontSize: FontSize.s14,
+                    ),
+                  )
+                  : Container(),
             ],
           ),
         ],

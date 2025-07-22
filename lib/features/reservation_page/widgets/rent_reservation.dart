@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:property_ms/features/reservation_page/sub_pages/reservation_details/reservation_details.dart';
+import 'package:property_ms/core/Routes/app_routes.dart';
+import 'package:property_ms/features/contract_details/contract_details_controller.dart';
 import 'package:property_ms/features/reservation_page/widgets/reservation_card.dart';
 
 class RentReservation extends StatelessWidget {
@@ -12,7 +13,11 @@ class RentReservation extends StatelessWidget {
       child: Column(
         children: [
           GestureDetector(
-            onTap: () => Get.to(const ReservationDetails()),
+            onTap:
+                () => Get.toNamed(
+                  AppRoutes.contractDetailsRoute,
+                  parameters: {"typeContract": ContractTypes.rentProperty.name},
+                ),
             child: ReservationCard(
               model: ReservationCardModel(
                 title: "بيت 200م",

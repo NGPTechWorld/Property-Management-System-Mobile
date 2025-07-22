@@ -33,6 +33,7 @@ class NormalAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         child: AppBar(
           backgroundColor: Colors.transparent,
+          iconTheme: const IconThemeData(color: ColorManager.whiteColor),
           elevation: 0,
           scrolledUnderElevation: 0,
           centerTitle: centerTitle,
