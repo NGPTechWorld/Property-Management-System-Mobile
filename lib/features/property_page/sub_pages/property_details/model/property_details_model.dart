@@ -15,6 +15,7 @@ class PropertyDetailsModel {
   final RoomDetails roomDetails;
   final List images;
   final OfficeCardModel responsibleOffice;
+  final String price;
 
   PropertyDetailsModel({
     required this.title,
@@ -31,6 +32,7 @@ class PropertyDetailsModel {
     required this.roomDetails,
     required this.images,
     required this.responsibleOffice,
+    required this.price,
   });
 }
 

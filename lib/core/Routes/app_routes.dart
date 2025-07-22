@@ -16,4 +16,5 @@ abstract class AppRoutes {
   static const String propertyRoute = "/propertyRoute";
   static const String tourisemRoute = "/tourisemRoute";
   static const String tourismDetailsPage = "/tourismDetailsPage";
+  static const String comparePropertiesPage = "/comparePropertiesPage";
 }

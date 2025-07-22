@@ -127,7 +127,7 @@ class PropertyDetailsPage extends GetView<PropertyDetailsController> {
       ),
 
       bottomNavigationBar: PriceSection(
-        price: '\$30,000',
+        price: controller.propertyDetails.price,
         onPressed: () {
           // Booking logic here
         },
