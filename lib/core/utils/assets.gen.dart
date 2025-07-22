@@ -405,6 +405,9 @@ class $AssetsIconsGen {
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/box.png
+  AssetGenImage get box => const AssetGenImage('assets/images/box.png');
+
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
@@ -439,8 +442,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/user.png
   AssetGenImage get user => const AssetGenImage('assets/images/user.png');
 
+  /// File path: assets/images/user2.png
+  AssetGenImage get user2 => const AssetGenImage('assets/images/user2.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
+    box,
     logo,
     officePropertyCard,
     officeServicesCard,
@@ -450,6 +457,7 @@ class $AssetsImagesGen {
     tourisem,
     tourisemCard,
     user,
+    user2,
   ];
 }
 

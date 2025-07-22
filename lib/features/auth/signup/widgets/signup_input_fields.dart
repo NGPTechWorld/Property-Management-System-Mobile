@@ -82,6 +82,7 @@ class SignupInputFields extends GetView<SignupController> {
               ),
             ),
           ),
+          
         ],
       ),
     );

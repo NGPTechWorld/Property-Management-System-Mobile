@@ -16,6 +16,10 @@ import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/main_page/main_page.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_controller.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_page.dart';
+import 'package:property_ms/features/profile_page/sub_pages/account_info_page/account_info_controller.dart';
+import 'package:property_ms/features/profile_page/sub_pages/account_info_page/account_info_page.dart';
+import 'package:property_ms/features/profile_page/sub_pages/favorites_page/favorites_controller.dart';
+import 'package:property_ms/features/profile_page/sub_pages/favorites_page/favorites_page.dart';
 import 'package:property_ms/features/profile_page/sub_pages/my_sales_page/my_sales_controller.dart';
 import 'package:property_ms/features/profile_page/sub_pages/my_sales_page/my_sales_page.dart';
 import 'package:property_ms/features/property_page/property_controller.dart';
@@ -125,6 +129,16 @@ abstract class NavigationManager {
     GetPage(
       name: AppRoutes.contractDetailsRoute,
       page: () => const ContractDetails(),
+    ),
+    GetPage(
+      name: AppRoutes.favoritesRoute,
+      page: () => const FavoritesPage(),
+      binding: BindingsBuilder.put(() => FavoritesController()),
+    ),
+    GetPage(
+      name: AppRoutes.accountInfoRoute,
+      page: () => const AccountInfoPage(),
+      binding: BindingsBuilder.put(() => AccountInfoController()),
     ),
     // GetPage(
     //   name: AppRoutes.loginRoute,

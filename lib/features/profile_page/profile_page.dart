@@ -28,7 +28,7 @@ class ProfilePage extends GetView<ProfileController> {
               title: "معلومات حسابي",
               icon: Assets.icons.users,
               onTap: () {
-                log("test");
+                Get.toNamed(AppRoutes.accountInfoRoute);
               },
             ),
             SettingsCard(
@@ -128,88 +128,91 @@ class FavAndPostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              height: AppSize.sHeight * 0.15,
-              padding: const EdgeInsets.all(AppPadding.p14),
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(AppSize.s30),
-                ),
-                border: Border.all(color: ColorManager.yello, width: 2),
-                color: ColorManager.yello.withAlpha(20),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Assets.icons.posts.svg(
-                    height: AppSize.sHeight * 0.04,
-                    colorFilter: const ColorFilter.mode(
-                      ColorManager.yello,
-                      BlendMode.srcIn,
-                    ),
+    return GestureDetector(
+      onTap: () => Get.toNamed(AppRoutes.favoritesRoute),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
+        child: Row(
+          children: [
+            Expanded(
+              child: Container(
+                height: AppSize.sHeight * 0.15,
+                padding: const EdgeInsets.all(AppPadding.p14),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(AppSize.s30),
                   ),
-                  const SizedBox(height: AppSize.s8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppPadding.p14,
-                    ),
-                    child: Text(
-                      "منشوراتي",
-                      style: Get.textTheme.bodyLarge!.copyWith(
-                        color: ColorManager.yello,
-                        fontSize: FontSize.s16,
+                  border: Border.all(color: ColorManager.yello, width: 2),
+                  color: ColorManager.yello.withAlpha(20),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Assets.icons.posts.svg(
+                      height: AppSize.sHeight * 0.04,
+                      colorFilter: const ColorFilter.mode(
+                        ColorManager.yello,
+                        BlendMode.srcIn,
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(width: AppSize.s16),
-          Expanded(
-            child: Container(
-              height: AppSize.sHeight * 0.15,
-              padding: const EdgeInsets.all(AppPadding.p14),
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(AppSize.s30),
-                ),
-                border: Border.all(color: ColorManager.redColor, width: 2),
-                color: ColorManager.redColor.withAlpha(20),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Assets.icons.favorite.svg(
-                    height: AppSize.sHeight * 0.04,
-                    colorFilter: const ColorFilter.mode(
-                      ColorManager.redColor,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                  const SizedBox(height: AppSize.s8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppPadding.p14,
-                    ),
-                    child: Text(
-                      "المفضلة",
-                      style: Get.textTheme.bodyLarge!.copyWith(
-                        color: ColorManager.redColor,
-                        fontSize: FontSize.s16,
+                    const SizedBox(height: AppSize.s8),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppPadding.p14,
+                      ),
+                      child: Text(
+                        "منشوراتي",
+                        style: Get.textTheme.bodyLarge!.copyWith(
+                          color: ColorManager.yello,
+                          fontSize: FontSize.s16,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+            const SizedBox(width: AppSize.s16),
+            Expanded(
+              child: Container(
+                height: AppSize.sHeight * 0.15,
+                padding: const EdgeInsets.all(AppPadding.p14),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(AppSize.s30),
+                  ),
+                  border: Border.all(color: ColorManager.redColor, width: 2),
+                  color: ColorManager.redColor.withAlpha(20),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Assets.icons.favorite.svg(
+                      height: AppSize.sHeight * 0.04,
+                      colorFilter: const ColorFilter.mode(
+                        ColorManager.redColor,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                    const SizedBox(height: AppSize.s8),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppPadding.p14,
+                      ),
+                      child: Text(
+                        "المفضلة",
+                        style: Get.textTheme.bodyLarge!.copyWith(
+                          color: ColorManager.redColor,
+                          fontSize: FontSize.s16,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -18,9 +18,7 @@ class SignupAvatar extends StatelessWidget {
         final image = controller.image.value;
         return Center(
           child: UserAvatarWidget(
-            user: UserModel(
-              image: image?.path ?? Assets.images.user.path,
-            ),
+            user: UserModel(image: image?.path ?? Assets.images.user2.path),
             radius: 48,
           ),
         );

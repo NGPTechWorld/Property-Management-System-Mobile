@@ -18,4 +18,6 @@ abstract class AppRoutes {
   static const String tourismDetailsPage = "/tourismDetailsPage";
   static const String mySalesRoute = "/mySalesRoute";
   static const String contractDetailsRoute = "/contractDetailsRoute";
+  static const String favoritesRoute = "/favoritesRoute";
+  static const String accountInfoRoute = "/accountInfoRoute";
 }
