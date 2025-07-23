@@ -33,7 +33,8 @@ class PropertySliderWidget extends GetView<PropertyController> {
               final item = controller.propertySlider[index];
 
               if (item is PropertyRentCardModel) {
-                return PropertyRentCard(model: item);
+                 return const SizedBox();
+                // return PropertyRentCard(model: item);
               } else if (item is PropertySaleCardModel) {
                 return PropertySaleCard(model: item);
               } else {

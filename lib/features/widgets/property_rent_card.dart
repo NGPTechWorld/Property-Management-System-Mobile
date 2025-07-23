@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/data/dto/property_dto.dart';
 
 class PropertyRentCardModel {
   final String title;
@@ -22,8 +23,13 @@ class PropertyRentCardModel {
 }
 
 class PropertyRentCard extends StatelessWidget {
-  final PropertyRentCardModel model;
-  const PropertyRentCard({super.key, required this.model});
+  final PropertyDto model;
+  final bool isLoaging;
+  const PropertyRentCard({
+    super.key,
+    required this.model,
+    this.isLoaging = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +40,8 @@ class PropertyRentCard extends StatelessWidget {
         height: AppSize.sHeight * 0.2,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: Colors.white,
+          color: isLoaging ? Colors.transparent : ColorManager.white,
+          border: isLoaging ? Border.all() : null,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,7 +52,7 @@ class PropertyRentCard extends StatelessWidget {
                 Center(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: model.image.image(
+                    child: Assets.images.property.image(
                       height: AppSize.sHeight * 0.18,
                       width: AppSize.sWidth * 0.425,
 
@@ -63,10 +70,16 @@ class PropertyRentCard extends StatelessWidget {
                     child: IconButton(
                       onPressed: () {},
                       icon: Assets.icons.favoriteFillIcon.svg(
-                        colorFilter: const ColorFilter.mode(
-                          ColorManager.grey3,
-                          BlendMode.srcIn,
-                        ),
+                        colorFilter:
+                            model.isFavorite
+                                ? const ColorFilter.mode(
+                                  ColorManager.redColor,
+                                  BlendMode.srcIn,
+                                )
+                                : const ColorFilter.mode(
+                                  ColorManager.grey3,
+                                  BlendMode.srcIn,
+                                ),
                       ),
                     ),
                   ),
@@ -111,7 +124,9 @@ class PropertyRentCard extends StatelessWidget {
                   children: [
                     Text(
                       model.title,
-                      style: Get.textTheme.bodyLarge,
+                      style: Get.textTheme.bodyLarge!.copyWith(
+                        fontSize: FontSize.s14,
+                      ),
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 4),
@@ -124,7 +139,7 @@ class PropertyRentCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          model.rate.toString(),
+                          model.avgRate.toString(),
                           style: Get.textTheme.bodyLarge,
                         ),
                       ],
@@ -156,7 +171,7 @@ class PropertyRentCard extends StatelessWidget {
                           style: Get.textTheme.bodyLarge,
                         ),
                         Text(
-                          ' ${model.priceUnit}',
+                          ' ${model.rentalPeriod}',
                           style: Get.textTheme.bodyLarge!.copyWith(
                             fontSize: 12,
                           ),

@@ -30,7 +30,7 @@ class FavoritesPage extends GetView<FavoritesController> {
               if (item is PropertyRentCardModel) {
                 return Column(
                   children: [
-                    PropertyRentCard(model: item),
+                  //  PropertyRentCard(model: item),
                     const SizedBox(height: AppSize.s8),
                   ],
                 );

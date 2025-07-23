@@ -29,7 +29,8 @@ class RelatedPropertiesWidgets extends StatelessWidget {
             children: List.generate(controller.propertyList.length, (index) {
               final item = controller.propertyList[index];
               if (item is PropertyRentCardModel) {
-                return PropertyRentCard(model: item);
+                return const SizedBox();
+         //       return PropertyRentCard(model: item);
               } else if (item is PropertySaleCardModel) {
                 return PropertySaleCard(model: item);
               } else {
