@@ -5,7 +5,6 @@ import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
 import 'package:property_ms/features/profile_page/sub_pages/favorites_page/favorites_controller.dart';
 import 'package:property_ms/features/widgets/empty_card.dart';
-import 'package:property_ms/features/widgets/property_rent_card.dart';
 import 'package:property_ms/features/widgets/property_sale_card.dart';
 
 class FavoritesPage extends GetView<FavoritesController> {
@@ -26,15 +25,7 @@ class FavoritesPage extends GetView<FavoritesController> {
                 : Container(),
             ...List.generate(controller.favoritesListCrd.length, (index) {
               final item = controller.favoritesListCrd[index];
-
-              if (item is PropertyRentCardModel) {
-                return Column(
-                  children: [
-                  //  PropertyRentCard(model: item),
-                    const SizedBox(height: AppSize.s8),
-                  ],
-                );
-              } else if (item is PropertySaleCardModel) {
+if (item is PropertySaleCardModel) {
                 return Column(
                   children: [
                     Center(child: PropertySaleCard(model: item)),

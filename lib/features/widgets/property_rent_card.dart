@@ -3,27 +3,10 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/data/dto/property_dto.dart';
-
-class PropertyRentCardModel {
-  final String title;
-  final String location;
-  final String priceUnit;
-  final double rate;
-  final double price;
-  final AssetGenImage image;
-  PropertyRentCardModel({
-    required this.title,
-    required this.location,
-    required this.priceUnit,
-    required this.rate,
-    required this.price,
-    required this.image,
-  });
-}
+import 'package:property_ms/data/dto/rent_dto.dart';
 
 class PropertyRentCard extends StatelessWidget {
-  final PropertyDto model;
+  final RentCardDto model;
   final bool isLoaging;
   const PropertyRentCard({
     super.key,
@@ -102,7 +85,7 @@ class PropertyRentCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
-                        'للإيجار',
+                        model.type == "عقار سكني" ? 'للإيجار' : "سياحي",
                         style: Get.textTheme.bodySmall!.copyWith(
                           color: ColorManager.whiteColor,
                           fontWeight: FontWeight.bold,
@@ -139,7 +122,7 @@ class PropertyRentCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          model.avgRate.toString(),
+                          model.avgRate.toStringAsFixed(1),
                           style: Get.textTheme.bodyLarge,
                         ),
                       ],
@@ -167,7 +150,7 @@ class PropertyRentCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          ' \$${model.price.toString()}',
+                          ' \$${model.price.toStringAsFixed(1)}',
                           style: Get.textTheme.bodyLarge,
                         ),
                         Text(

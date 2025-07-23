@@ -1,19 +1,9 @@
 import 'package:get/get.dart';
-import 'package:property_ms/core/utils/assets.gen.dart';
-import 'package:property_ms/features/widgets/property_rent_card.dart';
-import 'package:property_ms/features/widgets/property_sale_card.dart';
 
 class FavoritesController extends GetxController {
   final favoritesListCrd =
       [
-        // PropertyRentCardModel(
-        //   title: 'شقة 100 م²',
-        //   location: 'دمشق, شعلان',
-        //   priceUnit: 'شهري',
-        //   rate: 4.5,
-        //   price: 2500,
-        //   image: Assets.images.propertyImage,
-        // ),
+  
         // PropertySaleCardModel(
         //   title: 'بيت 120 م²',
         //   location: 'دمشق القديمة',

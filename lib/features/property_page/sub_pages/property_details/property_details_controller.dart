@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/model/property_details_model.dart';
 import 'package:property_ms/features/widgets/office_card.dart';
-import 'package:property_ms/features/widgets/property_rent_card.dart';
+
 import 'package:property_ms/features/widgets/property_sale_card.dart';
 
 class PropertyDetailsController extends GetxController {
@@ -48,14 +48,6 @@ class PropertyDetailsController extends GetxController {
   );
 
   final propertyList = [
-    PropertyRentCardModel(
-      title: 'شقة 100 م²',
-      location: 'دمشق, شعلان',
-      priceUnit: 'شهري',
-      rate: 4.5,
-      price: 2500,
-      image: Assets.images.propertyImage,
-    ),
     PropertySaleCardModel(
       title: 'بيت 120 م²',
       location: 'دمشق القديمة',

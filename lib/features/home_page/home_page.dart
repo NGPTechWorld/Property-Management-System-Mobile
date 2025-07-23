@@ -3,14 +3,11 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
-import 'package:property_ms/data/dto/property_dto.dart';
-import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/features/home_page/widgets/header_home.dart';
-import 'package:property_ms/features/widgets/property_rent_card.dart';
+import 'package:property_ms/features/home_page/widgets/top_property.dart';
+import 'package:property_ms/features/home_page/widgets/top_tourisem.dart';
 import 'package:property_ms/features/widgets/top_offices.dart';
 import 'package:property_ms/features/widgets/top_services_card.dart';
-import 'package:shimmer/shimmer.dart';
-
 import 'home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -32,6 +29,7 @@ class HomePage extends GetView<HomeController> {
             children: [
               const HeaderHome(),
               const TopProperty(),
+              const TopTourisem(),
               TopOffice(controller: controller),
               TopServices(controller: controller),
             ],
@@ -80,59 +78,3 @@ class TopServices extends StatelessWidget {
   }
 }
 
-class TopProperty extends GetView<HomeController> {
-  const TopProperty({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
-          child: Text(
-            "عقارات مميزة",
-            style: Get.textTheme.headlineMedium!.copyWith(
-              color: ColorManager.secColor,
-            ),
-          ),
-        ),
-        const SizedBox(height: AppSize.s18),
-        SingleChildScrollView(
-          controller: controller.scrollTopPropertController,
-          scrollDirection: Axis.horizontal,
-          child: Obx(() {
-            switch (controller.loadingTopPropertState.value) {
-              case LoadingState.idle:
-              case LoadingState.hasError:
-              case LoadingState.doneWithNoData:
-              case LoadingState.loading:
-                return Row(
-                  children: List.generate(3, (index) {
-                    return Shimmer.fromColors(
-                      baseColor: ColorManager.shimmerBaseColor,
-                      highlightColor: ColorManager.shimmerHighlightColor,
-                      child:  PropertyRentCard(
-                        model: PropertyDto.empty(),
-                        isLoaging: true,
-                      ),
-                    );
-                  }),
-                );
-              case LoadingState.doneWithData:
-                return Row(
-                  children: List.generate(controller.topPropertList.length, (
-                    index,
-                  ) {
-                    final item = controller.topPropertList[index];
-                    return PropertyRentCard(model: item, isLoaging: false);
-                  }),
-                );
-            }
-          }),
-        ),
-        const SizedBox(height: AppSize.s16),
-      ],
-    );
-  }
-}

@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/features/property_page/property_controller.dart';
-import 'package:property_ms/features/widgets/property_rent_card.dart';
 import 'package:property_ms/features/widgets/property_sale_card.dart';
 
 class PropertySliderWidget extends GetView<PropertyController> {
@@ -32,15 +31,8 @@ class PropertySliderWidget extends GetView<PropertyController> {
             items: List.generate(controller.propertySlider.length, (index) {
               final item = controller.propertySlider[index];
 
-              if (item is PropertyRentCardModel) {
-                 return const SizedBox();
-                // return PropertyRentCard(model: item);
-              } else if (item is PropertySaleCardModel) {
-                return PropertySaleCard(model: item);
-              } else {
-                return const SizedBox();
-              }
-            }),
+              return PropertySaleCard(model: item);
+                        }),
             options: CarouselOptions(
               height: AppSize.sHeight * 0.21,
               enlargeCenterPage: true,

@@ -1,21 +1,23 @@
-class PropertyDto {
+class RentCardDto {
   final int id;
   final String title;
   final String image;
   final String location;
   final String listingType;
+  final String type;
   final int price;
   final String rentalPeriod;
   final bool isFavorite;
   final double avgRate;
   final int ratingCount;
 
-  PropertyDto({
+  RentCardDto({
     required this.id,
     required this.title,
     required this.image,
     required this.location,
     required this.listingType,
+    required this.type,
     required this.price,
     required this.rentalPeriod,
     required this.isFavorite,
@@ -23,12 +25,13 @@ class PropertyDto {
     required this.ratingCount,
   });
 
-  factory PropertyDto.fromJson(Map<String, dynamic> json) => PropertyDto(
+  factory RentCardDto.fromJson(Map<String, dynamic> json) => RentCardDto(
     id: json['id'] ?? 0,
     title: json['title'] ?? '',
     image: json['image'] ?? '',
     location: json['location'] ?? '',
     listingType: json['listing_type'] ?? '',
+    type: json['type'] ?? '',
     price: json['price'] ?? 0,
     rentalPeriod: json['rental_period'] ?? '',
     isFavorite: (json['is_favorite'] ?? 0) == 1,
@@ -36,13 +39,14 @@ class PropertyDto {
     ratingCount: json['rating_count'] ?? 0,
   );
 
-  factory PropertyDto.empty() {
-    return PropertyDto(
+  factory RentCardDto.empty() {
+    return RentCardDto(
       id: 0,
       title: "العنوان",
       image: "image",
       location: "الموقع",
       listingType: "النوع",
+      type: "النوع",
       price: 10000,
       rentalPeriod: "النوع",
       isFavorite: false,
@@ -56,7 +60,7 @@ class PropertyDto {
     'title': title,
     'image': image,
     'location': location,
-    'listing_type': listingType,
+    'listing_type': listingType ,
     'price': price,
     'rental_period': rentalPeriod,
     'is_favorite': isFavorite ? 1 : 0,
@@ -64,7 +68,7 @@ class PropertyDto {
     'rating_count': ratingCount,
   };
 
-  static List<PropertyDto> fromJsonArray(List<dynamic> jsonArray) {
-    return jsonArray.map((e) => PropertyDto.fromJson(e)).toList();
+  static List<RentCardDto> fromJsonArray(List<dynamic> jsonArray) {
+    return jsonArray.map((e) => RentCardDto.fromJson(e)).toList();
   }
 }

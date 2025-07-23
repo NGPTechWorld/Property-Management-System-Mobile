@@ -11,7 +11,13 @@ class EndPoints {
   static const String resetPassword = "/mobile-auth/reset-password";
 
   //Property
-  static const String getTopRateProperty = "/properties/top-rated";
+  static const String getTopRateProperty = "/office/top-rated";
+
+  //Office
+  static const String getTopRateOffice = "/properties/top-rated";
+
+  //Service
+  static const String getTopRateService = "/service-provider/top-rated";
   //! here you can add more end points for your requests
 }
 

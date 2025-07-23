@@ -4,51 +4,17 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
-import 'package:property_ms/data/dto/property_dto.dart';
+import 'package:property_ms/data/dto/rent_dto.dart';
 import 'package:property_ms/data/entity/services_card_model.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/data/repos/property_repositories.dart';
 import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/widgets/office_card.dart';
-import 'package:property_ms/features/widgets/property_rent_card.dart';
-import 'package:property_ms/features/widgets/property_sale_card.dart';
 
 class HomeController extends GetxController {
   final PropertyRepositories propertyRepo = Get.find<PropertyRepositories>();
   final mainController = Get.find<MainController>();
-  final propertyList = [
-    PropertyRentCardModel(
-      title: 'شقة 100 م²',
-      location: 'دمشق, شعلان',
-      priceUnit: 'شهري',
-      rate: 4.5,
-      price: 2500,
-      image: Assets.images.propertyImage,
-    ),
-    PropertySaleCardModel(
-      title: 'بيت 120 م²',
-      location: 'دمشق القديمة',
-      area: 120,
-      price: 2500,
-      image: Assets.images.officePropertyCard,
-    ),
-    PropertyRentCardModel(
-      title: 'شقة 120 م²',
-      location: 'دمشق, أبو رمانة',
-      priceUnit: 'شهري',
-      rate: 4.8,
-      price: 3000,
-      image: Assets.images.propertyImage,
-    ),
-    PropertyRentCardModel(
-      title: 'بيت عربي',
-      location: 'دمشق القديمة',
-      priceUnit: 'شهري',
-      rate: 4.2,
-      price: 1800,
-      image: Assets.images.propertyImage,
-    ),
-  ];
+
   final topOffices = [
     OfficeCardModel(
       title: "مكتب ابو سمير",
@@ -109,13 +75,19 @@ class HomeController extends GetxController {
     super.onInit();
     initScrollControllers();
     getTopRateProperty();
+    getTopRateTourisem();
   }
 
   Future<void> refreshPage() async {
     topPropertList.clear();
-    page.value = 1;
-    hasMoreAds.value = true;
+    pageTopPropert.value = 1;
+    hasMoreTopPropert.value = true;
     await getTopRateProperty();
+
+    topTourisemList.clear();
+    pageTopTourisem.value = 1;
+    hasMoreTopTourisem.value = true;
+    await getTopRateTourisem();
   }
 
   void initScrollControllers() {
@@ -125,52 +97,112 @@ class HomeController extends GetxController {
         getTopRateProperty(firstPage: false);
       }
     });
+    scrollTopTourisemController.addListener(() {
+      if (scrollTopTourisemController.position.maxScrollExtent ==
+          scrollTopTourisemController.offset) {
+        getTopRateTourisem(firstPage: false);
+      }
+    });
   }
 
   //? Get Top Property
 
   final loadingTopPropertState = LoadingState.loading.obs;
-  final topPropertList = <PropertyDto>[].obs;
-  final page = 1.obs;
+  final topPropertList = <RentCardDto>[].obs;
+  final pageTopPropert = 1.obs;
   final perPage = 5;
-  final hasMoreAds = false.obs;
+  final hasMoreTopPropert = false.obs;
   final scrollTopPropertController = ScrollController();
 
   Future<void> getTopRateProperty({bool firstPage = true}) async {
+    if (firstPage) {
+      pageTopPropert.value = 1;
+      hasMoreTopPropert.value = true;
+    }
+    if (!hasMoreTopPropert.value) {
+      loadingTopPropertState.value = LoadingState.doneWithNoData;
+      return;
+    }
     loadingTopPropertState.value = LoadingState.loading;
     await Future.delayed(const Duration(seconds: 3));
-    if (firstPage) {
-      page.value = 1;
-      hasMoreAds.value = true;
-    }
-    if (!hasMoreAds.value) return;
     final response = await propertyRepo.getTopRateProperty(
       perPage: perPage,
-      page: page.value,
+      page: pageTopPropert.value,
       type: "عقار سكني",
     );
     if (!response.success) {
       loadingTopPropertState.value = LoadingState.hasError;
-      hasMoreAds.value = false;
+      hasMoreTopPropert.value = false;
       CustomToasts(
         message: response.getErrorMessage(),
         type: CustomToastType.error,
       ).show();
       return;
     }
-    hasMoreAds.value = false;
+    hasMoreTopPropert.value = false;
     firstPage
         ? topPropertList.value = response.data?.data ?? []
         : topPropertList.addAll(response.data!.data);
     log(topPropertList.length.toString());
     log(response.data!.data.toString());
-    hasMoreAds.value = topPropertList.length < response.data!.totalItems;
+    hasMoreTopPropert.value = topPropertList.length < response.data!.totalItems;
     loadingTopPropertState.value =
         firstPage && topPropertList.isEmpty
             ? LoadingState.doneWithNoData
             : LoadingState.doneWithData;
-    if (hasMoreAds.value) {
-      page.value++;
+    if (hasMoreTopPropert.value) {
+      pageTopPropert.value++;
+    }
+  }
+
+  //?=================
+  //? Get Top Property
+
+  final loadingTopTourisemState = LoadingState.loading.obs;
+  final topTourisemList = <RentCardDto>[].obs;
+  final pageTopTourisem = 1.obs;
+  final hasMoreTopTourisem = false.obs;
+  final scrollTopTourisemController = ScrollController();
+
+  Future<void> getTopRateTourisem({bool firstPage = true}) async {
+    if (firstPage) {
+      pageTopTourisem.value = 1;
+      hasMoreTopTourisem.value = true;
+    }
+    if (!hasMoreTopTourisem.value) {
+      loadingTopTourisemState.value = LoadingState.doneWithNoData;
+      return;
+    }
+    loadingTopTourisemState.value = LoadingState.loading;
+    await Future.delayed(const Duration(seconds: 3));
+    final response = await propertyRepo.getTopRateProperty(
+      perPage: perPage,
+      page: pageTopTourisem.value,
+      type: "عقار سياحي",
+    );
+    if (!response.success) {
+      loadingTopTourisemState.value = LoadingState.hasError;
+      hasMoreTopTourisem.value = false;
+      CustomToasts(
+        message: response.getErrorMessage(),
+        type: CustomToastType.error,
+      ).show();
+      return;
+    }
+    hasMoreTopTourisem.value = false;
+    firstPage
+        ? topTourisemList.value = response.data?.data ?? []
+        : topTourisemList.addAll(response.data!.data);
+    log(topTourisemList.length.toString());
+    log(response.data!.data.toString());
+    hasMoreTopTourisem.value =
+        topTourisemList.length < response.data!.totalItems;
+    loadingTopTourisemState.value =
+        firstPage && topTourisemList.isEmpty
+            ? LoadingState.doneWithNoData
+            : LoadingState.doneWithData;
+    if (hasMoreTopTourisem.value) {
+      pageTopTourisem.value++;
     }
   }
 
