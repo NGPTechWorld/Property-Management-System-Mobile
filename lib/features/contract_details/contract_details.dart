@@ -97,7 +97,7 @@ class ContractDetails extends GetView<ContractDetailsController> {
   }
 }
 
-class CurrentBillCard extends StatelessWidget {
+class CurrentBillCard extends GetView<ContractDetailsController> {
   const CurrentBillCard({super.key});
 
   @override
@@ -166,21 +166,25 @@ class CurrentBillCard extends StatelessWidget {
                 ],
               ),
             ),
-            Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppPadding.p16,
-                vertical: AppPadding.p8,
-              ),
-              decoration: const BoxDecoration(
-                color: ColorManager.primaryDark,
-                borderRadius: BorderRadius.all(Radius.circular(AppSize.s16)),
-              ),
-              child: Text(
-                "إدفع ",
-                overflow: TextOverflow.ellipsis,
-                style: Get.textTheme.bodyLarge!.copyWith(
-                  fontSize: FontSize.s12,
-                  color: ColorManager.whiteColor,
+            GestureDetector(
+              onTap:
+                  () => controller.mainController.makePayment("clientSecret"),
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppPadding.p16,
+                  vertical: AppPadding.p8,
+                ),
+                decoration: const BoxDecoration(
+                  color: ColorManager.primaryDark,
+                  borderRadius: BorderRadius.all(Radius.circular(AppSize.s16)),
+                ),
+                child: Text(
+                  "إدفع ",
+                  overflow: TextOverflow.ellipsis,
+                  style: Get.textTheme.bodyLarge!.copyWith(
+                    fontSize: FontSize.s12,
+                    color: ColorManager.whiteColor,
+                  ),
                 ),
               ),
             ),

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/features/main_page/main_controller.dart';
 
 class ContractDetailsController extends GetxController
     with GetSingleTickerProviderStateMixin {
   final typeContract =
       ContractTypes.fromValue(Get.parameters["typeContract"] ?? "").obs;
   late TabController tabController;
-
+  final mainController = Get.find<MainController>();
   @override
   void onInit() {
     tabController = TabController(length: tabs.length, vsync: this);
