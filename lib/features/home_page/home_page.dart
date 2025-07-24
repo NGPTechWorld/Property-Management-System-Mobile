@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
 import 'package:property_ms/features/home_page/widgets/header_home.dart';
-import 'package:property_ms/features/home_page/widgets/top_property.dart';
-import 'package:property_ms/features/home_page/widgets/top_services.dart';
-import 'package:property_ms/features/home_page/widgets/top_tourisem.dart';
-import 'package:property_ms/features/home_page/widgets/top_offices.dart';
+import 'package:property_ms/features/home_page/widgets/top_property_home.dart';
+import 'package:property_ms/features/home_page/widgets/top_services_home.dart';
+import 'package:property_ms/features/home_page/widgets/top_tourisem_home.dart';
+import 'package:property_ms/features/home_page/widgets/top_offices_home.dart';
 import 'home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -26,10 +26,10 @@ class HomePage extends GetView<HomeController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               HeaderHome(),
-              TopProperty(),
-              TopTourisem(),
-              TopOffice(),
-              TopServices(),
+              TopPropertyHome(),
+              TopTourisemHome(),
+              TopOfficesHome(),
+              TopServicesHome(),
             ],
           ),
         ),

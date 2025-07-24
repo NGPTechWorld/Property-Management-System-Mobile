@@ -100,7 +100,7 @@ class HomeController extends GetxController {
     final response = await propertyRepo.getTopRateProperty(
       perPage: perPage,
       page: pageTopPropert.value,
-      type: "عقار سكني",
+      type: "عقاري",
     );
     if (!response.success) {
       loadingTopPropertState.value = LoadingState.hasError;
@@ -150,7 +150,7 @@ class HomeController extends GetxController {
     final response = await propertyRepo.getTopRateProperty(
       perPage: perPage,
       page: pageTopTourisem.value,
-      type: "عقار سياحي",
+      type: "سياحي",
     );
     if (!response.success) {
       loadingTopTourisemState.value = LoadingState.hasError;

@@ -86,7 +86,7 @@ class PropertyRentCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
-                        model.type == "عقار سكني" ? 'للإيجار' : "سياحي",
+                        model.type == "عقاري" ? 'للإيجار' : "سياحي",
                         style: Get.textTheme.bodySmall!.copyWith(
                           color: ColorManager.whiteColor,
                           fontWeight: FontWeight.bold,

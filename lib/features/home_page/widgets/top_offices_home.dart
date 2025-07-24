@@ -9,8 +9,8 @@ import 'package:property_ms/features/home_page/home_controller.dart';
 import 'package:property_ms/features/widgets/office_card.dart';
 import 'package:shimmer/shimmer.dart';
 
-class TopOffice extends StatelessWidget {
-  const TopOffice({super.key});
+class TopOfficesHome extends StatelessWidget {
+  const TopOfficesHome({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -55,12 +55,17 @@ class TopOffice extends StatelessWidget {
                 controller.loadingTopOfficeState.value == LoadingState.loading
                     ? Row(
                       children: List.generate(3, (index) {
-                        return Shimmer.fromColors(
-                          baseColor: ColorManager.shimmerBaseColor,
-                          highlightColor: ColorManager.shimmerHighlightColor,
-                          child: OfficeCard(
-                            model: OfficeDto.empty(),
-                            isLoaging: true,
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: AppPadding.p6,
+                          ),
+                          child: Shimmer.fromColors(
+                            baseColor: ColorManager.shimmerBaseColor,
+                            highlightColor: ColorManager.shimmerHighlightColor,
+                            child: OfficeCard(
+                              model: OfficeDto.empty(),
+                              isLoaging: true,
+                            ),
                           ),
                         );
                       }),

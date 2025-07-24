@@ -30,9 +30,8 @@ class PropertySliderWidget extends GetView<PropertyController> {
           CarouselSlider(
             items: List.generate(controller.propertySlider.length, (index) {
               final item = controller.propertySlider[index];
-
               return PropertySaleCard(model: item);
-                        }),
+            }),
             options: CarouselOptions(
               height: AppSize.sHeight * 0.21,
               enlargeCenterPage: true,
@@ -44,32 +43,30 @@ class PropertySliderWidget extends GetView<PropertyController> {
             ),
           ),
           const SizedBox(height: AppSize.s4),
-
           Obx(() {
             final adsLength = controller.propertySlider.length;
-            final displayCount = min(adsLength, 3);
-
+            min(adsLength, 3);
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: List.generate(displayCount, (index) {
-                int visibleIndex =
-                    adsLength > 3
-                        ? (controller.sliderIndex.value % adsLength) % 3
-                        : index;
-                return AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  width: visibleIndex == index ? 23 : 8,
-                  height: 8,
-                  decoration: BoxDecoration(
-                    color:
-                        visibleIndex == index
-                            ? ColorManager.secColor
-                            : ColorManager.grey3,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                );
-              }),
+              children: List.generate(
+                min(controller.propertySlider.length, 3),
+                (index) {
+                  bool isSelected = controller.sliderIndex.value % 3 == index;
+                  return AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    width: isSelected ? 23 : 8,
+                    height: 8,
+                    decoration: BoxDecoration(
+                      color:
+                          isSelected
+                              ? ColorManager.secColor
+                              : ColorManager.grey3,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  );
+                },
+              ),
             );
           }),
         ],

@@ -88,6 +88,7 @@ class OfficeCard extends StatelessWidget {
                       model.name,
                       style: Get.textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.bold,
+                        fontSize: FontSize.s12,
                       ),
                     ),
                   ),
@@ -106,6 +107,7 @@ class OfficeCard extends StatelessWidget {
                           model.location,
                           style: Get.textTheme.bodySmall!.copyWith(
                             fontSize: FontSize.s10,
+
                             fontWeight: FontWeight.bold,
                           ),
                         ),

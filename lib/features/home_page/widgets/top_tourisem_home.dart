@@ -8,8 +8,8 @@ import 'package:property_ms/features/home_page/home_controller.dart';
 import 'package:property_ms/features/widgets/property_rent_card.dart';
 import 'package:shimmer/shimmer.dart';
 
-class TopTourisem extends GetView<HomeController> {
-  const TopTourisem({super.key});
+class TopTourisemHome extends GetView<HomeController> {
+  const TopTourisemHome({super.key});
 
   @override
   Widget build(BuildContext context) {

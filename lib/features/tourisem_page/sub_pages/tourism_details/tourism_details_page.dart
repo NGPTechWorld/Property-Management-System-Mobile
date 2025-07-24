@@ -8,7 +8,7 @@ import 'package:property_ms/core/utils/widgets/app_button.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/lacation_card.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/map_button.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/rating_card.dart';
-import 'package:property_ms/features/offices_page/widgets/office_card_style2.dart';
+import 'package:property_ms/features/widgets/office_card_style2.dart';
 import 'package:property_ms/features/widgets/property_reusable_widget/details_container.dart';
 import 'package:property_ms/features/widgets/property_reusable_widget/image_carousel.dart';
 import 'package:property_ms/features/widgets/price_section.dart';

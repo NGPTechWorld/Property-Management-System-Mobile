@@ -219,6 +219,20 @@ class PropertyController extends GetxController {
       price: 2500,
       image: Assets.images.property,
     ),
+    PropertySaleCardModel(
+      title: 'بيت 120 م²',
+      location: 'دمشق القديمة',
+      area: 120,
+      price: 2500,
+      image: Assets.images.property,
+    ),
+    PropertySaleCardModel(
+      title: 'بيت 120 م²',
+      location: 'دمشق القديمة',
+      area: 120,
+      price: 2500,
+      image: Assets.images.property,
+    ),
   ];
 
   final allProperties = [

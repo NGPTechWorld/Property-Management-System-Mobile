@@ -4,7 +4,7 @@ import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/data/dto/service_dto.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
-import 'package:property_ms/features/home_page/home_controller.dart';
+import 'package:property_ms/features/services_page/services_controller.dart';
 import 'package:property_ms/features/widgets/top_services_card.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -13,7 +13,7 @@ class TopServices extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<HomeController>();
+    final controller = Get.find<ServicesController>();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -47,12 +47,15 @@ class TopServices extends StatelessWidget {
                 controller.loadingTopServiceState.value == LoadingState.loading
                     ? Row(
                       children: List.generate(3, (index) {
-                        return Shimmer.fromColors(
-                          baseColor: ColorManager.shimmerBaseColor,
-                          highlightColor: ColorManager.shimmerHighlightColor,
-                          child: TopServicesCard(
-                            model: ServiceDto.empty(),
-                            isLoaging: true,
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 6),
+                          child: Shimmer.fromColors(
+                            baseColor: ColorManager.shimmerBaseColor,
+                            highlightColor: ColorManager.shimmerHighlightColor,
+                            child: TopServicesCard(
+                              model: ServiceDto.empty(),
+                              isLoaging: true,
+                            ),
                           ),
                         );
                       }),
