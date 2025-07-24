@@ -1,41 +1,40 @@
+import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/features/widgets/office_card.dart';
 
-class PropertyDetailsModel {
+class TourismDetailModel {
   final String title;
   final String description;
   final String publishDate;
-  final String status;
   final String location;
   final String area;
-  final String ownershipType;
-  final String orientation;
   final String furnishing;
-  final int roomCount;
-  final String installmentAvailable;
-  final String floor;
+  final String electricity;
+  final String water;
+  final String pool;
   final RoomDetails roomDetails;
-  final List images;
+  final List<AssetGenImage> images;
   final OfficeCardModel responsibleOffice;
+  final List<String> features;
   final String price;
+  final String payRate;
   bool isFavorite;
 
-  PropertyDetailsModel({
+  TourismDetailModel({
     required this.title,
     required this.description,
     required this.publishDate,
-    required this.status,
     required this.location,
     required this.area,
-    required this.ownershipType,
-    required this.orientation,
     required this.furnishing,
-    required this.roomCount,
-    required this.installmentAvailable,
-    required this.floor,
+    required this.electricity,
+    required this.water,
+    required this.pool,
     required this.roomDetails,
     required this.images,
     required this.responsibleOffice,
+    required this.features,
     required this.price,
+    required this.payRate,
     required this.isFavorite,
   });
 }

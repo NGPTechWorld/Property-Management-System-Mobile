@@ -11,11 +11,13 @@ import 'package:property_ms/features/auth/resetpassword/reset_password_page.dart
 import 'package:property_ms/features/auth/signup/signup_controller.dart';
 import 'package:property_ms/features/auth/signup/signup_page.dart';
 import 'package:property_ms/features/auth/signup/sub_pages/signup_step2/signup_2_page.dart';
-import 'package:property_ms/features/contract_details/contract_details.dart';
 import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/main_page/main_page.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_controller.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_page.dart';
+import 'package:property_ms/features/compare/compare_properties/compare_properties_controller.dart';
+import 'package:property_ms/features/contract_details/contract_details.dart';
+import 'package:property_ms/features/compare/compare_properties/compare_properties_page.dart';
 import 'package:property_ms/features/profile_page/sub_pages/account_info_page/account_info_controller.dart';
 import 'package:property_ms/features/profile_page/sub_pages/account_info_page/account_info_page.dart';
 import 'package:property_ms/features/profile_page/sub_pages/favorites_page/favorites_controller.dart';
@@ -134,6 +136,11 @@ abstract class NavigationManager {
       name: AppRoutes.favoritesRoute,
       page: () => const FavoritesPage(),
       binding: BindingsBuilder.put(() => FavoritesController()),
+    ),
+    GetPage(
+      name: AppRoutes.comparePropertiesPage,
+      page: () => const ComparePropertiesPage(),
+      binding: BindingsBuilder.put(() => ComparePropertiesController()),
     ),
     GetPage(
       name: AppRoutes.accountInfoRoute,
