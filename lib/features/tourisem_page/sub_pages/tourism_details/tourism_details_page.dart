@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
@@ -323,7 +324,6 @@ class LabeledDetailsSection extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-        const SizedBox(height: AppSize.s8),
         DetailsContainer(details: details),
       ],
     );
@@ -412,6 +412,7 @@ class TitleAndCompare extends StatelessWidget {
           ),
           backgroundColor: ColorManager.yello,
           iconOnLeft: true,
+          onPressed: () => Get.toNamed(AppRoutes.compareTourismPage),
         ),
       ],
     );

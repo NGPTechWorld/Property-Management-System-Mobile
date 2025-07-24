@@ -11,6 +11,8 @@ import 'package:property_ms/features/auth/resetpassword/reset_password_page.dart
 import 'package:property_ms/features/auth/signup/signup_controller.dart';
 import 'package:property_ms/features/auth/signup/signup_page.dart';
 import 'package:property_ms/features/auth/signup/sub_pages/signup_step2/signup_2_page.dart';
+import 'package:property_ms/features/compare/compare_tourism/compare_tourism_controller.dart';
+import 'package:property_ms/features/compare/compare_tourism/compare_tourism_page.dart';
 import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/main_page/main_page.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_controller.dart';
@@ -146,6 +148,11 @@ abstract class NavigationManager {
       name: AppRoutes.accountInfoRoute,
       page: () => const AccountInfoPage(),
       binding: BindingsBuilder.put(() => AccountInfoController()),
+    ),
+    GetPage(
+      name: AppRoutes.compareTourismPage,
+      page: () => const CompareTourismPage(),
+      binding: BindingsBuilder.put(() => CompareTourismController()),
     ),
     // GetPage(
     //   name: AppRoutes.loginRoute,
