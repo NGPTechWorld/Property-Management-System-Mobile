@@ -13,13 +13,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final cacheService = Get.find<CacheService>();
     return GetMaterialApp(
       translations: AppTranslations(),
       useInheritedMediaQuery: true,
-      builder: DevicePreview.appBuilder,
       locale: const Locale('ar'),
-      // locale: const Locale('en'),
       theme: LightModeTheme().themeData,
       themeMode: ThemeMode.light,
       debugShowCheckedModeBanner: false,
@@ -33,6 +30,14 @@ class MyApp extends StatelessWidget {
         GlobalCupertinoLocalizations.delegate,
         DefaultCupertinoLocalizations.delegate,
       ],
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(
+            context,
+          ).copyWith(textScaler: const TextScaler.linear(1.0)),
+          child: DevicePreview.appBuilder(context, child),
+        );
+      },
     );
   }
 }
