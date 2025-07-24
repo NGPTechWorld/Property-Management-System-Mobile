@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
 import 'package:property_ms/data/dto/rent_dto.dart';
 
 class PropertyRentCard extends StatelessWidget {
@@ -35,10 +36,10 @@ class PropertyRentCard extends StatelessWidget {
                 Center(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: Assets.images.property.image(
+                    child: CustomCachedNetworkImage(
+                      imageUrl: model.image,
                       height: AppSize.sHeight * 0.18,
                       width: AppSize.sWidth * 0.425,
-
                       fit: BoxFit.cover,
                     ),
                   ),

@@ -38,13 +38,13 @@ class PropertyDetailsController extends GetxController {
       Assets.images.officeServicesCard,
       Assets.images.propertyCard,
     ],
-    responsibleOffice: OfficeCardModel(
-      title: 'مكتب أبو فراس',
-      type: 'عقاري',
-      location: 'دمشق, ميدان',
-      rate: 4.75,
-      image: Assets.images.propertyImage,
-    ),
+    // responsibleOffice: OfficeCardModel(
+    //   title: 'مكتب أبو فراس',
+    //   type: 'عقاري',
+    //   location: 'دمشق, ميدان',
+    //   rate: 4.75,
+    //   image: Assets.images.propertyImage,
+    // ),
   );
 
   final propertyList = [

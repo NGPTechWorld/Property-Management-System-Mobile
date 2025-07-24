@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
+import 'package:property_ms/data/dto/service_dto.dart';
 import 'package:property_ms/data/entity/services_card_model.dart';
 import 'package:property_ms/data/enums/property_service_provider_type_enum.dart';
 import 'package:property_ms/data/enums/syrian_governorate.dart';
@@ -58,29 +59,8 @@ class ServicesController extends GetxController {
     locationQuestion.answers.addAll(locationAnswers);
   }
 
-  final topServices = [
-    ServicesCardModel(
-      title: "ابو يحيى",
-      location: 'دمشق القديمة',
-      tupe: "تصوير احترافي",
-      rate: 4.3,
-      image: Assets.images.propertyImage,
-    ),
-    ServicesCardModel(
-      title: "ابو يحيى",
-      location: 'دمشق القديمة',
-      tupe: "تصوير احترافي",
-      rate: 4.3,
-      image: Assets.images.propertyImage,
-    ),
-    ServicesCardModel(
-      title: "ابو يحيى",
-      location: 'دمشق القديمة',
-      tupe: "تصوير احترافي",
-      rate: 4.3,
-      image: Assets.images.propertyImage,
-    ),
-  ];
+  final topServices = <ServiceDto>[].obs;
+  final allServices = <ServiceDto>[].obs;
 
   void selectFilter(int index) {
     selectedFilterIndex.value = index;

@@ -37,6 +37,8 @@ class OfficesController extends GetxController {
     id: 2,
   );
 
+  final officesList = [];
+
   void onGovernorateSelected(String selectedGovernorateName) {
     final selectedGovernorate = SyrianGovernorate.values.firstWhere(
       (e) => e.value == selectedGovernorateName,
@@ -58,37 +60,6 @@ class OfficesController extends GetxController {
     log(locationAnswers.toString());
     locationQuestion.answers.addAll(locationAnswers);
   }
-
-  final topOffices = [
-    OfficeCardModel(
-      title: "مكتب ابو سمير",
-      type: "سياحي",
-      location: 'دمشق القديمة',
-      rate: 4.5,
-      image: Assets.images.propertyImage,
-    ),
-    OfficeCardModel(
-      title: "مكتب الاحتراف",
-      type: "سياحي",
-      location: 'دمشق القديمة',
-      rate: 4.5,
-      image: Assets.images.propertyImage,
-    ),
-    OfficeCardModel(
-      title: "مكتب التميز",
-      type: "سياحي",
-      location: 'دمشق القديمة',
-      rate: 4.5,
-      image: Assets.images.propertyImage,
-    ),
-    OfficeCardModel(
-      title: "مكتب الحوت",
-      type: "سياحي",
-      location: 'دمشق القديمة',
-      rate: 4.5,
-      image: Assets.images.propertyImage,
-    ),
-  ];
 
   void selectFilter(int index) {
     selectedFilterIndex.value = index;

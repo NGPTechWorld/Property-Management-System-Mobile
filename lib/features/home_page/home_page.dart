@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:property_ms/core/utils/color_manager.dart';
-import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
 import 'package:property_ms/features/home_page/widgets/header_home.dart';
 import 'package:property_ms/features/home_page/widgets/top_property.dart';
+import 'package:property_ms/features/home_page/widgets/top_services.dart';
 import 'package:property_ms/features/home_page/widgets/top_tourisem.dart';
-import 'package:property_ms/features/widgets/top_offices.dart';
-import 'package:property_ms/features/widgets/top_services_card.dart';
+import 'package:property_ms/features/home_page/widgets/top_offices.dart';
 import 'home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -22,16 +20,16 @@ class HomePage extends GetView<HomeController> {
         onRefresh: () async {
           await controller.refreshPage();
         },
-        child: SingleChildScrollView(
+        child: const SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const HeaderHome(),
-              const TopProperty(),
-              const TopTourisem(),
-              TopOffice(controller: controller),
-              TopServices(controller: controller),
+              HeaderHome(),
+              TopProperty(),
+              TopTourisem(),
+              TopOffice(),
+              TopServices(),
             ],
           ),
         ),
@@ -39,42 +37,3 @@ class HomePage extends GetView<HomeController> {
     );
   }
 }
-
-class TopServices extends StatelessWidget {
-  const TopServices({super.key, required this.controller});
-
-  final controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
-          child: Text(
-            "أفضل الخدمات",
-            style: Get.textTheme.headlineMedium!.copyWith(
-              color: ColorManager.secColor,
-            ),
-          ),
-        ),
-        const SizedBox(height: AppSize.s18),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: List.generate(controller.topServices.length, (index) {
-              final item = controller.topServices[index];
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: TopServicesCard(model: item),
-              );
-            }),
-          ),
-        ),
-        const SizedBox(height: AppSize.s16),
-      ],
-    );
-  }
-}
-

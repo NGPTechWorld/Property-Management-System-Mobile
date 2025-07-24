@@ -3,25 +3,13 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-
-class OfficeCardModel {
-  final String title;
-  final String type;
-  final String location;
-  final double rate;
-  final AssetGenImage image;
-  OfficeCardModel({
-    required this.title,
-    required this.type,
-    required this.location,
-    required this.rate,
-    required this.image,
-  });
-}
+import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
+import 'package:property_ms/data/dto/office_dto.dart';
 
 class OfficeCard extends StatelessWidget {
-  final OfficeCardModel model;
-  const OfficeCard({super.key, required this.model});
+  final OfficeDto model;
+  final bool isLoaging;
+  const OfficeCard({super.key, required this.model, this.isLoaging = false});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +18,8 @@ class OfficeCard extends StatelessWidget {
       height: AppSize.sHeight * 0.22,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: Colors.white,
+        color: isLoaging ? Colors.transparent : ColorManager.white,
+        border: isLoaging ? Border.all() : null,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,13 +30,22 @@ class OfficeCard extends StatelessWidget {
             child: Stack(
               alignment: Alignment.center,
               children: [
-                ClipOval(
-                  child: model.image.image(
-                    height: AppSize.sHeight * 0.1,
-                    width: AppSize.sHeight * 0.1,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                model.logo == ""
+                    ? ClipOval(
+                      child: Assets.images.officePropertyCard.image(
+                        height: AppSize.sHeight * 0.1,
+                        width: AppSize.sHeight * 0.1,
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                    : ClipOval(
+                      child: CustomCachedNetworkImage(
+                        imageUrl: model.logo,
+                        height: AppSize.sHeight * 0.1,
+                        width: AppSize.sHeight * 0.1,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                 Positioned(
                   bottom: 0,
                   left: 0,
@@ -63,7 +61,7 @@ class OfficeCard extends StatelessWidget {
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
-                        'سياحي',
+                        model.type,
                         style: Get.textTheme.bodySmall!.copyWith(
                           color: ColorManager.whiteColor,
                           fontWeight: FontWeight.bold,
@@ -87,7 +85,7 @@ class OfficeCard extends StatelessWidget {
                   Center(
                     child: Text(
                       overflow: TextOverflow.ellipsis,
-                      model.title,
+                      model.name,
                       style: Get.textTheme.bodyMedium!.copyWith(
                         fontWeight: FontWeight.bold,
                       ),

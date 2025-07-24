@@ -189,9 +189,15 @@ class $AssetsIconsGen {
   /// File path: assets/icons/home_icon.svg
   SvgGenImage get homeIcon => const SvgGenImage('assets/icons/home_icon.svg');
 
+  /// File path: assets/icons/image.png
+  AssetGenImage get image => const AssetGenImage('assets/icons/image.png');
+
   /// File path: assets/icons/image_add_icon.svg
   SvgGenImage get imageAddIcon =>
       const SvgGenImage('assets/icons/image_add_icon.svg');
+
+  /// File path: assets/icons/image_icon.svg
+  SvgGenImage get imageIcon => const SvgGenImage('assets/icons/image_icon.svg');
 
   /// File path: assets/icons/insta.svg
   SvgGenImage get insta => const SvgGenImage('assets/icons/insta.svg');
@@ -322,7 +328,7 @@ class $AssetsIconsGen {
   SvgGenImage get worksIcon => const SvgGenImage('assets/icons/works_icon.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [
+  List<dynamic> get values => [
     home,
     locationPin,
     managment,
@@ -361,7 +367,9 @@ class $AssetsIconsGen {
     graphics,
     helpIcon,
     homeIcon,
+    image,
     imageAddIcon,
+    imageIcon,
     insta,
     layoutGridIcon,
     layoutListIcon,

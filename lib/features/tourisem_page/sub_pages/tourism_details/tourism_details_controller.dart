@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
-import 'package:property_ms/features/widgets/office_card.dart';
 import 'package:property_ms/features/widgets/tourisem_card.dart';
 import 'package:property_ms/features/widgets/tourisem_card_small.dart';
 
@@ -58,14 +57,6 @@ class TourismDetailsController extends GetxController {
     ),
   ];
 
-  // repsonsible office model
-  final repsonsibleOffice = OfficeCardModel(
-    title: 'مكتب أبو فراس',
-    type: 'عقاري',
-    location: 'دمشق, ميدان',
-    rate: 4.75,
-    image: Assets.images.propertyImage,
-  );
 
   @override
   void onInit() {

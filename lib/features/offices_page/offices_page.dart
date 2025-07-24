@@ -7,7 +7,7 @@ import 'package:property_ms/features/offices_page/widgets/ads_slider_widget.dart
 import 'package:property_ms/features/widgets/app_bar_search.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
 import 'package:property_ms/features/offices_page/widgets/office_card_style2.dart';
-import 'package:property_ms/features/widgets/top_offices.dart';
+import 'package:property_ms/features/home_page/widgets/top_offices.dart';
 
 import 'offices_controller.dart';
 
@@ -25,7 +25,7 @@ class OfficesPage extends GetView<OfficesController> {
           children: [
             const AppBarOffices(),
             const AdsSliderWidget(),
-            TopOffice(controller: controller),
+           // TopOffice(controller: controller),
             const AllOffices(),
           ],
         ),
@@ -103,8 +103,8 @@ class AllOffices extends GetView<OfficesController> {
         SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
-            children: List.generate(controller.topOffices.length, (index) {
-              final item = controller.topOffices[index];
+            children: List.generate(controller.officesList.length, (index) {
+              final item = controller.officesList[index];
               return Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 6,

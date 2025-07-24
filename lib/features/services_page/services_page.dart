@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/features/home_page/home_page.dart';
+import 'package:property_ms/features/home_page/widgets/top_services.dart';
 import 'package:property_ms/features/services_page/widgets/service_card_style2.dart';
 import 'package:property_ms/features/widgets/app_bar_search.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
@@ -23,7 +23,7 @@ class ServicesPage extends GetView<ServicesController> {
           children: [
             AppBarServices(controller: controller),
             const SizedBox(height: AppSize.s14),
-            TopServices(controller: controller),
+            const TopServices(),
             AllServices(controller: controller),
           ],
         ),
@@ -106,8 +106,8 @@ class AllServices extends StatelessWidget {
         SingleChildScrollView(
           scrollDirection: Axis.vertical,
           child: Column(
-            children: List.generate(controller.topServices.length, (index) {
-              final item = controller.topServices[index];
+            children: List.generate(controller.allServices.length, (index) {
+              final item = controller.allServices[index];
               return Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 6,

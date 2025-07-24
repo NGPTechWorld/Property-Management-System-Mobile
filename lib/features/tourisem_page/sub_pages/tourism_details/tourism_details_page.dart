@@ -242,7 +242,7 @@ class ResponsibleOfficeSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: AppSize.s12),
-        OfficeCardStyle2(model: controller.repsonsibleOffice),
+       // OfficeCardStyle2(model: controller.repsonsibleOffice),
       ],
     );
   }

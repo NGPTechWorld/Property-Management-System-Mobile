@@ -11,10 +11,10 @@ class EndPoints {
   static const String resetPassword = "/mobile-auth/reset-password";
 
   //Property
-  static const String getTopRateProperty = "/office/top-rated";
+  static const String getTopRateProperty = "/properties/top-rated";
 
   //Office
-  static const String getTopRateOffice = "/properties/top-rated";
+  static const String getTopRateOffice = "/office/top-rated";
 
   //Service
   static const String getTopRateService = "/service-provider/top-rated";

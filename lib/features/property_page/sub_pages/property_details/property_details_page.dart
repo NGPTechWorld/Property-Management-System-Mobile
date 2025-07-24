@@ -101,17 +101,17 @@ class PropertyDetailsPage extends GetView<PropertyDetailsController> {
                         ),
                       ),
                       const SizedBox(height: AppSize.s12),
-                      GestureDetector(
-                        onDoubleTap:
-                            () => Get.toNamed(
-                              AppRoutes.officeDetails,
-                              arguments:
-                                  controller.propertyDetails.responsibleOffice,
-                            ),
-                        child: OfficeCardStyle2(
-                          model: controller.propertyDetails.responsibleOffice,
-                        ),
-                      ),
+                      // GestureDetector(
+                      //   onDoubleTap:
+                      //       () => Get.toNamed(
+                      //         AppRoutes.officeDetails,
+                      //         arguments:
+                      //             controller.propertyDetails.responsibleOffice,
+                      //       ),
+                      //   child: OfficeCardStyle2(
+                      //     model: controller.propertyDetails.responsibleOffice,
+                      //   ),
+                      // ),
                       PropertyDetailsWidget(model: controller.propertyDetails),
                       RoomDetailsWidget(
                         roomDetails: controller.propertyDetails.roomDetails,
