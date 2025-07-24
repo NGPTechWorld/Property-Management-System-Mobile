@@ -26,7 +26,7 @@ class PropertyDetailsWidget extends StatelessWidget {
             DetailItem(
               label: "المساحة",
               value: model.area,
-              icon: Icons.square_foot,
+              icon: Icons.square_foot_outlined,
             ),
             DetailItem(
               label: "نوع الملكية",
@@ -36,12 +36,12 @@ class PropertyDetailsWidget extends StatelessWidget {
             DetailItem(
               label: "الجهة",
               value: model.orientation,
-              icon: Icons.explore,
+              icon: Icons.explore_outlined,
             ),
             DetailItem(
               label: "الفرش",
               value: model.furnishing,
-              icon: Icons.weekend,
+              icon: Icons.weekend_outlined,
             ),
             DetailItem(
               label: "عدد الغرف",
@@ -51,9 +51,13 @@ class PropertyDetailsWidget extends StatelessWidget {
             DetailItem(
               label: "التقسيط",
               value: model.installmentAvailable,
-              icon: Icons.payments,
+              icon: Icons.payments_outlined,
             ),
-            DetailItem(label: "الطابق", value: model.floor, icon: Icons.stairs),
+            DetailItem(
+              label: "الطابق",
+              value: model.floor,
+              icon: Icons.stairs_outlined,
+            ),
           ],
         ),
       ],

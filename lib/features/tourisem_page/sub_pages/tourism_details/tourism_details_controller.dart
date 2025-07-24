@@ -17,7 +17,7 @@ class TourismDetailsController extends GetxController {
 
   final tourismDetails = TourismDetailModel(
     title: 'شاليه',
-    description: 'هنا التفاصيل للمكان السياحي',
+    description: 'هنا وصف المكان السياحي',
     publishDate: '2015/4/23',
     location: 'ريف,دمشق قدسيا',
     area: '120 م²',

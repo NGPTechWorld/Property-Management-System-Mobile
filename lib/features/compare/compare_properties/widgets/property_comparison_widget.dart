@@ -52,7 +52,7 @@ class PropertyComparisonWidget extends StatelessWidget {
               label: "المساحة",
               value1: property1.area,
               value2: property2.area,
-              icon: Icons.square_foot,
+              icon: Icons.square_foot_outlined,
             ),
             ComparisonItem(
               label: "نوع الملكية",
@@ -64,13 +64,13 @@ class PropertyComparisonWidget extends StatelessWidget {
               label: "الجهة",
               value1: property1.orientation,
               value2: property2.orientation,
-              icon: Icons.explore,
+              icon: Icons.explore_outlined,
             ),
             ComparisonItem(
               label: "الفرش",
               value1: property1.furnishing,
               value2: property2.furnishing,
-              icon: Icons.weekend,
+              icon: Icons.weekend_outlined,
             ),
             ComparisonItem(
               label: "عدد الغرف",
@@ -82,13 +82,13 @@ class PropertyComparisonWidget extends StatelessWidget {
               label: "التقسيط",
               value1: property1.installmentAvailable,
               value2: property2.installmentAvailable,
-              icon: Icons.payments,
+              icon: Icons.payments_outlined,
             ),
             ComparisonItem(
               label: "الطابق",
               value1: property1.floor,
               value2: property2.floor,
-              icon: Icons.stairs,
+              icon: Icons.stairs_outlined,
             ),
             ComparisonItem(
               label: "نوم",
