@@ -73,6 +73,25 @@ class PropertyHeader extends StatelessWidget {
             ),
           ],
         ),
+        Text(
+          'تفاصيل العقار',
+          style: Get.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppPadding.p16,
+            vertical: AppPadding.p8,
+          ),
+          child: Text(
+            model.description,
+            style: Get.textTheme.bodyMedium?.copyWith(
+              color: ColorManager.textColor1,
+              height: 1.7,
+            ),
+          ),
+        ),
         const SizedBox(height: AppSize.s16),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,

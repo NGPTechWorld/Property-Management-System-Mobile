@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/routes/app_routes.dart';
+import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/features/offices_page/widgets/office_card_style2.dart';
@@ -72,6 +73,40 @@ class PropertyDetailsPage extends GetView<PropertyDetailsController> {
                         );
                   }),
                 ),
+                actions: [
+                  Obx(
+                    () => GestureDetector(
+                      onTap: controller.toggleFavorite,
+                      child: Container(
+                        width: 32,
+                        height: 32,
+                        margin: const EdgeInsets.symmetric(horizontal: 12),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: ColorManager.cardBackground,
+                        ),
+                        child: Center(
+                          child:
+                              controller.isFavorite.value
+                                  ? Assets.icons.favoriteFillIcon.svg(
+                                    width: 16,
+                                    colorFilter: const ColorFilter.mode(
+                                      Colors.red,
+                                      BlendMode.srcIn,
+                                    ),
+                                  )
+                                  : Assets.icons.favoriteFillIcon.svg(
+                                    width: 16, 
+                                    colorFilter: const ColorFilter.mode(
+                                      ColorManager.grey3,
+                                      BlendMode.srcIn,
+                                    ),
+                                  ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ];
           },

@@ -12,11 +12,16 @@ class PropertyDetailsController extends GetxController {
   final isLoadingImages = true.obs;
 
   final ScrollController scrollController = ScrollController();
-
+  RxBool isFavorite = false.obs;
+  void toggleFavorite() {
+    isFavorite.value = !isFavorite.value;
+    propertyDetails.isFavorite = isFavorite.value; // Optional: sync with model
+  }
   // late PropertyDetailsModel propertyDetails;
 
   final propertyDetails = PropertyDetailsModel(
     title: "بيت أبو العود",
+    description: 'هذا العقار يقع في مكان مميز جدا في حي راقي',
     publishDate: "2015/4/23",
     status: "للبيع",
     location: "ريف,دمشق قدسيا",
@@ -46,6 +51,7 @@ class PropertyDetailsController extends GetxController {
       rate: 4.75,
       image: Assets.images.propertyImage,
     ),
+    isFavorite: false,
   );
 
   final propertyList = [

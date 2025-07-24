@@ -6,6 +6,7 @@ import 'package:property_ms/features/widgets/office_card.dart';
 class ComparePropertiesController extends GetxController {
   final propertyDetails = PropertyDetailsModel(
     title: "بيت أبو العود",
+    description: 'هذا العقار يقع في مكان مميز جدا في حي راقي',
     publishDate: "2015/4/23",
     status: "للبيع",
     location: "ريف,دمشق قدسيا",
@@ -17,6 +18,7 @@ class ComparePropertiesController extends GetxController {
     installmentAvailable: "متاح",
     floor: "الثالث",
     price: '\$30,000',
+    isFavorite: false,
     roomDetails: RoomDetails(
       bedrooms: 2,
       livingRooms: 1,
@@ -39,6 +41,7 @@ class ComparePropertiesController extends GetxController {
 
   final propertyDetails2 = PropertyDetailsModel(
     title: "بيت نعومة",
+    description: 'هذا العقار يقع في مكان مميز جدا في حي راقي',
     publishDate: "2015/4/23",
     status: "للبيع",
     location: "دمشق, الميدان",
@@ -50,6 +53,7 @@ class ComparePropertiesController extends GetxController {
     installmentAvailable: "متاح",
     floor: "الرابع",
     price: '\$30,000',
+    isFavorite: false,
 
     roomDetails: RoomDetails(
       bedrooms: 2,
