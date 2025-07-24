@@ -98,7 +98,7 @@ class HomeController extends GetxController {
     loadingTopPropertState.value = LoadingState.loading;
     await Future.delayed(const Duration(seconds: 3));
     final response = await propertyRepo.getTopRateProperty(
-      perPage: perPage,
+      items: perPage,
       page: pageTopPropert.value,
       type: "عقاري",
     );
@@ -148,7 +148,7 @@ class HomeController extends GetxController {
     loadingTopTourisemState.value = LoadingState.loading;
     await Future.delayed(const Duration(seconds: 3));
     final response = await propertyRepo.getTopRateProperty(
-      perPage: perPage,
+      items: perPage,
       page: pageTopTourisem.value,
       type: "سياحي",
     );

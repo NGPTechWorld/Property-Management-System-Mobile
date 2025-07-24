@@ -4,15 +4,49 @@ import 'package:property_ms/core/services/api/api_service.dart';
 import 'package:property_ms/core/services/api/end_points.dart';
 import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:property_ms/core/services/errors/error_handler.dart';
+import 'package:property_ms/data/dto/property_dto.dart';
+import 'package:property_ms/data/dto/property_search_filter_dto.dart';
 import 'package:property_ms/data/dto/rent_dto.dart';
 import 'package:property_ms/data/models/app_response.dart';
 import 'package:property_ms/data/models/paginated_model.dart';
+import 'package:property_ms/data/models/property_model.dart';
 
 abstract class PropertyRepositories {
+  Future<AppResponse<PropertyModel>> getProperty({required int id});
+  Future<AppResponse<List<PropertyModel>>> getPropertyCompare({
+    required int id1,
+    required int id2,
+  });
   Future<AppResponse<PaginatedModel<RentCardDto>>> getTopRateProperty({
-    required int perPage,
+    required int items,
     required int page,
     required String type,
+  });
+  Future<AppResponse<PaginatedModel<PropertyDto>>> getPropertySerach({
+    required int items,
+    required int page,
+    required String title,
+  });
+  Future<AppResponse<PaginatedModel<PropertyDto>>> getPropertyFilters({
+    required int items,
+    required int page,
+    required int regionId,
+    required String tag,
+    required String listingType,
+    required bool orderByArea,
+    required bool orderByPrice,
+    required bool orderByDate,
+  });
+  Future<AppResponse<PaginatedModel<PropertyDto>>> getPropertyFiltersPro({
+    required int items,
+    required int page,
+    required PropertySearchFilterDto model,
+  });
+  Future<AppResponse> getPropertyRate({
+    required int items,
+    required int page,
+    required int id,
+    required double rate,
   });
 }
 
@@ -24,7 +58,7 @@ class ImpPropertyRepositories extends GetxService
 
   @override
   Future<AppResponse<PaginatedModel<RentCardDto>>> getTopRateProperty({
-    required int perPage,
+    required int items,
     required int page,
     required String type,
   }) async {
@@ -38,12 +72,192 @@ class ImpPropertyRepositories extends GetxService
         method: Method.get,
         requiredToken: true,
         withLogging: true,
-        queryParameters: {"items": perPage, "page": page, "type": type},
+        queryParameters: {"items": items, "page": page, "type": type},
       );
       appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
       appResponse.data = PaginatedModel<RentCardDto>.fromJson(
         response.data,
         RentCardDto.fromJson,
+      );
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse<PropertyModel>> getProperty({required int id}) async {
+    AppResponse<PropertyModel> appResponse = AppResponse(success: false);
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.getProperty,
+        method: Method.get,
+        requiredToken: true,
+        withLogging: true,
+        queryParameters: {"id": id},
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+      appResponse.data = PropertyModel.fromJson(response.data['data']);
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse<List<PropertyModel>>> getPropertyCompare({
+    required int id1,
+    required int id2,
+  }) async {
+    AppResponse<List<PropertyModel>> appResponse = AppResponse(success: false);
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.getPropertyCompare,
+        method: Method.get,
+        requiredToken: true,
+        withLogging: true,
+        queryParameters: {"id1": id1, "id2": id2},
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+      appResponse.data = [
+        PropertyModel.fromJson(response.data['data']['property_1']),
+        PropertyModel.fromJson(response.data['data']['property_2']),
+      ];
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse<PaginatedModel<PropertyDto>>> getPropertyFilters({
+    required int items,
+    required int page,
+    required int regionId,
+    required String tag,
+    required String listingType,
+    required bool orderByArea,
+    required bool orderByPrice,
+    required bool orderByDate,
+  }) async {
+    AppResponse<PaginatedModel<PropertyDto>> appResponse = AppResponse(
+      success: false,
+    );
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.getFiltersProperty,
+        method: Method.get,
+        requiredToken: true,
+        withLogging: true,
+        queryParameters: {
+          "items": items,
+          "page": page,
+          "regionId": regionId,
+          "tag": tag,
+          "listingType": listingType,
+          "orderByArea": orderByArea,
+          "orderByPrice": orderByPrice,
+          "orderByDate": orderByDate,
+        },
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+      appResponse.data = PaginatedModel<PropertyDto>.fromJson(
+        response.data,
+        PropertyDto.fromJson,
+      );
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse<PaginatedModel<PropertyDto>>> getPropertyFiltersPro({
+    required int items,
+    required int page,
+    required PropertySearchFilterDto model,
+  }) async {
+    AppResponse<PaginatedModel<PropertyDto>> appResponse = AppResponse(
+      success: false,
+    );
+    try {
+      final data = model.toJson();
+      dio.Response response = await apiService.request(
+        url: EndPoints.getSearchFilterProperty,
+        method: Method.post,
+        requiredToken: true,
+        withLogging: true,
+        queryParameters: {"items": items, "page": page},
+        params: data,
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+      appResponse.data = PaginatedModel<PropertyDto>.fromJson(
+        response.data,
+        PropertyDto.fromJson,
+      );
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse> getPropertyRate({
+    required int items,
+    required int page,
+    required int id,
+    required double rate,
+  }) async {
+    AppResponse appResponse = AppResponse(success: false);
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.getProperty + id.toString() + EndPoints.rate,
+        method: Method.post,
+        requiredToken: true,
+        withLogging: true,
+        params: {"rate": rate},
+        queryParameters: {"items": items, "page": page},
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse<PaginatedModel<PropertyDto>>> getPropertySerach({
+    required int items,
+    required int page,
+    required String title,
+  }) async {
+    AppResponse<PaginatedModel<PropertyDto>> appResponse = AppResponse(
+      success: false,
+    );
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.getSearchProperty,
+        method: Method.get,
+        requiredToken: true,
+        withLogging: true,
+        queryParameters: {"items": items, "page": page, "title": title},
+      );
+      appResponse.success = true;
+      appResponse.data = PaginatedModel<PropertyDto>.fromJson(
+        response.data,
+        PropertyDto.fromJson,
       );
     } catch (e) {
       appResponse.success = false;
