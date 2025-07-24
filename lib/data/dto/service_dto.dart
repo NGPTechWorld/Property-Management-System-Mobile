@@ -4,6 +4,7 @@ class ServiceDto {
   final String logo;
   final String location;
   final String career;
+  final String userPhone;
   final int rate;
   final int ratingCount;
 
@@ -13,6 +14,7 @@ class ServiceDto {
     required this.logo,
     required this.location,
     required this.career,
+    required this.userPhone,
     required this.rate,
     required this.ratingCount,
   });
@@ -23,6 +25,7 @@ class ServiceDto {
     logo: json['logo'] ?? '',
     location: json['location'] ?? '',
     career: json['career'] ?? '',
+    userPhone: json['userPhone'] ?? '',
     rate: json['rate'] ?? 0,
     ratingCount: json['rating_count'] ?? 0,
   );
@@ -34,6 +37,7 @@ class ServiceDto {
       logo: "logo",
       location: "الموقع",
       career: "النوع",
+      userPhone: "09xxxxxxxx",
       rate: 0,
       ratingCount: 0,
     );
