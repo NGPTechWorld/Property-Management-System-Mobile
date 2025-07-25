@@ -11,12 +11,14 @@ class AppBarSearch extends StatelessWidget {
   final bool isLocation;
   final bool isBack;
   final Function onTapFilter;
+  final TextEditingController controller;
   const AppBarSearch({
     super.key,
     required this.title,
     required this.isLocation,
     required this.onTapFilter,
     this.isBack = false,
+    required this.controller,
   });
 
   @override
@@ -76,7 +78,7 @@ class AppBarSearch extends StatelessWidget {
                       hint: "بحث",
                       minHeight: 50,
                       borderRadius: 72,
-                      textEditingController: TextEditingController(),
+                      textEditingController: controller,
                       textInputType: TextInputType.text,
                       suffixIcon: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),

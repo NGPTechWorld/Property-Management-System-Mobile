@@ -79,6 +79,7 @@ class AppBarOffices extends GetView<OfficesController> {
           title: "المكاتب",
           isLocation: true,
           onTapFilter: controller.openFilterPagePro,
+          controller: controller.searchController,
         ),
       ],
     );

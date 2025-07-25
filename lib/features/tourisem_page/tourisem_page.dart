@@ -80,6 +80,7 @@ class AppBarTourisem extends GetView<TourisemController> {
           onTapFilter: controller.openFilterPagePro,
           isLocation: true,
           isBack: true,
+          controller: controller.searchController,
         ),
       ],
     );

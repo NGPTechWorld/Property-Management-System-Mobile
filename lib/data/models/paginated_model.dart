@@ -24,11 +24,18 @@ class PaginatedModel<T> {
 
     final pagination = json["pagination"] ?? {};
 
+    int parseInt(dynamic value, [int defaultValue = 1]) {
+      if (value == null) return defaultValue;
+      if (value is int) return value;
+      if (value is String) return int.tryParse(value) ?? defaultValue;
+      return defaultValue;
+    }
+
     return PaginatedModel<T>(
-      currentPage: pagination["currentPage"] ?? 1,
-      totalPages: pagination["totalPages"] ?? 1,
-      totalItems: pagination["totalItems"] ?? parsedData.length,
-      itemsPerPage: pagination["itemsPerPage"] ?? parsedData.length,
+      currentPage: parseInt(pagination["currentPage"], 1),
+      totalPages: parseInt(pagination["totalPages"], 1),
+      totalItems: parseInt(pagination["totalItems"], parsedData.length),
+      itemsPerPage: parseInt(pagination["itemsPerPage"], parsedData.length),
       data: parsedData,
     );
   }

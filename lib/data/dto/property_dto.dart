@@ -4,9 +4,11 @@ class PropertyDto {
   final String postImage;
   final String location;
   final String postDate;
+  final String rentalPeriod;
   final bool isFavorite;
   final String listingType;
   final int price;
+  final int area;
   final double rate;
 
   PropertyDto({
@@ -15,9 +17,11 @@ class PropertyDto {
     required this.postImage,
     required this.location,
     required this.postDate,
+    required this.rentalPeriod,
     required this.isFavorite,
     required this.listingType,
     required this.price,
+    required this.area,
     required this.rate,
   });
 
@@ -25,11 +29,13 @@ class PropertyDto {
     propertyId: json['propertyId'] ?? 0,
     postTitle: json['postTitle'] ?? '',
     postImage: json['postImage'] ?? '',
+    rentalPeriod: json['rental_period'] ?? '',
     location: json['location'] ?? '',
     postDate: json['postDate'] ?? '',
     isFavorite: (json['is_favorite'] ?? 0) == 1,
     listingType: json['listing_type'] ?? '',
     price: json['price'] ?? 0,
+    area: json['area'] ?? 0,
     rate: (json['rate'] ?? 0).toDouble(),
   );
 
@@ -49,11 +55,13 @@ class PropertyDto {
     propertyId: 0,
     postTitle: 'عنوان العقار',
     postImage: '',
+    rentalPeriod: '',
     location: 'الموقع',
     postDate: '',
     isFavorite: false,
     listingType: 'أجار',
     price: 0,
+    area: 0,
     rate: 0.0,
   );
 

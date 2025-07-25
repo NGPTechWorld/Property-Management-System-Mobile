@@ -10,6 +10,7 @@ import 'package:property_ms/features/offices_page/widgets/filter_pro_office.dart
 import 'package:property_ms/features/widgets/question_bottum_sheets/question_type_widget.dart';
 
 class OfficesController extends GetxController {
+  final searchController = TextEditingController();
   final OfficesRepositories officeRepo = Get.find<OfficesRepositories>();
 
   //? Slider

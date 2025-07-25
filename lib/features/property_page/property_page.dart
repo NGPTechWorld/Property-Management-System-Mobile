@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/features/property_page/widgets/all_property.dart';
-import 'package:property_ms/features/property_page/widgets/property_slider_widget.dart';
 import 'package:property_ms/features/widgets/app_bar_search.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
 import 'property_controller.dart';
@@ -13,17 +12,24 @@ class PropertyPage extends GetView<PropertyController> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppBarProperty(),
-            SizedBox(height: AppSize.s8),
-            PropertySliderWidget(),
-            AllProperty(),
-          ],
+    return Scaffold(
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await controller.refreshPage();
+        },
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          controller: controller.scrollAllPropertController,
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppBarProperty(),
+              SizedBox(height: AppSize.s8),
+              // PropertySliderWidget(),
+              AllProperty(),
+            ],
+          ),
         ),
       ),
     );
@@ -58,6 +64,8 @@ class AppBarProperty extends GetView<PropertyController> {
                         (index) => GestureDetector(
                           onTap: () {
                             controller.selectFilter(index);
+                            controller.searchController.text = "";
+                            controller.refreshPage();
                           },
                           child: CardFilter(
                             model: controller.cardFilter[index],
@@ -79,9 +87,9 @@ class AppBarProperty extends GetView<PropertyController> {
           onTapFilter: controller.openFilterPagePro,
           isLocation: true,
           isBack: true,
+          controller: controller.searchController,
         ),
       ],
     );
   }
 }
-

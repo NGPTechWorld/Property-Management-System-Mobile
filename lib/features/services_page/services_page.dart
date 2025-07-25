@@ -78,6 +78,7 @@ class AppBarServices extends GetView<ServicesController> {
           onTapFilter: controller.openFilterPagePro,
           isLocation: false,
           isBack: true,
+                controller: controller.searchController,
         ),
       ],
     );

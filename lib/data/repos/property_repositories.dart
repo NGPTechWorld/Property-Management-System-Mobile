@@ -31,11 +31,12 @@ abstract class PropertyRepositories {
     required int items,
     required int page,
     required int regionId,
+    required int cityId,
     required String tag,
     required String listingType,
-    required bool orderByArea,
-    required bool orderByPrice,
-    required bool orderByDate,
+    required String orderByArea,
+    required String orderByPrice,
+    required String orderByDate,
   });
   Future<AppResponse<PaginatedModel<PropertyDto>>> getPropertyFiltersPro({
     required int items,
@@ -140,32 +141,35 @@ class ImpPropertyRepositories extends GetxService
     required int items,
     required int page,
     required int regionId,
+    required int cityId,
     required String tag,
     required String listingType,
-    required bool orderByArea,
-    required bool orderByPrice,
-    required bool orderByDate,
+    required String orderByArea,
+    required String orderByPrice,
+    required String orderByDate,
   }) async {
     AppResponse<PaginatedModel<PropertyDto>> appResponse = AppResponse(
       success: false,
     );
     try {
+      Map<String, dynamic> queryParams = {"items": items, "page": page};
+
+      if (regionId != 0) queryParams["regionId"] = regionId;
+      if (cityId != 0) queryParams["cityId"] = cityId;
+      if (tag.isNotEmpty) queryParams["tag"] = tag;
+      if (listingType.isNotEmpty) queryParams["listing_type"] = listingType;
+      if (orderByArea.isNotEmpty) queryParams["orderByArea"] = orderByArea;
+      if (orderByPrice.isNotEmpty) queryParams["orderByPrice"] = orderByPrice;
+      if (orderByDate.isNotEmpty) queryParams["orderByDate"] = orderByDate;
+
       dio.Response response = await apiService.request(
         url: EndPoints.getFiltersProperty,
         method: Method.get,
         requiredToken: true,
         withLogging: true,
-        queryParameters: {
-          "items": items,
-          "page": page,
-          "regionId": regionId,
-          "tag": tag,
-          "listingType": listingType,
-          "orderByArea": orderByArea,
-          "orderByPrice": orderByPrice,
-          "orderByDate": orderByDate,
-        },
+        queryParameters: queryParams,
       );
+
       appResponse.success = true;
       appResponse.successMessage = response.data['message'];
       appResponse.data = PaginatedModel<PropertyDto>.fromJson(
@@ -255,6 +259,7 @@ class ImpPropertyRepositories extends GetxService
         queryParameters: {"items": items, "page": page, "title": title},
       );
       appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
       appResponse.data = PaginatedModel<PropertyDto>.fromJson(
         response.data,
         PropertyDto.fromJson,

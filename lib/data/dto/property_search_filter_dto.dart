@@ -1,12 +1,13 @@
 class PropertySearchFilterDto {
   final int regionId;
+  final int cityId;
   final String listingType;
   final int minPrice;
   final int maxPrice;
   final double minArea;
   final double maxArea;
   final String status;
-  final bool hasFurniture;
+  final String hasFurniture;
   final String direction;
   final String ownershipType;
   final int floorNumber;
@@ -15,6 +16,7 @@ class PropertySearchFilterDto {
 
   PropertySearchFilterDto({
     required this.regionId,
+    required this.cityId,
     required this.listingType,
     required this.minPrice,
     required this.maxPrice,
@@ -32,6 +34,7 @@ class PropertySearchFilterDto {
   factory PropertySearchFilterDto.fromJson(Map<String, dynamic> json) {
     return PropertySearchFilterDto(
       regionId: json['regionId'] ?? 0,
+      cityId: json['cityId'] ?? 0,
       listingType: json['listing_type'] ?? '',
       minPrice: json['minPrice'] ?? 0,
       maxPrice: json['maxPrice'] ?? 0,
@@ -49,6 +52,7 @@ class PropertySearchFilterDto {
 
   Map<String, dynamic> toJson() => {
     'regionId': regionId,
+    'cityId': cityId,
     'listing_type': listingType,
     'minPrice': minPrice,
     'maxPrice': maxPrice,
@@ -65,13 +69,14 @@ class PropertySearchFilterDto {
 
   factory PropertySearchFilterDto.empty() => PropertySearchFilterDto(
     regionId: 0,
+    cityId: 0,
     listingType: '',
     minPrice: 0,
     maxPrice: 0,
     minArea: 0,
     maxArea: 0,
     status: '',
-    hasFurniture: false,
+    hasFurniture: '',
     direction: '',
     ownershipType: '',
     floorNumber: 0,

@@ -13,6 +13,7 @@ import 'package:property_ms/features/widgets/question_bottum_sheets/question_typ
 
 class ServicesController extends GetxController {
   final ServicesRepositories serviceRepo = Get.find<ServicesRepositories>();
+  final searchController = TextEditingController();
   final allServices = <ServiceDto>[].obs;
 
   //!   Fillters
