@@ -1,3 +1,5 @@
+import 'package:property_ms/data/dto/office_dto.dart';
+
 class PropertyModel {
   final int propertyId;
   final String postTitle;
@@ -12,10 +14,11 @@ class PropertyModel {
   final String status;
   final Coordinates coordinates;
   final int floorNumber;
+  final double avgRate;
   final String notes;
   final bool highlighted;
   final RoomCounts roomCounts;
-  final bool hasFurniture;
+  final String hasFurniture;
   final String location;
   final Region region;
   final City city;
@@ -23,8 +26,9 @@ class PropertyModel {
   final String tag;
   final String listingType;
   final SellDetails? sellDetails;
+  final RentDetails? rentDetails;
   final bool isFavorite;
-  final Office office;
+  final OfficeDto office;
 
   PropertyModel({
     required this.propertyId,
@@ -40,6 +44,7 @@ class PropertyModel {
     required this.status,
     required this.coordinates,
     required this.floorNumber,
+    required this.avgRate,
     required this.notes,
     required this.highlighted,
     required this.roomCounts,
@@ -51,6 +56,7 @@ class PropertyModel {
     required this.tag,
     required this.listingType,
     required this.sellDetails,
+    required this.rentDetails,
     required this.isFavorite,
     required this.office,
   });
@@ -69,10 +75,12 @@ class PropertyModel {
     status: json['status'] ?? '',
     coordinates: Coordinates.fromJson(json['coordinates'] ?? {}),
     floorNumber: json['floor_number'] ?? 0,
+    avgRate: double.tryParse(json['avg_rate']?.toString() ?? '') ?? 0.0,
+
     notes: json['notes'] ?? '',
     highlighted: json['highlighted'] ?? false,
     roomCounts: RoomCounts.fromJson(json['room_counts'] ?? {}),
-    hasFurniture: json['has_furniture'] ?? false,
+    hasFurniture: json['has_furniture'] ?? "",
     location: json['location'] ?? '',
     region: Region.fromJson(json['region'] ?? {}),
     city: City.fromJson(json['city'] ?? {}),
@@ -86,8 +94,12 @@ class PropertyModel {
         json['sell_details'] != null
             ? SellDetails.fromJson(json['sell_details'])
             : null,
+    rentDetails:
+        json['rent_details'] != null
+            ? RentDetails.fromJson(json['rent_details'])
+            : null,
     isFavorite: (json['is_favorite'] ?? 0) == 1,
-    office: Office.fromJson(json['office'] ?? {}),
+    office: OfficeDto.fromJson(json['office'] ?? {}),
   );
 }
 
@@ -98,9 +110,9 @@ class Coordinates {
   Coordinates({required this.latitude, required this.longitude});
 
   factory Coordinates.fromJson(Map<String, dynamic> json) => Coordinates(
-        latitude: json['latitude'] ?? '',
-        longitude: json['longitude'] ?? '',
-      );
+    latitude: json['latitude'] ?? '',
+    longitude: json['longitude'] ?? '',
+  );
 }
 
 class RoomCounts {
@@ -119,12 +131,12 @@ class RoomCounts {
   });
 
   factory RoomCounts.fromJson(Map<String, dynamic> json) => RoomCounts(
-        total: json['total'] ?? 0,
-        bedroom: json['bedroom'] ?? 0,
-        livingRoom: json['living_room'] ?? 0,
-        kitchen: json['kitchen'] ?? 0,
-        bathroom: json['bathroom'] ?? 0,
-      );
+    total: json['total'] ?? 0,
+    bedroom: json['bedroom'] ?? 0,
+    livingRoom: json['living_room'] ?? 0,
+    kitchen: json['kitchen'] ?? 0,
+    bathroom: json['bathroom'] ?? 0,
+  );
 }
 
 class Region {
@@ -133,10 +145,8 @@ class Region {
 
   Region({required this.id, required this.name});
 
-  factory Region.fromJson(Map<String, dynamic> json) => Region(
-        id: json['id'] ?? 0,
-        name: json['name'] ?? '',
-      );
+  factory Region.fromJson(Map<String, dynamic> json) =>
+      Region(id: json['id'] ?? 0, name: json['name'] ?? '');
 }
 
 class City {
@@ -145,10 +155,8 @@ class City {
 
   City({required this.id, required this.name});
 
-  factory City.fromJson(Map<String, dynamic> json) => City(
-        id: json['id'] ?? 0,
-        name: json['name'] ?? '',
-      );
+  factory City.fromJson(Map<String, dynamic> json) =>
+      City(id: json['id'] ?? 0, name: json['name'] ?? '');
 }
 
 class ImageModel {
@@ -157,10 +165,8 @@ class ImageModel {
 
   ImageModel({required this.id, required this.imageUrl});
 
-  factory ImageModel.fromJson(Map<String, dynamic> json) => ImageModel(
-        id: json['id'] ?? 0,
-        imageUrl: json['image_url'] ?? '',
-      );
+  factory ImageModel.fromJson(Map<String, dynamic> json) =>
+      ImageModel(id: json['id'] ?? 0, imageUrl: json['image_url'] ?? '');
 }
 
 class SellDetails {
@@ -175,44 +181,20 @@ class SellDetails {
   });
 
   factory SellDetails.fromJson(Map<String, dynamic> json) => SellDetails(
-        sellingPrice: json['selling_price'] ?? 0,
-        installmentAllowed: json['installment_allowed'] ?? false,
-        installmentDuration: json['installment_duration'] ?? 0,
-      );
+    sellingPrice: json['selling_price'] ?? 0,
+    installmentAllowed: json['installment_allowed'] ?? false,
+    installmentDuration: json['installment_duration'] ?? 0,
+  );
 }
 
-class Office {
-  final int id;
-  final String name;
-  final String logo;
-  final String type;
-  final OfficeRate rate;
+class RentDetails {
+  final int price;
+  final String rentalPeriod;
 
-  Office({
-    required this.id,
-    required this.name,
-    required this.logo,
-    required this.type,
-    required this.rate,
-  });
+  RentDetails({required this.price, required this.rentalPeriod});
 
-  factory Office.fromJson(Map<String, dynamic> json) => Office(
-        id: json['id'] ?? 0,
-        name: json['name'] ?? '',
-        logo: json['logo'] ?? '',
-        type: json['type'] ?? '',
-        rate: OfficeRate.fromJson(json['rate'] ?? {}),
-      );
-}
-
-class OfficeRate {
-  final double avreg;
-  final int count;
-
-  OfficeRate({required this.avreg, required this.count});
-
-  factory OfficeRate.fromJson(Map<String, dynamic> json) => OfficeRate(
-        avreg: (json['avreg'] ?? 0).toDouble(),
-        count: json['count'] ?? 0,
-      );
+  factory RentDetails.fromJson(Map<String, dynamic> json) => RentDetails(
+    price: json['price'] ?? 0,
+    rentalPeriod: json['rental_period'] ?? "",
+  );
 }

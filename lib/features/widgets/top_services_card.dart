@@ -42,7 +42,8 @@ class TopServicesCard extends StatelessWidget {
                       : ClipOval(
                         child: CustomCachedNetworkImage(
                           imageUrl: model.logo,
-
+                          width: AppSize.sWidth * 0.23,
+                          height: AppSize.sWidth * 0.23,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -59,7 +60,9 @@ class TopServicesCard extends StatelessWidget {
                 children: [
                   Text(
                     model.name,
-                    style: Get.textTheme.bodyLarge,
+                    style: Get.textTheme.bodyLarge!.copyWith(
+                      fontSize: FontSize.s14,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 4),

@@ -93,11 +93,10 @@ class ImpPropertyRepositories extends GetxService
     AppResponse<PropertyModel> appResponse = AppResponse(success: false);
     try {
       dio.Response response = await apiService.request(
-        url: EndPoints.getProperty,
+        url: EndPoints.getProperty + id.toString(),
         method: Method.get,
         requiredToken: true,
         withLogging: true,
-        queryParameters: {"id": id},
       );
       appResponse.success = true;
       appResponse.successMessage = response.data['message'];

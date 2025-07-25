@@ -63,12 +63,20 @@ class AllProperty extends GetView<PropertyController> {
   Widget _buildPropertyCard(PropertyDto item) {
     if (item.listingType == "أجار") {
       return GestureDetector(
-        onTap: () => Get.toNamed(AppRoutes.propertyDetailsPage),
+        onTap:
+            () => Get.toNamed(
+              AppRoutes.propertyDetailsPage,
+              parameters: {"id": item.propertyId.toString()},
+            ),
         child: PropertyRentCard2Small(model: item),
       );
     } else if (item.listingType == "بيع") {
       return GestureDetector(
-        onTap: () => Get.toNamed(AppRoutes.propertyDetailsPage),
+        onTap:
+            () => Get.toNamed(
+              AppRoutes.propertyDetailsPage,
+              parameters: {"id": item.propertyId.toString()},
+            ),
         child: PropertySaleCard2Small(model: item),
       );
     } else {

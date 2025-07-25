@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/Routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/data/dto/rent_dto.dart';
@@ -37,7 +38,14 @@ class TopPropertyHome extends GetView<HomeController> {
                     index,
                   ) {
                     final item = controller.topPropertList[index];
-                    return PropertyRentCard(model: item, isLoaging: false);
+                    return GestureDetector(
+                      onTap:
+                          () => Get.toNamed(
+                            AppRoutes.propertyDetailsPage,
+                            parameters: {"id": item.id.toString()},
+                          ),
+                      child: PropertyRentCard(model: item, isLoaging: false),
+                    );
                   }),
                 ),
                 controller.loadingTopPropertState.value == LoadingState.loading
@@ -54,7 +62,6 @@ class TopPropertyHome extends GetView<HomeController> {
                       }),
                     )
                     : Container(),
-      
               ],
             ),
           ),

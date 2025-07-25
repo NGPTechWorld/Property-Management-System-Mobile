@@ -37,6 +37,7 @@ class ServiceCardStyle2 extends StatelessWidget {
                         : ClipOval(
                           child: CustomCachedNetworkImage(
                             imageUrl: model.logo,
+
                             fit: BoxFit.cover,
                           ),
                         ),

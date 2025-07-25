@@ -36,6 +36,8 @@ class OfficeCardStyle2 extends StatelessWidget {
                       : ClipOval(
                         child: CustomCachedNetworkImage(
                           imageUrl: model.logo,
+                          width: AppSize.sWidth * 0.23,
+                          height: AppSize.sWidth * 0.23,
                           fit: BoxFit.cover,
                         ),
                       ),

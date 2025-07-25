@@ -1,9 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
 
 class ImageCarousel extends StatelessWidget {
-  final List<ImageProvider> images;
+  final List<String> images;
   final double height;
   final RxInt? currentIndex;
   final Color activeDotColor;
@@ -42,11 +44,10 @@ class ImageCarousel extends StatelessWidget {
           ),
           items:
               images.map((image) {
-                return Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(image: image, fit: BoxFit.cover),
-                  ),
+                return CustomCachedNetworkImage(
+                  imageUrl: image,
+                  width: AppSize.sWidth,
+                  fit: BoxFit.cover,
                 );
               }).toList(),
         ),

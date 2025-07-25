@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:property_ms/core/routes/app_routes.dart';
+import 'package:property_ms/core/Routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/features/widgets/office_card_style2.dart';
+import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/property_details_controller.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/property_details_widget.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/property_header.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/related_properties_widgets.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/room_details_widget.dart';
+import 'package:property_ms/features/widgets/office_card_style2.dart';
 import 'package:property_ms/features/widgets/price_section.dart';
 import 'package:property_ms/features/widgets/property_reusable_widget/image_carousel.dart';
-import 'package:shimmer/shimmer.dart';
 
 class PropertyDetailsPage extends GetView<PropertyDetailsController> {
   const PropertyDetailsPage({super.key});
@@ -23,114 +23,125 @@ class PropertyDetailsPage extends GetView<PropertyDetailsController> {
     return Scaffold(
       body: SafeArea(
         top: false,
-        child: NestedScrollView(
-          controller: controller.scrollController,
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              SliverAppBar(
-                expandedHeight: appBarHeight,
-                toolbarHeight: kToolbarHeight + AppSize.s10,
-                elevation: 0,
-                leading: IconButton(
-                  icon: Container(
-                    height: AppSize.s40,
-                    width: AppSize.s40,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: ColorManager.primaryColor,
-                    ),
-                    alignment: Alignment.center,
-                    child: const Icon(Icons.chevron_left, color: Colors.white),
-                  ),
-                  onPressed: () => Get.back(),
-                ),
-                flexibleSpace: FlexibleSpaceBar(
-                  collapseMode: CollapseMode.pin,
-                  titlePadding: EdgeInsets.zero,
-                  expandedTitleScale: 1.1,
-                  background: Obx(() {
-                    return controller.isLoadingImages.value
-                        ? Shimmer.fromColors(
-                          baseColor: Colors.grey[300]!,
-                          highlightColor: Colors.grey[100]!,
-                          child: Container(
-                            height: appBarHeight,
-                            width: double.infinity,
-                            color: Colors.white,
+        child: Obx(
+          () =>
+              controller.loadingState.value == LoadingState.loading
+                  ? const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [Center(child: CircularProgressIndicator())],
+                  )
+                  : controller.loadingState.value == LoadingState.doneWithData
+                  ? NestedScrollView(
+                    controller: controller.scrollController,
+                    headerSliverBuilder: (context, innerBoxIsScrolled) {
+                      return [
+                        SliverAppBar(
+                          expandedHeight: appBarHeight,
+                          toolbarHeight: kToolbarHeight + AppSize.s10,
+                          elevation: 0,
+                          leading: IconButton(
+                            icon: Container(
+                              height: AppSize.s40,
+                              width: AppSize.s40,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: ColorManager.primaryColor,
+                              ),
+                              alignment: Alignment.center,
+                              child: const Icon(
+                                Icons.chevron_left,
+                                color: Colors.white,
+                              ),
+                            ),
+                            onPressed: () => Get.back(),
                           ),
-                        )
-                        : ImageCarousel(
-                          images:
-                              controller.propertyDetails.images
-                                  .map<ImageProvider<Object>>(
-                                    (asset) => asset.provider(),
-                                  )
-                                  .toList(),
-                          currentIndex: controller.sliderIndex,
-                          activeDotColor: ColorManager.primaryColor,
-                          inactiveDotColor: Colors.grey.shade300,
-                        );
-                  }),
-                ),
-              ),
-            ];
-          },
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.only(bottom: AppPadding.p24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(24),
-                    ),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppPadding.p16,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      PropertyHeader(model: controller.propertyDetails),
-                      const SizedBox(height: AppSize.s24),
-                      Text(
-                        'المكتب المسؤول',
-                        style: Get.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
+                          flexibleSpace: FlexibleSpaceBar(
+                            collapseMode: CollapseMode.pin,
+                            titlePadding: EdgeInsets.zero,
+                            expandedTitleScale: 1.1,
+                            background: ImageCarousel(
+                              images:
+                                  controller.propertyDetails!.images
+                                      .map((asset) => asset.imageUrl)
+                                      .toList(),
+                              currentIndex: controller.sliderIndex,
+                              activeDotColor: ColorManager.primaryColor,
+                              inactiveDotColor: Colors.grey.shade300,
+                            ),
+                          ),
                         ),
+                      ];
+                    },
+                    body: SingleChildScrollView(
+                      padding: const EdgeInsets.only(bottom: AppPadding.p24),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(24),
+                              ),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.p16,
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                PropertyHeader(
+                                  model: controller.propertyDetails!,
+                                ),
+                                const SizedBox(height: AppSize.s24),
+                                Text(
+                                  'المكتب المسؤول',
+                                  style: Get.textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: AppSize.s12),
+                                GestureDetector(
+                                  onDoubleTap:
+                                      () =>
+                                          Get.toNamed(AppRoutes.officeDetails),
+                                  child: OfficeCardStyle2(
+                                    model: controller.propertyDetails!.office,
+                                  ),
+                                ),
+                                PropertyDetailsWidget(
+                                  model: controller.propertyDetails!,
+                                ),
+                                RoomDetailsWidget(
+                                  roomDetails:
+                                      controller.propertyDetails!.roomCounts,
+                                ),
+                                RelatedPropertiesWidgets(
+                                  controller: controller,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: AppSize.s12),
-                      // GestureDetector(
-                      //   onDoubleTap:
-                      //       () => Get.toNamed(
-                      //         AppRoutes.officeDetails,
-                      //         arguments:
-                      //             controller.propertyDetails.responsibleOffice,
-                      //       ),
-                      //   child: OfficeCardStyle2(
-                      //     model: controller.propertyDetails.responsibleOffice,
-                      //   ),
-                      // ),
-                      PropertyDetailsWidget(model: controller.propertyDetails),
-                      RoomDetailsWidget(
-                        roomDetails: controller.propertyDetails.roomDetails,
-                      ),
-                      RelatedPropertiesWidgets(controller: controller),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+                    ),
+                  )
+                  : Container(),
         ),
       ),
-
-      bottomNavigationBar: PriceSection(
-        price: '\$30,000',
-        onPressed: () {
-          // Booking logic here
-        },
+      bottomNavigationBar: Obx(
+        () =>
+            controller.loadingState.value == LoadingState.loading
+                ? const SizedBox.shrink()
+                : PriceSection(
+                  price:
+                      controller.propertyDetails!.sellDetails != null
+                          ? '${controller.propertyDetails!.sellDetails!.sellingPrice} \$'
+                          : '${controller.propertyDetails!.rentDetails!.price} \$ ',
+                  onPressed: () {
+                    // Booking logic here
+                  },
+                ),
       ),
     );
   }

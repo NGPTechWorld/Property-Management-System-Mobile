@@ -34,10 +34,10 @@ class TourismDetailsPage extends GetView<TourismDetailsController> {
             ),
             elevation: 0.0,
             stretch: true,
-            flexibleSpace: TourismImageHeader(
-              controller: controller,
-              appBarHeight: appBarHeight,
-            ),
+            // flexibleSpace: TourismImageHeader(
+            //   controller: controller,
+            //   appBarHeight: appBarHeight,
+            // ),
             leading: IconButton(
               icon: Container(
                 height: AppSize.s40,
@@ -242,7 +242,7 @@ class ResponsibleOfficeSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: AppSize.s12),
-       // OfficeCardStyle2(model: controller.repsonsibleOffice),
+        // OfficeCardStyle2(model: controller.repsonsibleOffice),
       ],
     );
   }
@@ -312,38 +312,38 @@ class TitleAndCompare extends StatelessWidget {
   }
 }
 
-class TourismImageHeader extends StatelessWidget {
-  const TourismImageHeader({
-    super.key,
-    required this.controller,
-    required this.appBarHeight,
-  });
+// class TourismImageHeader extends StatelessWidget {
+//   const TourismImageHeader({
+//     super.key,
+//     required this.controller,
+//     required this.appBarHeight,
+//   });
 
-  final TourismDetailsController controller;
-  final double appBarHeight;
+//   final TourismDetailsController controller;
+//   final double appBarHeight;
 
-  @override
-  Widget build(BuildContext context) {
-    return Obx(() {
-      return controller.isLoadingImages.value
-          ? Shimmer.fromColors(
-            baseColor: Colors.grey[300]!,
-            highlightColor: Colors.grey[100]!,
-            child: Container(
-              height: appBarHeight,
-              width: double.infinity,
-              color: Colors.white,
-            ),
-          )
-          : ImageCarousel(
-            images: controller.images.map((asset) => asset.provider()).toList(),
-            currentIndex: controller.sliderIndex,
-            activeDotColor: ColorManager.primaryColor,
-            inactiveDotColor: Colors.grey.shade300,
-          );
-    });
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Obx(() {
+//       return controller.isLoadingImages.value
+//           ? Shimmer.fromColors(
+//             baseColor: Colors.grey[300]!,
+//             highlightColor: Colors.grey[100]!,
+//             child: Container(
+//               height: appBarHeight,
+//               width: double.infinity,
+//               color: Colors.white,
+//             ),
+//           )
+//           : ImageCarousel(
+//             images: controller.images.map((asset) => asset.provider()).toList(),
+//             currentIndex: controller.sliderIndex,
+//             activeDotColor: ColorManager.primaryColor,
+//             inactiveDotColor: Colors.grey.shade300,
+//           );
+//     });
+//   }
+// }
 
 class WrapFeatures extends StatelessWidget {
   const WrapFeatures({
