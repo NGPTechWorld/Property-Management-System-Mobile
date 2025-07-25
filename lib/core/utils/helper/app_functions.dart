@@ -102,6 +102,20 @@ class AppFunctions {
     }
   }
 
+  static void launchEmail(String email) async {
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: email,
+      query: Uri.encodeFull('subject=استفسار من التطبيق&body=مرحباً،'),
+    );
+
+    if (await canLaunchUrl(emailUri)) {
+      await launchUrl(emailUri);
+    } else {
+      Get.snackbar('خطأ', 'يوجد خطأ في الحساب $email');
+    }
+  }
+
   static Future<List<PlatformFile>?> multiFilePicker() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       allowMultiple: true,

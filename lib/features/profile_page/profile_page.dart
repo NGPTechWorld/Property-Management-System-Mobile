@@ -1,11 +1,11 @@
-import 'dart:developer';
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
+
 import 'profile_controller.dart';
 
 class ProfilePage extends GetView<ProfileController> {
@@ -42,7 +42,7 @@ class ProfilePage extends GetView<ProfileController> {
               title: "الدعم والمساعدة",
               icon: Assets.icons.supportIcon,
               onTap: () {
-                log("test");
+                Get.toNamed(AppRoutes.supportPage);
               },
             ),
             SettingsCard(
