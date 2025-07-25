@@ -118,7 +118,7 @@ class ContactSupportCard extends StatelessWidget {
                 Text(
                   'متاح 24/7 لمساعدتك في أي استفسار',
                   style: Get.textTheme.bodyMedium!.copyWith(
-                    color: ColorManager.grey2,
+                    color: ColorManager.grey3,
                   ),
                 ),
               ],
@@ -216,7 +216,7 @@ class FAQItemTile extends StatelessWidget {
               textAlign: TextAlign.right,
               style: Get.textTheme.bodyMedium!.copyWith(
                 height: 1.6,
-                color: ColorManager.grey2,
+                color: ColorManager.grey3,
               ),
             ),
           ],
@@ -280,7 +280,7 @@ class HelpOptionTile extends StatelessWidget {
                   Text(
                     subtitle,
                     style: Get.textTheme.bodyMedium!.copyWith(
-                      color: ColorManager.grey2,
+                      color: ColorManager.grey3,
                     ),
                   ),
                 ],
