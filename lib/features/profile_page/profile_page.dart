@@ -129,7 +129,7 @@ class FavAndPostCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Get.toNamed(AppRoutes.favoritesRoute),
+      onTap: () => Get.toNamed(AppRoutes.myPostsPage),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
         child: Row(

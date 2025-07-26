@@ -11,27 +11,33 @@ import 'package:property_ms/features/auth/resetpassword/reset_password_page.dart
 import 'package:property_ms/features/auth/signup/signup_controller.dart';
 import 'package:property_ms/features/auth/signup/signup_page.dart';
 import 'package:property_ms/features/auth/signup/sub_pages/signup_step2/signup_2_page.dart';
-import 'package:property_ms/features/profile_page/sub_pages/support/sub_pages/chat/chat_controller.dart';
-import 'package:property_ms/features/profile_page/sub_pages/support/sub_pages/chat/chat_page.dart';
+import 'package:property_ms/features/compare/compare_properties/compare_properties_controller.dart';
+import 'package:property_ms/features/compare/compare_properties/compare_properties_page.dart';
 import 'package:property_ms/features/compare/compare_tourism/compare_tourism_controller.dart';
 import 'package:property_ms/features/compare/compare_tourism/compare_tourism_page.dart';
+import 'package:property_ms/features/contract_details/contract_details.dart';
 import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/main_page/main_page.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_controller.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_page.dart';
-import 'package:property_ms/features/compare/compare_properties/compare_properties_controller.dart';
-import 'package:property_ms/features/contract_details/contract_details.dart';
-import 'package:property_ms/features/compare/compare_properties/compare_properties_page.dart';
+import 'package:property_ms/features/offices_page/sub_pages/report/report_office_controller.dart';
+import 'package:property_ms/features/offices_page/sub_pages/report/report_office_page.dart';
 import 'package:property_ms/features/profile_page/sub_pages/account_info_page/account_info_controller.dart';
 import 'package:property_ms/features/profile_page/sub_pages/account_info_page/account_info_page.dart';
 import 'package:property_ms/features/profile_page/sub_pages/favorites_page/favorites_controller.dart';
 import 'package:property_ms/features/profile_page/sub_pages/favorites_page/favorites_page.dart';
+import 'package:property_ms/features/profile_page/sub_pages/my_posts/my_posts_controller.dart';
+import 'package:property_ms/features/profile_page/sub_pages/my_posts/my_posts_page.dart';
+import 'package:property_ms/features/profile_page/sub_pages/my_posts/sub_pages/post_details/post_details_controller.dart';
+import 'package:property_ms/features/profile_page/sub_pages/my_posts/sub_pages/post_details/post_details_page.dart';
 import 'package:property_ms/features/profile_page/sub_pages/my_sales_page/my_sales_controller.dart';
 import 'package:property_ms/features/profile_page/sub_pages/my_sales_page/my_sales_page.dart';
+import 'package:property_ms/features/profile_page/sub_pages/support/sub_pages/chat/chat_controller.dart';
+import 'package:property_ms/features/profile_page/sub_pages/support/sub_pages/chat/chat_page.dart';
+import 'package:property_ms/features/profile_page/sub_pages/support/support_controller.dart';
+import 'package:property_ms/features/profile_page/sub_pages/support/support_page.dart';
 import 'package:property_ms/features/property_page/property_controller.dart';
 import 'package:property_ms/features/property_page/property_page.dart';
-import 'package:property_ms/features/offices_page/sub_pages/report/report_office_controller.dart';
-import 'package:property_ms/features/offices_page/sub_pages/report/report_office_page.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/property_details_controller.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/property_details_page.dart';
 import 'package:property_ms/features/services_page/services_controller.dart';
@@ -42,8 +48,6 @@ import 'package:property_ms/features/services_page/sub_pages/services_details/se
 import 'package:property_ms/features/services_page/sub_pages/services_details/service_detail_page.dart';
 import 'package:property_ms/features/splash/splash_controller.dart';
 import 'package:property_ms/features/splash/splash_page.dart';
-import 'package:property_ms/features/profile_page/sub_pages/support/support_controller.dart';
-import 'package:property_ms/features/profile_page/sub_pages/support/support_page.dart';
 import 'package:property_ms/features/tourisem_page/sub_pages/tourism_details/tourism_details_controller.dart';
 import 'package:property_ms/features/tourisem_page/sub_pages/tourism_details/tourism_details_page.dart';
 import 'package:property_ms/features/tourisem_page/tourisem_controller.dart';
@@ -167,6 +171,16 @@ abstract class NavigationManager {
       name: AppRoutes.chatPage,
       page: () => const ChatPage(),
       binding: BindingsBuilder.put(() => ChatController()),
+    ),
+    GetPage(
+      name: AppRoutes.myPostsPage,
+      page: () => const MyPostsPage(),
+      binding: BindingsBuilder.put(() => MyPostsController()),
+    ),
+    GetPage(
+      name: AppRoutes.postDetailsPage,
+      page: () => const PostDetailsPage(),
+      binding: BindingsBuilder.put(() => PostDetailsController()),
     ),
     // GetPage(
     //   name: AppRoutes.loginRoute,

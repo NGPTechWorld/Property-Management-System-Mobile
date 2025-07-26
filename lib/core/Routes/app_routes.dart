@@ -24,4 +24,7 @@ abstract class AppRoutes {
   static const String compareTourismPage = "/compareTourismPage";
   static const String supportPage = "/supportPage";
   static const String chatPage = "/chatPage";
+  static const String myPostsPage = "/myPostsPage";
+  static const String postDetailsPage = "/postDetailsPage";
+
 }
