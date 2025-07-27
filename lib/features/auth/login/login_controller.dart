@@ -54,7 +54,7 @@ class LoginController extends GetxController {
       type: CustomToastType.success,
     ).show();
 
-    cacheService.saveData(key: kUserToken, value: response.data);
+    cacheService.saveData(key: kUserToken, value: response.data!.accessToken);
     Get.offAllNamed(AppRoutes.splashRoute);
     loadingState.value = LoadingState.doneWithData;
   }

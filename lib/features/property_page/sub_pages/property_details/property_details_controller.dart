@@ -13,6 +13,7 @@ import 'package:property_ms/features/property_page/sub_pages/property_details/wi
 
 class PropertyDetailsController extends GetxController {
   final rating = 4.0.obs;
+  final myRating = 4.0.obs;
 
   final PropertyRepositories propertyRepo = Get.find<PropertyRepositories>();
   final loadingState = LoadingState.idle.obs;
@@ -52,16 +53,6 @@ class PropertyDetailsController extends GetxController {
         getAllProperty(firstPage: false);
       }
     });
-  }
-
-  void updateRating(double newRating) {
-    rating.value = newRating;
-
-    // Optional: update the model
-    // model.rate = newRating.toString();
-
-    // Optional: send rating to backend or local DB
-    print('Updated rating: $newRating');
   }
 
   Future<void> getProperty() async {
@@ -207,4 +198,32 @@ class PropertyDetailsController extends GetxController {
   }
 
   //!====================
+
+  //?    Rating
+  void updateRating(double newRating) async {
+    myRating.value = newRating;
+    await postPropertyRate();
+  }
+
+  Future<void> postPropertyRate() async {
+    Future.delayed(const Duration(seconds: 3));
+    final response = await propertyRepo.postPropertyRate(
+      id: propertyDetails!.propertyId,
+      rate: myRating.value,
+    );
+
+    if (!response.success) {
+      CustomToasts(
+        message: response.getErrorMessage(),
+        type: CustomToastType.error,
+      ).show();
+      return;
+    }
+    CustomToasts(
+      message: response.successMessage!,
+      type: CustomToastType.success,
+    ).show();
+  }
+
+  //? ====================
 }

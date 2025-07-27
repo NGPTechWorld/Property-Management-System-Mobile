@@ -49,12 +49,7 @@ abstract class PropertyRepositories {
     required int items,
     required int page,
   });
-  Future<AppResponse> getPropertyRate({
-    required int items,
-    required int page,
-    required int id,
-    required double rate,
-  });
+  Future<AppResponse> postPropertyRate({required int id, required double rate});
 }
 
 class ImpPropertyRepositories extends GetxService
@@ -251,9 +246,7 @@ class ImpPropertyRepositories extends GetxService
   }
 
   @override
-  Future<AppResponse> getPropertyRate({
-    required int items,
-    required int page,
+  Future<AppResponse> postPropertyRate({
     required int id,
     required double rate,
   }) async {
@@ -265,7 +258,6 @@ class ImpPropertyRepositories extends GetxService
         requiredToken: true,
         withLogging: true,
         params: {"rate": rate},
-        queryParameters: {"items": items, "page": page},
       );
       appResponse.success = true;
       appResponse.successMessage = response.data['message'];

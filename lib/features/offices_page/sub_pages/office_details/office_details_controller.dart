@@ -9,7 +9,7 @@ import 'package:property_ms/features/widgets/property_sale_card2_small.dart';
 class OfficeDetailsController extends GetxController
     with GetSingleTickerProviderStateMixin {
   // office model id
- // final OfficeCardModel office = Get.arguments as OfficeCardModel;
+  // final OfficeCardModel office = Get.arguments as OfficeCardModel;
   RxDouble rating = 0.0.obs;
 
   // filter
@@ -130,7 +130,7 @@ class OfficeDetailsController extends GetxController
 
   //! list obs for filter
 
-  RxList<dynamic> filteredProperties = <dynamic>[].obs;
+  RxList filteredProperties = [].obs;
 
   void updateFilteredProperties() {
     if (selectedFilterIndex.value == 0) {
@@ -139,26 +139,21 @@ class OfficeDetailsController extends GetxController
     } else if (selectedFilterIndex.value == 1) {
       // Example filter for rent properties
       filteredProperties.assignAll(
-        officeProperties
-            .whereType<PropertyRentCard2SmallModel>()
-            .toList(),
+        officeProperties.whereType<PropertyRentCard2SmallModel>().toList(),
       );
     } else if (selectedFilterIndex.value == 2) {
       // Example filter for sale properties
       filteredProperties.assignAll(
-        officeProperties
-            .whereType<PropertySaleCard2SmallModel>()
-            .toList(),
+        officeProperties.whereType<PropertySaleCard2SmallModel>().toList(),
       );
     }
   }
 
   @override
   void onInit() {
-   // rating.value = double.tryParse(office.rate.toString()) ?? 0.0;
+    // rating.value = double.tryParse(office.rate.toString()) ?? 0.0;
     // Tabbar
     tabController = TabController(length: tabs.length, vsync: this);
-    filteredProperties.assignAll(officeProperties);
 
     //! @OsamaZerkawi first of init  Call the API for getting properties and profile details
     super.onInit();
