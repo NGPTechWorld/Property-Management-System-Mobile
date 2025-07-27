@@ -142,7 +142,7 @@ class PostCard extends StatelessWidget {
                 Text(
                   post.description,
                   style: Get.textTheme.bodyMedium!.copyWith(
-                    color: ColorManager.grey2,
+                    color: ColorManager.primary5Color,
                     height: 1.4,
                   ),
                 ),
@@ -155,7 +155,7 @@ class PostCard extends StatelessWidget {
                     Text(
                       'تاريخ النشر: ${_formatDate(post.date)}',
                       style: Get.textTheme.bodySmall!.copyWith(
-                        color: ColorManager.grey3,
+                        color: ColorManager.primary5Color,
                       ),
                     ),
                     Row(
