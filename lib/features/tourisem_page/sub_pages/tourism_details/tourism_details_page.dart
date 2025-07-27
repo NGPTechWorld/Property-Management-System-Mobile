@@ -6,7 +6,7 @@ import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/app_button.dart';
-import 'package:property_ms/features/offices_page/widgets/office_card_style2.dart';
+import 'package:property_ms/features/widgets/office_card_style2.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/lacation_card.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/map_button.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/rating_card.dart';
@@ -183,10 +183,10 @@ class TourismDetailsAppbar extends StatelessWidget {
       ),
       elevation: 0.0,
       stretch: true,
-      flexibleSpace: TourismImageHeader(
-        controller: controller,
-        appBarHeight: appBarHeight,
-      ),
+      // flexibleSpace: TourismImageHeader(
+      //   controller: controller,
+      //   appBarHeight: appBarHeight,
+      // ),
       leading: IconButton(
         icon: Container(
           height: AppSize.s40,
@@ -419,38 +419,25 @@ class TitleAndCompare extends StatelessWidget {
   }
 }
 
-// class TourismImageHeader extends StatelessWidget {
-//   const TourismImageHeader({
-//     super.key,
-//     required this.controller,
-//     required this.appBarHeight,
-//   });
+class TourismImageHeader extends StatelessWidget {
+  const TourismImageHeader({
+    super.key,
+    required this.controller,
+    required this.appBarHeight,
+  });
 
-//   final TourismDetailsController controller;
-//   final double appBarHeight;
+  final TourismDetailsController controller;
+  final double appBarHeight;
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      return controller.isLoadingImages.value
-          ? Shimmer.fromColors(
-            baseColor: Colors.grey[300]!,
-            highlightColor: Colors.grey[100]!,
-            child: Container(
-              height: appBarHeight,
-              width: double.infinity,
-              color: Colors.white,
-            ),
-          )
-          : ImageCarousel(
-            images:
-                controller.tourismDetails.images
-                    .map<ImageProvider<Object>>((asset) => asset.provider())
-                    .toList(),
-            currentIndex: controller.sliderIndex,
-            activeDotColor: ColorManager.primaryColor,
-            inactiveDotColor: Colors.grey.shade300,
-          );
+      return ImageCarousel(
+        images: controller.tourismDetails.images.map((asset) => asset).toList(),
+        currentIndex: controller.sliderIndex,
+        activeDotColor: ColorManager.primaryColor,
+        inactiveDotColor: Colors.grey.shade300,
+      );
     });
   }
 }

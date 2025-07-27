@@ -40,41 +40,24 @@ class PostDetailsPage extends GetView<PostDetailsController> {
             const SizedBox(height: AppSize.s18),
 
             //! @Osama : here only one type could be recommended (rent or sell) (back problem ☺️☺️)
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: List.generate(
-                    controller.recommendedProperties.length,
-                    (index) => Padding(
-                      padding: const EdgeInsets.only(bottom: AppPadding.p12),
-                      child: _buildPropertyCard(
-                        controller.recommendedProperties[index],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            // Expanded(
+            //   child: SingleChildScrollView(
+            //     child: Column(
+            //       children: List.generate(
+            //         controller.recommendedProperties.length,
+            //         (index) => Padding(
+            //           padding: const EdgeInsets.only(bottom: AppPadding.p12),
+            //           child: _buildPropertyCard(
+            //             controller.recommendedProperties[index],
+            //           ),
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
     );
-  }
-
-  //! @Osama here should not be recreated because it exists in property_page
-  Widget _buildPropertyCard(dynamic item) {
-    if (item is PropertyRentCard2SmallModel) {
-      return GestureDetector(
-        onTap: () => Get.toNamed(AppRoutes.propertyDetailsPage),
-        child: PropertyRentCard2Small(model: item),
-      );
-    } else if (item is PropertySaleCard2SmallModel) {
-      return GestureDetector(
-        onTap: () => Get.toNamed(AppRoutes.propertyDetailsPage),
-        child: PropertySaleCard2Small(model: item),
-      );
-    } else {
-      return const SizedBox();
-    }
   }
 }

@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
+import 'package:property_ms/data/dto/office_dto.dart';
 import 'package:property_ms/features/tourisem_page/sub_pages/tourism_details/models/tourism_detail_model.dart';
-import 'package:property_ms/features/widgets/office_card.dart';
 import 'package:property_ms/features/widgets/tourisem_card.dart';
 
 class TourismDetailsController extends GetxController {
@@ -31,17 +31,15 @@ class TourismDetailsController extends GetxController {
       bathrooms: 2,
       kitchens: 1,
     ),
-    images: [
-      Assets.images.officePropertyCard,
-      Assets.images.officeServicesCard,
-      Assets.images.propertyCard,
-    ],
-    responsibleOffice: OfficeCardModel(
-      title: 'مكتب أبو فراس',
+    images: [""],
+    responsibleOffice: OfficeDto(
+      ratingCount: 0,
+      id: 1,
+      name: 'مكتب أبو فراس',
       type: 'عقاري',
       location: 'دمشق, ميدان',
-      rate: 4.75,
-      image: Assets.images.propertyImage,
+      rate: 4,
+      logo: "",
     ),
     features: ['موقف سيارات', 'حديقة', 'مصعد'],
     price: '\$30,000',

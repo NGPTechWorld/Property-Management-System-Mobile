@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
-import 'package:property_ms/features/compare/compare_tourism/widgets/tourism_comparison_widget.dart';
-
+import 'package:property_ms/features/compare_pages/compare_tourism/widgets/tourism_comparison_widget.dart';
 import 'compare_tourism_controller.dart';
 
 class CompareTourismPage extends GetView<CompareTourismController> {
