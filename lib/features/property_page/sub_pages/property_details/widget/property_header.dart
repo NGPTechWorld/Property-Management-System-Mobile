@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/app_button.dart';
 import 'package:property_ms/data/models/property_model.dart';
+import 'package:property_ms/features/property_page/sub_pages/property_details/property_details_controller.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/property_details_widget.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/lacation_card.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/map_button.dart';
 
-class PropertyHeader extends StatelessWidget {
+class PropertyHeader extends GetView<PropertyDetailsController> {
   final PropertyModel model;
 
   const PropertyHeader({super.key, required this.model});
@@ -77,7 +77,7 @@ class PropertyHeader extends StatelessWidget {
               ),
               backgroundColor: ColorManager.yello,
               iconOnLeft: true,
-              onPressed: () => Get.toNamed(AppRoutes.comparePropertiesPage),
+              onPressed: () => controller.openSelectPropertyBottomSheet(),
             ),
           ],
         ),

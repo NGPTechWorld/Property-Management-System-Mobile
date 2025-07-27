@@ -94,6 +94,12 @@ class PropertyComparisonWidget extends StatelessWidget {
                   icon: Icons.payments_outlined,
                 ),
                 ComparisonItem(
+                  label: "عدد الأقساط",
+                  value1: property1.sellDetails!.installmentDuration.toString(),
+                  value2: property2.sellDetails!.installmentDuration.toString(),
+                  icon: Icons.stairs_outlined,
+                ),
+                ComparisonItem(
                   label: "الطابق",
                   value1: property1.floorNumber.toString(),
                   value2: property2.floorNumber.toString(),
@@ -127,6 +133,12 @@ class PropertyComparisonWidget extends StatelessWidget {
             )
             : ComparisonContainer(
               comparisons: [
+                ComparisonItem(
+                  label: "نوع الدفع",
+                  value1: property1.rentDetails!.rentalPeriod.toString(),
+                  value2: property2.rentDetails!.rentalPeriod.toString(),
+                  icon: Icons.square_foot_outlined,
+                ),
                 ComparisonItem(
                   label: "المساحة",
                   value1: property1.area.toStringAsFixed(2),

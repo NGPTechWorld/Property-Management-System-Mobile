@@ -13,7 +13,8 @@ class ComparePropertiesController extends GetxController {
 
   PropertyModel? property1;
   PropertyModel? property2;
-
+  final int id1 = int.parse(Get.parameters['id1']!);
+  final int id2 = int.parse(Get.parameters['id2']!);
   @override
   void onInit() {
     super.onInit();
@@ -24,7 +25,7 @@ class ComparePropertiesController extends GetxController {
     if (loadingState.value == LoadingState.loading) return;
     loadingState.value = LoadingState.loading;
     Future.delayed(const Duration(seconds: 3));
-    final response = await propertyRepo.getPropertyCompare(id1: 13, id2: 14);
+    final response = await propertyRepo.getPropertyCompare(id1: id1, id2: id2);
 
     if (!response.success) {
       loadingState.value = LoadingState.hasError;

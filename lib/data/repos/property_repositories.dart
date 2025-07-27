@@ -12,6 +12,9 @@ import 'package:property_ms/data/models/property_model.dart';
 
 abstract class PropertyRepositories {
   Future<AppResponse<PropertyModel>> getProperty({required int id});
+  Future<AppResponse<PaginatedModel<PropertyDto>>> getPropertyRelated({
+    required int id,
+  });
   Future<AppResponse<List<PropertyModel>>> getPropertyCompare({
     required int id1,
     required int id2,
@@ -289,6 +292,33 @@ class ImpPropertyRepositories extends GetxService
         requiredToken: true,
         withLogging: true,
         queryParameters: {"items": items, "page": page, "title": title},
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+      appResponse.data = PaginatedModel<PropertyDto>.fromJson(
+        response.data,
+        PropertyDto.fromJson,
+      );
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse<PaginatedModel<PropertyDto>>> getPropertyRelated({
+    required int id,
+  }) async {
+    AppResponse<PaginatedModel<PropertyDto>> appResponse = AppResponse(
+      success: false,
+    );
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.getProperty + id.toString() + EndPoints.related,
+        method: Method.get,
+        requiredToken: true,
+        withLogging: true,
       );
       appResponse.success = true;
       appResponse.successMessage = response.data['message'];

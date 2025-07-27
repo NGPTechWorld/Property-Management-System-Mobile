@@ -10,6 +10,8 @@ import 'package:property_ms/data/repos/services_repositories.dart';
 import 'package:property_ms/data/repos/users_repositories.dart';
 import 'package:property_ms/firebase_options.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'dart:developer';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class AppBinding extends Bindings {
   @override
@@ -38,4 +40,9 @@ class AppBinding extends Bindings {
 
     await Stripe.instance.applySettings();
   }
+}
+
+Future<void> getToken() async {
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+  log('FCM Token: $fcmToken');
 }
