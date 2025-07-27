@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/features/compare_pages/compare_properties/widgets/comparison_container.dart';
 import 'package:property_ms/features/tourisem_page/sub_pages/tourism_details/models/tourism_detail_model.dart';
+import 'package:property_ms/features/widgets/comparison_container.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/info_card.dart';
 
 class TourismComparisonWidget extends StatelessWidget {

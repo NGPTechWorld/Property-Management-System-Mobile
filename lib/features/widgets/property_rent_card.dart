@@ -4,10 +4,10 @@ import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
-import 'package:property_ms/data/dto/rent_dto.dart';
+import 'package:property_ms/data/dto/property_dto.dart';
 
 class PropertyRentCard extends StatelessWidget {
-  final RentCardDto model;
+  final PropertyDto model;
   final bool isLoaging;
   const PropertyRentCard({
     super.key,
@@ -37,7 +37,7 @@ class PropertyRentCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: CustomCachedNetworkImage(
-                      imageUrl: model.image,
+                      imageUrl: model.postImage,
                       height: AppSize.sHeight * 0.18,
                       width: AppSize.sWidth * 0.425,
                       fit: BoxFit.cover,
@@ -107,7 +107,7 @@ class PropertyRentCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      model.title,
+                      model.postTitle,
                       style: Get.textTheme.bodyLarge!.copyWith(
                         fontSize: FontSize.s14,
                       ),
@@ -123,7 +123,7 @@ class PropertyRentCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          model.avgRate.toStringAsFixed(1),
+                          model.rate.toStringAsFixed(1),
                           style: Get.textTheme.bodyLarge,
                         ),
                       ],

@@ -17,6 +17,7 @@ class EndPoints {
   static const String getSearchProperty = "/properties/search";
   static const String getSearchFilterProperty = "/properties/search/filters";
   static const String getPropertyCompare = "/properties/compare";
+  static const String getPropertyPromoted = "/properties/promoted";
   static const String rate = "/rate";
   static const String related = "/related";
 

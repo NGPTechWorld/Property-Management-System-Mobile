@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/data/dto/rent_dto.dart';
+import 'package:property_ms/data/dto/property_dto.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/features/home_page/home_controller.dart';
 import 'package:property_ms/features/widgets/property_rent_card.dart';
@@ -47,7 +47,7 @@ class TopTourisemHome extends GetView<HomeController> {
                           baseColor: ColorManager.shimmerBaseColor,
                           highlightColor: ColorManager.shimmerHighlightColor,
                           child: PropertyRentCard(
-                            model: RentCardDto.empty(),
+                            model: PropertyDto.empty(),
                             isLoaging: true,
                           ),
                         );

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/features/property_page/widgets/all_property.dart';
+import 'package:property_ms/features/property_page/widgets/promote_property.dart';
 import 'package:property_ms/features/widgets/app_bar_search.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
 import 'property_controller.dart';
@@ -26,7 +27,8 @@ class PropertyPage extends GetView<PropertyController> {
             children: [
               AppBarProperty(),
               SizedBox(height: AppSize.s8),
-              // PropertySliderWidget(),
+              
+              PromoteProperty(),
               AllProperty(),
             ],
           ),

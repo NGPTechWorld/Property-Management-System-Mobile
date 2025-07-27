@@ -5,6 +5,7 @@ class PropertyDto {
   final String location;
   final String postDate;
   final String rentalPeriod;
+  final String type;
   final bool isFavorite;
   final String listingType;
   final int price;
@@ -17,6 +18,7 @@ class PropertyDto {
     required this.postImage,
     required this.location,
     required this.postDate,
+    required this.type,
     required this.rentalPeriod,
     required this.isFavorite,
     required this.listingType,
@@ -31,6 +33,7 @@ class PropertyDto {
     postImage: json['postImage'] ?? '',
     rentalPeriod: json['rental_period'] ?? '',
     location: json['location'] ?? '',
+    type: json['type'] ?? '',
     postDate: json['postDate'] ?? '',
     isFavorite: (json['is_favorite'] ?? 0) == 1,
     listingType: json['listing_type'] ?? '',
@@ -57,6 +60,7 @@ class PropertyDto {
     postImage: '',
     rentalPeriod: '',
     location: 'الموقع',
+    type: '',
     postDate: '',
     isFavorite: false,
     listingType: 'أجار',

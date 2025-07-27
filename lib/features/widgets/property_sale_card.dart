@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
+import 'package:property_ms/data/dto/property_dto.dart';
 
 class PropertySaleCardModel {
   final String title;
@@ -10,7 +12,7 @@ class PropertySaleCardModel {
   final double area;
   final double price;
   final AssetGenImage image;
-  
+
   PropertySaleCardModel({
     required this.title,
     required this.location,
@@ -21,7 +23,7 @@ class PropertySaleCardModel {
 }
 
 class PropertySaleCard extends StatelessWidget {
-  final PropertySaleCardModel model;
+  final PropertyDto model;
   const PropertySaleCard({super.key, required this.model});
 
   @override
@@ -44,7 +46,8 @@ class PropertySaleCard extends StatelessWidget {
                 Center(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: model.image.image(
+                    child: CustomCachedNetworkImage(
+                      imageUrl: model.postImage,
                       height: AppSize.sHeight * 0.18,
                       width: AppSize.sWidth * 0.425,
                       fit: BoxFit.cover,
@@ -107,7 +110,7 @@ class PropertySaleCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    model.title,
+                    model.postTitle,
                     style: Get.textTheme.bodyLarge,
                     overflow: TextOverflow.ellipsis,
                   ),

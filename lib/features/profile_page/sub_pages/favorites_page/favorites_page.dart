@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
@@ -25,10 +24,10 @@ class FavoritesPage extends GetView<FavoritesController> {
                 : Container(),
             ...List.generate(controller.favoritesListCrd.length, (index) {
               final item = controller.favoritesListCrd[index];
-if (item is PropertySaleCardModel) {
+              if (item is PropertySaleCardModel) {
                 return Column(
                   children: [
-                    Center(child: PropertySaleCard(model: item)),
+                    // Center(child: PropertySaleCard(model: item)),
                     const SizedBox(height: AppSize.s8),
                   ],
                 );

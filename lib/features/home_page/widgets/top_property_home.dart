@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/Routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/data/dto/rent_dto.dart';
+import 'package:property_ms/data/dto/property_dto.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/features/home_page/home_controller.dart';
 import 'package:property_ms/features/widgets/property_rent_card.dart';
@@ -42,7 +42,7 @@ class TopPropertyHome extends GetView<HomeController> {
                       onTap:
                           () => Get.toNamed(
                             AppRoutes.propertyDetailsPage,
-                            parameters: {"id": item.id.toString()},
+                            parameters: {"id": item.propertyId.toString()},
                           ),
                       child: PropertyRentCard(model: item, isLoaging: false),
                     );
@@ -55,7 +55,7 @@ class TopPropertyHome extends GetView<HomeController> {
                           baseColor: ColorManager.shimmerBaseColor,
                           highlightColor: ColorManager.shimmerHighlightColor,
                           child: PropertyRentCard(
-                            model: RentCardDto.empty(),
+                            model: PropertyDto.empty(),
                             isLoaging: true,
                           ),
                         );

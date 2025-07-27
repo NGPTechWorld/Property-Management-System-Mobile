@@ -28,7 +28,7 @@ class PropertyModel {
   final SellDetails? sellDetails;
   final RentDetails? rentDetails;
   final bool isFavorite;
-  final OfficeDto office;
+  final OfficeDto? office;
 
   PropertyModel({
     required this.propertyId,
@@ -99,7 +99,7 @@ class PropertyModel {
             ? RentDetails.fromJson(json['rent_details'])
             : null,
     isFavorite: (json['is_favorite'] ?? 0) == 1,
-    office: OfficeDto.fromJson(json['office'] ?? {}),
+    office: json['office'] != null ? OfficeDto.fromJson(json['office']) : null,
   );
 }
 

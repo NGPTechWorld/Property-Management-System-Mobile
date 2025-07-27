@@ -11,10 +11,6 @@ import 'package:property_ms/features/auth/resetpassword/reset_password_page.dart
 import 'package:property_ms/features/auth/signup/signup_controller.dart';
 import 'package:property_ms/features/auth/signup/signup_page.dart';
 import 'package:property_ms/features/auth/signup/sub_pages/signup_step2/signup_2_page.dart';
-import 'package:property_ms/features/compare_pages/compare_properties/compare_properties_controller.dart';
-import 'package:property_ms/features/compare_pages/compare_properties/compare_properties_page.dart';
-import 'package:property_ms/features/compare_pages/compare_tourism/compare_tourism_controller.dart';
-import 'package:property_ms/features/compare_pages/compare_tourism/compare_tourism_page.dart';
 import 'package:property_ms/features/contract_details/contract_details.dart';
 import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/main_page/main_page.dart';
@@ -38,6 +34,8 @@ import 'package:property_ms/features/profile_page/sub_pages/support/support_cont
 import 'package:property_ms/features/profile_page/sub_pages/support/support_page.dart';
 import 'package:property_ms/features/property_page/property_controller.dart';
 import 'package:property_ms/features/property_page/property_page.dart';
+import 'package:property_ms/features/property_page/sub_pages/compare_properties/compare_properties_controller.dart';
+import 'package:property_ms/features/property_page/sub_pages/compare_properties/compare_properties_page.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/property_details_controller.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/property_details_page.dart';
 import 'package:property_ms/features/services_page/services_controller.dart';
@@ -48,6 +46,8 @@ import 'package:property_ms/features/services_page/sub_pages/services_details/se
 import 'package:property_ms/features/services_page/sub_pages/services_details/service_detail_page.dart';
 import 'package:property_ms/features/splash/splash_controller.dart';
 import 'package:property_ms/features/splash/splash_page.dart';
+import 'package:property_ms/features/tourisem_page/sub_pages/compare_tourism/compare_tourism_controller.dart';
+import 'package:property_ms/features/tourisem_page/sub_pages/compare_tourism/compare_tourism_page.dart';
 import 'package:property_ms/features/tourisem_page/sub_pages/tourism_details/tourism_details_controller.dart';
 import 'package:property_ms/features/tourisem_page/sub_pages/tourism_details/tourism_details_page.dart';
 import 'package:property_ms/features/tourisem_page/tourisem_controller.dart';

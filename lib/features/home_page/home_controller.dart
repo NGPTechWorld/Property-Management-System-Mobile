@@ -4,7 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/data/dto/office_dto.dart';
-import 'package:property_ms/data/dto/rent_dto.dart';
+import 'package:property_ms/data/dto/property_dto.dart';
+
 import 'package:property_ms/data/dto/service_dto.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/data/repos/offices_repositories.dart';
@@ -80,7 +81,7 @@ class HomeController extends GetxController {
   //? Get Top Property
 
   final loadingTopPropertState = LoadingState.loading.obs;
-  final topPropertList = <RentCardDto>[].obs;
+  final topPropertList = <PropertyDto>[].obs;
   final pageTopPropert = 1.obs;
   final perPage = 5;
   final hasMoreTopPropert = false.obs;
@@ -131,7 +132,7 @@ class HomeController extends GetxController {
   //? Get Top Tourisem
 
   final loadingTopTourisemState = LoadingState.loading.obs;
-  final topTourisemList = <RentCardDto>[].obs;
+  final topTourisemList = <PropertyDto>[].obs;
   final pageTopTourisem = 1.obs;
   final hasMoreTopTourisem = false.obs;
   final scrollTopTourisemController = ScrollController();

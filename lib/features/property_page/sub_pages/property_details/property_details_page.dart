@@ -106,7 +106,7 @@ class PropertyDetailsPage extends GetView<PropertyDetailsController> {
                                       () =>
                                           Get.toNamed(AppRoutes.officeDetails),
                                   child: OfficeCardStyle2(
-                                    model: controller.propertyDetails!.office,
+                                    model: controller.propertyDetails!.office!,
                                   ),
                                 ),
                                 PropertyDetailsWidget(

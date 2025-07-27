@@ -6,6 +6,7 @@ import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/data/dto/property_dto.dart';
 import 'package:property_ms/data/dto/property_search_filter_dto.dart';
+
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/data/enums/property_direction.dart';
 import 'package:property_ms/data/enums/property_furnishing_type.dart';
@@ -17,7 +18,6 @@ import 'package:property_ms/data/models/paginated_model.dart';
 import 'package:property_ms/data/repos/property_repositories.dart';
 import 'package:property_ms/features/property_page/widgets/filter_pro_property.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
-import 'package:property_ms/features/widgets/property_sale_card.dart';
 import 'package:property_ms/features/widgets/question_bottum_sheets/question_type_widget.dart';
 
 class PropertyController extends GetxController {
@@ -227,35 +227,13 @@ class PropertyController extends GetxController {
 
   //! ===============================================
 
-  final propertySlider = [
-    PropertySaleCardModel(
-      title: 'بيت 120 م²',
-      location: 'دمشق القديمة',
-      area: 120,
-      price: 2500,
-      image: Assets.images.property,
-    ),
-    PropertySaleCardModel(
-      title: 'بيت 120 م²',
-      location: 'دمشق القديمة',
-      area: 120,
-      price: 2500,
-      image: Assets.images.property,
-    ),
-    PropertySaleCardModel(
-      title: 'بيت 120 م²',
-      location: 'دمشق القديمة',
-      area: 120,
-      price: 2500,
-      image: Assets.images.property,
-    ),
-  ];
   @override
   void onInit() {
     super.onInit();
     initScrollControllers();
     searchController.addListener(_onSearchChanged);
     getAllProperty();
+    getPropertyPromoted();
   }
 
   @override
@@ -270,6 +248,10 @@ class PropertyController extends GetxController {
     pageAllPropert.value = 1;
     hasMoreAllPropert.value = true;
     await getAllProperty();
+    topPropertList.clear();
+    pageTopPropert.value = 1;
+    hasMoreTopPropert.value = true;
+    await getPropertyPromoted();
   }
 
   void initScrollControllers() {
@@ -277,6 +259,12 @@ class PropertyController extends GetxController {
       if (scrollAllPropertController.position.maxScrollExtent ==
           scrollAllPropertController.offset) {
         getAllProperty(firstPage: false);
+      }
+    });
+    scrollTopPropertController.addListener(() {
+      if (scrollTopPropertController.position.maxScrollExtent ==
+          scrollTopPropertController.offset) {
+        getPropertyPromoted(firstPage: false);
       }
     });
   }
@@ -289,7 +277,7 @@ class PropertyController extends GetxController {
   final perPage = 5;
   final hasMoreAllPropert = false.obs;
   final scrollAllPropertController = ScrollController();
-  bool isSearch = false;
+  RxBool isSearch = false.obs;
   Future<void> getAllProperty({bool firstPage = true}) async {
     if (firstPage) {
       pageAllPropert.value = 1;
@@ -303,7 +291,7 @@ class PropertyController extends GetxController {
     await Future.delayed(const Duration(seconds: 1));
     final filters = getSelectedFilters();
     AppResponse<PaginatedModel<PropertyDto>> response;
-    if (isSearch && searchController.text != "") {
+    if (isSearch.value && searchController.text != "") {
       response = await propertyRepo.getPropertySerach(
         items: 7,
         page: pageAllPropert.value,
@@ -378,10 +366,10 @@ class PropertyController extends GetxController {
   void _onSearchChanged() async {
     final text = searchController.text.trim();
     if (text.isEmpty || searchController.text == "") {
-      isSearch = false;
+      isSearch.value = false;
       await refreshPage();
     } else {
-      isSearch = true;
+      isSearch.value = true;
       await refreshPage();
     }
   }
@@ -435,6 +423,56 @@ class PropertyController extends GetxController {
       tag: getStringAnswer(3),
       roomDetails: roomDetails,
     );
+  }
+
+  //?=================
+
+  //? Get Top Property
+
+  final loadingTopPropertState = LoadingState.loading.obs;
+  final topPropertList = <PropertyDto>[].obs;
+  final pageTopPropert = 1.obs;
+  final hasMoreTopPropert = false.obs;
+  final scrollTopPropertController = ScrollController();
+
+  Future<void> getPropertyPromoted({bool firstPage = true}) async {
+    if (firstPage) {
+      pageTopPropert.value = 1;
+      hasMoreTopPropert.value = true;
+    }
+    if (!hasMoreTopPropert.value) {
+      loadingTopPropertState.value = LoadingState.doneWithNoData;
+      return;
+    }
+    loadingTopPropertState.value = LoadingState.loading;
+    await Future.delayed(const Duration(seconds: 3));
+    final response = await propertyRepo.getPropertyPromoted(
+      items: perPage,
+      page: pageTopPropert.value,
+    );
+    if (!response.success) {
+      loadingTopPropertState.value = LoadingState.hasError;
+      hasMoreTopPropert.value = false;
+      CustomToasts(
+        message: response.getErrorMessage(),
+        type: CustomToastType.error,
+      ).show();
+      return;
+    }
+    hasMoreTopPropert.value = false;
+    firstPage
+        ? topPropertList.value = response.data?.data ?? []
+        : topPropertList.addAll(response.data!.data);
+    log(topPropertList.length.toString());
+    log(response.data!.data.toString());
+    hasMoreTopPropert.value = topPropertList.length < response.data!.totalItems;
+    loadingTopPropertState.value =
+        firstPage && topPropertList.isEmpty
+            ? LoadingState.doneWithNoData
+            : LoadingState.doneWithData;
+    if (hasMoreTopPropert.value) {
+      pageTopPropert.value++;
+    }
   }
 
   //?=================
