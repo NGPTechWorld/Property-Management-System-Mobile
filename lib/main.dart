@@ -9,6 +9,7 @@ import 'package:property_ms/core/config/app_binding.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 void main() async {
+  //
   WidgetsFlutterBinding.ensureInitialized();
   // await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   AppBinding().dependencies();
