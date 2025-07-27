@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/data/enums/property_furnishing_type.dart';
@@ -17,6 +18,7 @@ import 'package:property_ms/features/widgets/tourisem_card.dart';
 import 'package:property_ms/features/widgets/tourisem_card_small.dart';
 
 class TourisemController extends GetxController {
+  final searchController = TextEditingController();
   final sliderIndex = 0.obs;
   final selectedFilterIndex = 0.obs;
   final selectedSumFilterIndex = 0.obs;

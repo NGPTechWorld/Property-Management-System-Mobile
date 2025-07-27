@@ -36,7 +36,7 @@ abstract class ColorManager {
   static Color greyColor300 = Colors.grey.shade300;
 
   // Shimmer Colors
-  static Color shimmerBaseColor = Colors.grey.shade300;
+  static Color shimmerBaseColor = Colors.grey.shade400;
   static Color shimmerHighlightColor = Colors.grey.shade100;
   static Color shimmerBaseColorDark = Colors.grey.shade700;
   static Color shimmerHighlightColorDark = Colors.grey.shade800;

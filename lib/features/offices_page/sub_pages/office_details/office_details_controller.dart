@@ -9,7 +9,7 @@ import 'package:property_ms/features/widgets/property_sale_card2_small.dart';
 class OfficeDetailsController extends GetxController
     with GetSingleTickerProviderStateMixin {
   // office model id
-  final OfficeCardModel office = Get.arguments as OfficeCardModel;
+ // final OfficeCardModel office = Get.arguments as OfficeCardModel;
   RxDouble rating = 0.0.obs;
 
   // filter
@@ -155,7 +155,7 @@ class OfficeDetailsController extends GetxController
 
   @override
   void onInit() {
-    rating.value = double.tryParse(office.rate.toString()) ?? 0.0;
+   // rating.value = double.tryParse(office.rate.toString()) ?? 0.0;
     // Tabbar
     tabController = TabController(length: tabs.length, vsync: this);
     filteredProperties.assignAll(officeProperties);

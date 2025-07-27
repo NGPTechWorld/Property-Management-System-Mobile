@@ -1,5 +1,5 @@
 class EndPoints {
-  static const String baseUrl = "http://192.168.1.6:3000";
+  static const String baseUrl = "http://192.168.1.2:3000";
   static const String templateT = "/templateT";
 
   //Auth
@@ -9,6 +9,26 @@ class EndPoints {
   static const String refresh = "/mobile-auth/refresh";
   static const String resendOtp = "/mobile-auth/resend-otp";
   static const String resetPassword = "/mobile-auth/reset-password";
+
+  //Property
+  static const String getProperty = "/properties/";
+  static const String getTopRateProperty = "/properties/top-rated";
+  static const String getFiltersProperty = "/properties/filters";
+  static const String getSearchProperty = "/properties/search";
+  static const String getSearchFilterProperty = "/properties/search/filters";
+  static const String getPropertyCompare = "/properties/compare";
+  static const String rate = "/rate";
+  static const String related = "/related";
+
+  //Office
+  static const String getTopRateOffice = "/office/top-rated";
+
+  //Service
+  static const String getService = "/service-provider/";
+  static const String getTopRateService = "/service-provider/top-rated";
+  static const String getServicefFilters = "/service-provider/filters";
+  static const String getServiceSearch = "/service-provider/search";
+  static const String feedback = "/feedback";
   //! here you can add more end points for your requests
 }
 

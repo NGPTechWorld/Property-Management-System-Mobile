@@ -419,15 +419,15 @@ class TitleAndCompare extends StatelessWidget {
   }
 }
 
-class TourismImageHeader extends StatelessWidget {
-  const TourismImageHeader({
-    super.key,
-    required this.controller,
-    required this.appBarHeight,
-  });
+// class TourismImageHeader extends StatelessWidget {
+//   const TourismImageHeader({
+//     super.key,
+//     required this.controller,
+//     required this.appBarHeight,
+//   });
 
-  final TourismDetailsController controller;
-  final double appBarHeight;
+//   final TourismDetailsController controller;
+//   final double appBarHeight;
 
   @override
   Widget build(BuildContext context) {

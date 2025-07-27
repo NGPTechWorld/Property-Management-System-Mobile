@@ -3,12 +3,11 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/features/widgets/office_card.dart';
+import 'package:property_ms/features/services_page/services_controller.dart';
+import 'package:property_ms/features/services_page/widgets/service_card_style2.dart';
 
-class TopOffice extends StatelessWidget {
-  const TopOffice({super.key, required this.controller});
-
-  final controller;
+class AllServices extends GetView<ServicesController> {
+  const AllServices({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +17,7 @@ class TopOffice extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
           child: Text(
-            "أفضل المكاتب",
+            "كل المزودين",
             style: Get.textTheme.headlineMedium!.copyWith(
               color: ColorManager.secColor,
             ),
@@ -26,17 +25,18 @@ class TopOffice extends StatelessWidget {
         ),
         const SizedBox(height: AppSize.s18),
         SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: List.generate(controller.topOffices.length, (index) {
-              final item = controller.topOffices[index];
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: List.generate(controller.allServices.length, (index) {
+              final item = controller.allServices[index];
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p6),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 6,
+                  horizontal: AppPadding.p14,
+                ),
                 child: GestureDetector(
-                  onTap: () {
-                    Get.toNamed(AppRoutes.officeDetails, arguments: item);
-                  },
-                  child: OfficeCard(model: item),
+                  onTap: () => Get.toNamed(AppRoutes.serviceDetails),
+                  child: ServiceCardStyle2(model: item),
                 ),
               );
             }),

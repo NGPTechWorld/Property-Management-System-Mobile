@@ -143,11 +143,19 @@ class FilterProProperty {
                         );
                       }),
 
-                      const SizedBox(
+                      SizedBox(
                         width: double.infinity,
                         child: AppButton(
                           backgroundColor: ColorManager.secColor,
                           text: "تطبيق",
+                          onPressed: () {
+                            print(
+                              controller
+                                  .buildPropertyFilterDtoFromQuestions()
+                                  .toJson()
+                                  .toString(),
+                            );
+                          },
                         ),
                       ),
                     ],
