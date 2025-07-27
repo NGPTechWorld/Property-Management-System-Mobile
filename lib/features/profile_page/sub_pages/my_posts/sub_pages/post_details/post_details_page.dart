@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:property_ms/core/routes/app_routes.dart';
+
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
 import 'package:property_ms/features/profile_page/sub_pages/my_posts/my_posts_controller.dart';
 import 'package:property_ms/features/profile_page/sub_pages/my_posts/my_posts_page.dart';
-import 'package:property_ms/features/widgets/property_rent_card2_small.dart';
-import 'package:property_ms/features/widgets/property_sale_card2_small.dart';
-
 import './post_details_controller.dart';
 
 class PostDetailsPage extends GetView<PostDetailsController> {

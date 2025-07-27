@@ -14,8 +14,6 @@ import 'package:property_ms/features/widgets/price_section.dart';
 import 'package:property_ms/features/widgets/property_reusable_widget/details_container.dart';
 import 'package:property_ms/features/widgets/property_reusable_widget/image_carousel.dart';
 import 'package:property_ms/features/widgets/tourisem_card.dart';
-import 'package:shimmer/shimmer.dart';
-
 import './tourism_details_controller.dart';
 
 class TourismDetailsPage extends GetView<TourismDetailsController> {

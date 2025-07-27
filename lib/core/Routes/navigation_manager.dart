@@ -91,11 +91,11 @@ abstract class NavigationManager {
       page: () => const ResetPasswordPage(),
       binding: BindingsBuilder.put(() => ResetPasswordController()),
     ),
-    GetPage(
-      name: AppRoutes.officeDetails,
-      page: () => const OfficeDetailsPage(),
-      binding: BindingsBuilder.put(() => OfficeDetailsController()),
-    ),
+    // GetPage(
+    //   name: AppRoutes.officeDetails,
+    //   page: () => const OfficeDetailsPage(),
+    //   binding: BindingsBuilder.put(() => OfficeDetailsController()),
+    // ),
     GetPage(
       name: AppRoutes.propertyRoute,
       page: () => const PropertyPage(),

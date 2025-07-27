@@ -14,6 +14,12 @@ class ContractDetailsController extends GetxController
     super.onInit();
   }
 
+  @override
+  void onClose() {
+    tabController.dispose();
+    super.onClose();
+  }
+
   final tabs = ["الفواتير الحالية", "الفواتير السابقة"];
 }
 

@@ -1,4 +1,4 @@
-import 'package:property_ms/core/utils/assets.gen.dart';
+
 import 'package:property_ms/data/dto/office_dto.dart';
 
 class TourismDetailModel {

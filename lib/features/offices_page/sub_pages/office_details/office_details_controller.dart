@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/models/office_profile_model.dart';
-import 'package:property_ms/features/widgets/office_card.dart';
 import 'package:property_ms/features/widgets/property_rent_card2_small.dart';
 import 'package:property_ms/features/widgets/property_sale_card2_small.dart';
 
