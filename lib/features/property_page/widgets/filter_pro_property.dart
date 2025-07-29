@@ -9,6 +9,7 @@ import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/app_button.dart';
 import 'package:property_ms/core/utils/widgets/custom_text_field.dart';
 import 'package:property_ms/features/property_page/property_controller.dart';
+import 'package:property_ms/features/property_page/sub_pages/filters_card_property/filters_card_property.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
 import 'package:property_ms/features/widgets/question_bottum_sheets/question_type_widget.dart';
 
@@ -107,7 +108,7 @@ class FilterProProperty {
                               controller.maxPrice.value,
                             ],
                             rangeSlider: true,
-                            max: 10000,
+                            max: 1e6,
                             min: 0,
                             step: const FlutterSliderStep(step: 500),
                             trackBar: FlutterSliderTrackBar(
@@ -149,11 +150,12 @@ class FilterProProperty {
                           backgroundColor: ColorManager.secColor,
                           text: "تطبيق",
                           onPressed: () {
-                            print(
-                              controller
-                                  .buildPropertyFilterDtoFromQuestions()
-                                  .toJson()
-                                  .toString(),
+                            Get.to(
+                              const FiltersCardProperty(),
+                              arguments:
+                                  controller
+                                      .buildPropertyFilterDtoFromQuestions()
+                                      .toJson(),
                             );
                           },
                         ),

@@ -29,7 +29,7 @@ class PropertyController extends GetxController {
   final selectedFilterIndex = 0.obs;
   final selectedSumFilterIndex = 0.obs;
   final minPrice = 0.0.obs;
-  final maxPrice = 500.0.obs;
+  final maxPrice = 0.0.obs;
   final selectedQuestionPT = 0.obs;
 
   final List<CardFilterModel> cardFilter = [
@@ -202,7 +202,7 @@ class PropertyController extends GetxController {
         areas
             .asMap()
             .entries
-            .map((e) => ValueAnser(id: e.key + 1, name: e.value))
+            .map((e) => ValueAnser(id: e.value.id, name: e.value.name))
             .toList();
     questionsFilters[1].controller.text = "";
     questionsFilters[1].selectedIndex.value = null;
@@ -222,6 +222,7 @@ class PropertyController extends GetxController {
       q.selectedIndex.value = null;
       q.selectedIndices.value = [];
     }
+    maxPrice.value = minPrice.value = 0;
     FilterProProperty.showAnswer(this);
   }
 
@@ -376,7 +377,7 @@ class PropertyController extends GetxController {
 
   //?=================
 
-  //?    Filter Pro
+  //?   init  Filter Pro
   PropertySearchFilterDto buildPropertyFilterDtoFromQuestions() {
     int getIntAnswer(int questionId) {
       final q = questionsFilters.firstWhereOrNull((e) => e.id == questionId);

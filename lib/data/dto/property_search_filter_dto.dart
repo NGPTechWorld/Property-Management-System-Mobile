@@ -41,7 +41,7 @@ class PropertySearchFilterDto {
       minArea: (json['minArea'] ?? 0).toDouble(),
       maxArea: (json['maxArea'] ?? 0).toDouble(),
       status: json['status'] ?? '',
-      hasFurniture: json['has_furniture'] ?? false,
+      hasFurniture: json['has_furniture'] ?? '',
       direction: json['direction'] ?? '',
       ownershipType: json['ownership_type'] ?? '',
       floorNumber: json['floor_number'] ?? 0,
@@ -50,22 +50,28 @@ class PropertySearchFilterDto {
     );
   }
 
-  Map<String, dynamic> toJson() => {
-    'regionId': regionId,
-    'cityId': cityId,
-    'listing_type': listingType,
-    'minPrice': minPrice,
-    'maxPrice': maxPrice,
-    'minArea': minArea,
-    'maxArea': maxArea,
-    'status': status,
-    'has_furniture': hasFurniture,
-    'direction': direction,
-    'ownership_type': ownershipType,
-    'floor_number': floorNumber,
-    'tag': tag,
-    'room_details': roomDetails.toJson(),
-  };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+
+    if (regionId != 0) data['regionId'] = regionId;
+    if (cityId != 0) data['cityId'] = cityId;
+    if (listingType.isNotEmpty) data['listing_type'] = listingType;
+    if (minPrice != 0) data['minPrice'] = minPrice;
+    if (maxPrice != 0) data['maxPrice'] = maxPrice;
+    if (minArea != 0) data['minArea'] = minArea;
+    if (maxArea != 0) data['maxArea'] = maxArea;
+    if (status.isNotEmpty) data['status'] = status;
+    if (hasFurniture.isNotEmpty) data['has_furniture'] = hasFurniture;
+    if (direction.isNotEmpty) data['direction'] = direction;
+    if (ownershipType.isNotEmpty) data['ownership_type'] = ownershipType;
+    if (floorNumber != 0) data['floor_number'] = floorNumber;
+    if (tag.isNotEmpty) data['tag'] = tag;
+
+    final roomData = roomDetails.toJson();
+    if (roomData.isNotEmpty) data['room_details'] = roomData;
+
+    return data;
+  }
 
   factory PropertySearchFilterDto.empty() => PropertySearchFilterDto(
     regionId: 0,
@@ -110,13 +116,17 @@ class RoomDetailsDto {
     );
   }
 
-  Map<String, dynamic> toJson() => {
-    'room_count': roomCount,
-    'bedroom_count': bedroomCount,
-    'living_room_count': livingRoomCount,
-    'kitchen_count': kitchenCount,
-    'bathroom_count': bathroomCount,
-  };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = {};
+
+    if (roomCount != 0) data['room_count'] = roomCount;
+    if (bedroomCount != 0) data['bedroom_count'] = bedroomCount;
+    if (livingRoomCount != 0) data['living_room_count'] = livingRoomCount;
+    if (kitchenCount != 0) data['kitchen_count'] = kitchenCount;
+    if (bathroomCount != 0) data['bathroom_count'] = bathroomCount;
+
+    return data;
+  }
 
   factory RoomDetailsDto.empty() => RoomDetailsDto(
     roomCount: 0,

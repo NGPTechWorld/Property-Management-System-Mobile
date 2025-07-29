@@ -290,7 +290,7 @@ class TourisemController extends GetxController {
         areas
             .asMap()
             .entries
-            .map((e) => ValueAnser(id: e.key + 1, name: e.value))
+            .map((e) => ValueAnser(id: e.value.id, name: e.value.name))
             .toList();
     questionsFilters[1].controller.text = "";
     questionsFilters[1].selectedIndex.value = null;
