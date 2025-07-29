@@ -15,6 +15,7 @@ class TourisemPage extends GetView<TourisemController> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: SingleChildScrollView(
+        physics:  AlwaysScrollableScrollPhysics(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,

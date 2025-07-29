@@ -21,6 +21,7 @@ class OfficesPage extends GetView<OfficesController> {
           await controller.refreshPage();
         },
         child: const SingleChildScrollView(
+          physics:  AlwaysScrollableScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,

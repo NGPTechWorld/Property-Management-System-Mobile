@@ -38,7 +38,7 @@ class OfficesController extends GetxController {
         SyrianGovernorate.values
             .asMap()
             .entries
-            .map((e) => ValueAnser(id: e.key + 1, name: e.value.value))
+            .map((e) => ValueAnser(id: e.value.id, name: e.value.value))
             .toList(),
     id: 1,
   );
@@ -70,7 +70,7 @@ class OfficesController extends GetxController {
         areas
             .asMap()
             .entries
-           .map((e) => ValueAnser(id: e.value.id, name: e.value.name))
+            .map((e) => ValueAnser(id: e.value.id, name: e.value.name))
             .toList();
     locationQuestion.controller.text = "";
     locationQuestion.selectedIndex.value = null;

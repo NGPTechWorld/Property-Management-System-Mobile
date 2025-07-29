@@ -51,7 +51,7 @@ class PropertyController extends GetxController {
           SyrianGovernorate.values
               .asMap()
               .entries
-              .map((e) => ValueAnser(id: e.key + 1, name: e.value.value))
+              .map((e) => ValueAnser(id: e.value.id, name: e.value.value))
               .toList(),
       id: 1,
     ),
@@ -404,8 +404,8 @@ class PropertyController extends GetxController {
     );
 
     return PropertySearchFilterDto(
-      regionId: questionsFilters[0].selectedIndex.value ?? 0,
-      cityId: questionsFilters[1].selectedIndex.value ?? 0,
+      cityId: questionsFilters[0].selectedIndex.value ?? 0,
+      regionId: questionsFilters[1].selectedIndex.value ?? 0,
       listingType:
           cardFilterTypeProp[selectedQuestionPT.value].title == "بيع"
               ? "بيع"

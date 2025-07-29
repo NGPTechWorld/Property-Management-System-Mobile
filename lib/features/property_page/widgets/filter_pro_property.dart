@@ -90,6 +90,20 @@ class FilterProProperty {
                                           1,
                                     ),
                                   ),
+                                  const SizedBox(width: AppSize.s12),
+                                  GestureDetector(
+                                    onTap:
+                                        () =>
+                                            controller
+                                                .selectedQuestionPT
+                                                .value = 2,
+                                    child: CardFilter(
+                                      model: cardFilterTypeProp[2],
+                                      isSelect:
+                                          controller.selectedQuestionPT.value ==
+                                          2,
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),

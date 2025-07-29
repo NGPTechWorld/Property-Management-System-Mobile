@@ -8,7 +8,12 @@ import 'package:property_ms/data/dto/service_dto.dart';
 
 class ServiceCardStyle2 extends StatelessWidget {
   final ServiceDto model;
-  const ServiceCardStyle2({super.key, required this.model});
+  final bool isLoaging;
+  const ServiceCardStyle2({
+    super.key,
+    required this.model,
+    this.isLoaging = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,8 @@ class ServiceCardStyle2 extends StatelessWidget {
       height: AppSize.sHeight * 0.13,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: Colors.white,
+        color: isLoaging ? Colors.transparent : ColorManager.white,
+        border: isLoaging ? Border.all() : null,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,7 +43,8 @@ class ServiceCardStyle2 extends StatelessWidget {
                         : ClipOval(
                           child: CustomCachedNetworkImage(
                             imageUrl: model.logo,
-
+                            width: AppSize.sWidth * 0.23,
+                            height: AppSize.sWidth * 0.23,
                             fit: BoxFit.cover,
                           ),
                         ),
