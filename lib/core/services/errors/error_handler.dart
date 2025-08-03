@@ -34,10 +34,8 @@ NetworkFailureModel _handleError(DioException error) {
           error.response?.statusMessage != null) {
         return NetworkFailureModel(
           code: error.response?.statusCode ?? 0,
-          message:
-              error.response?.data is Map
-                  ? (error.response?.data["message"] ?? "")
-                  : "",
+          message: _extractMessage(error.response?.data),
+
           data:
               error.response?.data is Map
                   ? (error.response?.data["errors"] ?? "")
@@ -51,6 +49,19 @@ NetworkFailureModel _handleError(DioException error) {
     default:
       return DataSource.DEFAULT.getFailure();
   }
+}
+
+//! Handle list of errors  
+String _extractMessage(dynamic data) {
+  if (data is Map && data.containsKey("message")) {
+    final msg = data["message"];
+    if (msg is String) {
+      return msg;
+    } else if (msg is List && msg.isNotEmpty) {
+      return msg.map((e) => e.toString()).join('\n');
+    }
+  }
+  return ResponseMessage.DEFAULT;
 }
 
 enum DataSource {

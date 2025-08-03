@@ -21,6 +21,10 @@ abstract class UsersRepositories {
     required String type,
   }); // Type = reset or signup
   Future<AppResponse> confirem({required String email, required String otp});
+  Future<AppResponse> resetPassword({
+    required String email,
+    required String newPassword,
+  });
   // Future<AppResponse> logout();
   // Future<AppResponse> forgatePassword({required String number});
   // Future<AppResponse> uploadImage({required FormData image});
@@ -124,6 +128,29 @@ class ImpUsersRepositories extends GetxService implements UsersRepositories {
         url: EndPoints.resendOtp,
         method: Method.post,
         params: {"email": email, "type": type},
+        requiredToken: false,
+        withLogging: true,
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse> resetPassword({
+    required String email,
+    required String newPassword,
+  }) async {
+    AppResponse appResponse = AppResponse(success: false);
+    try {
+      final response = await apiService.request(
+        url: EndPoints.resetPassword,
+        method: Method.post,
+        params: {"email": email, "password": newPassword},
         requiredToken: false,
         withLogging: true,
       );

@@ -5,6 +5,7 @@ import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/custom_text_field.dart';
+import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/features/auth/login/login_controller.dart';
 
 class LoginForm extends GetView<LoginController> {
@@ -116,7 +117,7 @@ class LoginForm extends GetView<LoginController> {
           const SizedBox(height: AppSize.s12),
           GestureDetector(
             onTap: () {
-              Get.toNamed(AppRoutes.resetPasswordRoute);
+              goToResetPassword();
             },
             child: Text(
               'نسيت كلمة المرور؟',
@@ -128,5 +129,22 @@ class LoginForm extends GetView<LoginController> {
         ],
       ),
     );
+  }
+
+  void goToResetPassword() {
+    final email = controller.emailController.text.trim();
+    if (email.isEmpty) {
+      const CustomToasts(
+        message: "يرجى إدخال البريد الإلكتروني أولاً",
+        type: CustomToastType.error,
+      ).show();
+    } else if (!GetUtils.isEmail(email)) {
+      const CustomToasts(
+        message: "صيغة البريد الإلكتروني غير صحيحة",
+        type: CustomToastType.error,
+      ).show();
+    } else {
+      Get.toNamed(AppRoutes.resetPasswordRoute, arguments: {'email': email});
+    }
   }
 }

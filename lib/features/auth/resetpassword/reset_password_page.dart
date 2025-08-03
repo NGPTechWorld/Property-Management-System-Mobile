@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/core/utils/widgets/default_divider.dart';
 import 'package:property_ms/core/utils/widgets/logo_app.dart';
 import 'package:property_ms/core/utils/widgets/screen_bottom_effect.dart';
-import 'package:property_ms/core/utils/widgets/default_divider.dart';
 import 'package:property_ms/features/auth/resetpassword/widgets/password_fields.dart';
 import 'package:property_ms/features/auth/resetpassword/widgets/reset_password_button.dart';
 import 'package:property_ms/features/auth/resetpassword/widgets/reset_password_title.dart';
@@ -34,7 +34,6 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
                     DefaultDivider(),
                     SizedBox(height: AppSize.s20),
                     NewPasswordField(),
-                    ConfirmPasswordField(),
                     SizedBox(height: AppSize.s100),
                     ResetPasswordButton(),
                   ],
