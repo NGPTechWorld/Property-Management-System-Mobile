@@ -4,7 +4,7 @@ class OfficeDto {
   final String logo;
   final String location;
   final String type;
-  final int rate;
+  final double rate;
   final int ratingCount;
 
   OfficeDto({
@@ -23,7 +23,7 @@ class OfficeDto {
     logo: json['logo'] ?? '',
     location: json['location'] ?? '',
     type: json['type'] ?? '',
-    rate: json['rate'] ?? 0,
+    rate: double.tryParse(json['rate']?.toString() ?? '') ?? 0.0,
     ratingCount: json['rating_count'] ?? 0,
   );
 

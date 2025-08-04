@@ -64,7 +64,7 @@ class MainPageNavBar extends GetView<MainController> {
             onTap: (index) {
               final user = controller.cacheService.getData(key: kUserToken);
               log(user.toString());
-              if (index == 4 && user == null) {
+              if ((index >= 3) && user == null) {
                 Get.offAllNamed(AppRoutes.loginRoute);
 
                 // controller.changePage(index);

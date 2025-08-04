@@ -67,8 +67,8 @@ class PropertyModel {
     postDescription: json['postDescription'] ?? '',
     postImage: json['postImage'] ?? '',
     postDate: json['postDate'] ?? '',
-    postStatus: json['PostStatus'] ?? '',
-    area: (json['area'] ?? 0).toDouble(),
+    postStatus: json['postStatus'] ?? '',
+    area: double.tryParse(json['area']?.toString() ?? '') ?? 0.0,
     propertyType: json['property_type'] ?? '',
     ownershipType: json['ownership_type'] ?? '',
     direction: json['direction'] ?? '',
@@ -76,7 +76,6 @@ class PropertyModel {
     coordinates: Coordinates.fromJson(json['coordinates'] ?? {}),
     floorNumber: json['floor_number'] ?? 0,
     avgRate: double.tryParse(json['avg_rate']?.toString() ?? '') ?? 0.0,
-
     notes: json['notes'] ?? '',
     highlighted: json['highlighted'] ?? false,
     roomCounts: RoomCounts.fromJson(json['room_counts'] ?? {}),
@@ -99,19 +98,22 @@ class PropertyModel {
             ? RentDetails.fromJson(json['rent_details'])
             : null,
     isFavorite: (json['is_favorite'] ?? 0) == 1,
-    office: json['office'] != null ? OfficeDto.fromJson(json['office']) : null,
+    office:
+        json['office'] != null
+            ? OfficeDto.fromJson(json['office'])
+            : OfficeDto.empty(),
   );
 }
 
 class Coordinates {
-  final String latitude;
-  final String longitude;
+  final double latitude;
+  final double longitude;
 
   Coordinates({required this.latitude, required this.longitude});
 
   factory Coordinates.fromJson(Map<String, dynamic> json) => Coordinates(
-    latitude: json['latitude'] ?? '',
-    longitude: json['longitude'] ?? '',
+    latitude: double.tryParse(json['latitude']?.toString() ?? '') ?? 0.0,
+    longitude: double.tryParse(json['longitude']?.toString() ?? '') ?? 0.0,
   );
 }
 

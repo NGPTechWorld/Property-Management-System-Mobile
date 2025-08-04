@@ -99,8 +99,7 @@ class ServiceDetailPage extends GetView<ServiceDetailController> {
                                     serviceType:
                                         controller.serviceDetaitModel!.career,
                                     rate: controller.rating.value.toString(),
-                                    onRatingChanged:
-                                        controller.updateOfficeRating,
+                                    onRatingChanged: controller.updateRating,
                                   ),
                                 ),
                                 const SizedBox(height: AppSize.s24),

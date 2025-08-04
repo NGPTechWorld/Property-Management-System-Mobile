@@ -111,7 +111,10 @@ class PropertySaleCard extends StatelessWidget {
                 children: [
                   Text(
                     model.postTitle,
-                    style: Get.textTheme.bodyLarge,
+                    style: Get.textTheme.bodyLarge!.copyWith(
+                      fontSize: FontSize.s14,
+                    ),
+
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 4),

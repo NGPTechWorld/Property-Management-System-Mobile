@@ -31,7 +31,7 @@ class PropertyDetailsController extends GetxController {
     super.onInit();
     initScrollControllers();
     await getProperty();
-    getPropertyRelated();
+    await getPropertyRelated();
   }
 
   @override
@@ -93,9 +93,7 @@ class PropertyDetailsController extends GetxController {
     }
     loadingTopPropertState.value = LoadingState.loading;
     await Future.delayed(const Duration(seconds: 3));
-    final response = await propertyRepo.getPropertyRelated(
-      id: propertyDetails!.propertyId,
-    );
+    final response = await propertyRepo.getPropertyRelated(id: id);
     if (!response.success) {
       loadingTopPropertState.value = LoadingState.hasError;
       hasMoreTopPropert.value = false;
