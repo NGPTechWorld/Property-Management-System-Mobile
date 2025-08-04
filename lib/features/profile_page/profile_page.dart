@@ -128,13 +128,13 @@ class FavAndPostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Get.toNamed(AppRoutes.myPostsPage),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-        child: Row(
-          children: [
-            Expanded(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
+      child: Row(
+        children: [
+          Expanded(
+            child: GestureDetector(
+              onTap: () => Get.toNamed(AppRoutes.myPostsPage),
               child: Container(
                 height: AppSize.sHeight * 0.15,
                 padding: const EdgeInsets.all(AppPadding.p14),
@@ -172,8 +172,11 @@ class FavAndPostCard extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: AppSize.s16),
-            Expanded(
+          ),
+          const SizedBox(width: AppSize.s16),
+          Expanded(
+            child: GestureDetector(
+              onTap: () => Get.toNamed(AppRoutes.favoritesRoute),
               child: Container(
                 height: AppSize.sHeight * 0.15,
                 padding: const EdgeInsets.all(AppPadding.p14),
@@ -211,8 +214,8 @@ class FavAndPostCard extends StatelessWidget {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
