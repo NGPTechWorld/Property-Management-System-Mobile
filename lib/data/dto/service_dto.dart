@@ -5,7 +5,7 @@ class ServiceDto {
   final String location;
   final String career;
   final String userPhone;
-  final int rate;
+  final double rate;
   final int ratingCount;
 
   ServiceDto({
@@ -26,7 +26,7 @@ class ServiceDto {
     location: json['location'] ?? '',
     career: json['career'] ?? '',
     userPhone: json['userPhone'] ?? '',
-    rate: json['rate'] ?? 0,
+    rate: (json['rate'] ?? 0).toDouble(),
     ratingCount: json['rating_count'] ?? 0,
   );
 

@@ -19,6 +19,7 @@ class ServicesPage extends GetView<ServicesController> {
           await controller.refreshPage();
         },
         child: const SingleChildScrollView(
+          physics:  AlwaysScrollableScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +79,7 @@ class AppBarServices extends GetView<ServicesController> {
           onTapFilter: controller.openFilterPagePro,
           isLocation: false,
           isBack: true,
-                controller: controller.searchController,
+          controller: controller.searchController,
         ),
       ],
     );

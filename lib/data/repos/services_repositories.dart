@@ -7,12 +7,27 @@ import 'package:property_ms/core/services/errors/error_handler.dart';
 import 'package:property_ms/data/dto/service_dto.dart';
 import 'package:property_ms/data/models/app_response.dart';
 import 'package:property_ms/data/models/paginated_model.dart';
+import 'package:property_ms/data/models/service_model.dart';
 
 abstract class ServicesRepositories {
+  Future<AppResponse<ServiceModel>> getService({required int id});
   Future<AppResponse<PaginatedModel<ServiceDto>>> getTopRateService({
     required int perPage,
     required int page,
   });
+  Future<AppResponse<PaginatedModel<ServiceDto>>> getSearchService({
+    required int items,
+    required int page,
+    required String name,
+  });
+  Future<AppResponse<PaginatedModel<ServiceDto>>> getAllService({
+    required int items,
+    required int page,
+    int regionId,
+    int cityId,
+    String career,
+  });
+  Future<AppResponse> postServiceRate({required int id, required double rate});
 }
 
 class ImpServicesRepositories extends GetxService
@@ -43,6 +58,116 @@ class ImpServicesRepositories extends GetxService
         response.data,
         ServiceDto.fromJson,
       );
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse<PaginatedModel<ServiceDto>>> getAllService({
+    required int items,
+    required int page,
+    int regionId = 0,
+    int cityId = 0,
+    String career = "",
+  }) async {
+    AppResponse<PaginatedModel<ServiceDto>> appResponse = AppResponse(
+      success: false,
+    );
+
+    try {
+      Map<String, dynamic> queryParams = {"items": items, "page": page};
+
+      if (regionId != 0) queryParams["regionId"] = regionId;
+      if (cityId != 0) queryParams["cityId"] = cityId;
+      if (career != "") queryParams["career"] = career;
+      dio.Response response = await apiService.request(
+        url: EndPoints.getServicefFilters,
+        method: Method.get,
+        requiredToken: true,
+        withLogging: true,
+        queryParameters: queryParams,
+      );
+      appResponse.success = true;
+      appResponse.data = PaginatedModel<ServiceDto>.fromJson(
+        response.data,
+        ServiceDto.fromJson,
+      );
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse<ServiceModel>> getService({required int id}) async {
+    AppResponse<ServiceModel> appResponse = AppResponse(success: false);
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.getService + id.toString(),
+        method: Method.get,
+        requiredToken: true,
+        withLogging: true,
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+      appResponse.data = ServiceModel.fromJson(response.data['data']);
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse<PaginatedModel<ServiceDto>>> getSearchService({
+    required int items,
+    required int page,
+    required String name,
+  }) async {
+    AppResponse<PaginatedModel<ServiceDto>> appResponse = AppResponse(
+      success: false,
+    );
+
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.getServiceSearch,
+        method: Method.get,
+        requiredToken: true,
+        withLogging: true,
+        queryParameters: {"items": items, "page": page, "name": name},
+      );
+      appResponse.success = true;
+      appResponse.data = PaginatedModel<ServiceDto>.fromJson(
+        response.data,
+        ServiceDto.fromJson,
+      );
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse> postServiceRate({
+    required int id,
+    required double rate,
+  }) async {
+    AppResponse appResponse = AppResponse(success: false);
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.getService + id.toString() + EndPoints.rate,
+        method: Method.post,
+        requiredToken: true,
+        withLogging: true,
+        params: {"rate": rate},
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
     } catch (e) {
       appResponse.success = false;
       appResponse.networkFailure = ErrorHandler.handle(e).failure;

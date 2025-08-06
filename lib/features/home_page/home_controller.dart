@@ -33,22 +33,22 @@ class HomeController extends GetxController {
     topPropertList.clear();
     pageTopPropert.value = 1;
     hasMoreTopPropert.value = true;
-    await getTopRateProperty();
+    getTopRateProperty();
 
     topTourisemList.clear();
     pageTopTourisem.value = 1;
     hasMoreTopTourisem.value = true;
-    await getTopRateTourisem();
+    getTopRateTourisem();
 
     topOfficeList.clear();
     pageTopOffice.value = 1;
     hasMoreTopOffice.value = true;
-    await getTopRateOffice();
+    getTopRateOffice();
 
     topServiceList.clear();
     pageTopService.value = 1;
     hasMoreTopService.value = true;
-    await getTopRateService();
+    getTopRateService();
   }
 
   void initScrollControllers() {

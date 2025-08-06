@@ -1,7 +1,10 @@
 class EndPoints {
-  static const String baseUrl = "http://192.168.1.2:3000";
+  static const String baseUrl = "http://192.168.1.7:3000";
   static const String templateT = "/templateT";
-
+  //User
+  static const String userReservation = "/user-reservation/own";
+  static const String userInvoice = "/user-invoice/own/properties/";
+  static const String userMyPurchases = "/user/myPurchases";
   //Auth
   static const String signup = "/mobile-auth/signup";
   static const String confirm = "/mobile-auth/confirm";

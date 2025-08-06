@@ -21,6 +21,7 @@ class HomePage extends GetView<HomeController> {
           await controller.refreshPage();
         },
         child: const SingleChildScrollView(
+          physics: AlwaysScrollableScrollPhysics(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,

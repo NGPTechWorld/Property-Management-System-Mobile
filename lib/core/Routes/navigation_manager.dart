@@ -14,8 +14,6 @@ import 'package:property_ms/features/auth/signup/sub_pages/signup_step2/signup_2
 import 'package:property_ms/features/contract_details/contract_details.dart';
 import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/main_page/main_page.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_controller.dart';
-import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_page.dart';
 import 'package:property_ms/features/offices_page/sub_pages/report/report_office_controller.dart';
 import 'package:property_ms/features/offices_page/sub_pages/report/report_office_page.dart';
 import 'package:property_ms/features/profile_page/sub_pages/account_info_page/account_info_controller.dart';

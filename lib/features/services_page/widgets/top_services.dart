@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/Routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/data/dto/service_dto.dart';
@@ -40,7 +41,14 @@ class TopServices extends StatelessWidget {
                     final item = controller.topServiceList[index];
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 6),
-                      child: TopServicesCard(model: item),
+                      child: GestureDetector(
+                        onTap:
+                            () => Get.toNamed(
+                              AppRoutes.serviceDetails,
+                              parameters: {"id": item.id.toString()},
+                            ),
+                        child: TopServicesCard(model: item),
+                      ),
                     );
                   }),
                 ),

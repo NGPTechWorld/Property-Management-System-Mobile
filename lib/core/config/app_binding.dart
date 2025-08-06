@@ -41,6 +41,7 @@ class AppBinding extends Bindings {
         'pk_test_51RRWQY06D6FmvGT4dqW0A34yH45MTIDe4hveJ1xx1urwPE3PJB6utgLtYFpfVc1UlIve5EerS45AAyn7heo1J2v700VQMzruXM'; // حط المفتاح تبعك
 
     await Stripe.instance.applySettings();
+    await getToken();
   }
 }
 

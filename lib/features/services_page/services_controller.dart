@@ -6,6 +6,8 @@ import 'package:property_ms/data/dto/service_dto.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/data/enums/property_service_provider_type_enum.dart';
 import 'package:property_ms/data/enums/syrian_governorate.dart';
+import 'package:property_ms/data/models/app_response.dart';
+import 'package:property_ms/data/models/paginated_model.dart';
 import 'package:property_ms/data/repos/services_repositories.dart';
 import 'package:property_ms/features/services_page/widgets/filter_pro_service.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
@@ -14,7 +16,6 @@ import 'package:property_ms/features/widgets/question_bottum_sheets/question_typ
 class ServicesController extends GetxController {
   final ServicesRepositories serviceRepo = Get.find<ServicesRepositories>();
   final searchController = TextEditingController();
-  final allServices = <ServiceDto>[].obs;
 
   //!   Fillters
   RxInt selectedFilterIndex = 0.obs;
@@ -32,7 +33,7 @@ class ServicesController extends GetxController {
         SyrianGovernorate.values
             .asMap()
             .entries
-            .map((e) => ValueAnser(id: e.key + 1, name: e.value.value))
+            .map((e) => ValueAnser(id: e.value.id, name: e.value.value))
             .toList(),
     id: 1,
   );
@@ -55,7 +56,7 @@ class ServicesController extends GetxController {
         areas
             .asMap()
             .entries
-            .map((e) => ValueAnser(id: e.key + 1, name: e.value))
+            .map((e) => ValueAnser(id: e.value.id, name: e.value.name))
             .toList();
     locationQuestion.controller.text = "";
     locationQuestion.selectedIndex.value = null;
@@ -67,6 +68,7 @@ class ServicesController extends GetxController {
 
   void selectFilter(int index) {
     selectedFilterIndex.value = index;
+    refreshPage();
   }
 
   openFilterPagePro() {
@@ -84,14 +86,27 @@ class ServicesController extends GetxController {
   void onInit() {
     super.onInit();
     initScrollControllers();
+    searchController.addListener(_onSearchChanged);
     getTopRateService();
+    getAllService();
+  }
+
+  @override
+  void onClose() {
+    searchController.removeListener(_onSearchChanged);
+    searchController.dispose();
+    super.onClose();
   }
 
   Future<void> refreshPage() async {
     topServiceList.clear();
     pageTopService.value = 1;
     hasMoreTopService.value = true;
-    await getTopRateService();
+    getTopRateService();
+    allServiceList.clear();
+    pageAllService.value = 1;
+    hasMoreAllService.value = true;
+    getAllService();
   }
 
   void initScrollControllers() {
@@ -99,6 +114,12 @@ class ServicesController extends GetxController {
       if (scrollTopServiceController.position.maxScrollExtent ==
           scrollTopServiceController.offset) {
         getTopRateService(firstPage: false);
+      }
+    });
+    scrollAllServiceController.addListener(() {
+      if (scrollAllServiceController.position.maxScrollExtent ==
+          scrollAllServiceController.offset) {
+        getAllService(firstPage: false);
       }
     });
   }
@@ -148,6 +169,87 @@ class ServicesController extends GetxController {
             : LoadingState.doneWithData;
     if (hasMoreTopService.value) {
       pageTopService.value++;
+    }
+  }
+
+  //?=================
+
+  //? Get All Service
+
+  final loadingAllServiceState = LoadingState.loading.obs;
+  final allServiceList = <ServiceDto>[].obs;
+  final pageAllService = 1.obs;
+  final hasMoreAllService = false.obs;
+  final scrollAllServiceController = ScrollController();
+  RxBool isSearch = false.obs;
+
+  Future<void> getAllService({bool firstPage = true}) async {
+    if (firstPage) {
+      pageAllService.value = 1;
+      hasMoreAllService.value = true;
+    }
+    if (!hasMoreAllService.value) {
+      loadingAllServiceState.value = LoadingState.doneWithNoData;
+      return;
+    }
+    loadingAllServiceState.value = LoadingState.loading;
+    await Future.delayed(const Duration(seconds: 3));
+    int cityId = govermentQuestion.selectedIndex.value ?? 0;
+    int regionId = locationQuestion.selectedIndex.value ?? 0;
+    String career =
+        cardFiltter[selectedFilterIndex.value].title == "الكل"
+            ? ""
+            : cardFiltter[selectedFilterIndex.value].title;
+    AppResponse<PaginatedModel<ServiceDto>> response;
+    if (isSearch.value && searchController.text != "") {
+      response = await serviceRepo.getSearchService(
+        items: 5,
+        page: pageTopService.value,
+        name: searchController.text,
+      );
+    } else {
+      response = await serviceRepo.getAllService(
+        items: 5,
+        page: pageAllService.value,
+        cityId: cityId,
+        regionId: regionId,
+        career: career,
+      );
+    }
+
+    if (!response.success) {
+      loadingAllServiceState.value = LoadingState.hasError;
+      hasMoreAllService.value = false;
+      CustomToasts(
+        message: response.getErrorMessage(),
+        type: CustomToastType.error,
+      ).show();
+      return;
+    }
+    hasMoreAllService.value = false;
+    firstPage
+        ? allServiceList.value = response.data?.data ?? []
+        : allServiceList.addAll(response.data!.data);
+    log(allServiceList.length.toString());
+    log(response.data!.data.toString());
+    hasMoreAllService.value = allServiceList.length < response.data!.totalItems;
+    loadingAllServiceState.value =
+        firstPage && allServiceList.isEmpty
+            ? LoadingState.doneWithNoData
+            : LoadingState.doneWithData;
+    if (hasMoreAllService.value) {
+      pageAllService.value++;
+    }
+  }
+
+  void _onSearchChanged() async {
+    final text = searchController.text.trim();
+    if (text.isEmpty || searchController.text == "") {
+      isSearch.value = false;
+      await refreshPage();
+    } else {
+      isSearch.value = true;
+      await refreshPage();
     }
   }
 
