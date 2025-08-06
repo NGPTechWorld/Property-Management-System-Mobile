@@ -31,6 +31,9 @@ class EndPoints {
   static const String getServiceSearch = "/service-provider/search";
   static const String feedback = "/feedback";
   //! here you can add more end points for your requests
+
+  //Favorites
+  static const String getFavorites = "/property-favorite";
 }
 
 class ApiKey {
