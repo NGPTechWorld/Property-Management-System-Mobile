@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
+import 'package:property_ms/data/dto/tourism_dto.dart';
 
 class TourisemCardSmallModel {
   final String title;
@@ -20,7 +22,7 @@ class TourisemCardSmallModel {
 }
 
 class TourisemCardSmall extends StatelessWidget {
-  final TourisemCardSmallModel model;
+  final TourismDto model;
   const TourisemCardSmall({super.key, required this.model});
 
   @override
@@ -43,7 +45,8 @@ class TourisemCardSmall extends StatelessWidget {
                 Center(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: model.image.image(
+                    child: CustomCachedNetworkImage(
+                      imageUrl: model.postImage,
                       height: AppSize.sHeight * 0.12,
                       width: AppSize.sWidth * 0.33,
                       fit: BoxFit.cover,
@@ -78,7 +81,7 @@ class TourisemCardSmall extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {},
                     child: Container(
-                      width: 32, // 👈 حجم الدائرة
+                      width: 32,
                       height: 32,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
@@ -86,7 +89,7 @@ class TourisemCardSmall extends StatelessWidget {
                       ),
                       child: Center(
                         child: Assets.icons.favoriteFillIcon.svg(
-                          width: 16, // 👈 حجم الأيقونة
+                          width: 16,
 
                           colorFilter: const ColorFilter.mode(
                             ColorManager.grey3,
@@ -112,7 +115,7 @@ class TourisemCardSmall extends StatelessWidget {
                   SizedBox(
                     width: AppSize.sWidth * .30,
                     child: Text(
-                      '${model.title}  ${model.area} م²',
+                      '${model.postTitle}  ${model.area} م²',
                       style: Get.textTheme.bodyLarge!.copyWith(
                         // fontWeight: FontWeight.w600,
                         // fontSize: FontSize.s15

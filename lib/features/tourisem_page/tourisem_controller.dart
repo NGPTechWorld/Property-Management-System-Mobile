@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
+import 'package:property_ms/data/dto/tourism_dto.dart';
 import 'package:property_ms/data/enums/property_furnishing_type.dart';
 import 'package:property_ms/data/enums/property_ownership_type.dart';
 import 'package:property_ms/data/enums/property_post_tag.dart';
@@ -63,40 +64,16 @@ class TourisemController extends GetxController {
     ),
   ];
   final allTourisems = [
-    TourisemCardSmallModel(
-      title: "مزرعة",
+    TourismDto(
+      postImage: '',
+      rate: 2,
+      type: '',
+      listingType: '',
+      tourismId: 1,
+      postTitle: "مزرعة",
       location: "ريف دمشق, الزبداني",
       area: 200,
       price: 1500,
-      image: Assets.images.tourisem,
-    ),
-    TourisemCardSmallModel(
-      title: "مزرعة",
-      location: "ريف دمشق, الزبداني",
-      area: 200,
-      price: 1500,
-      image: Assets.images.tourisem,
-    ),
-    TourisemCardSmallModel(
-      title: "مزرعة",
-      location: "ريف دمشق, الزبداني",
-      area: 200,
-      price: 1500,
-      image: Assets.images.tourisem,
-    ),
-    TourisemCardSmallModel(
-      title: "مزرعة",
-      location: "ريف دمشق, الزبداني",
-      area: 200,
-      price: 1500,
-      image: Assets.images.tourisem,
-    ),
-    TourisemCardSmallModel(
-      title: "مزرعة",
-      location: "ريف دمشق, الزبداني",
-      area: 200,
-      price: 1500,
-      image: Assets.images.tourisem,
     ),
   ];
 

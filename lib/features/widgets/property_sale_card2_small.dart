@@ -81,7 +81,7 @@ class PropertySaleCard2Small extends StatelessWidget {
                   child: GestureDetector(
                     onTap: () {},
                     child: Container(
-                      width: 32, // 👈 حجم الدائرة
+                      width: 32,
                       height: 32,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
@@ -89,7 +89,7 @@ class PropertySaleCard2Small extends StatelessWidget {
                       ),
                       child: Center(
                         child: Assets.icons.favoriteFillIcon.svg(
-                          width: 16, // 👈 حجم الأيقونة
+                          width: 16, 
 
                           colorFilter: const ColorFilter.mode(
                             ColorManager.grey3,
