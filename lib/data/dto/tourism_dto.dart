@@ -8,6 +8,7 @@ class TourismDto {
   final String listingType;
   final String type;
   final double rate;
+  final bool isFavorite;
 
   TourismDto({
     required this.tourismId,
@@ -19,6 +20,7 @@ class TourismDto {
     required this.listingType,
     required this.type,
     required this.rate,
+    required this.isFavorite,
   });
 
   factory TourismDto.fromJson(Map<String, dynamic> json) => TourismDto(
@@ -31,6 +33,7 @@ class TourismDto {
     listingType: json['listingType'] ?? '',
     type: json['type'] ?? '',
     rate: (json['rate'] ?? 0).toDouble(),
+    isFavorite: (json['is_favorite'] ?? 0) == 1,
   );
 
   Map<String, dynamic> toJson() => {
@@ -43,6 +46,7 @@ class TourismDto {
     'listingType': listingType,
     'type': type,
     'rate': rate,
+    'is_favorite': isFavorite ? 1 : 0,
   };
 
   factory TourismDto.empty() => TourismDto(
@@ -55,6 +59,7 @@ class TourismDto {
     listingType: 'أجار',
     type: 'سياحي',
     rate: 0.0,
+    isFavorite: true,
   );
 
   static List<TourismDto> fromJsonArray(List<dynamic> jsonArray) {

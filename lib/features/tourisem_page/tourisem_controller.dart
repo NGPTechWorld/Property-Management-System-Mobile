@@ -74,6 +74,7 @@ class TourisemController extends GetxController {
       location: "ريف دمشق, الزبداني",
       area: 200,
       price: 1500,
+      isFavorite: false,
     ),
   ];
 

@@ -64,7 +64,10 @@ class FavoritesPage extends GetView<FavoritesController> {
           itemCount: controller.favoriteList.length,
           itemBuilder: (context, index) {
             final item = controller.favoriteList[index];
-            return _buildFavoriteCard(item);
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: _buildFavoriteCard(item),
+            );
           },
         );
       }),

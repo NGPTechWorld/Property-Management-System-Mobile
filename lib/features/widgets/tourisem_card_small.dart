@@ -91,8 +91,8 @@ class TourisemCardSmall extends StatelessWidget {
                         child: Assets.icons.favoriteFillIcon.svg(
                           width: 16,
 
-                          colorFilter: const ColorFilter.mode(
-                            ColorManager.grey3,
+                          colorFilter: ColorFilter.mode(
+                            model.isFavorite ? Colors.red : ColorManager.grey3,
                             BlendMode.srcIn,
                           ),
                         ),

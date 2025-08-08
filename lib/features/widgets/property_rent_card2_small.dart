@@ -82,10 +82,9 @@ class PropertyRentCard2Small extends StatelessWidget {
                       ),
                       child: Center(
                         child: Assets.icons.favoriteFillIcon.svg(
-                          width: 16, // 👈 حجم الأيقونة
-
-                          colorFilter: const ColorFilter.mode(
-                            ColorManager.grey3,
+                          width: 16,
+                          colorFilter: ColorFilter.mode(
+                            model.isFavorite ? Colors.red : ColorManager.grey3,
                             BlendMode.srcIn,
                           ),
                         ),
