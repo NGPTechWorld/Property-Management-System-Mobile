@@ -23,7 +23,13 @@ class TourisemCardSmallModel {
 
 class TourisemCardSmall extends StatelessWidget {
   final TourismDto model;
-  const TourisemCardSmall({super.key, required this.model});
+  final bool isLoading;
+
+  const TourisemCardSmall({
+    super.key,
+    required this.model,
+    this.isLoading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +40,8 @@ class TourisemCardSmall extends StatelessWidget {
         height: AppSize.sHeight * 0.15,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: Colors.white,
+          color: isLoading ? Colors.transparent : Colors.white,
+          border: isLoading ? Border.all() : null,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,26 +60,6 @@ class TourisemCardSmall extends StatelessWidget {
                     ),
                   ),
                 ),
-
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(
-                //     horizontal: 8,
-                //     vertical: 18,
-                //   ),
-                //   child: CircleAvatar(
-                //     backgroundColor: ColorManager.cardBackground,
-                //     maxRadius: 16,
-                //     child: IconButton(
-                //       onPressed: () {},
-                //       icon: Assets.icons.favorite.svg(
-                //         colorFilter: const ColorFilter.mode(
-                //           ColorManager.redColor,
-                //           BlendMode.srcIn,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8,
@@ -90,7 +77,6 @@ class TourisemCardSmall extends StatelessWidget {
                       child: Center(
                         child: Assets.icons.favoriteFillIcon.svg(
                           width: 16,
-
                           colorFilter: ColorFilter.mode(
                             model.isFavorite ? Colors.red : ColorManager.grey3,
                             BlendMode.srcIn,
@@ -102,44 +88,22 @@ class TourisemCardSmall extends StatelessWidget {
                 ),
               ],
             ),
-
-            // const SizedBox(width: 12),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisSize: Main,
                 children: [
                   const SizedBox(height: AppSize.s4),
                   SizedBox(
                     width: AppSize.sWidth * .30,
                     child: Text(
                       '${model.postTitle}  ${model.area} م²',
-                      style: Get.textTheme.bodyLarge!.copyWith(
-                        // fontWeight: FontWeight.w600,
-                        // fontSize: FontSize.s15
-                      ),
-
+                      style: Get.textTheme.bodyLarge,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
                   const SizedBox(height: 4),
-                  // Row(
-                  //   children: [
-                  //     const Icon(
-                  //       Icons.area_chart,
-                  //       color: ColorManager.primary5Color,
-                  //       size: 18,
-                  //     ),
-                  //     const SizedBox(width: 4),
-                  //     Text(
-                  //       model.area.toString(),
-                  //       style: Get.textTheme.bodyLarge,
-                  //     ),
-                  //   ],
-                  // ),
-                  // const SizedBox(height: 4),
                   Row(
                     children: [
                       const Icon(
@@ -164,16 +128,12 @@ class TourisemCardSmall extends StatelessWidget {
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      Text(
-                        ' \$${model.price.toString()}',
-                        style: Get.textTheme.bodyLarge,
-                      ),
+                      Text(' \$${model.price}', style: Get.textTheme.bodyLarge),
                     ],
                   ),
                 ],
               ),
             ),
-
             const Spacer(),
             Container(
               padding: const EdgeInsets.all(4),

@@ -6,6 +6,7 @@ import 'package:property_ms/features/tourisem_page/widgets/all_tourisem.dart';
 import 'package:property_ms/features/tourisem_page/widgets/tourisem_slider_widget.dart';
 import 'package:property_ms/features/widgets/app_bar_search.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
+
 import 'tourisem_controller.dart';
 
 class TourisemPage extends GetView<TourisemController> {
@@ -13,18 +14,23 @@ class TourisemPage extends GetView<TourisemController> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SingleChildScrollView(
-        physics:  AlwaysScrollableScrollPhysics(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppBarTourisem(),
-            SizedBox(height: AppSize.s8),
-            TourisemSliderWidget(),
-            AllTourisem(),
-          ],
+    return Scaffold(
+      body: RefreshIndicator(
+        //! @OsamaZerkawi add refresh
+        onRefresh: () async {},
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          controller: controller.scrollAllTourismController,
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppBarTourisem(),
+              SizedBox(height: AppSize.s8),
+              TourisemSliderWidget(),
+              AllTourisem(),
+            ],
+          ),
         ),
       ),
     );
