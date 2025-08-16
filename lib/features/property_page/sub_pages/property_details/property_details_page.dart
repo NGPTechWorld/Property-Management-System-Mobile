@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/Routes/app_routes.dart';
@@ -13,12 +15,18 @@ import 'package:property_ms/features/widgets/office_card_style2.dart';
 import 'package:property_ms/features/widgets/price_section.dart';
 import 'package:property_ms/features/widgets/property_reusable_widget/image_carousel.dart';
 
-class PropertyDetailsPage extends GetView<PropertyDetailsController> {
+class PropertyDetailsPage extends StatelessWidget {
   const PropertyDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    if (Get.isRegistered<PropertyDetailsController>()) {
+      Get.delete<PropertyDetailsController>();
+    }
+    final controller = Get.put(PropertyDetailsController());
+
     const double appBarHeight = AppSize.s100 * 2.5;
+    log("hajar ${controller.id}");
 
     return Scaffold(
       body: SafeArea(

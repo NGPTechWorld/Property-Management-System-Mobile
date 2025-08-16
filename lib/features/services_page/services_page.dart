@@ -18,9 +18,10 @@ class ServicesPage extends GetView<ServicesController> {
         onRefresh: () async {
           await controller.refreshPage();
         },
-        child: const SingleChildScrollView(
-          physics:  AlwaysScrollableScrollPhysics(),
-          child: Column(
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          controller: controller.scrollAllServiceController,
+          child: const Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

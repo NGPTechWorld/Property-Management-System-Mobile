@@ -29,6 +29,7 @@ class PropertyDetailsController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    log("hajar onInit");
     initScrollControllers();
     await getProperty();
     await getPropertyRelated();
@@ -92,7 +93,7 @@ class PropertyDetailsController extends GetxController {
       return;
     }
     loadingTopPropertState.value = LoadingState.loading;
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     final response = await propertyRepo.getPropertyRelated(id: id);
     if (!response.success) {
       loadingTopPropertState.value = LoadingState.hasError;

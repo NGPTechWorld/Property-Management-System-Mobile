@@ -41,7 +41,7 @@ class ContractDetailsController extends GetxController
   Future<void> getUserInvoice() async {
     if (loadingState.value == LoadingState.loading) return;
     loadingState.value = LoadingState.loading;
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     final response = await userRepo.getUserInvoice(
       id: userReservation.propertyId!,
     );

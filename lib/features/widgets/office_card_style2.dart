@@ -8,7 +8,12 @@ import 'package:property_ms/data/dto/office_dto.dart';
 
 class OfficeCardStyle2 extends StatelessWidget {
   final OfficeDto model;
-  const OfficeCardStyle2({super.key, required this.model});
+  final bool isLoaging;
+  const OfficeCardStyle2({
+    super.key,
+    required this.model,
+    this.isLoaging = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,38 +22,69 @@ class OfficeCardStyle2 extends StatelessWidget {
       height: AppSize.sHeight * 0.13,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: Colors.white,
+        color: isLoaging ? Colors.transparent : ColorManager.white,
+        border: isLoaging ? Border.all() : null,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(width: 8),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child:
-                  model.logo == ""
-                      ? ClipOval(
-                        child: Assets.images.officePropertyCard.image(
-                          fit: BoxFit.cover,
-                        ),
-                      )
-                      : ClipOval(
-                        child: CustomCachedNetworkImage(
-                          imageUrl: model.logo,
-                          width: AppSize.sWidth * 0.23,
-                          height: AppSize.sWidth * 0.23,
-                          fit: BoxFit.cover,
-                        ),
+          Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child:
+                      model.logo == ""
+                          ? ClipOval(
+                            child: Assets.images.officePropertyCard.image(
+                              fit: BoxFit.cover,
+                            ),
+                          )
+                          : ClipOval(
+                            child: CustomCachedNetworkImage(
+                              imageUrl: model.logo,
+                              width: AppSize.sWidth * 0.23,
+                              height: AppSize.sWidth * 0.23,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                  //  ClipOval(
+                  //   child: model.image.image(
+                  //     // height: AppSize.sHeight * 0.15,
+                  //     // width: AppSize.sWidth * 0.425,
+                  //     fit: BoxFit.cover,
+                  //   ),
+                  // ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 16,
+                  horizontal: 4,
+                ),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: ColorManager.primaryDark,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      model.type,
+                      style: Get.textTheme.bodySmall!.copyWith(
+                        color: ColorManager.whiteColor,
+                        fontWeight: FontWeight.bold,
                       ),
-              //  ClipOval(
-              //   child: model.image.image(
-              //     // height: AppSize.sHeight * 0.15,
-              //     // width: AppSize.sWidth * 0.425,
-              //     fit: BoxFit.cover,
-              //   ),
-              // ),
-            ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           Expanded(
             child: Padding(

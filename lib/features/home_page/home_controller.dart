@@ -97,7 +97,7 @@ class HomeController extends GetxController {
       return;
     }
     loadingTopPropertState.value = LoadingState.loading;
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     final response = await propertyRepo.getTopRateProperty(
       items: perPage,
       page: pageTopPropert.value,
@@ -147,7 +147,7 @@ class HomeController extends GetxController {
       return;
     }
     loadingTopTourisemState.value = LoadingState.loading;
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     final response = await propertyRepo.getTopRateProperty(
       items: perPage,
       page: pageTopTourisem.value,
@@ -199,7 +199,7 @@ class HomeController extends GetxController {
       return;
     }
     loadingTopOfficeState.value = LoadingState.loading;
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     final response = await officeRepo.getTopRateOffice(
       perPage: perPage,
       page: pageTopOffice.value,
@@ -249,7 +249,7 @@ class HomeController extends GetxController {
       return;
     }
     loadingTopServiceState.value = LoadingState.loading;
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     final response = await serviceRepo.getTopRateService(
       perPage: perPage,
       page: pageTopService.value,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/Routes/app_routes.dart';
@@ -40,11 +42,13 @@ class RelatedPropertiesWidgets extends StatelessWidget {
                   ) {
                     final item = controller.topPropertList[index];
                     return GestureDetector(
-                      onTap:
-                          () => Get.toNamed(
-                            AppRoutes.propertyDetailsPage,
-                            parameters: {"id": item.propertyId.toString()},
-                          ),
+                      onTap: () {
+                        Get.toNamed(
+                          AppRoutes.propertyDetailsPage,
+                          parameters: {"id": item.propertyId.toString()},
+                        );
+                        log(item.propertyId.toString());
+                      },
                       child:
                           item.listingType == "أجار"
                               ? PropertyRentCard(model: item, isLoaging: false)

@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:get/get_instance/src/bindings_interface.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/route_manager.dart';
@@ -119,7 +120,6 @@ abstract class NavigationManager {
     GetPage(
       name: AppRoutes.propertyDetailsPage,
       page: () => const PropertyDetailsPage(),
-      binding: BindingsBuilder.put(() => PropertyDetailsController()),
     ),
     GetPage(
       name: AppRoutes.tourisemRoute,
