@@ -20,6 +20,10 @@ class ServiceDetailController extends GetxController {
     getService();
   }
 
+  Future<void> refreshPage() async {
+    getService();
+  }
+
   Future<void> getService() async {
     if (loadingState.value == LoadingState.loading) return;
     loadingState.value = LoadingState.loading;
@@ -46,8 +50,7 @@ class ServiceDetailController extends GetxController {
   }
 
   Future<void> postPropertyRate() async {
-    Future.delayed(const Duration(seconds: 3));
-    final response = await serviceRepo.postServiceRate(
+    final response = await serviceRepo.postServiceFeeback(
       id: serviceDetaitModel!.id,
       rate: myRating.value,
     );

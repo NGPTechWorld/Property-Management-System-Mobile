@@ -31,7 +31,10 @@ class ServiceDetailPage extends GetView<ServiceDetailController> {
             ),
             onSelected: (value) {
               if (value == 'إبلاغ') {
-                Get.toNamed(AppRoutes.reportServicePage);
+                Get.toNamed(
+                  AppRoutes.reportServicePage,
+                  arguments: controller.id,
+                );
               }
             },
             itemBuilder:
@@ -61,21 +64,22 @@ class ServiceDetailPage extends GetView<ServiceDetailController> {
                 : controller.loadingState.value == LoadingState.doneWithData
                 ? Stack(
                   children: [
-                    Column(
-                      children: [
-                        // Fixed image section
-                        ImageWithTitleSection(
-                          image: controller.serviceDetaitModel!.logo,
-                          title: controller.serviceDetaitModel!.name,
-                        ),
-
-                        // Scrollable content
-                        Expanded(
-                          child: SingleChildScrollView(
-                            padding: const EdgeInsets.only(
-                              bottom: AppPadding.p24,
+                    RefreshIndicator(
+                      onRefresh: () async {
+                        await controller.refreshPage();
+                      },
+                      child: SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        child: Column(
+                          children: [
+                            // Fixed image section
+                            ImageWithTitleSection(
+                              image: controller.serviceDetaitModel!.logo,
+                              title: controller.serviceDetaitModel!.name,
                             ),
-                            child: Column(
+
+                            // Scrollable content
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const SizedBox(height: AppSize.s24),
@@ -142,9 +146,9 @@ class ServiceDetailPage extends GetView<ServiceDetailController> {
                                 // ),
                               ],
                             ),
-                          ),
+                          ],
                         ),
-                      ],
+                      ),
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,

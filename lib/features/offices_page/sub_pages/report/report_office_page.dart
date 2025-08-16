@@ -38,16 +38,6 @@ class ReportOfficePage extends GetView<ReportOfficeController> {
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
         ),
-        // flexibleSpace: Container(
-        //   decoration: const BoxDecoration(
-        //     gradient: LinearGradient(
-        //       colors: [ColorManager.primaryColor, ColorManager.primaryDark],
-        //       begin: Alignment.topLeft,
-        //       end: Alignment.bottomRight,
-        //     ),
-        //     borderRadius: BorderRadius.vertical(bottom: Radius.circular(16)),
-        //   ),
-        // ),
       ),
       body: SafeArea(
         child: Center(
@@ -55,8 +45,7 @@ class ReportOfficePage extends GetView<ReportOfficeController> {
             padding: const EdgeInsets.all(24),
             child: ReportForm(
               onSubmit: (text) async {
-                // Your submission logic
-                controller.submit(text);
+                controller.postOfficeReport(text);
                 await Future.delayed(const Duration(seconds: 2));
               },
             ),

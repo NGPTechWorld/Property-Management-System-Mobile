@@ -121,7 +121,7 @@ class CustomToasts {
                         width: Get.width * 0.1,
                         child: Text(
                           buttonName ?? "",
-                          style:const TextStyle(
+                          style: const TextStyle(
                             color: ColorManager.redColor,
                             fontWeight: FontWeight.w600,
                             fontSize: 13,

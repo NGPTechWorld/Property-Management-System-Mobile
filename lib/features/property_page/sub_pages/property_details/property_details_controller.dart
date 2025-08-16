@@ -29,7 +29,6 @@ class PropertyDetailsController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
-    log("hajar onInit");
     initScrollControllers();
     await getProperty();
     await getPropertyRelated();

@@ -13,7 +13,7 @@ class ContactCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: ColorManager.cardBack3, 
+        color: ColorManager.cardBack3,
         borderRadius: BorderRadius.circular(16),
         boxShadow: const [
           BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
@@ -23,16 +23,19 @@ class ContactCard extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Row(
         children: [
-          Text(
-            name,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-              fontSize: 16,
+          Expanded(
+            child: Text(
+              name,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+                fontSize: 16,
+              ),
+              textDirection: TextDirection.rtl,
+              overflow: TextOverflow.ellipsis,
             ),
-            textDirection: TextDirection.rtl,
           ),
-          const Spacer(),
+
           GestureDetector(
             onTap: () => AppFunctions.callPhoneNumber(phoneNumber),
             child: Container(

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,10 +23,7 @@ class PropertyDetailsPage extends StatelessWidget {
       Get.delete<PropertyDetailsController>();
     }
     final controller = Get.put(PropertyDetailsController());
-
     const double appBarHeight = AppSize.s100 * 2.5;
-    log("hajar ${controller.id}");
-
     return Scaffold(
       body: SafeArea(
         top: false,

@@ -18,7 +18,7 @@ class OfficeDto {
   });
 
   factory OfficeDto.fromJson(Map<String, dynamic> json) => OfficeDto(
-    id: json['id'] ?? 0,
+    id: json['id'] ?? json['officeId'] ?? 0,
     name: json['name'] ?? '',
     logo: json['logo'] ?? '',
     location: json['location'] ?? '',

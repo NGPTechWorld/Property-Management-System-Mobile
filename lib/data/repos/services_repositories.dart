@@ -27,7 +27,11 @@ abstract class ServicesRepositories {
     int cityId,
     String career,
   });
-  Future<AppResponse> postServiceRate({required int id, required double rate});
+  Future<AppResponse> postServiceFeeback({
+    required int id,
+    double rate,
+    String complaint,
+  });
 }
 
 class ImpServicesRepositories extends GetxService
@@ -153,18 +157,23 @@ class ImpServicesRepositories extends GetxService
   }
 
   @override
-  Future<AppResponse> postServiceRate({
+  Future<AppResponse> postServiceFeeback({
     required int id,
-    required double rate,
+    double rate = 0,
+    String complaint = "",
   }) async {
     AppResponse appResponse = AppResponse(success: false);
     try {
+      Map<String, dynamic> queryParams = {};
+
+      if (rate != 0) queryParams["rate"] = rate;
+      if (complaint != "") queryParams["complaint"] = complaint;
       dio.Response response = await apiService.request(
-        url: EndPoints.getService + id.toString() + EndPoints.rate,
+        url: EndPoints.getService + id.toString() + EndPoints.feedback,
         method: Method.post,
         requiredToken: true,
         withLogging: true,
-        params: {"rate": rate},
+        params: queryParams,
       );
       appResponse.success = true;
       appResponse.successMessage = response.data['message'];
