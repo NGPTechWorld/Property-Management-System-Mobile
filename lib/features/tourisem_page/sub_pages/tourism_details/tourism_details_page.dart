@@ -14,7 +14,7 @@ import 'package:property_ms/features/widgets/office_profile_reusable_widgets/rat
 import 'package:property_ms/features/widgets/price_section.dart';
 import 'package:property_ms/features/widgets/property_reusable_widget/details_container.dart';
 import 'package:property_ms/features/widgets/property_reusable_widget/image_carousel.dart';
-import 'package:property_ms/features/widgets/tourisem_card2.dart';
+import 'package:property_ms/features/widgets/tourisem_card.dart';
 import 'package:property_ms/features/widgets/tourisem_card_small.dart';
 import 'package:shimmer/shimmer.dart';
 import './tourism_details_controller.dart';
@@ -349,7 +349,7 @@ class RelatedTourismSection extends StatelessWidget {
                           },
                         );
                       },
-                      child: TourisemCard2(
+                      child: TourisemCard(
                         model: controller.tourismRelatedList[index],
                       ),
                     ),
