@@ -1,23 +1,36 @@
 import 'dart:developer';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:property_ms/core/utils/assets.gen.dart';
+import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
+import 'package:property_ms/data/enums/loading_state_enum.dart';
+import 'package:property_ms/data/models/marker_model.dart';
+import 'package:property_ms/data/repos/map_repositories.dart';
 
 class ExplorationController extends GetxController {
+  final MapRepositories mapRepo = Get.find<MapRepositories>();
+
+  final markerModlesList = <MarkerModel>[].obs;
+  final markerList = <Marker>[].obs;
+  final loadingState = LoadingState.idle.obs;
+
   final mapController = MapController();
-  final markerList =
-      <Marker>[
-        const Marker(
-          width: 80.0,
-          height: 80.0,
-          point: LatLng(33.5138, 36.2765),
-          child: Icon(Icons.location_pin, color: Colors.red, size: 40),
-        ),
-      ].obs;
-  void fetchMarkersInView() {
+
+  Timer? _debounce;
+
+  @override
+  void onInit() {
+    super.onInit();
+    Future.delayed(const Duration(milliseconds: 300), () {
+      exploreInView();
+    });
+  }
+
+  Future<void> exploreInView() async {
     final bounds = mapController.camera.visibleBounds;
 
     final southWest = bounds.southWest;
@@ -27,17 +40,80 @@ class ExplorationController extends GetxController {
     final maxLat = northEast.latitude;
     final minLng = southWest.longitude;
     final maxLng = northEast.longitude;
-    log('Fetching markers between:');
+
+    log('📡 استدعاء API للإحداثيات:');
     log('Lat: $minLat - $maxLat');
     log('Lng: $minLng - $maxLng');
+
+    await explore(minLat, maxLat, minLng, maxLng);
+
+    markerList.clear();
+    markerList.addAll(
+      markerModlesList.map(
+        (e) => Marker(
+          width: 60,
+          height: 60,
+          point: LatLng(e.lat, e.lng),
+          child:
+              e.type == "عقاري"
+                  ? Assets.icons.markerProperty.svg(width: 40)
+                  : e.type == "سياحي"
+                  ? Assets.icons.markerTourisem.svg(width: 40)
+                  : Assets.icons.markerOffice.svg(width: 40),
+        ),
+      ),
+    );
   }
 
-  void fetchMarkersInBounds(
+  Future<void> explore(
     double minLat,
     double maxLat,
     double minLng,
     double maxLng,
-  ) async {}
+  ) async {
+    if (loadingState.value == LoadingState.loading) return;
+
+    loadingState.value = LoadingState.loading;
+
+    try {
+      final response = await mapRepo.explore(
+        minLat: minLat,
+        maxLat: maxLat,
+        minLng: minLng,
+        maxLng: maxLng,
+      );
+
+      if (!response.success) {
+        loadingState.value = LoadingState.hasError;
+        CustomToasts(
+          message: response.getErrorMessage(),
+          type: CustomToastType.error,
+        ).show();
+        return;
+      }
+
+      markerModlesList.clear();
+      markerModlesList.addAll(response.data ?? []);
+
+      loadingState.value =
+          markerModlesList.isEmpty
+              ? LoadingState.doneWithNoData
+              : LoadingState.doneWithData;
+    } catch (e) {
+      loadingState.value = LoadingState.hasError;
+      const CustomToasts(
+        message: "خطأ بالاتصال",
+        type: CustomToastType.error,
+      ).show();
+    }
+  }
+
+  void onMapMoved() {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      exploreInView();
+    });
+  }
 
   Future<void> goToUserLocation() async {
     bool serviceEnabled;
@@ -65,6 +141,9 @@ class ExplorationController extends GetxController {
 
     Position position = await Geolocator.getCurrentPosition();
     final currentLatLng = LatLng(position.latitude, position.longitude);
+
+    mapController.move(currentLatLng, 17);
+
     markerList.add(
       Marker(
         width: 60,
@@ -73,8 +152,7 @@ class ExplorationController extends GetxController {
         child: const Icon(Icons.location_pin, color: Colors.red, size: 40),
       ),
     );
-    mapController.move(currentLatLng, 17);
 
-    log('الموقع الحالي: ${position.latitude}, ${position.longitude}');
+    log('📍 الموقع الحالي: ${position.latitude}, ${position.longitude}');
   }
 }

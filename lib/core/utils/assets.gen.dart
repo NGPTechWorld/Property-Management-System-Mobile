@@ -229,6 +229,18 @@ class $AssetsIconsGen {
   /// File path: assets/icons/map_icon.svg
   SvgGenImage get mapIcon => const SvgGenImage('assets/icons/map_icon.svg');
 
+  /// File path: assets/icons/marker_office.svg
+  SvgGenImage get markerOffice =>
+      const SvgGenImage('assets/icons/marker_office.svg');
+
+  /// File path: assets/icons/marker_property.svg
+  SvgGenImage get markerProperty =>
+      const SvgGenImage('assets/icons/marker_property.svg');
+
+  /// File path: assets/icons/marker_tourisem.svg
+  SvgGenImage get markerTourisem =>
+      const SvgGenImage('assets/icons/marker_tourisem.svg');
+
   /// File path: assets/icons/more_icon.svg
   SvgGenImage get moreIcon => const SvgGenImage('assets/icons/more_icon.svg');
 
@@ -379,6 +391,9 @@ class $AssetsIconsGen {
     logout,
     mailIcon,
     mapIcon,
+    markerOffice,
+    markerProperty,
+    markerTourisem,
     moreIcon,
     notificationIcon,
     passwordIcon,

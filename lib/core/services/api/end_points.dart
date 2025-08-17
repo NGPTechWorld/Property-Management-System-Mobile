@@ -1,6 +1,9 @@
 class EndPoints {
   static const String baseUrl = "http://192.168.1.9:3000";
   static const String templateT = "/templateT";
+  //Map
+  static const String mapExplore = "/map/explore";
+
   //User
   static const String userReservation = "/user-reservation/own";
   static const String userInvoice = "/user-invoice/own/properties/";
