@@ -28,6 +28,7 @@ class FavoritesController extends GetxController {
 
   Future<void> getFavorite() async {
     loadingFavortieState.value = LoadingState.loading;
+    await Future.delayed(const Duration(seconds: 2));
     final selectedType = cardFilterDefault[selectedFilterIndex.value].title;
     late AppResponse<PaginatedModel<dynamic>> response;
     if (selectedType == 'عقاري') {
@@ -59,6 +60,11 @@ class FavoritesController extends GetxController {
         favoriteList.isEmpty
             ? LoadingState.doneWithNoData
             : LoadingState.doneWithData;
+  }
+
+  Future<void> refreshPage() async {
+    favoriteList.clear();
+    await getFavorite();
   }
 
   //!  remove , add favorite
