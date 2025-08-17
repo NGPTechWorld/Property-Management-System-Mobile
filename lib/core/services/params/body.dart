@@ -45,6 +45,7 @@ class TemplateBody extends Body {
     required this.deviceId,
   });
 
+  @override
   Map<String, dynamic> toMap() {
     return {
       firstNameKey: firstName,

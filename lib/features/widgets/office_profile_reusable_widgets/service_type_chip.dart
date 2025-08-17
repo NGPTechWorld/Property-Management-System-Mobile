@@ -38,7 +38,7 @@ class ServiceTypeChip extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border.all(color: ColorManager.primaryColor, width: 2),
           borderRadius: BorderRadius.circular(30),
-          color: ColorManager.cardBack2,
+          color: ColorManager.primaryColor.withAlpha(20),
         ),
         child: Text(
           label,

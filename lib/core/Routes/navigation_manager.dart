@@ -1,6 +1,4 @@
-import 'package:get/get_instance/src/bindings_interface.dart';
-import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/features/auth/login/login_controller.dart';
 import 'package:property_ms/features/auth/login/login_page.dart';
@@ -14,6 +12,9 @@ import 'package:property_ms/features/auth/signup/sub_pages/signup_step2/signup_2
 import 'package:property_ms/features/contract_details/contract_details.dart';
 import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/main_page/main_page.dart';
+import 'package:property_ms/features/notification_page/notification_controller.dart';
+import 'package:property_ms/features/notification_page/notification_page.dart';
+import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_page.dart';
 import 'package:property_ms/features/offices_page/sub_pages/report/report_office_controller.dart';
 import 'package:property_ms/features/offices_page/sub_pages/report/report_office_page.dart';
 import 'package:property_ms/features/profile_page/sub_pages/account_info_page/account_info_controller.dart';
@@ -34,7 +35,6 @@ import 'package:property_ms/features/property_page/property_controller.dart';
 import 'package:property_ms/features/property_page/property_page.dart';
 import 'package:property_ms/features/property_page/sub_pages/compare_properties/compare_properties_controller.dart';
 import 'package:property_ms/features/property_page/sub_pages/compare_properties/compare_properties_page.dart';
-import 'package:property_ms/features/property_page/sub_pages/property_details/property_details_controller.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/property_details_page.dart';
 import 'package:property_ms/features/services_page/services_controller.dart';
 import 'package:property_ms/features/services_page/services_page.dart';
@@ -89,11 +89,10 @@ abstract class NavigationManager {
       page: () => const ResetPasswordPage(),
       binding: BindingsBuilder.put(() => ResetPasswordController()),
     ),
-    // GetPage(
-    //   name: AppRoutes.officeDetails,
-    //   page: () => const OfficeDetailsPage(),
-    //   binding: BindingsBuilder.put(() => OfficeDetailsController()),
-    // ),
+    GetPage(
+      name: AppRoutes.officeDetails,
+      page: () => const OfficeDetailsPage(),
+    ),
     GetPage(
       name: AppRoutes.propertyRoute,
       page: () => const PropertyPage(),
@@ -119,7 +118,6 @@ abstract class NavigationManager {
     GetPage(
       name: AppRoutes.propertyDetailsPage,
       page: () => const PropertyDetailsPage(),
-      binding: BindingsBuilder.put(() => PropertyDetailsController()),
     ),
     GetPage(
       name: AppRoutes.tourisemRoute,
@@ -179,6 +177,11 @@ abstract class NavigationManager {
       name: AppRoutes.postDetailsPage,
       page: () => const PostDetailsPage(),
       binding: BindingsBuilder.put(() => PostDetailsController()),
+    ),
+    GetPage(
+      name: AppRoutes.notificationsPage,
+      page: () => const NotificationPage(),
+      binding: BindingsBuilder.put(() => NotificationController()),
     ),
     // GetPage(
     //   name: AppRoutes.loginRoute,

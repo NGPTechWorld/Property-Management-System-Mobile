@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import '../assets.gen.dart';
 import '../values_manager.dart';
@@ -12,10 +13,12 @@ class NormalAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.onBack,
     this.actions,
     this.backIcon = false,
+    this.isNotifications = true,
     this.customTitle,
   });
 
   final bool backIcon;
+  final bool isNotifications;
   final String title;
   final bool centerTitle;
   final Widget? customTitle;
@@ -53,15 +56,22 @@ class NormalAppBar extends StatelessWidget implements PreferredSizeWidget {
                   )
                   : null,
           actions: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
-              child: Assets.icons.notificationIcon.svg(
-                colorFilter: const ColorFilter.mode(
-                  ColorManager.cardBackground,
-                  BlendMode.srcIn,
-                ),
-              ),
-            ),
+            isNotifications
+                ? GestureDetector(
+                  onTap: () => Get.toNamed(AppRoutes.notificationsPage),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppPadding.p14,
+                    ),
+                    child: Assets.icons.notificationIcon.svg(
+                      colorFilter: const ColorFilter.mode(
+                        ColorManager.cardBackground,
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                )
+                : Container(),
           ],
         ),
       ),

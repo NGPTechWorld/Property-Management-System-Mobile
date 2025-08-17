@@ -33,7 +33,7 @@ class AdsSliderWidget extends GetView<OfficesController> {
               },
             ),
           ),
-          SizedBox(height: AppSize.s4),
+          const SizedBox(height: AppSize.s4),
 
           Obx(() {
             final adsLength = controller.adsSliderImages.length;

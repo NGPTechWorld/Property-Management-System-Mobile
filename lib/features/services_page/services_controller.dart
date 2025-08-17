@@ -142,7 +142,7 @@ class ServicesController extends GetxController {
       return;
     }
     loadingTopServiceState.value = LoadingState.loading;
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     final response = await serviceRepo.getTopRateService(
       perPage: 5,
       page: pageTopService.value,
@@ -193,7 +193,7 @@ class ServicesController extends GetxController {
       return;
     }
     loadingAllServiceState.value = LoadingState.loading;
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     int cityId = govermentQuestion.selectedIndex.value ?? 0;
     int regionId = locationQuestion.selectedIndex.value ?? 0;
     String career =
@@ -204,7 +204,7 @@ class ServicesController extends GetxController {
     if (isSearch.value && searchController.text != "") {
       response = await serviceRepo.getSearchService(
         items: 5,
-        page: pageTopService.value,
+        page: pageAllService.value,
         name: searchController.text,
       );
     } else {

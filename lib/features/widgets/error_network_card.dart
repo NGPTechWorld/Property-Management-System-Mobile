@@ -5,9 +5,9 @@ import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 
-class EmptyCard extends StatelessWidget {
+class ErrorNetworkCard extends StatelessWidget {
   final bool isSmall;
-  const EmptyCard({super.key, this.isSmall = false});
+  const ErrorNetworkCard({super.key, this.isSmall = false});
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +15,13 @@ class EmptyCard extends StatelessWidget {
       padding: const EdgeInsets.all(AppPadding.p24),
       child: Container(
         decoration: BoxDecoration(
-          color: ColorManager.lightPrimaryColor.withAlpha(50),
+          color: ColorManager.redColor.withAlpha(20),
           borderRadius: BorderRadius.circular(AppSize.s24),
         ),
         child: DottedBorder(
           options: const RoundedRectDottedBorderOptions(
             radius: Radius.circular(AppSize.s24),
-            color: ColorManager.primaryColor,
+            color: ColorManager.redColor,
             strokeWidth: 2,
             dashPattern: [10, 4],
           ),
@@ -31,9 +31,9 @@ class EmptyCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
-                  child: Assets.images.box.image(
+                  child: Assets.images.boxError.image(
                     width:
-                        isSmall ? AppSize.sWidth * 0.2 : AppSize.sWidth * 0.5,
+                        isSmall ? AppSize.sWidth * 0.25 : AppSize.sWidth * 0.5,
                   ),
                 ),
                 Padding(
@@ -41,9 +41,9 @@ class EmptyCard extends StatelessWidget {
                     horizontal: AppPadding.p14,
                   ),
                   child: Text(
-                    "لا يوجد عناصر !",
+                    "لا يوجد إتصال !",
                     style: Get.textTheme.bodyLarge!.copyWith(
-                      color: ColorManager.primary5Color,
+                      color: ColorManager.redColor,
                       fontSize: isSmall ? FontSize.s14 : FontSize.s18,
                     ),
                   ),

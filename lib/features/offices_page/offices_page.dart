@@ -20,9 +20,10 @@ class OfficesPage extends GetView<OfficesController> {
         onRefresh: () async {
           await controller.refreshPage();
         },
-        child: const SingleChildScrollView(
-          physics:  AlwaysScrollableScrollPhysics(),
-          child: Column(
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          controller: controller.scrollAllOfficeController,
+          child: const Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

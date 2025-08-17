@@ -48,7 +48,7 @@ class ReportController extends GetxController
     try {
       await onSubmit(textController.text.trim());
       textController.clear();
-      showSuccessSnackbar();
+      //showSuccessSnackbar();
     } catch (e) {
       showErrorSnackbar(e);
       rethrow;

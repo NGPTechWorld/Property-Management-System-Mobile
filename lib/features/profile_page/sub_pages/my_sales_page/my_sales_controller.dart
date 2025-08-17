@@ -50,7 +50,7 @@ class MySalesController extends GetxController {
       return;
     }
     loadingUserPurchasesState.value = LoadingState.loading;
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     final response = await userRepo.getUserPurchases(
       items: 7,
       page: pageUserPurchases.value,

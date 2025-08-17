@@ -84,7 +84,7 @@ class ReservationController extends GetxController {
       return;
     }
     loadingUserReservationState.value = LoadingState.loading;
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     final response = await userRepo.getUserReservation(
       items: 7,
       page: pageUserReservation.value,
@@ -135,7 +135,7 @@ class ReservationController extends GetxController {
       return;
     }
     loadingUserReservationTourisemState.value = LoadingState.loading;
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     final response = await userRepo.getUserReservation(
       items: 7,
       page: pageUserReservationTourisem.value,

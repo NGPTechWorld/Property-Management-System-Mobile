@@ -446,7 +446,7 @@ class PropertyController extends GetxController {
       return;
     }
     loadingTopPropertState.value = LoadingState.loading;
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 1));
     final response = await propertyRepo.getPropertyPromoted(
       items: perPage,
       page: pageTopPropert.value,

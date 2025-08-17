@@ -106,7 +106,7 @@ class ApiService extends getx.GetxService {
 
       headers = {
         'Content-Type': 'application/json',
-        "Authorization": "Bearer ${token}",
+        "Authorization": "Bearer $token",
       };
     }
 

@@ -28,18 +28,32 @@ class PropertyDto {
   });
 
   factory PropertyDto.fromJson(Map<String, dynamic> json) => PropertyDto(
-    propertyId: json['propertyId'] ?? 0,
-    postTitle: json['postTitle'] ?? '',
-    postImage: json['postImage'] ?? '',
-    rentalPeriod: json['rental_period'] ?? '',
-    location: json['location'] ?? '',
-    type: json['type'] ?? '',
-    postDate: json['postDate'] ?? '',
-    isFavorite: (json['is_favorite'] ?? 0) == 1,
-    listingType: json['listing_type'] ?? '',
-    price: json['price'] ?? 0,
-    area: json['area'] ?? 0,
-    rate: (json['rate'] ?? 0).toDouble(),
+    propertyId:
+        json['propertyId'] is int
+            ? json['propertyId']
+            : int.tryParse(json['propertyId'].toString()) ?? 0,
+    postTitle: json['postTitle']?.toString() ?? '',
+    postImage: json['postImage']?.toString() ?? '',
+    rentalPeriod: json['rental_period']?.toString() ?? '',
+    location: json['location']?.toString() ?? '',
+    type: json['type']?.toString() ?? '',
+    postDate: json['postDate']?.toString() ?? '',
+    isFavorite: json['is_favorite'] == 1 || json['is_favorite'] == true,
+    listingType: json['listing_type']?.toString() ?? '',
+    price:
+        (json['price'] is num)
+            ? (json['price'] as num).toInt()
+            : int.tryParse(json['price'].toString()) ?? 0,
+    area:
+        json['area'] is num
+            ? json['area']
+            : int.tryParse(json['area'].toString()) ?? 0,
+    rate:
+        (json['rate'] is num
+                ? json['rate']
+                : double.tryParse(json['rate'].toString()))
+            ?.toDouble() ??
+        0.0,
   );
 
   Map<String, dynamic> toJson() => {

@@ -1,10 +1,11 @@
 class EndPoints {
-  static const String baseUrl = "http://192.168.1.7:3000";
+  static const String baseUrl = "http://192.168.1.9:3000";
   static const String templateT = "/templateT";
   //User
   static const String userReservation = "/user-reservation/own";
   static const String userInvoice = "/user-invoice/own/properties/";
   static const String userMyPurchases = "/user/myPurchases";
+  static const String notifications = "/notifications";
   //Auth
   static const String signup = "/mobile-auth/signup";
   static const String confirm = "/mobile-auth/confirm";
@@ -26,6 +27,13 @@ class EndPoints {
 
   //Office
   static const String getTopRateOffice = "/office/top-rated";
+  static const String getOfficeList = "/office/list";
+  static const String getOfficeSearch = "/office/search";
+  static const String postOfficeRate = "/office/rate";
+  static const String postOfficeReport = "/office/report";
+  static const String getOffice = "/office/";
+  static const String getOfficeProperty = "/properties";
+  static const String getAdsOffice = "/ads";
 
   //Service
   static const String getService = "/service-provider/";

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
+import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_controller.dart';
 
-class OfficeAppBar extends StatelessWidget implements PreferredSizeWidget {
+class OfficeAppBar extends GetView<OfficeDetailsController>
+    implements PreferredSizeWidget {
   const OfficeAppBar({super.key});
 
   @override
@@ -20,39 +22,14 @@ class OfficeAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           onSelected: (value) {
             if (value == 'إبلاغ') {
-              Get.toNamed(AppRoutes.reportOfficePage);
-            } else if (value == 'الإعدادات') {
-              showDialog(
-                context: context,
-                builder:
-                    (context) => AlertDialog(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      title: const Text('الإعدادات'),
-                      content: const Text('قيد التطوير   🚀🚀'),
-                      actions: [
-                        TextButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: const Text('إغلاق'),
-                        ),
-                      ],
-                    ),
+              Get.toNamed(
+                AppRoutes.reportOfficePage,
+                arguments: controller.officeModel!.id,
               );
             }
           },
           itemBuilder:
               (context) => [
-                const PopupMenuItem(
-                  value: 'الإعدادات',
-                  child: Row(
-                    children: [
-                      Icon(Icons.settings, color: Colors.black54),
-                      SizedBox(width: 8),
-                      Text('الإعدادات'),
-                    ],
-                  ),
-                ),
                 const PopupMenuItem(
                   value: 'إبلاغ',
                   child: Row(

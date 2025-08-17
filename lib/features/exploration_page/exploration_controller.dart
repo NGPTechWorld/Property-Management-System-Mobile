@@ -10,7 +10,7 @@ class ExplorationController extends GetxController {
   final mapController = MapController();
   final markerList =
       <Marker>[
-        Marker(
+        const Marker(
           width: 80.0,
           height: 80.0,
           point: LatLng(33.5138, 36.2765),
