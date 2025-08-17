@@ -101,7 +101,7 @@ class FavoritesPage extends GetView<FavoritesController> {
         onTap:
             () => Get.toNamed(
               AppRoutes.tourismDetailsPage,
-              parameters: {"id": item.tourismId.toString()},
+              parameters: {"id": item.propertyId.toString()},
             ),
         child: TourisemCardSmall(model: item),
       );
