@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/features/tourisem_page/sub_pages/tourism_details/models/tourism_detail_model.dart';
+import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
+import 'package:property_ms/data/models/tourism_model.dart';
 import 'package:property_ms/features/widgets/comparison_container.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/info_card.dart';
 
 class TourismComparisonWidget extends StatelessWidget {
-  final TourismDetailModel tourism1;
-  final TourismDetailModel tourism2;
+  final TourismModel tourism1;
+  final TourismModel tourism2;
 
   const TourismComparisonWidget({
     super.key,
@@ -19,8 +20,8 @@ class TourismComparisonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final featureItems = _buildFeatureComparisonList(
-      tourism1.features,
-      tourism2.features,
+      tourism1.additionalServices,
+      tourism2.additionalServices,
     );
 
     return Column(
@@ -41,14 +42,14 @@ class TourismComparisonWidget extends StatelessWidget {
           comparisons: [
             ComparisonItem(
               label: "المساحة",
-              value1: tourism1.area,
-              value2: tourism2.area,
+              value1: tourism1.area.toStringAsFixed(2),
+              value2: tourism2.area.toStringAsFixed(2),
               icon: Icons.square_foot_outlined,
             ),
             ComparisonItem(
               label: "الفرش",
-              value1: tourism1.furnishing,
-              value2: tourism2.furnishing,
+              value1: tourism1.hasFurniture,
+              value2: tourism2.hasFurniture,
               icon: Icons.weekend_outlined,
             ),
             ComparisonItem(
@@ -69,28 +70,35 @@ class TourismComparisonWidget extends StatelessWidget {
               value2: tourism2.pool,
               icon: Icons.pool_outlined,
             ),
+
+            ComparisonItem(
+              label: "عدد الغرف",
+              value1: tourism1.roomCount.toString(),
+              value2: tourism2.roomCount.toString(),
+              icon: Icons.living_outlined,
+            ),
             ComparisonItem(
               label: "نوم",
-              value1: tourism1.roomDetails.bedrooms.toString(),
-              value2: tourism2.roomDetails.bedrooms.toString(),
+              value1: tourism1.bedroomCount.toString(),
+              value2: tourism2.bedroomCount.toString(),
               icon: Icons.bed_outlined,
             ),
             ComparisonItem(
               label: "معيشة",
-              value1: tourism1.roomDetails.livingRooms.toString(),
-              value2: tourism2.roomDetails.livingRooms.toString(),
+              value1: tourism1.livingRoomCount.toString(),
+              value2: tourism2.livingRoomCount.toString(),
               icon: Icons.chair_outlined,
             ),
             ComparisonItem(
               label: "حمام",
-              value1: tourism1.roomDetails.bathrooms.toString(),
-              value2: tourism2.roomDetails.bathrooms.toString(),
+              value1: tourism1.bathroomCount.toString(),
+              value2: tourism2.bathroomCount.toString(),
               icon: Icons.bathtub_outlined,
             ),
             ComparisonItem(
               label: "مطبخ",
-              value1: tourism1.roomDetails.kitchens.toString(),
-              value2: tourism2.roomDetails.kitchens.toString(),
+              value1: tourism1.kitchenCount.toString(),
+              value2: tourism2.kitchenCount.toString(),
               icon: Icons.kitchen_outlined,
             ),
           ],
@@ -125,7 +133,7 @@ class TourismComparisonWidget extends StatelessWidget {
 }
 
 class TourismHeaderComparisonCard extends StatelessWidget {
-  final TourismDetailModel model;
+  final TourismModel model;
 
   const TourismHeaderComparisonCard({super.key, required this.model});
 
@@ -136,8 +144,8 @@ class TourismHeaderComparisonCard extends StatelessWidget {
         const SizedBox(height: AppSize.s8),
         ClipRRect(
           borderRadius: BorderRadius.circular(AppSize.s8),
-          child: Image.asset(
-            model.images.first,
+          child: CustomCachedNetworkImage(
+            imageUrl: model.postImage,
             height: AppSize.s100,
             width: AppSize.sWidth * 0.4,
             fit: BoxFit.cover,
@@ -145,14 +153,14 @@ class TourismHeaderComparisonCard extends StatelessWidget {
         ),
         const SizedBox(height: AppSize.s8),
         Text(
-          model.title,
+          model.postTitle,
           textAlign: TextAlign.center,
           style: Get.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
         InfoCard(
           title: "السعر",
           child: Text(
-            model.price,
+            model.price.toString(),
             style: Get.textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.bold,
               color: ColorManager.primaryColor,
@@ -173,7 +181,7 @@ class TourismHeaderComparisonCard extends StatelessWidget {
                   ),
                   const SizedBox(width: AppSize.s4),
                   Text(
-                    model.publishDate,
+                    model.date,
                     style: Get.textTheme.bodySmall?.copyWith(
                       color: ColorManager.textColor1,
                     ),
