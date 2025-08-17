@@ -5,6 +5,7 @@ class EndPoints {
   static const String userReservation = "/user-reservation/own";
   static const String userInvoice = "/user-invoice/own/properties/";
   static const String userMyPurchases = "/user/myPurchases";
+  static const String notifications = "/notifications";
   //Auth
   static const String signup = "/mobile-auth/signup";
   static const String confirm = "/mobile-auth/confirm";

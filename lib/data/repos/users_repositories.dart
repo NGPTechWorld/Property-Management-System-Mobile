@@ -11,6 +11,7 @@ import 'package:property_ms/data/dto/user_invoice_dto.dart';
 import 'package:property_ms/data/dto/user_purchases_dto.dart';
 import 'package:property_ms/data/dto/user_reservation_dto.dart';
 import 'package:property_ms/data/models/app_response.dart';
+import 'package:property_ms/data/models/notification_model.dart';
 import 'package:property_ms/data/models/paginated_model.dart';
 
 abstract class UsersRepositories {
@@ -25,6 +26,7 @@ abstract class UsersRepositories {
     required String type,
   }); // Type = reset or signup
   Future<AppResponse> confirem({required String email, required String otp});
+  Future<AppResponse<List<NotificationModel>>> myNotifications();
   Future<AppResponse> resetPassword({
     required String email,
     required String newPassword,
@@ -203,8 +205,9 @@ class ImpUsersRepositories extends GetxService implements UsersRepositories {
     }
     return appResponse;
   }
+
   @override
- Future<AppResponse<PaginatedModel<UserPurchasesDto>>> getUserPurchases({
+  Future<AppResponse<PaginatedModel<UserPurchasesDto>>> getUserPurchases({
     required int items,
     required int page,
   }) async {
@@ -246,6 +249,34 @@ class ImpUsersRepositories extends GetxService implements UsersRepositories {
       appResponse.success = true;
       appResponse.successMessage = response.data['message'];
       appResponse.data = UserInvoiceDto.fromJson(response.data['data']);
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse<List<NotificationModel>>> myNotifications() async {
+    AppResponse<List<NotificationModel>> appResponse = AppResponse(
+      success: false,
+    );
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.notifications,
+        method: Method.get,
+        requiredToken: true,
+        withLogging: true,
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+      appResponse.data =
+          (response.data["data"] as List<dynamic>? ?? [])
+              .map(
+                (item) =>
+                    NotificationModel.fromJson(item as Map<String, dynamic>),
+              )
+              .toList();
     } catch (e) {
       appResponse.success = false;
       appResponse.networkFailure = ErrorHandler.handle(e).failure;

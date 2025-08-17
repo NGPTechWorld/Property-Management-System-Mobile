@@ -26,5 +26,5 @@ abstract class AppRoutes {
   static const String chatPage = "/chatPage";
   static const String myPostsPage = "/myPostsPage";
   static const String postDetailsPage = "/postDetailsPage";
-
+  static const String notificationsPage = "/notificationsPage";
 }
