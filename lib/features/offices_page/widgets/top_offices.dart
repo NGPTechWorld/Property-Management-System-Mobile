@@ -55,7 +55,7 @@ class TopOffices extends StatelessWidget {
                                   onTap: () {
                                     Get.toNamed(
                                       AppRoutes.officeDetails,
-                                      arguments: item,
+                                      arguments: item.id,
                                     );
                                   },
                                   child: OfficeCard(model: item),

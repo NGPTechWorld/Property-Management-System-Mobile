@@ -4,7 +4,6 @@ import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
-import 'package:property_ms/data/dto/tourism_dto.dart';
 
 class TourisemCardSmallModel {
   final String title;
@@ -22,7 +21,8 @@ class TourisemCardSmallModel {
 }
 
 class TourisemCardSmall extends StatelessWidget {
-  final TourismDto model;
+  // ignore: prefer_typing_uninitialized_variables
+  final model;
   final bool isLoading;
 
   const TourisemCardSmall({

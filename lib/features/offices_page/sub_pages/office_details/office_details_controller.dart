@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
-import 'package:property_ms/data/dto/office_dto.dart';
 import 'package:property_ms/data/dto/property_dto.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/data/models/office_model.dart';
@@ -11,7 +10,7 @@ import 'package:property_ms/data/repos/offices_repositories.dart';
 
 class OfficeDetailsController extends GetxController
     with GetSingleTickerProviderStateMixin {
-  final OfficeDto officeCard = Get.arguments as OfficeDto;
+  final int officeId = Get.arguments as int;
   final OfficesRepositories officeRepo = Get.find<OfficesRepositories>();
   final loadingState = LoadingState.idle.obs;
   RxDouble rating = 0.0.obs;
@@ -75,7 +74,7 @@ class OfficeDetailsController extends GetxController
   Future<void> postOfficeRate() async {
     Future.delayed(const Duration(seconds: 3));
     final response = await officeRepo.postOfficeRate(
-      id: officeCard.id,
+      id: officeId,
       rate: myRating.value.toString(),
     );
 
@@ -111,7 +110,7 @@ class OfficeDetailsController extends GetxController
     if (loadingState.value == LoadingState.loading) return;
     loadingState.value = LoadingState.loading;
     Future.delayed(const Duration(seconds: 3));
-    final response = await officeRepo.getOffice(id: officeCard.id);
+    final response = await officeRepo.getOffice(id: officeId);
 
     if (!response.success) {
       loadingState.value = LoadingState.hasError;
@@ -148,7 +147,7 @@ class OfficeDetailsController extends GetxController
     final response = await officeRepo.getOfficeProperty(
       perPage: 5,
       page: pageAllPropert.value,
-      id: officeCard.id,
+      id: officeId,
     );
     if (!response.success) {
       loadingAllPropertState.value = LoadingState.hasError;

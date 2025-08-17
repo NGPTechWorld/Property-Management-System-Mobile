@@ -1,7 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/Routes/app_routes.dart';
+import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
@@ -46,6 +46,42 @@ class PropertyDetailsPage extends StatelessWidget {
                               expandedHeight: appBarHeight,
                               toolbarHeight: kToolbarHeight + AppSize.s10,
                               elevation: 0,
+                              actions: [
+                                Obx(
+                                  () => Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 18,
+                                    ),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                       // controller.toggleFavorite();
+                                      },
+                                      child: Container(
+                                        width: 32,
+                                        height: 32,
+                                        decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: ColorManager.cardBackground,
+                                        ),
+                                        child: Center(
+                                          child: Assets.icons.favoriteFillIcon
+                                              .svg(
+                                                width: 16,
+                                                colorFilter: ColorFilter.mode(
+                                                  controller.isFavorite.value
+                                                      ? Colors.red
+                                                      : ColorManager.grey3,
+                                                  BlendMode.srcIn,
+                                                ),
+                                              ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                              ],
                               leading: IconButton(
                                 icon: Container(
                                   height: AppSize.s40,
@@ -111,9 +147,14 @@ class PropertyDetailsPage extends StatelessWidget {
                                     ),
                                     const SizedBox(height: AppSize.s12),
                                     GestureDetector(
-                                      onDoubleTap:
+                                      onTap:
                                           () => Get.toNamed(
                                             AppRoutes.officeDetails,
+                                            arguments:
+                                                controller
+                                                    .propertyDetails!
+                                                    .office!
+                                                    .id,
                                           ),
                                       child: OfficeCardStyle2(
                                         model:

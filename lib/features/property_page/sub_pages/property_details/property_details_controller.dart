@@ -19,6 +19,7 @@ class PropertyDetailsController extends GetxController {
   final loadingState = LoadingState.idle.obs;
   final RxInt sliderIndex = 0.obs;
   final isLoadingImages = true.obs;
+  final isFavorite = true.obs;
   final int id = int.parse(Get.parameters['id']!);
   final ScrollController scrollController = ScrollController();
 
@@ -71,6 +72,7 @@ class PropertyDetailsController extends GetxController {
     }
     propertyDetails = response.data;
     rating.value = propertyDetails!.avgRate;
+    isFavorite.value = propertyDetails!.isFavorite;
     loadingState.value = LoadingState.doneWithData;
   }
 

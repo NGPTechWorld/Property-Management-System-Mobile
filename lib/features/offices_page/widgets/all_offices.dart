@@ -39,7 +39,7 @@ class AllOffices extends GetView<OfficesController> {
                 ),
                 child: GestureDetector(
                   onTap: () {
-                    Get.toNamed(AppRoutes.officeDetails, arguments: item);
+                    Get.toNamed(AppRoutes.officeDetails, arguments: item.id);
                   },
                   child: OfficeCardStyle2(model: item),
                 ),

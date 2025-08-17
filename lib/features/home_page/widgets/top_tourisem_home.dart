@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/Routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/data/dto/property_dto.dart';
@@ -38,7 +39,14 @@ class TopTourisemHome extends GetView<HomeController> {
                     index,
                   ) {
                     final item = controller.topTourisemList[index];
-                    return PropertyRentCard(model: item, isLoaging: false);
+                    return GestureDetector(
+                      onTap:
+                          () => Get.toNamed(
+                            AppRoutes.tourismDetailsPage,
+                            parameters: {'id': item.propertyId.toString()},
+                          ),
+                      child: PropertyRentCard(model: item, isLoaging: false),
+                    );
                   }),
                 ),
                 controller.loadingTopTourisemState.value == LoadingState.loading

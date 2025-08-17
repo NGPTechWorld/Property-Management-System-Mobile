@@ -46,7 +46,10 @@ class TopOfficesHome extends StatelessWidget {
                       ),
                       child: GestureDetector(
                         onTap: () {
-                          Get.toNamed(AppRoutes.officeDetails, arguments: item);
+                          Get.toNamed(
+                            AppRoutes.officeDetails,
+                            arguments: item.id,
+                          );
                         },
                         child: OfficeCard(model: item),
                       ),

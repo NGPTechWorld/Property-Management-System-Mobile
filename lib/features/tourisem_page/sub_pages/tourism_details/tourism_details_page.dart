@@ -43,7 +43,10 @@ class TourismDetailsPage extends GetView<TourismDetailsController> {
                         controller: controller.scrollController,
                         headerSliverBuilder: (context, innerBoxIsScrolled) {
                           return [
-                            TourismDetailsAppBar(appBarHeight: appBarHeight, controller: controller),
+                            TourismDetailsAppBar(
+                              appBarHeight: appBarHeight,
+                              controller: controller,
+                            ),
                           ];
                         },
                         body: TourismDetailsBody(controller: controller),
@@ -68,32 +71,23 @@ class TourismDetailsPage extends GetView<TourismDetailsController> {
 }
 
 class TourismDetailsBody extends StatelessWidget {
-  const TourismDetailsBody({
-    super.key,
-    required this.controller,
-  });
+  const TourismDetailsBody({super.key, required this.controller});
 
   final TourismDetailsController controller;
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.only(
-        bottom: AppPadding.p24,
-      ),
+      padding: const EdgeInsets.only(bottom: AppPadding.p24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             decoration: const BoxDecoration(
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(24),
-              ),
+              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
             ),
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppPadding.p16,
-            ),
-    
+            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
+
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -102,142 +96,101 @@ class TourismDetailsBody extends StatelessWidget {
                   children: [
                     const Icon(Icons.access_time),
                     const SizedBox(width: AppSize.s12),
-                    Text(
-                      'تاريخ النشر : ${controller.tourismDetails!.date}',
-                    ),
+                    Text('تاريخ النشر : ${controller.tourismDetails!.date}'),
                   ],
                 ),
                 TitleAndCompare(controller: controller),
                 SizedBox(
                   width: double.infinity,
-                  child: RatingSection(
-                    controller: controller,
-                  ),
+                  child: RatingSection(controller: controller),
                 ),
                 LocationAndMapRow(controller: controller),
-                ResponsibleOfficeSection(
-                  controller: controller,
-                ),
+                ResponsibleOfficeSection(controller: controller),
                 const SizedBox(height: AppSize.s12),
-                TourismDescriptionSection(
-                  controller: controller,
-                ),
+                TourismDescriptionSection(controller: controller),
                 const SizedBox(height: AppSize.s12),
                 LabeledDetailsSection(
                   title: 'تفاصيل المكان السياحي',
                   details: [
                     DetailItem(
                       label: "المساحة",
-                      value: controller.tourismDetails!.area
-                          .toStringAsFixed(2),
+                      value: controller.tourismDetails!.area.toStringAsFixed(2),
                       icon: Icons.square_foot_outlined,
                     ),
                     DetailItem(
                       label: "الفرش",
-                      value:
-                          controller
-                              .tourismDetails!
-                              .hasFurniture,
+                      value: controller.tourismDetails!.hasFurniture,
                       icon: Icons.weekend_outlined,
                     ),
                     DetailItem(
                       label: "الكهرباء",
-                      value:
-                          controller
-                              .tourismDetails!
-                              .electricity,
+                      value: controller.tourismDetails!.electricity,
                       icon: Icons.bolt_outlined,
                     ),
                     DetailItem(
                       label: "الماء",
-                      value:
-                          controller.tourismDetails!.water,
+                      value: controller.tourismDetails!.water,
                       icon: Icons.water_drop_outlined,
                     ),
                     DetailItem(
                       label: "المسبح",
-                      value:
-                          controller.tourismDetails!.pool,
+                      value: controller.tourismDetails!.pool,
                       icon: Icons.pool_outlined,
                     ),
                   ],
                 ),
-    
+
                 const SizedBox(height: AppSize.s8),
                 LabeledDetailsSection(
                   title: 'تفاصيل الغرف',
                   details: [
                     DetailItem(
                       label: "عدد الغرف",
-                      value:
-                          controller
-                              .tourismDetails!
-                              .roomCount
-                              .toString(),
+                      value: controller.tourismDetails!.roomCount.toString(),
                       icon: Icons.living_outlined,
                     ),
                     DetailItem(
                       label: "غرف النوم",
-                      value:
-                          controller
-                              .tourismDetails!
-                              .bedroomCount
-                              .toString(),
+                      value: controller.tourismDetails!.bedroomCount.toString(),
                       icon: Icons.bed_outlined,
                     ),
                     DetailItem(
                       label: "غرف المعيشة",
                       value:
-                          controller
-                              .tourismDetails!
-                              .livingRoomCount
-                              .toString(),
+                          controller.tourismDetails!.livingRoomCount.toString(),
                       icon: Icons.weekend_outlined,
                     ),
                     DetailItem(
                       label: "حمام",
                       value:
-                          controller
-                              .tourismDetails!
-                              .bathroomCount
-                              .toString(),
+                          controller.tourismDetails!.bathroomCount.toString(),
                       icon: Icons.bathtub_outlined,
                     ),
                     DetailItem(
                       label: "مطبخ",
-                      value:
-                          controller
-                              .tourismDetails!
-                              .kitchenCount
-                              .toString(),
+                      value: controller.tourismDetails!.kitchenCount.toString(),
                       icon: Icons.kitchen_outlined,
                     ),
                   ],
                 ),
                 const SizedBox(height: AppSize.s8),
-    
+
                 Text(
                   'المرفقات',
-                  style: Get.textTheme.titleMedium
-                      ?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                  style: Get.textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: AppSize.s8),
                 WrapFeatures(
                   backgroundColor: ColorManager.white,
-                  features:
-                      controller
-                          .tourismDetails!
-                          .additionalServices,
+                  features: controller.tourismDetails!.additionalServices,
                   spacing: AppPadding.p16,
                   runSpacing: AppPadding.p8,
                 ),
-    
+
                 const SizedBox(height: AppSize.s24),
-                RelatedTourismSection(
-                  controller: controller,
-                ),
+                RelatedTourismSection(controller: controller),
                 const SizedBox(height: AppSize.s100),
               ],
             ),
@@ -273,20 +226,14 @@ class TourismDetailsAppBar extends StatelessWidget {
             color: ColorManager.primaryColor,
           ),
           alignment: Alignment.center,
-          child: const Icon(
-            Icons.chevron_left,
-            color: Colors.white,
-          ),
+          child: const Icon(Icons.chevron_left, color: Colors.white),
         ),
         onPressed: () => Get.back(),
       ),
       actions: [
         Obx(
           () => Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8,
-              vertical: 18,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 18),
             child: GestureDetector(
               onTap: () {
                 controller.toggleFavorite();
@@ -299,16 +246,15 @@ class TourismDetailsAppBar extends StatelessWidget {
                   color: ColorManager.cardBackground,
                 ),
                 child: Center(
-                  child: Assets.icons.favoriteFillIcon
-                      .svg(
-                        width: 16,
-                        colorFilter: ColorFilter.mode(
-                          controller.isFavorite.value
-                              ? Colors.red
-                              : ColorManager.grey3,
-                          BlendMode.srcIn,
-                        ),
-                      ),
+                  child: Assets.icons.favoriteFillIcon.svg(
+                    width: 16,
+                    colorFilter: ColorFilter.mode(
+                      controller.isFavorite.value
+                          ? Colors.red
+                          : ColorManager.grey3,
+                      BlendMode.srcIn,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -316,16 +262,14 @@ class TourismDetailsAppBar extends StatelessWidget {
         ),
         const SizedBox(width: 8),
       ],
-    
+
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.pin,
         titlePadding: EdgeInsets.zero,
         expandedTitleScale: 1.1,
         background: ImageCarousel(
           images:
-              controller.tourismDetails!.images
-                  .map((asset) => asset)
-                  .toList(),
+              controller.tourismDetails!.images.map((asset) => asset).toList(),
           currentIndex: controller.sliderIndex,
           activeDotColor: ColorManager.primaryColor,
           inactiveDotColor: Colors.grey.shade300,
@@ -479,7 +423,15 @@ class ResponsibleOfficeSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: AppSize.s12),
-        OfficeCardStyle2(model: controller.tourismDetails!.office!),
+        GestureDetector(
+          onTap: () {
+            Get.toNamed(
+              AppRoutes.officeDetails,
+              arguments: controller.tourismDetails!.office!.id,
+            );
+          },
+          child: OfficeCardStyle2(model: controller.tourismDetails!.office!),
+        ),
       ],
     );
   }

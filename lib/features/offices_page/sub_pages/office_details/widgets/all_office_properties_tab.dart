@@ -10,6 +10,7 @@ import 'package:property_ms/features/widgets/property_rent_card2_small.dart';
 import 'package:property_ms/features/widgets/property_sale_card2_small.dart';
 import 'package:shimmer/shimmer.dart';
 import '../office_details_controller.dart';
+import 'package:property_ms/features/widgets/tourisem_card_small.dart';
 
 class AllOfficePropertiesTab extends GetView<OfficeDetailsController> {
   const AllOfficePropertiesTab({super.key});
@@ -114,7 +115,14 @@ class AllOfficePropertiesTab extends GetView<OfficeDetailsController> {
         return const SizedBox();
       }
     } else {
-      return const SizedBox();
+      return GestureDetector(
+        onTap:
+            () => Get.toNamed(
+              AppRoutes.tourismDetailsPage,
+              parameters: {'id': item.propertyId.toString()},
+            ),
+        child: TourisemCardSmall(model: item),
+      );
     }
   }
 }
