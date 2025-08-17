@@ -1,4 +1,3 @@
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/data/repos/services_repositories.dart';

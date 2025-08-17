@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/data/dto/office_dto.dart';
+import 'package:property_ms/data/dto/property_dto.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/data/models/office_model.dart';
 import 'package:property_ms/data/repos/offices_repositories.dart';
@@ -22,17 +25,36 @@ class OfficeDetailsController extends GetxController
     tabController = TabController(length: tabs.length, vsync: this);
     super.onInit();
     getOffices();
+    initScrollControllers();
+    getProperty(firstPage: true);
   }
 
   @override
   void onClose() {
     // Tabbar
     tabController.dispose();
+    scrollAllPropertController.dispose();
     super.onClose();
+  }
+
+  void initScrollControllers() {
+    scrollAllPropertController.addListener(() {
+      if (scrollAllPropertController.position.maxScrollExtent ==
+          scrollAllPropertController.offset) {
+        getProperty(firstPage: false);
+      }
+    });
   }
 
   Future<void> refreshOfficeProfile() async {
     getOffices();
+  }
+
+  Future<void> refreshOfficeProprty() async {
+    allPropertList.clear();
+    pageAllPropert.value = 1;
+    hasMoreAllPropert.value = true;
+    getProperty();
   }
 
   // filter
@@ -78,8 +100,6 @@ class OfficeDetailsController extends GetxController
 
   //! list obs for filter
 
-  RxList filteredProperties = [].obs;
-
   void updateFilteredProperties() {
     if (selectedFilterIndex.value == 0) {
       // Show all
@@ -105,4 +125,55 @@ class OfficeDetailsController extends GetxController
     rating.value = officeModel!.rate;
     loadingState.value = LoadingState.doneWithData;
   }
+
+  //? Get All Property
+
+  final loadingAllPropertState = LoadingState.loading.obs;
+  final allPropertList = <PropertyDto>[].obs;
+  final pageAllPropert = 1.obs;
+  final hasMoreAllPropert = false.obs;
+  final scrollAllPropertController = ScrollController();
+
+  Future<void> getProperty({bool firstPage = true}) async {
+    if (firstPage) {
+      pageAllPropert.value = 1;
+      hasMoreAllPropert.value = true;
+    }
+    if (!hasMoreAllPropert.value) {
+      loadingAllPropertState.value = LoadingState.doneWithNoData;
+      return;
+    }
+    loadingAllPropertState.value = LoadingState.loading;
+    await Future.delayed(const Duration(seconds: 1));
+    final response = await officeRepo.getOfficeProperty(
+      perPage: 5,
+      page: pageAllPropert.value,
+      id: officeCard.id,
+    );
+    if (!response.success) {
+      loadingAllPropertState.value = LoadingState.hasError;
+      hasMoreAllPropert.value = false;
+      CustomToasts(
+        message: response.getErrorMessage(),
+        type: CustomToastType.error,
+      ).show();
+      return;
+    }
+    hasMoreAllPropert.value = false;
+    firstPage
+        ? allPropertList.value = response.data?.data ?? []
+        : allPropertList.addAll(response.data!.data);
+    log(allPropertList.length.toString());
+    log(response.data!.data.toString());
+    hasMoreAllPropert.value = allPropertList.length < response.data!.totalItems;
+    loadingAllPropertState.value =
+        firstPage && allPropertList.isEmpty
+            ? LoadingState.doneWithNoData
+            : LoadingState.doneWithData;
+    if (hasMoreAllPropert.value) {
+      pageAllPropert.value++;
+    }
+  }
+
+  //?=================
 }

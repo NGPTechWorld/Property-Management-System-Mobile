@@ -1,7 +1,4 @@
 import 'package:get/get.dart';
-import 'package:get/get_instance/src/bindings_interface.dart';
-import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:get/route_manager.dart';
 import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/features/auth/login/login_controller.dart';
 import 'package:property_ms/features/auth/login/login_page.dart';
@@ -36,7 +33,6 @@ import 'package:property_ms/features/property_page/property_controller.dart';
 import 'package:property_ms/features/property_page/property_page.dart';
 import 'package:property_ms/features/property_page/sub_pages/compare_properties/compare_properties_controller.dart';
 import 'package:property_ms/features/property_page/sub_pages/compare_properties/compare_properties_page.dart';
-import 'package:property_ms/features/property_page/sub_pages/property_details/property_details_controller.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/property_details_page.dart';
 import 'package:property_ms/features/services_page/services_controller.dart';
 import 'package:property_ms/features/services_page/services_page.dart';

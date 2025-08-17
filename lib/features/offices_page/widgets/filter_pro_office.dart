@@ -160,7 +160,7 @@ class FilterProOffice {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(width: AppSize.s2),
+                        const SizedBox(width: AppSize.s2),
 
                         Icon(
                           Icons.star,

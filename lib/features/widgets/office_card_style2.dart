@@ -130,7 +130,7 @@ class OfficeCardStyle2 extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        model.rate.toString(),
+                        model.rate.toStringAsFixed(1),
                         style: Get.textTheme.bodyLarge,
                       ),
                     ],

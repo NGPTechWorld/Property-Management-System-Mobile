@@ -25,7 +25,7 @@ class CardWidget extends StatelessWidget {
             color: Colors.black.withValues(alpha: 0.1),
             spreadRadius: 1,
             blurRadius: 1,
-            offset: Offset(0, 1),
+            offset: const Offset(0, 1),
           ),
         ],
       ),

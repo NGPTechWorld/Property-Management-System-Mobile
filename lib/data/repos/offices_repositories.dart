@@ -5,6 +5,7 @@ import 'package:property_ms/core/services/api/end_points.dart';
 import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:property_ms/core/services/errors/error_handler.dart';
 import 'package:property_ms/data/dto/office_dto.dart';
+import 'package:property_ms/data/dto/property_dto.dart';
 import 'package:property_ms/data/models/app_response.dart';
 import 'package:property_ms/data/models/office_model.dart';
 import 'package:property_ms/data/models/paginated_model.dart';
@@ -28,7 +29,7 @@ abstract class OfficesRepositories {
     required int page,
     required String name,
   });
-  Future<AppResponse<PaginatedModel<OfficeDto>>> getOfficeProperty({
+  Future<AppResponse<PaginatedModel<PropertyDto>>> getOfficeProperty({
     required int perPage,
     required int page,
     required int id,
@@ -212,13 +213,13 @@ class ImpOfficesRepositories extends GetxService
   }
 
   @override
-  Future<AppResponse<PaginatedModel<OfficeDto>>> getOfficeProperty({
+  Future<AppResponse<PaginatedModel<PropertyDto>>> getOfficeProperty({
     required int perPage,
     required int page,
     required int id,
     String type = "",
   }) async {
-    AppResponse<PaginatedModel<OfficeDto>> appResponse = AppResponse(
+    AppResponse<PaginatedModel<PropertyDto>> appResponse = AppResponse(
       success: false,
     );
 
@@ -231,16 +232,16 @@ class ImpOfficesRepositories extends GetxService
 
       if (type != "") queryParams["property_type"] = type;
       dio.Response response = await apiService.request(
-        url: EndPoints.getOfficeList,
+        url: EndPoints.getOffice + id.toString() + EndPoints.getProperty,
         method: Method.get,
         requiredToken: true,
         withLogging: true,
         queryParameters: queryParams,
       );
       appResponse.success = true;
-      appResponse.data = PaginatedModel<OfficeDto>.fromJson(
+      appResponse.data = PaginatedModel<PropertyDto>.fromJson(
         response.data,
-        OfficeDto.fromJson,
+        PropertyDto.fromJson,
       );
     } catch (e) {
       appResponse.success = false;
