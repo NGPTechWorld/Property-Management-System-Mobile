@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 class SocialIconsRow extends StatelessWidget {
   const SocialIconsRow({
     super.key,
@@ -19,39 +20,37 @@ class SocialIconsRow extends StatelessWidget {
     final uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
-      debugPrint('Could not launch $url');
     }
   }
 
   Widget _buildIcon({required Widget icon, String? url}) {
-    return GestureDetector(
-      onTap: url == null || url.isEmpty ? null : () => _launchLink(url),
-      child: Opacity(
-        opacity: url == null || url.isEmpty ? 0.4 : 1.0,
-        child: icon,
-      ),
-    );
+    if (url == null || url.isEmpty) return const SizedBox.shrink();
+    return GestureDetector(onTap: () => _launchLink(url), child: icon);
   }
 
   @override
   Widget build(BuildContext context) {
+    final icons =
+        <Widget>[
+          _buildIcon(
+            icon: Assets.icons.insta.svg(height: AppSize.s34),
+            url: instagramUrl,
+          ),
+          _buildIcon(
+            icon: Assets.icons.whatsapp.svg(height: AppSize.s34),
+            url: whatsappUrl,
+          ),
+          _buildIcon(
+            icon: Assets.icons.facebook.svg(height: AppSize.s34),
+            url: facebookUrl,
+          ),
+        ].where((e) => e is! SizedBox).toList(); // حذف الفارغات
+
+    if (icons.isEmpty) return const SizedBox.shrink();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        _buildIcon(
-          icon: Assets.icons.insta.svg(height: AppSize.s34),
-          url: instagramUrl,
-        ),
-        _buildIcon(
-          icon: Assets.icons.whatsapp.svg(height: AppSize.s34),
-          url: whatsappUrl,
-        ),
-        _buildIcon(
-          icon: Assets.icons.facebook.svg(height: AppSize.s34),
-          url: facebookUrl,
-        ),
-      ],
+      children: icons,
     );
   }
 }

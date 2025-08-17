@@ -53,10 +53,17 @@ class OfficeProfileTab extends GetView<OfficeDetailsController> {
               const SizedBox(height: AppSize.s24),
               const SectionLabel(title: 'تواصل مع المكتب:'),
               const SizedBox(height: AppSize.s16),
-              const SocialIconsRow(
-                instagramUrl: 'https://www.instagram.com/flutter.dev/',
-                whatsappUrl: 'https://wa.me/0988861119', // WhatsApp test number
-                facebookUrl: 'https://www.facebook.com/fluttercommunity',
+              SocialIconsRow(
+                instagramUrl:
+                    controller.officeModel!.socials
+                        .firstWhereOrNull((e) => e.platform == "instagram")
+                        ?.link,
+                whatsappUrl: 'https://wa.me/${controller.officeModel!.phone}',
+
+                facebookUrl:
+                    controller.officeModel!.socials
+                        .firstWhereOrNull((e) => e.platform == "facebook")
+                        ?.link,
               ),
             ],
           ),

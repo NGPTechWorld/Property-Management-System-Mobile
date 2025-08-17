@@ -41,10 +41,6 @@ class ExplorationController extends GetxController {
     final minLng = southWest.longitude;
     final maxLng = northEast.longitude;
 
-    log('📡 استدعاء API للإحداثيات:');
-    log('Lat: $minLat - $maxLat');
-    log('Lng: $minLng - $maxLng');
-
     await explore(minLat, maxLat, minLng, maxLng);
 
     markerList.clear();
@@ -122,6 +118,7 @@ class ExplorationController extends GetxController {
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       Get.snackbar("خطأ", "خدمة الموقع غير مفعلة");
+      await Geolocator.openLocationSettings();
       return;
     }
 
@@ -136,6 +133,7 @@ class ExplorationController extends GetxController {
 
     if (permission == LocationPermission.deniedForever) {
       Get.snackbar("مرفوض نهائياً", "اذهب للإعدادات وفعّل صلاحية الموقع");
+      await Geolocator.openAppSettings(); 
       return;
     }
 
@@ -149,7 +147,11 @@ class ExplorationController extends GetxController {
         width: 60,
         height: 60,
         point: currentLatLng,
-        child: const Icon(Icons.location_pin, color: Colors.red, size: 40),
+        child: const Icon(
+          Icons.location_pin,
+          color: Colors.orange, 
+          size: 40,
+        ),
       ),
     );
 
