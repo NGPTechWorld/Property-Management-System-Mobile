@@ -76,7 +76,7 @@ class FilterProProperty {
                                           0,
                                     ),
                                   ),
-                                  const SizedBox(width: AppSize.s12),
+                                  const SizedBox(width: AppSize.s8),
                                   GestureDetector(
                                     onTap:
                                         () =>
@@ -90,7 +90,7 @@ class FilterProProperty {
                                           1,
                                     ),
                                   ),
-                                  const SizedBox(width: AppSize.s12),
+                                  const SizedBox(width: AppSize.s8),
                                   GestureDetector(
                                     onTap:
                                         () =>
@@ -201,10 +201,10 @@ class FilterProProperty {
             ),
           ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 2),
         Container(
           width: 18,
-          height: 18,
+          height: 16,
           decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(color: ColorManager.cardHead, width: 3),
