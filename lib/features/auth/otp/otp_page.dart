@@ -17,7 +17,7 @@ class OtpPage extends GetView<OtpController> {
     // Get.delete<OtpController>();
     // Get.put(OtpController());
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -39,7 +39,14 @@ class OtpPage extends GetView<OtpController> {
               ),
             ),
           ),
-          const ScreenBottomEffect(),
+          // if keyboard appear disable it
+          if (MediaQuery.of(context).viewInsets.bottom == 0)
+            const Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: ScreenBottomEffect(),
+            ),
         ],
       ),
     );

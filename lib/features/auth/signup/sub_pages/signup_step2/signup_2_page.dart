@@ -5,8 +5,8 @@ import 'package:property_ms/core/utils/widgets/logo_app.dart';
 import 'package:property_ms/core/utils/widgets/screen_bottom_effect.dart';
 import 'package:property_ms/features/auth/signup/signup_controller.dart';
 
-import 'widgets/signup2_header.dart';
 import 'widgets/signup2_form_fields.dart';
+import 'widgets/signup2_header.dart';
 import 'widgets/signup2_submit_button.dart';
 
 class Signup2Page extends GetView<SignupController> {
@@ -15,7 +15,7 @@ class Signup2Page extends GetView<SignupController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -38,7 +38,14 @@ class Signup2Page extends GetView<SignupController> {
               ),
             ),
           ),
-          const ScreenBottomEffect(),
+          // if keyboard appear disable it
+          if (MediaQuery.of(context).viewInsets.bottom == 0)
+            const Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: ScreenBottomEffect(),
+            ),
         ],
       ),
     );
