@@ -3,27 +3,14 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-
-class TourisemCardModel {
-  final String title;
-  final String location;
-  final String priceUnit;
-  final double rate;
-  final double price;
-  final AssetGenImage image;
-  TourisemCardModel({
-    required this.title,
-    required this.location,
-    required this.priceUnit,
-    required this.rate,
-    required this.price,
-    required this.image,
-  });
-}
+import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
+import 'package:property_ms/data/dto/tourism_dto.dart';
 
 class TourisemCard extends StatelessWidget {
-  final TourisemCardModel model;
-  const TourisemCard({super.key, required this.model});
+  final TourismDto model;
+  final bool isLoading;
+
+  const TourisemCard({super.key, required this.model, this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +21,8 @@ class TourisemCard extends StatelessWidget {
         height: AppSize.sHeight * 0.2,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: Colors.white,
+          color: isLoading ? Colors.transparent : Colors.white,
+          border: isLoading ? Border.all() : null,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -45,10 +33,10 @@ class TourisemCard extends StatelessWidget {
                 Center(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: model.image.image(
+                    child: CustomCachedNetworkImage(
+                      imageUrl: model.postImage,
                       height: AppSize.sHeight * 0.18,
                       width: AppSize.sWidth * 0.425,
-
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -58,14 +46,22 @@ class TourisemCard extends StatelessWidget {
                     horizontal: 10,
                     vertical: 14,
                   ),
-                  child: CircleAvatar(
-                    backgroundColor: ColorManager.cardBackground,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Assets.icons.favoriteFillIcon.svg(
-                        colorFilter: const ColorFilter.mode(
-                          ColorManager.grey3,
-                          BlendMode.srcIn,
+                  child: GestureDetector(
+                    onTap: () {},
+                    child: Container(
+                      width: 32,
+                      height: 32,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: ColorManager.cardBackground,
+                      ),
+                      child: Center(
+                        child: Assets.icons.favoriteFillIcon.svg(
+                          width: 16,
+                          colorFilter: ColorFilter.mode(
+                            model.isFavorite ? Colors.red : ColorManager.grey3,
+                            BlendMode.srcIn,
+                          ),
                         ),
                       ),
                     ),
@@ -73,8 +69,6 @@ class TourisemCard extends StatelessWidget {
                 ),
               ],
             ),
-
-            // const SizedBox(width: 12),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -83,8 +77,10 @@ class TourisemCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      model.title,
-                      style: Get.textTheme.bodyLarge,
+                      model.postTitle,
+                      style: Get.textTheme.bodyLarge!.copyWith(
+                        fontSize: FontSize.s12,
+                      ),
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 4),
@@ -97,7 +93,7 @@ class TourisemCard extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          model.rate.toString(),
+                          model.avgRate.toString(),
                           style: Get.textTheme.bodyLarge,
                         ),
                       ],
@@ -111,12 +107,14 @@ class TourisemCard extends StatelessWidget {
                           size: 18,
                         ),
                         const SizedBox(width: 4),
-                        Text(
-                          overflow: TextOverflow.ellipsis,
-                          model.location,
-                          style: Get.textTheme.bodySmall!.copyWith(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeight.bold,
+                        Expanded(
+                          child: Text(
+                            model.location,
+                            overflow: TextOverflow.ellipsis,
+                            style: Get.textTheme.bodySmall!.copyWith(
+                              fontSize: FontSize.s10,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
@@ -125,15 +123,19 @@ class TourisemCard extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          ' \$${model.price.toString()}',
+                          ' \$${model.price}',
                           style: Get.textTheme.bodyLarge,
                         ),
-                        Text(
-                          ' ${model.priceUnit}',
-                          style: Get.textTheme.bodyLarge!.copyWith(
-                            fontSize: 12,
-                          ),
-                        ),
+                        const SizedBox(width: 8),
+                        const Text('يومي'),
+                        // if (model.priceUnit != null &&
+                        //     model.priceUnit!.isNotEmpty)
+                        //   Text(
+                        //     ' ${model.priceUnit}',
+                        //     style: Get.textTheme.bodyLarge!.copyWith(
+                        //       fontSize: 12,
+                        //     ),
+                        //   ),
                       ],
                     ),
                   ],

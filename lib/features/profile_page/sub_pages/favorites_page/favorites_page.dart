@@ -10,7 +10,6 @@ import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/features/profile_page/sub_pages/favorites_page/favorites_controller.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
 import 'package:property_ms/features/widgets/empty_card.dart';
-import 'package:property_ms/features/widgets/property_rent_card.dart';
 import 'package:property_ms/features/widgets/property_rent_card2_small.dart';
 import 'package:property_ms/features/widgets/property_sale_card2_small.dart';
 import 'package:property_ms/features/widgets/tourisem_card_small.dart';
@@ -22,56 +21,70 @@ class FavoritesPage extends GetView<FavoritesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          FavoriteAppbar(controller: controller),
-          const SizedBox(height: AppSize.s8),
-          favoriteBody(),
-          const SizedBox(height: AppSize.s24),
-        ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await controller.refreshPage();
+        },
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          controller: controller.scrollFavoritesController,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              FavoriteAppbar(controller: controller),
+              const SizedBox(height: AppSize.s8),
+              favoriteBody(),
+              const SizedBox(height: AppSize.s24),
+            ],
+          ),
+        ),
       ),
     );
   }
 
-  Expanded favoriteBody() {
-    return Expanded(
-      child: Obx(() {
-        final state = controller.loadingFavortieState.value;
-        if (state == LoadingState.loading) {
-          return ListView.builder(
-            itemCount: 3,
-            padding: const EdgeInsets.all(12),
-            itemBuilder:
-                (context, index) => Shimmer.fromColors(
-                  baseColor: ColorManager.shimmerBaseColor,
-                  highlightColor: ColorManager.shimmerHighlightColor,
-                  child: PropertyRentCard(
+  Widget favoriteBody() {
+    return Obx(() {
+      final state = controller.loadingFavortieState.value;
+      if (state == LoadingState.loading) {
+        return ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: 10,
+          padding: const EdgeInsets.all(12),
+          itemBuilder:
+              (context, index) => Shimmer.fromColors(
+                baseColor: ColorManager.shimmerBaseColor,
+                highlightColor: ColorManager.shimmerHighlightColor,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: PropertyRentCard2Small(
                     model: PropertyDto.empty(),
                     isLoaging: true,
                   ),
                 ),
-          );
-        }
-        if (state == LoadingState.doneWithNoData) {
-          return const Center(
-            child: Padding(padding: EdgeInsets.all(24.0), child: EmptyCard()),
-          );
-        }
-        return ListView.builder(
-          controller: controller.scrollFavoritesController,
-          padding: const EdgeInsets.all(12),
-          itemCount: controller.favoriteList.length,
-          itemBuilder: (context, index) {
-            final item = controller.favoriteList[index];
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: _buildFavoriteCard(item),
-            );
-          },
+              ),
         );
-      }),
-    );
+      }
+      if (state == LoadingState.doneWithNoData) {
+        return const Center(
+          child: Padding(padding: EdgeInsets.all(24.0), child: EmptyCard()),
+        );
+      }
+      return ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        controller: controller.scrollFavoritesController,
+        padding: const EdgeInsets.all(12),
+        itemCount: controller.favoriteList.length,
+        itemBuilder: (context, index) {
+          final item = controller.favoriteList[index];
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: _buildFavoriteCard(item),
+          );
+        },
+      );
+    });
   }
 
   Widget _buildFavoriteCard(dynamic item) {

@@ -17,7 +17,6 @@ import 'package:property_ms/data/repos/tourism_repositories.dart';
 import 'package:property_ms/features/tourisem_page/widgets/filter_pro_tourisem.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
 import 'package:property_ms/features/widgets/question_bottum_sheets/question_type_widget.dart';
-import 'package:property_ms/features/widgets/tourisem_card.dart';
 
 class TourisemController extends GetxController {
   final TourismRepositories tourismRepo = Get.find<TourismRepositories>();
@@ -200,31 +199,56 @@ class TourisemController extends GetxController {
   final scrollAllTourismController = ScrollController();
   RxBool isSearch = false.obs;
 
- 
   final tourisemSlider = [
-    TourisemCardModel(
-      title: 'شقة 100 م²',
+    TourismDto(
+      propertyId: 0,
+      postImage:
+          'https://www.allplan.com/fileadmin/_processed_/a/1/csm_iStock-1181593567_NEU-1_3aeee8b4a9.jpg',
+      postTitle: 'شقة 140 م²',
+      description: '',
+      date: '',
+      images: [],
+      area: 0.0,
       location: 'دمشق, شعلان',
-      priceUnit: 'شهري',
-      rate: 4.5,
-      price: 2500,
-      image: Assets.images.property,
+      price: 1500,
+      listingType: 'أجار',
+      type: 'سياحي',
+      rate: 4,
+      avgRate: 4,
+      isFavorite: true,
     ),
-    TourisemCardModel(
-      title: 'شقة 100 م²',
+    TourismDto(
+      propertyId: 1,
+      postImage:
+          'https://www.exceptionalvillas.com/public/upload/listing_photos_resize/w1900xh1900-Villa-Infinity-1.jpg',
+      postTitle: 'شقة 140 م²',
+      description: '',
+      date: '',
+      images: [],
+      area: 0.0,
       location: 'دمشق, شعلان',
-      priceUnit: 'شهري',
-      rate: 4.5,
       price: 2500,
-      image: Assets.images.property,
+      listingType: 'أجار',
+      type: 'سياحي',
+      rate: 3,
+      avgRate: 3,
+      isFavorite: false,
     ),
-    TourisemCardModel(
-      title: 'شقة 100 م²',
+    TourismDto(
+      propertyId: 2,
+      postTitle: 'شقة 100 م²',
       location: 'دمشق, شعلان',
-      priceUnit: 'شهري',
-      rate: 4.5,
-      price: 2500,
-      image: Assets.images.property,
+      rate: 2,
+      price: 3500,
+      postImage: Assets.images.property.path,
+      area: 11,
+      avgRate: 2,
+      date: '2024-10-4',
+      description: 'description',
+      isFavorite: true,
+      images: [],
+      listingType: '',
+      type: '',
     ),
   ];
 
