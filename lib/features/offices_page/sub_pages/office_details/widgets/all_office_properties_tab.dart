@@ -26,25 +26,33 @@ class AllOfficePropertiesTab extends GetView<OfficeDetailsController> {
           child: Column(
             children: [
               const SizedBox(height: AppSize.s16),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: List.generate(
-                    cardFilterDefault.length,
-                    (index) => GestureDetector(
-                      onTap: () {
-                        controller.selectFilter(index);
-                      },
-                      child: CardFilter(
-                        model: cardFilterDefault[index],
-                        isSelect: controller.selectedFilterIndex.value == index,
+              controller.officeModel!.type == "الكل"
+                  ? Column(
+                    children: [
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: List.generate(
+                            cardFilterDefault.length,
+                            (index) => GestureDetector(
+                              onTap: () {
+                                controller.selectFilter(index);
+                              },
+                              child: CardFilter(
+                                model: cardFilterDefault[index],
+                                isSelect:
+                                    controller.selectedFilterIndex.value ==
+                                    index,
+                              ),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: AppSize.s16),
+                      const SizedBox(height: AppSize.s16),
+                    ],
+                  )
+                  : Container(),
 
               Column(
                 children: List.generate(

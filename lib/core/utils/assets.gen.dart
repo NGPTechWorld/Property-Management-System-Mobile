@@ -416,6 +416,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/box.png
   AssetGenImage get box => const AssetGenImage('assets/images/box.png');
 
+  /// File path: assets/images/box_error.png
+  AssetGenImage get boxError =>
+      const AssetGenImage('assets/images/box_error.png');
+
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
@@ -456,6 +460,7 @@ class $AssetsImagesGen {
   /// List of all assets
   List<AssetGenImage> get values => [
     box,
+    boxError,
     logo,
     officePropertyCard,
     officeServicesCard,
