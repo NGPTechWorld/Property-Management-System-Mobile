@@ -16,8 +16,9 @@ class TourisemPage extends GetView<TourisemController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: RefreshIndicator(
-        //! @OsamaZerkawi add refresh
-        onRefresh: () async {},
+        onRefresh: () async {
+          await controller.refreshPage();
+        },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           controller: controller.scrollAllTourismController,
@@ -49,7 +50,6 @@ class AppBarTourisem extends GetView<TourisemController> {
             Container(
               width: AppSize.sWidth,
               height: 170 + AppSize.sStatusBarHeight,
-
               decoration: BoxDecoration(
                 color: ColorManager.lightPrimaryColor,
                 border: Border.all(color: ColorManager.primary6Color),
@@ -66,6 +66,8 @@ class AppBarTourisem extends GetView<TourisemController> {
                         (index) => GestureDetector(
                           onTap: () {
                             controller.selectFilter(index);
+                            controller.searchController.text = '';
+                            controller.refreshPage();
                           },
                           child: CardFilter(
                             model: controller.cardFilter[index],

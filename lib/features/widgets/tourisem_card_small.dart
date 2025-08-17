@@ -95,13 +95,13 @@ class TourisemCardSmall extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: AppSize.s4),
-                  SizedBox(
-                    width: AppSize.sWidth * .30,
-                    child: Text(
-                      '${model.postTitle}  ${model.area} م²',
-                      style: Get.textTheme.bodyLarge,
-                      overflow: TextOverflow.ellipsis,
+                  Text(
+                    '${model.postTitle} ',
+                    style: Get.textTheme.bodyLarge!.copyWith(
+                      fontSize: FontSize.s14,
                     ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
                   const SizedBox(height: 4),
                   Row(
@@ -129,6 +129,8 @@ class TourisemCardSmall extends StatelessWidget {
                   Row(
                     children: [
                       Text(' \$${model.price}', style: Get.textTheme.bodyLarge),
+                      const SizedBox(width: 8),
+                      const Text('يومي'),
                     ],
                   ),
                 ],

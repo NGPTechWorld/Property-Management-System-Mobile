@@ -37,6 +37,12 @@ class EndPoints {
 
   //Favorites
   static const String getFavorites = "/property-favorite";
+
+  //Tourism
+  static const String getFiltersTourism = "/tourism/mobile";
+  static const String getTourism = "/tourism/mobile/";
+  static const String getTourismOnly = "/tourism/";
+  static const String getSearchTourism = "/tourism/mobile/search";
 }
 
 class ApiKey {

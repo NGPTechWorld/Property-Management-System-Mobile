@@ -9,23 +9,27 @@ import 'package:property_ms/core/services/errors/error_handler.dart';
 import 'package:property_ms/data/dto/tourism_dto.dart';
 import 'package:property_ms/data/models/app_response.dart';
 import 'package:property_ms/data/models/paginated_model.dart';
+import 'package:property_ms/data/models/tourism_model.dart';
 
 abstract class TourismRepositories {
-  Future<AppResponse<TourismDto>> getTourism({required int id});
+  Future<AppResponse<TourismModel>> getTourism({required int id});
   Future<AppResponse<PaginatedModel<TourismDto>>> getTourismFilters({
     required int page,
     required int items,
     required int regionId,
     required int cityId,
-    required String tag, //
-    required String orderByArea, // ASC, DESC
-    required String orderByPrice, // ASC, DESC
-    required String orderByDate, // ASC, DESC
+    required String tag, 
+    required String orderByArea, 
+    required String orderByPrice, 
+    required String orderByDate,
   });
   Future<AppResponse<PaginatedModel<TourismDto>>> getTourismSearch({
-    required int items,
-    required int page,
     required String title,
+    required int page,
+    required int items,
+  });
+  Future<AppResponse<PaginatedModel<TourismDto>>> getTourismRelated({
+    required int id,
   });
 }
 
@@ -36,8 +40,8 @@ class ImpTourismRepositories extends GetxService
   ImpTourismRepositories();
 
   @override
-  Future<AppResponse<TourismDto>> getTourism({required int id}) async {
-    AppResponse<TourismDto> appResponse = AppResponse(success: false);
+  Future<AppResponse<TourismModel>> getTourism({required int id}) async {
+    AppResponse<TourismModel> appResponse = AppResponse(success: false);
     try {
       dio.Response response = await apiService.request(
         url: EndPoints.getTourism + id.toString(),
@@ -47,7 +51,7 @@ class ImpTourismRepositories extends GetxService
       );
       appResponse.success = true;
       appResponse.successMessage = response.data['message'];
-      appResponse.data = TourismDto.fromJson(response.data['data']);
+      appResponse.data = TourismModel.fromJson(response.data['data']);
     } catch (e) {
       appResponse.success = false;
       appResponse.networkFailure = ErrorHandler.handle(e).failure;
@@ -100,11 +104,58 @@ class ImpTourismRepositories extends GetxService
 
   @override
   Future<AppResponse<PaginatedModel<TourismDto>>> getTourismSearch({
-    required int items,
-    required int page,
     required String title,
-  }) {
-    // TODO: implement getPropertySerach
-    throw UnimplementedError();
+    required int page,
+    required int items,
+  }) async {
+    AppResponse<PaginatedModel<TourismDto>> appResponse = AppResponse(
+      success: false,
+    );
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.getSearchTourism,
+        method: Method.get,
+        requiredToken: true,
+        withLogging: true,
+        queryParameters: {"items": items, "page": page, "title": title},
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+      appResponse.data = PaginatedModel<TourismDto>.fromJson(
+        response.data,
+        TourismDto.fromJson,
+      );
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse<PaginatedModel<TourismDto>>> getTourismRelated({
+    required int id,
+  }) async {
+    AppResponse<PaginatedModel<TourismDto>> appResponse = AppResponse(
+      success: false,
+    );
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.getTourismOnly + id.toString() + EndPoints.related,
+        method: Method.get,
+        requiredToken: true,
+        withLogging: true,
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+      appResponse.data = PaginatedModel<TourismDto>.fromJson(
+        response.data,
+        TourismDto.fromJson,
+      );
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
   }
 }
