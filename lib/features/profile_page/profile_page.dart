@@ -265,9 +265,6 @@ class CardUserInfo extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            // ClipOval(
-            //   child: Assets.images.user.image(height: AppSize.sHeight * 0.15),
-            // ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

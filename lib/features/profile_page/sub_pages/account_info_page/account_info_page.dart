@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/Routes/app_routes.dart';
@@ -6,11 +8,11 @@ import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/app_button.dart';
 import 'package:property_ms/core/utils/widgets/card_widget.dart';
+import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
 import 'package:property_ms/core/utils/widgets/custom_text_field.dart';
+import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
-import 'package:property_ms/core/utils/widgets/user_avatar_widget.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
-import 'package:property_ms/data/models/user_model.dart';
 import 'package:property_ms/features/profile_page/sub_pages/account_info_page/account_info_controller.dart';
 
 class AccountInfoPage extends GetView<AccountInfoController> {
@@ -49,15 +51,27 @@ class AccountInfoPage extends GetView<AccountInfoController> {
                     Center(
                       child: GestureDetector(
                         onTap: controller.pickImage,
-                        child: UserAvatarWidget(
-                          user: UserModel(
-                            image:
-                                controller.profileImage.value?.path ??
-                                controller.profileInfo?.photoUrl ??
-                                Assets.images.user2.path,
-                          ),
-                          radius: 60,
-                        ),
+                        child: Obx(() {
+                          final pickedImage = controller.profileImage.value;
+                          return ClipOval(
+                            child:
+                                pickedImage != null
+                                    ? Image.file(
+                                      File(pickedImage.path),
+                                      height: AppSize.sHeight * 0.15,
+                                      width: AppSize.sHeight * 0.15,
+                                      fit: BoxFit.cover,
+                                    )
+                                    : CustomCachedNetworkImage(
+                                      imageUrl:
+                                          controller.profileInfo?.photoUrl ??
+                                          '',
+                                      height: AppSize.sHeight * 0.15,
+                                      width: AppSize.sHeight * 0.15,
+                                      fit: BoxFit.cover,
+                                    ),
+                          );
+                        }),
                       ),
                     ),
                     const SizedBox(height: AppSize.s16),
@@ -132,7 +146,14 @@ class AccountInfoPage extends GetView<AccountInfoController> {
                     CustomTextField(
                       title: 'البريد الإلكتروني',
                       hint: 'example@gmail.com',
-                      readOnly: !controller.isEdit.value,
+                      onTap:
+                          () =>
+                              const CustomToasts(
+                                message: 'لا يمكن تعديل الايميل',
+                                type: CustomToastType.warning,
+                              ).show(),
+
+                      readOnly: true,
                       textEditingController: controller.emailController,
                       textInputType: TextInputType.emailAddress,
                       fillColor: ColorManager.primary2Color,
