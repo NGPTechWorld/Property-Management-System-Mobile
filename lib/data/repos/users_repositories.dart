@@ -6,6 +6,7 @@ import 'package:property_ms/core/services/api/end_points.dart';
 import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:property_ms/core/services/errors/error_handler.dart';
 import 'package:property_ms/data/dto/login_dto.dart';
+import 'package:property_ms/data/dto/profile_dto.dart';
 import 'package:property_ms/data/dto/register_dto.dart';
 import 'package:property_ms/data/dto/user_invoice_dto.dart';
 import 'package:property_ms/data/dto/user_purchases_dto.dart';
@@ -40,6 +41,16 @@ abstract class UsersRepositories {
   Future<AppResponse<PaginatedModel<UserPurchasesDto>>> getUserPurchases({
     required int items,
     required int page,
+  });
+  //! Profile
+  Future<AppResponse<ProfileDto>> getUserProfileInfo();
+
+  Future<AppResponse<ProfileDto>> updateUserProfile({
+    String? firstName,
+    String? lastName,
+    String? email,
+    String? phone,
+    String? imagePath, 
   });
 }
 
@@ -281,6 +292,71 @@ class ImpUsersRepositories extends GetxService implements UsersRepositories {
       appResponse.success = false;
       appResponse.networkFailure = ErrorHandler.handle(e).failure;
     }
+    return appResponse;
+  }
+
+  //! Profile
+  @override
+  Future<AppResponse<ProfileDto>> getUserProfileInfo() async {
+    AppResponse<ProfileDto> appResponse = AppResponse(success: false);
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.userProfileInfo,
+        method: Method.get,
+        requiredToken: true,
+        withLogging: true,
+      );
+
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+      appResponse.data = ProfileDto.fromJson(response.data['data']);
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse<ProfileDto>> updateUserProfile({
+    String? firstName,
+    String? lastName,
+    String? email,
+    String? phone,
+    String? imagePath,
+  }) async {
+    AppResponse<ProfileDto> appResponse = AppResponse(success: false);
+
+    try {
+      final Map<String, dynamic> data = {};
+
+      if (firstName != null) data["first_name"] = firstName;
+      if (lastName != null) data["last_name"] = lastName;
+      if (email != null) data["email"] = email;
+      if (phone != null) data["phone"] = phone;
+      if (imagePath != null) {
+        data["photo_url"] = await dio.MultipartFile.fromFile(imagePath);
+      }
+
+      final formData = dio.FormData.fromMap(data);
+
+      final response = await apiService.request(
+        url: EndPoints.userProfileInfo,
+        method: Method.post,
+        params: formData,
+        requiredToken: true,
+        withLogging: true,
+        uploadImage: true,
+      );
+
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+      appResponse.data = ProfileDto.fromJson(response.data['data']);
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+
     return appResponse;
   }
 }

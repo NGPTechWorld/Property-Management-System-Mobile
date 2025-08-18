@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -47,6 +49,8 @@ class SignupController extends GetxController {
       phoneNumber: phoneNumberController.text,
       email: emailController.text,
       password: passwordController.text,
+      profileImage:
+          image.value != null ? File(image.value!.path) : null, // 👈 pass image
     );
 
     final response = await userRepo.register(user: data);

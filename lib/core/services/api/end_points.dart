@@ -54,6 +54,9 @@ class EndPoints {
   static const String getTourism = "/tourism/mobile/";
   static const String getTourismOnly = "/tourism/";
   static const String getSearchTourism = "/tourism/mobile/search";
+
+  //Profile
+  static const String userProfileInfo = "/user/profile";
 }
 
 class ApiKey {
