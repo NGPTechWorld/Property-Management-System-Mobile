@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:property_ms/core/Routes/app_routes.dart';
@@ -5,6 +7,7 @@ import 'package:property_ms/core/services/api/api_service.dart';
 import 'package:property_ms/core/services/api/end_points.dart';
 import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:property_ms/core/services/errors/error_handler.dart';
+import 'package:property_ms/core/utils/helper/extensions.dart';
 import 'package:property_ms/data/dto/login_dto.dart';
 import 'package:property_ms/data/dto/profile_dto.dart';
 import 'package:property_ms/data/dto/register_dto.dart';
@@ -50,7 +53,7 @@ abstract class UsersRepositories {
     String? lastName,
     String? email,
     String? phone,
-    String? imagePath, 
+    File? imagePath,
   });
 }
 
@@ -323,7 +326,7 @@ class ImpUsersRepositories extends GetxService implements UsersRepositories {
     String? lastName,
     String? email,
     String? phone,
-    String? imagePath,
+    File? imagePath,
   }) async {
     AppResponse<ProfileDto> appResponse = AppResponse(success: false);
 
@@ -335,7 +338,8 @@ class ImpUsersRepositories extends GetxService implements UsersRepositories {
       if (email != null) data["email"] = email;
       if (phone != null) data["phone"] = phone;
       if (imagePath != null) {
-        data["photo_url"] = await dio.MultipartFile.fromFile(imagePath);
+        final profileMultipart = await imagePath.toMultipartFile1();
+        if (profileMultipart != null) data["photo"] = profileMultipart;
       }
 
       final formData = dio.FormData.fromMap(data);

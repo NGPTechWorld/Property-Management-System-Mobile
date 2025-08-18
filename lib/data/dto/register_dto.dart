@@ -20,7 +20,7 @@ class RegisterDto {
   });
 
   Future<Map<String, dynamic>> toJson() async {
-    final profileMultipart = await profileImage?.toMultipartFile();
+    final profileMultipart = await profileImage?.toMultipartFile1();
     return <String, dynamic>{
       'first_name': firstName,
       'last_name': lastName,

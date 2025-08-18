@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -31,7 +33,7 @@ class AccountInfoController extends GetxController {
   void pickImage() async {
     if (isEdit.value) {
       final picked = await AppFunctions.imagePicker(ImageSource.gallery);
-      if (picked != null) profileImage.value = picked;
+      profileImage.value = picked;
     }
   }
 
@@ -116,7 +118,8 @@ class AccountInfoController extends GetxController {
       lastName: lastName,
       phone: phone,
       email: email,
-      imagePath: imagePath,
+      imagePath:
+          profileImage.value != null ? File(profileImage.value!.path) : null,
     );
 
     if (!response.success) {

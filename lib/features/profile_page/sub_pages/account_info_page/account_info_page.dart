@@ -48,7 +48,7 @@ class AccountInfoPage extends GetView<AccountInfoController> {
                     const SizedBox(height: AppSize.s8),
                     Center(
                       child: GestureDetector(
-                        onTap: () => controller.pickImage(),
+                        onTap: controller.pickImage,
                         child: UserAvatarWidget(
                           user: UserModel(
                             image:
