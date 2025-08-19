@@ -1,33 +1,14 @@
-class DayAvailabilityDto {
-  final String date;
-  final String status;
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
-  DayAvailabilityDto({required this.date, required this.status});
-
-  factory DayAvailabilityDto.fromJson(Map<String, dynamic> json) =>
-      DayAvailabilityDto(
-        date: json['date']?.toString() ?? '',
-        status: json['status']?.toString() ?? '',
-      );
-
-  Map<String, dynamic> toJson() => {'date': date, 'status': status};
-
-  factory DayAvailabilityDto.empty() =>
-      DayAvailabilityDto(date: '', status: 'غير معروف');
-
-  static List<DayAvailabilityDto> fromJsonArray(List<dynamic> jsonArray) {
-    return jsonArray.map((e) => DayAvailabilityDto.fromJson(e)).toList();
-  }
-}
-
-class AvailabilityDto {
-  final List<DayAvailabilityDto> days;
+class AvailabilityModel {
+  final List<DayModel> days;
   final int availableCount;
   final double price;
   final double deposit;
   final double commission;
 
-  AvailabilityDto({
+  AvailabilityModel({
     required this.days,
     required this.availableCount,
     required this.price,
@@ -35,49 +16,77 @@ class AvailabilityDto {
     required this.commission,
   });
 
-  factory AvailabilityDto.fromJson(Map<String, dynamic> json) =>
-      AvailabilityDto(
-        days:
-            json['days'] != null
-                ? DayAvailabilityDto.fromJsonArray(json['days'])
-                : [],
-        availableCount:
-            json['availableCount'] is num
-                ? (json['availableCount'] as num).toInt()
-                : int.tryParse(json['availableCount'].toString()) ?? 0,
-        price:
-            (json['price'] is num
-                    ? json['price']
-                    : double.tryParse(json['price'].toString()))
-                ?.toDouble() ??
-            0.0,
-        deposit:
-            (json['deposit'] is num
-                    ? json['deposit']
-                    : double.tryParse(json['deposit'].toString()))
-                ?.toDouble() ??
-            0.0,
-        commission:
-            (json['commission'] is num
-                    ? json['commission']
-                    : double.tryParse(json['commission'].toString()))
-                ?.toDouble() ??
-            0.0,
-      );
+  factory AvailabilityModel.fromJson(Map<String, dynamic> json) {
+    return AvailabilityModel(
+      days:
+          (json['days'] as List<dynamic>)
+              .map((e) => DayModel.fromJson(e as Map<String, dynamic>))
+              .toList(),
+      availableCount: json['availableCount'] ?? 0,
+      price: (json['price'] as num).toDouble(),
+      deposit: (json['deposit'] as num).toDouble(),
+      commission: (json['commission'] as num).toDouble(),
+    );
+  }
 
-  Map<String, dynamic> toJson() => {
-    'days': days.map((e) => e.toJson()).toList(),
-    'availableCount': availableCount,
-    'price': price,
-    'deposit': deposit,
-    'commission': commission,
-  };
+  Map<String, dynamic> toJson() {
+    return {
+      "days": days.map((e) => e.toJson()).toList(),
+      "availableCount": availableCount,
+      "price": price,
+      "deposit": deposit,
+      "commission": commission,
+    };
+  }
+}
 
-  factory AvailabilityDto.empty() => AvailabilityDto(
-    days: [],
-    availableCount: 0,
-    price: 0.0,
-    deposit: 0.0,
-    commission: 0.0,
-  );
+class DayModel {
+  final String date;
+  final String status;
+
+  DayModel({required this.date, required this.status});
+
+  factory DayModel.fromJson(Map<String, dynamic> json) {
+    return DayModel(date: json['date'] ?? '', status: json['status'] ?? '');
+  }
+
+  Map<String, dynamic> toJson() {
+    return {"date": date, "status": status};
+  }
+
+  DateModel toDateModel() {
+    final parts = date.split('-');
+    final int dayNum = int.parse(parts[0]);
+    final int monthNum = int.parse(parts[1]);
+    final int yearNum = int.parse(parts[2]);
+
+    final dateTime = DateTime(yearNum, monthNum, dayNum);
+
+    return DateModel(
+      day: DateFormat('EEEE', 'ar').format(dateTime),
+      month: DateFormat("MMM", "ar").format(dateTime),
+      numDay: DateFormat("d").format(dateTime),
+      isReseved: status != "متوفر",
+      isSelect: false.obs,
+      date: dateTime,
+    );
+  }
+}
+
+class DateModel {
+  final String day;
+  final String month;
+  final String numDay;
+  bool isReseved;
+  final RxBool isSelect;
+  final DateTime date;
+
+  DateModel({
+    required this.day,
+    required this.month,
+    required this.numDay,
+    required this.isReseved,
+    required this.isSelect,
+    required this.date,
+  });
 }

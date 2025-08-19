@@ -223,12 +223,35 @@ class CurrentBillCard extends GetView<ContractDetailsController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
+                    "المبلغ:",
+                    overflow: TextOverflow.ellipsis,
+                    style: Get.textTheme.bodyLarge!.copyWith(
+                      fontSize: FontSize.s12,
+                    ),
+                  ),
+                  Text(
+                    "${model.amount.toStringAsFixed(2)} \$",
+                    overflow: TextOverflow.ellipsis,
+                    style: Get.textTheme.bodyLarge!.copyWith(
+                      fontSize: FontSize.s12,
+                      color: ColorManager.cardHead,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
                     "الحالة:",
                     overflow: TextOverflow.ellipsis,
                     style: Get.textTheme.bodyLarge!.copyWith(
                       fontSize: FontSize.s12,
                     ),
                   ),
+
                   Text(
                     "قيد الإنتظار",
                     overflow: TextOverflow.ellipsis,

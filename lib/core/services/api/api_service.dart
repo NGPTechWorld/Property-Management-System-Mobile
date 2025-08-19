@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart' as getx;
@@ -5,6 +7,7 @@ import 'package:property_ms/core/services/api/end_points.dart';
 import 'package:property_ms/core/services/cache/cache_keys.dart';
 import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:path_provider/path_provider.dart';
 
 const kImagesUrl = "";
 
@@ -168,5 +171,43 @@ class ApiService extends getx.GetxService {
       );
     }
     return response;
+  }
+
+  Future<File?> downloadFileToTemp({
+    required String fileUrl,
+    required String fileName,
+    required getx.RxDouble progress,
+    bool requiredToken = false,
+    bool withLogging = true,
+    CancelToken? cancelToken,
+  }) async {
+    // Get temp directory
+    Directory tempDir = await getTemporaryDirectory();
+    String tempPath = '${tempDir.path}/$fileName';
+
+    Map<String, dynamic> headers = {};
+    if (requiredToken) {
+      String? token = await cacheService.getData(key: kUserToken);
+      headers["Authorization"] = "Bearer $token";
+    }
+
+    final response = await _dio.download(
+      fileUrl,
+      tempPath,
+      options: Options(headers: headers, extra: {'logging': withLogging}),
+      cancelToken: cancelToken,
+      onReceiveProgress: (received, total) {
+        if (total > 0) {
+          progress.value = received / total;
+        }
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return File(tempPath);
+    } else {
+      debugPrint('Download failed: ${response.statusCode}');
+      return null;
+    }
   }
 }

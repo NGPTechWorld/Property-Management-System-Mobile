@@ -38,6 +38,8 @@ class TourisemReservation extends GetView<ReservationController> {
                             parameters: {
                               "typeContract": ContractTypes.rentProperty.name,
                             },
+                            arguments:
+                                controller.userReservationTourisemList[index],
                           ),
                       child: ReservationCard(
                         model: controller.userReservationTourisemList[index],

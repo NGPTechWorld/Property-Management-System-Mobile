@@ -1,22 +1,31 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:property_ms/core/Routes/app_routes.dart';
 
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
+import 'package:property_ms/data/dto/payment_dto.dart';
 import 'package:property_ms/data/dto/tourism_dto.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/data/models/app_response.dart';
+import 'package:property_ms/data/models/availability_tourisem.dart';
 import 'package:property_ms/data/models/paginated_model.dart';
 import 'package:property_ms/data/models/tourism_model.dart';
 import 'package:property_ms/data/repos/tourism_repositories.dart';
+import 'package:property_ms/data/repos/users_repositories.dart';
+import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/tourisem_page/sub_pages/tourism_details/widgets/reservation_bottom_sheet.dart';
 import 'package:property_ms/features/tourisem_page/sub_pages/tourism_details/widgets/select_tourism_bottom_sheet.dart';
 
 class TourismDetailsController extends GetxController {
+  final TourismRepositories tourismRepo = Get.find<TourismRepositories>();
+  final UsersRepositories userRepo = Get.find<UsersRepositories>();
+  final mainController = Get.find<MainController>();
   final loadingState = LoadingState.idle.obs;
   RxDouble rating = 4.0.obs;
-  final TourismRepositories tourismRepo = Get.find<TourismRepositories>();
+
   final RxInt sliderIndex = 0.obs;
   var isLoadingImages = true.obs;
   RxBool isFavorite = false.obs;
@@ -163,34 +172,48 @@ class TourismDetailsController extends GetxController {
     super.onClose();
   }
 
-  // reservaion
-  var allowedDays = 5.obs;
+  //! Reservaion
+
+  final loadingStateReservaion = LoadingState.idle.obs;
+  var allowedDays = 0.obs;
   final loadingReservaion = LoadingState.idle.obs;
   final celenderReservaion = <DateModel>[].obs;
-  final double officeNaspeh = 0.25;
-  final double arbonNaspeh = 0.1;
+  AvailabilityModel? availabilityModel;
+  double officeNaspeh = 0.0;
+  double arbonNaspeh = 0.0;
   var selectedDaysCount = 0.obs;
   final RxDouble totalPrice = 0.0.obs;
-  reservaion() {
-    ReservationBottomSheet.show();
+
+  reservaion() async {
     celenderReservaion.clear();
-    final today = DateTime.now();
     selectedDaysCount.value = 0;
+
+    await getAvailability();
+  }
+
+  Future<void> getAvailability() async {
+    if (loadingStateReservaion.value == LoadingState.loading) return;
+    loadingStateReservaion.value = LoadingState.loading;
+    await Future.delayed(const Duration(seconds: 1));
+    final response = await tourismRepo.getTourismAvailability(id: id);
+    if (!response.success) {
+      loadingStateReservaion.value = LoadingState.hasError;
+      CustomToasts(
+        message: response.getErrorMessage(),
+        type: CustomToastType.error,
+      ).show();
+      return;
+    }
+    availabilityModel = response.data;
     celenderReservaion.addAll(
-      List.generate(15, (i) {
-        final date = today.add(Duration(days: i));
-        return DateModel(
-          day: DateFormat('EEEE', 'ar').format(date),
-          month: DateFormat("MMM", "ar").format(date),
-          numDay: DateFormat("d").format(date),
-          isReseved: false,
-          isSelect: false.obs,
-          date: date,
-        );
-      }),
+      availabilityModel!.days.map((e) => e.toDateModel()).toList(),
     );
-    celenderReservaion[0].isReseved = true;
-    celenderReservaion[3].isReseved = true;
+    allowedDays.value = availabilityModel!.availableCount;
+    arbonNaspeh = availabilityModel!.deposit;
+    officeNaspeh = availabilityModel!.commission;
+
+    ReservationBottomSheet.show();
+    loadingStateReservaion.value = LoadingState.doneWithData;
   }
 
   void toggleDaySelection(DateModel day) {
@@ -271,25 +294,71 @@ class TourismDetailsController extends GetxController {
     totalPrice.value = officePrice + totalDayPrice;
   }
 
-  void confirmReservation() {
-    // هنا تقدر تبعت selectedRange للباكند أو تحفظها
+  confirmReservation() async {
+    if (loadingStateReservaion.value == LoadingState.loading) return;
+    loadingStateReservaion.value = LoadingState.loading;
+    double amount = (arbonNaspeh * totalPrice.value);
+    double rounded = double.parse(amount.toStringAsFixed(1));
+
+    final response = await userRepo.paymentCreate(amount: rounded);
+    if (!response.success) {
+      loadingStateReservaion.value = LoadingState.hasError;
+      CustomToasts(
+        message: response.getErrorMessage(),
+        type: CustomToastType.error,
+      ).show();
+      return;
+    }
+    final bool statePay = await mainController.makePayment(
+      response.data!.clientSecret,
+    );
+    log(statePay.toString());
+    if (statePay) {
+      await postBookTourism(response.data!);
+    } else {}
+    loadingStateReservaion.value = LoadingState.doneWithData;
   }
-}
 
-class DateModel {
-  final String day;
-  final String month;
-  final String numDay;
-  bool isReseved;
-  final RxBool isSelect;
-  final DateTime date;
+  postBookTourism(PaymentDto pay) async {
+    loadingStateReservaion.value = LoadingState.loading;
+    double amount = (arbonNaspeh * totalPrice.value);
+    double deposit = double.parse(amount.toStringAsFixed(1));
+    double totalPriceD = double.parse(totalPrice.value.toStringAsFixed(1));
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    List<DateModel> selectedDays =
+        celenderReservaion.where((d) => d.isSelect.value).toList();
+    if (selectedDays.isNotEmpty) {
+      selectedDays.sort((a, b) => a.date.compareTo(b.date));
 
-  DateModel({
-    required this.day,
-    required this.month,
-    required this.numDay,
-    required this.isReseved,
-    required this.isSelect,
-    required this.date,
-  });
+      String startDate = formatter.format(selectedDays.first.date);
+      String endDate = formatter.format(selectedDays.last.date);
+      log(pay.paymentId);
+      final response = await tourismRepo.postBookTourism(
+        propertyId: tourismDetails!.propertyId,
+        startDate: startDate,
+        endDate: endDate,
+        paymentId: pay.paymentId,
+        deposit: deposit,
+        totalPrice: totalPriceD,
+      );
+      if (!response.success) {
+        loadingStateReservaion.value = LoadingState.hasError;
+        CustomToasts(
+          message: response.getErrorMessage(),
+          type: CustomToastType.error,
+        ).show();
+        return;
+      }
+      CustomToasts(
+        message: response.successMessage!,
+        type: CustomToastType.success,
+      ).show();
+
+      Get.offAllNamed(AppRoutes.mainRoute);
+      await Future.delayed(const Duration(seconds: 1));
+      mainController.changePage(3);
+    }
+
+    loadingStateReservaion.value = LoadingState.doneWithData;
+  }
 }

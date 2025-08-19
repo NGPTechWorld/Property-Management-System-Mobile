@@ -36,10 +36,10 @@ class MainController extends GetxController {
   }
 
   //! ElectPay
-  Future<void> makePayment(String clientSecret) async {
+  Future<bool> makePayment(String clientSecret) async {
     try {
       loadingMakePaymentState.value = LoadingState.loading;
-
+      log(clientSecret);
       await Stripe.instance.initPaymentSheet(
         paymentSheetParameters: SetupPaymentSheetParameters(
           paymentIntentClientSecret: clientSecret,
@@ -54,6 +54,7 @@ class MainController extends GetxController {
         message: 'تمت عملية الدفع بنجاح',
         type: CustomToastType.success,
       ).show();
+      return true;
     } on StripeException catch (e) {
       loadingMakePaymentState.value = LoadingState.hasError;
       log(e.error.message!);
@@ -62,12 +63,14 @@ class MainController extends GetxController {
         message: e.error.localizedMessage ?? 'حدث خطأ أثناء الدفع',
         type: CustomToastType.error,
       ).show();
+      return false;
     } catch (e) {
       loadingMakePaymentState.value = LoadingState.hasError;
       const CustomToasts(
         message: 'تعذر إتمام الدفع. تحقق من اتصالك بالإنترنت أو حاول لاحقًا.',
         type: CustomToastType.error,
       ).show();
+      return false;
     }
   }
 }

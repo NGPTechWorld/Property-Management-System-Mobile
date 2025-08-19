@@ -9,6 +9,7 @@ import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:property_ms/core/services/errors/error_handler.dart';
 import 'package:property_ms/core/utils/helper/extensions.dart';
 import 'package:property_ms/data/dto/login_dto.dart';
+import 'package:property_ms/data/dto/payment_dto.dart';
 import 'package:property_ms/data/dto/profile_dto.dart';
 import 'package:property_ms/data/dto/register_dto.dart';
 import 'package:property_ms/data/dto/user_invoice_dto.dart';
@@ -20,11 +21,17 @@ import 'package:property_ms/data/models/paginated_model.dart';
 
 abstract class UsersRepositories {
   Future<AppResponse> register({required RegisterDto user});
+  Future<AppResponse<File>> downloadDocument(
+    String path,
+    String fileName,
+    RxDouble progress,
+  );
   Future<AppResponse<LoginDto>> login({
     required String email,
     required String password,
     String fcm,
   });
+  Future<AppResponse<PaymentDto>> paymentCreate({required double amount});
   Future<AppResponse> resentOtp({
     required String email,
     required String type,
@@ -361,6 +368,53 @@ class ImpUsersRepositories extends GetxService implements UsersRepositories {
       appResponse.networkFailure = ErrorHandler.handle(e).failure;
     }
 
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse<PaymentDto>> paymentCreate({
+    required double amount,
+  }) async {
+    AppResponse<PaymentDto> appResponse = AppResponse(success: false);
+    try {
+      final response = await apiService.request(
+        url: EndPoints.paymentsCreate,
+        method: Method.post,
+        params: {"amount": amount},
+        requiredToken: true,
+        withLogging: true,
+      );
+      appResponse.success = true;
+      appResponse.data = PaymentDto.fromMap(response.data);
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse<File>> downloadDocument(
+    String path,
+    String fileName,
+    RxDouble progress,
+  ) async {
+    AppResponse<File> appResponse = AppResponse(success: false);
+
+    try {
+      final file = await apiService.downloadFileToTemp(
+        fileUrl: path,
+        requiredToken: true,
+        withLogging: true,
+        fileName: fileName,
+        progress: progress,
+      );
+      appResponse.success = true;
+      appResponse.data = file;
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
     return appResponse;
   }
 }

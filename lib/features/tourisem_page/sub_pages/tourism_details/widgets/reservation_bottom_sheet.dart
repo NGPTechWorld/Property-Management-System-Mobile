@@ -27,11 +27,9 @@ class ReservationBottomSheet {
               vertical: AppPadding.p16,
             ),
             child: SingleChildScrollView(
-              // 🔥 هون أضفت Scroll
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // ===== Header =====
                   Row(
                     children: [
                       CircleAvatar(
@@ -64,8 +62,6 @@ class ReservationBottomSheet {
                   ),
                   const Divider(color: ColorManager.primary3Color),
                   const SizedBox(height: AppSize.s16),
-
-                  // ===== Days Allowed =====
                   Obx(
                     () => Text(
                       "عدد الأيام المتاح حجزها : ${controller.allowedDays.value}  ",
@@ -265,7 +261,10 @@ class ReservationBottomSheet {
                     () => AppButton(
                       text: "إدفع العربون",
                       enabled: controller.selectedDaysCount.value >= 1,
-
+                      onPressed: () => controller.confirmReservation(),
+                      loadingMode:
+                          controller.loadingStateReservaion.value ==
+                          LoadingState.loading,
                       backgroundColor:
                           controller.selectedDaysCount.value >= 1
                               ? ColorManager.primaryDark

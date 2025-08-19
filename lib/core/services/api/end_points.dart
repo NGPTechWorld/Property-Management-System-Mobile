@@ -1,5 +1,5 @@
 class EndPoints {
-  static const String baseUrl = "http://192.168.1.9:3000";
+  static const String baseUrl = "https://00f7f98ef28e.ngrok-free.app";
   static const String templateT = "/templateT";
   //Map
   static const String mapExplore = "/map/explore";
@@ -53,6 +53,8 @@ class EndPoints {
   static const String getFiltersTourism = "/tourism/mobile";
   static const String getTourism = "/tourism/mobile/";
   static const String getTourismOnly = "/tourism/";
+  static const String availability = "/availability";
+  static const String getTourismBook = "/tourism/book";
   static const String getSearchTourism = "/tourism/mobile/search";
 
   //Profile
@@ -64,6 +66,9 @@ class EndPoints {
   static const String userPostFilters = "/user-post/own/filters";
   static const String deletePost = "/user-post/own/";
   static const String suggestions = "/suggestions";
+
+  //Pay
+  static const String paymentsCreate = "/payments/create-payment-intent";
 }
 
 class ApiKey {

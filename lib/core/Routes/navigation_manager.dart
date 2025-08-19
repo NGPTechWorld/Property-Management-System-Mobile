@@ -55,7 +55,7 @@ abstract class NavigationManager {
     GetPage(
       name: AppRoutes.mainRoute,
       page: () => const MainPage(),
-      binding: BindingsBuilder.put(() => MainController()),
+      binding: BindingsBuilder.put(() => MainController(), permanent: true),
     ),
     GetPage(
       name: AppRoutes.splashRoute,

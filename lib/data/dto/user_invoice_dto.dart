@@ -21,7 +21,7 @@ class PurchaseItemDto {
   final String date;
   final String reason;
   final String paymentMethod;
-  final int amount;
+  final double amount;
   final String status;
   final String invoiceImage;
 
@@ -41,7 +41,7 @@ class PurchaseItemDto {
         date: json['date'] ?? '',
         reason: json['reason'] ?? '',
         paymentMethod: json['payment_method'] ?? '',
-        amount: json['amount'] ?? 0,
+        amount: json['amount'] ?? 0.0,
         status: json['status'] ?? '',
         invoiceImage: json['invoiceImage'] ?? '',
       );
@@ -60,7 +60,7 @@ class PurchaseItemDto {
     date: '',
     reason: '',
     paymentMethod: '',
-    amount: 0,
+    amount: 0.0,
     status: '',
     invoiceImage: '',
   );
@@ -69,7 +69,7 @@ class PurchaseItemDto {
 class CurrentPurchaseItemDto {
   final int id;
   final String reason;
-  final int amount;
+  final double amount;
   final String status;
   final String deadline;
 
@@ -85,7 +85,7 @@ class CurrentPurchaseItemDto {
       CurrentPurchaseItemDto(
         id: json['id'] ?? 0,
         reason: json['reason'] ?? '',
-        amount: json['amount'] ?? 0,
+        amount: json['amount'] ?? 0.0,
         status: json['status'] ?? '',
         deadline: json['deadline'] ?? '',
       );
@@ -101,7 +101,7 @@ class CurrentPurchaseItemDto {
   factory CurrentPurchaseItemDto.empty() => CurrentPurchaseItemDto(
     id: 0,
     reason: '',
-    amount: 0,
+    amount: 0.0,
     status: '',
     deadline: '',
   );

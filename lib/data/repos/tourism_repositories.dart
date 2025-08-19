@@ -8,19 +8,23 @@ import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:property_ms/core/services/errors/error_handler.dart';
 import 'package:property_ms/data/dto/tourism_dto.dart';
 import 'package:property_ms/data/models/app_response.dart';
+import 'package:property_ms/data/models/availability_tourisem.dart';
 import 'package:property_ms/data/models/paginated_model.dart';
 import 'package:property_ms/data/models/tourism_model.dart';
 
 abstract class TourismRepositories {
   Future<AppResponse<TourismModel>> getTourism({required int id});
+  Future<AppResponse<AvailabilityModel>> getTourismAvailability({
+    required int id,
+  });
   Future<AppResponse<PaginatedModel<TourismDto>>> getTourismFilters({
     required int page,
     required int items,
     required int regionId,
     required int cityId,
-    required String tag, 
-    required String orderByArea, 
-    required String orderByPrice, 
+    required String tag,
+    required String orderByArea,
+    required String orderByPrice,
     required String orderByDate,
   });
   Future<AppResponse<PaginatedModel<TourismDto>>> getTourismSearch({
@@ -30,6 +34,14 @@ abstract class TourismRepositories {
   });
   Future<AppResponse<PaginatedModel<TourismDto>>> getTourismRelated({
     required int id,
+  });
+  Future<AppResponse> postBookTourism({
+    required int propertyId,
+    required String startDate,
+    required String endDate,
+    required String paymentId,
+    required double deposit,
+    required double totalPrice,
   });
 }
 
@@ -152,6 +164,62 @@ class ImpTourismRepositories extends GetxService
         response.data,
         TourismDto.fromJson,
       );
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse<AvailabilityModel>> getTourismAvailability({
+    required int id,
+  }) async {
+    AppResponse<AvailabilityModel> appResponse = AppResponse(success: false);
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.getTourismOnly + id.toString() + EndPoints.availability,
+        method: Method.get,
+        requiredToken: true,
+        withLogging: true,
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+      appResponse.data = AvailabilityModel.fromJson(response.data['data']);
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse> postBookTourism({
+    required int propertyId,
+    required String startDate,
+    required String endDate,
+    required String paymentId,
+    required double deposit,
+    required double totalPrice,
+  }) async {
+    AppResponse appResponse = AppResponse(success: false);
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.getTourismBook,
+        method: Method.post,
+        params: {
+          "propertyId": propertyId,
+          "startDate": startDate,
+          "endDate": endDate,
+          "payment_id": paymentId,
+          "deposit": deposit,
+          "totalPrice": totalPrice,
+        },
+        requiredToken: true,
+        withLogging: true,
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
     } catch (e) {
       appResponse.success = false;
       appResponse.networkFailure = ErrorHandler.handle(e).failure;

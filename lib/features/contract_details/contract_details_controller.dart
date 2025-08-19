@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/utils/helper/app_functions.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/data/dto/user_invoice_dto.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/data/repos/users_repositories.dart';
+import 'package:property_ms/features/contract_details/widgets/download_diloag.dart';
 import 'package:property_ms/features/main_page/main_controller.dart';
 
 class ContractDetailsController extends GetxController
@@ -58,6 +60,31 @@ class ContractDetailsController extends GetxController
     previousBillList.addAll(response.data!.previous);
 
     loadingState.value = LoadingState.doneWithData;
+  }
+
+  final progress = RxDouble(0);
+  void downloadFile(String path) async {
+    if (progress.value != 0) return;
+
+    DownloadDialog().show();
+
+    final response = await userRepo.downloadDocument(path, "فاتورة", progress);
+
+    if (!response.success) {
+      CustomToasts(
+        message: response.getErrorMessage(),
+        type: CustomToastType.error,
+      ).show();
+      return;
+    }
+
+    final file = response.data!;
+    // close dialog
+    Get.back();
+    progress.value = 0;
+    // open file
+
+    AppFunctions.openFile(file.path);
   }
 }
 

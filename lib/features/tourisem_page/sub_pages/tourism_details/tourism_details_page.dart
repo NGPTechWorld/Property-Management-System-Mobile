@@ -58,6 +58,7 @@ class TourismDetailsPage extends GetView<TourismDetailsController> {
                           onPressed: () async {
                             await controller.reservaion();
                           },
+
                           payrate: 'يومي',
                         ),
                       ),
