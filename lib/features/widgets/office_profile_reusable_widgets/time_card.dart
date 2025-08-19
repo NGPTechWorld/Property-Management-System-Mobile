@@ -29,14 +29,6 @@ class TimeCard extends StatelessWidget {
               color: const Color(0xFF3F3D56),
             ),
           ),
-          const SizedBox(height: 4),
-          Text(
-            period,
-            style: Get.textTheme.bodySmall?.copyWith(
-              color: Colors.grey,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
         ],
       ),
     );

@@ -42,6 +42,7 @@ class ServiceTypeChip extends StatelessWidget {
         ),
         child: Text(
           label,
+          textAlign: TextAlign.center,
           style: Get.textTheme.bodySmall!.copyWith(
             color: ColorManager.primaryColor,
             fontWeight: FontWeight.w600,
