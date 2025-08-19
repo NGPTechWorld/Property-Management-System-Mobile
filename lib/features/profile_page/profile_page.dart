@@ -6,7 +6,6 @@ import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
-import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/features/widgets/state_handler.dart';
 
 import 'profile_controller.dart';
