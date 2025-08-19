@@ -57,6 +57,13 @@ class EndPoints {
 
   //Profile
   static const String userProfileInfo = "/user/profile";
+
+  //Posts
+  static const String userPost = "/user-post/own";
+  static const String userPostOnly = "/user-post/";
+  static const String userPostFilters = "/user-post/own/filters";
+  static const String deletePost = "/user-post/own/";
+  static const String suggestions = "/suggestions";
 }
 
 class ApiKey {

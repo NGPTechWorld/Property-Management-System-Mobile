@@ -176,7 +176,10 @@ class AccountInfoPage extends GetView<AccountInfoController> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Get.toNamed(AppRoutes.resetPasswordRoute);
+                        Get.toNamed(
+                          AppRoutes.resetPasswordRoute,
+                          arguments: {'email': controller.emailController.text},
+                        );
                       },
                       child: Text(
                         'نسيت كلمة المرور؟',

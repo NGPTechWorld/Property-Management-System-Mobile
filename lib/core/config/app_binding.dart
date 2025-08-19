@@ -7,6 +7,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:property_ms/data/repos/favorite_repositories.dart';
 import 'package:property_ms/data/repos/map_repositories.dart';
 import 'package:property_ms/data/repos/offices_repositories.dart';
+import 'package:property_ms/data/repos/post_repositories.dart';
 import 'package:property_ms/data/repos/property_repositories.dart';
 import 'package:property_ms/data/repos/services_repositories.dart';
 import 'package:property_ms/data/repos/tourism_repositories.dart';
@@ -28,6 +29,7 @@ class AppBinding extends Bindings {
     Get.put<FavoriteRepositories>(ImpFavoriteRepositories());
     Get.put<TourismRepositories>(ImpTourismRepositories());
     Get.put<MapRepositories>(ImpMapRepositories());
+    Get.put<PostRepositories>(ImpPostRepositories());
 
     // Get.put(NotificationRepo()).initialize();
     // Get.put(UsersRepo());

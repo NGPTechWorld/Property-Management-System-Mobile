@@ -22,20 +22,20 @@ class ResetPasswordPage extends GetView<ResetPasswordController> {
           SingleChildScrollView(
             child: ConstrainedBox(
               constraints: BoxConstraints(minHeight: Get.context!.height),
-              child: const Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    LogoApp(withTitle: true),
-                    SizedBox(height: AppSize.s20),
-                    ResetPasswordTitle(),
-                    SizedBox(height: AppSize.s20),
-                    DefaultDivider(),
-                    SizedBox(height: AppSize.s20),
-                    NewPasswordField(),
-                    SizedBox(height: AppSize.s100),
-                    ResetPasswordButton(),
+                    const LogoApp(withTitle: true),
+                    const SizedBox(height: AppSize.s20),
+                    ResetPasswordTitle(email: controller.email ?? ''),
+                    const SizedBox(height: AppSize.s18),
+                    const DefaultDivider(),
+                    const SizedBox(height: AppSize.s20),
+                    const NewPasswordField(),
+                    const SizedBox(height: AppSize.s100),
+                    const ResetPasswordButton(),
                   ],
                 ),
               ),

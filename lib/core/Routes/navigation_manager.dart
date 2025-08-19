@@ -23,8 +23,7 @@ import 'package:property_ms/features/profile_page/sub_pages/favorites_page/favor
 import 'package:property_ms/features/profile_page/sub_pages/favorites_page/favorites_page.dart';
 import 'package:property_ms/features/profile_page/sub_pages/my_posts/my_posts_controller.dart';
 import 'package:property_ms/features/profile_page/sub_pages/my_posts/my_posts_page.dart';
-import 'package:property_ms/features/profile_page/sub_pages/my_posts/sub_pages/post_details/post_details_controller.dart';
-import 'package:property_ms/features/profile_page/sub_pages/my_posts/sub_pages/post_details/post_details_page.dart';
+import 'package:property_ms/features/profile_page/sub_pages/my_posts/post_details_page.dart';
 import 'package:property_ms/features/profile_page/sub_pages/my_sales_page/my_sales_controller.dart';
 import 'package:property_ms/features/profile_page/sub_pages/my_sales_page/my_sales_page.dart';
 import 'package:property_ms/features/profile_page/sub_pages/support/sub_pages/chat/chat_controller.dart';
@@ -176,7 +175,6 @@ abstract class NavigationManager {
     GetPage(
       name: AppRoutes.postDetailsPage,
       page: () => const PostDetailsPage(),
-      binding: BindingsBuilder.put(() => PostDetailsController()),
     ),
     GetPage(
       name: AppRoutes.notificationsPage,

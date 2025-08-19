@@ -5,43 +5,65 @@ import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/app_button.dart';
+import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
+import 'package:property_ms/data/dto/post_dto.dart';
+import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/features/profile_page/sub_pages/my_posts/bottom_sheets/add_post_bottom_sheet.dart';
-import 'package:property_ms/features/profile_page/sub_pages/my_posts/bottom_sheets/edit_post_bottom_sheet.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
+import 'package:property_ms/features/widgets/empty_card.dart';
+import 'package:property_ms/features/widgets/loading_card.dart';
 
 import './my_posts_controller.dart';
 
 class MyPostsPage extends GetView<MyPostsController> {
   const MyPostsPage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _MyPostsHeader(controller: controller),
-            const SizedBox(height: AppSize.s8),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Obx(() {
-                return Column(
-                  children:
-                      controller.posts.map((post) {
-                        return GestureDetector(
-                          onTap:
-                              () => Get.toNamed(
-                                AppRoutes.postDetailsPage,
-                                arguments: post,
-                              ),
-                          child: PostCard(post: post),
-                        );
-                      }).toList(),
-                );
-              }),
-            ),
-          ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await controller.refreshPage();
+        },
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Column(
+            children: [
+              _MyPostsHeader(controller: controller),
+              const SizedBox(height: AppSize.s8),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Obx(() {
+                  if (controller.loadingAllPosts.value ==
+                      LoadingState.loading) {
+                    return const Center(child: LoadingCard(isSmall: true));
+                  } else if (controller.loadingAllPosts.value ==
+                      LoadingState.doneWithNoData) {
+                    return const EmptyCard();
+                  } else {
+                    return Column(
+                      children:
+                          controller.filteredPostsList.map((post) {
+                            return GestureDetector(
+                              onTap: () async {
+                                controller.getUserSuggestionsProperties(
+                                  postId: post.id,
+                                );
+                                Get.toNamed(
+                                  AppRoutes.postDetailsPage,
+                                  arguments: post,
+                                );
+                              },
+                              child: PostCard(post: post),
+                            );
+                          }).toList(),
+                    );
+                  }
+                }),
+              ),
+              const SizedBox(height: 100),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -59,9 +81,8 @@ class MyPostsPage extends GetView<MyPostsController> {
   }
 }
 
-//! Keep
 class PostCard extends StatelessWidget {
-  final PostModel post;
+  final PostDto post;
   const PostCard({super.key, required this.post});
 
   @override
@@ -85,13 +106,11 @@ class PostCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Property details
           Padding(
             padding: const EdgeInsets.all(AppPadding.p16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Location and price
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -106,11 +125,27 @@ class PostCard extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    Text(
-                      '${post.price.toStringAsFixed(0)} \$',
-                      style: Get.textTheme.headlineSmall!.copyWith(
-                        color: ColorManager.secColor,
-                        fontWeight: FontWeight.bold,
+
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppPadding.p12,
+                        vertical: AppPadding.p6,
+                      ),
+                      decoration: BoxDecoration(
+                        color:
+                            post.status == 'قيد الانتظار'
+                                ? ColorManager.primary4Color
+                                : post.status == "مقبول"
+                                ? ColorManager.primaryColor
+                                : ColorManager.redColor,
+                        borderRadius: BorderRadius.circular(AppSize.s30),
+                      ),
+                      child: Text(
+                        post.status,
+                        style: Get.textTheme.bodySmall!.copyWith(
+                          color: ColorManager.white,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     const SizedBox(width: AppSize.s12),
@@ -121,13 +156,13 @@ class PostCard extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         color:
-                            post.propertyType == "إيجار"
+                            post.type == "أجار"
                                 ? ColorManager.primaryColor
                                 : ColorManager.primaryDark,
                         borderRadius: BorderRadius.circular(AppSize.s30),
                       ),
                       child: Text(
-                        post.propertyType,
+                        post.type,
                         style: Get.textTheme.bodySmall!.copyWith(
                           color: ColorManager.white,
                           fontWeight: FontWeight.bold,
@@ -137,8 +172,6 @@ class PostCard extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: AppSize.s8),
-
-                // Description
                 Text(
                   post.description,
                   style: Get.textTheme.bodyMedium!.copyWith(
@@ -147,27 +180,25 @@ class PostCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: AppSize.s12),
-
-                // Date and actions
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'تاريخ النشر: ${_formatDate(post.date)}',
+                      'تاريخ النشر ${post.createdAt}',
                       style: Get.textTheme.bodySmall!.copyWith(
                         color: ColorManager.primary5Color,
                       ),
                     ),
                     Row(
                       children: [
-                        // Edit button
-                        _buildActionButton(
-                          icon: Assets.icons.editUserIcon,
-                          color: ColorManager.primaryColor,
-                          onTap: () => _editPost(post),
+                        Text(
+                          '${post.budget.toStringAsFixed(0)} \$',
+                          style: Get.textTheme.headlineSmall!.copyWith(
+                            color: ColorManager.secColor,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        const SizedBox(width: AppSize.s8),
-                        // Delete button
+                        const SizedBox(width: AppSize.s16),
                         _buildActionButton(
                           icon: Assets.icons.deleteIcon,
                           color: ColorManager.redColor,
@@ -210,43 +241,7 @@ class PostCard extends StatelessWidget {
     );
   }
 
-  String _formatDate(DateTime date) {
-    return '${date.day}/${date.month}/${date.year}';
-  }
-
-  void _editPost(PostModel post) {
-    Get.bottomSheet(
-      EditPostBottomSheet(post: post),
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-    );
-  }
-
-  // ! delete dialog
-  // void _deletePost(PostModel post) {
-  //   Get.defaultDialog(
-  //     title: 'حذف المنشور',
-  //     middleText: 'هل أنت متأكد من حذف هذا المنشور؟',
-  //     textConfirm: 'نعم',
-  //     textCancel: 'إلغاء',
-  //     confirmTextColor: Colors.white,
-  //     buttonColor: ColorManager.primaryColor,
-  //     cancelTextColor: ColorManager.primaryColor,
-  //     onConfirm: () {
-  //       Get.find<MyPostsController>().deletePost(
-  //         post.id,
-  //       ); // <-- This does the deletion
-  //       Get.back();
-  //       Get.snackbar(
-  //         'تم الحذف',
-  //         'تم حذف المنشور بنجاح',
-  //         backgroundColor: ColorManager.redColor.withOpacity(0.9),
-  //         colorText: Colors.white,
-  //       );
-  //     },
-  //   );
-  // }
-  void _deletePost(PostModel post) {
+  void _deletePost(PostDto post) {
     Get.bottomSheet(
       Container(
         height: 250,
@@ -299,13 +294,11 @@ class PostCard extends StatelessWidget {
                     text: 'نعم، حذف',
                     onPressed: () {
                       Get.find<MyPostsController>().deletePost(post.id);
+                      const CustomToasts(
+                        message: 'تم حذف المنشور بنجاح',
+                        type: CustomToastType.delete,
+                      ).show();
                       Get.back();
-                      Get.snackbar(
-                        'تم الحذف',
-                        'تم حذف المنشور بنجاح',
-                        backgroundColor: ColorManager.redColor,
-                        colorText: Colors.white,
-                      );
                     },
                     backgroundColor: ColorManager.redColor,
                     fontColor: Colors.white,
@@ -327,7 +320,6 @@ class PostCard extends StatelessWidget {
   }
 }
 
-//! Keep
 class _MyPostsHeader extends StatelessWidget {
   const _MyPostsHeader({required this.controller});
 
