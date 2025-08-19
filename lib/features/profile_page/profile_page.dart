@@ -258,12 +258,19 @@ class CardUserInfo extends StatelessWidget {
         child: Row(
           children: [
             ClipOval(
-              child: CustomCachedNetworkImage(
-                imageUrl: controller.profileInfo!.photoUrl ?? '',
-                height: AppSize.sHeight * 0.15,
-                width: AppSize.sHeight * 0.15,
-                fit: BoxFit.cover,
-              ),
+              child:
+                  controller.profileInfo!.photoUrl != null
+                      ? CustomCachedNetworkImage(
+                        imageUrl: controller.profileInfo!.photoUrl!,
+                        height: AppSize.sHeight * 0.15,
+                        width: AppSize.sHeight * 0.15,
+                        fit: BoxFit.cover,
+                      )
+                      : Assets.images.user.image(
+                        height: AppSize.sHeight * 0.15,
+                        width: AppSize.sHeight * 0.15,
+                        fit: BoxFit.cover,
+                      ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,

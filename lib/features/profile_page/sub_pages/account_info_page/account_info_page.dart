@@ -62,10 +62,16 @@ class AccountInfoPage extends GetView<AccountInfoController> {
                                       width: AppSize.sHeight * 0.15,
                                       fit: BoxFit.cover,
                                     )
-                                    : CustomCachedNetworkImage(
+                                    : controller.profileInfo?.photoUrl != null
+                                    ? CustomCachedNetworkImage(
                                       imageUrl:
                                           controller.profileInfo?.photoUrl ??
                                           '',
+                                      height: AppSize.sHeight * 0.15,
+                                      width: AppSize.sHeight * 0.15,
+                                      fit: BoxFit.cover,
+                                    )
+                                    : Assets.images.user2.image(
                                       height: AppSize.sHeight * 0.15,
                                       width: AppSize.sHeight * 0.15,
                                       fit: BoxFit.cover,
