@@ -127,9 +127,9 @@ class PostCard extends StatelessWidget {
                       decoration: BoxDecoration(
                         color:
                             post.status == 'قيد الانتظار'
-                                ? ColorManager.primary4Color
+                                ? ColorManager.yello
                                 : post.status == "مقبول"
-                                ? ColorManager.primaryColor
+                                ? ColorManager.greenColor
                                 : ColorManager.redColor,
                         borderRadius: BorderRadius.circular(AppSize.s30),
                       ),
