@@ -48,6 +48,9 @@ class EndPoints {
 
   //Favorites
   static const String getFavorites = "/property-favorite";
+  static const String addFavorites = "/property-favorite/";
+  static const String add = "/add";
+  static const String remove = "/remove";
 
   //Tourism
   static const String getFiltersTourism = "/tourism/mobile";

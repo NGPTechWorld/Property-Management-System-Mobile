@@ -5,6 +5,7 @@ import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
 import 'package:property_ms/data/dto/property_dto.dart';
+import 'package:property_ms/features/widgets/favorite_icon_button.dart';
 
 class PropertyRentCard2SmallModel {
   final String title;
@@ -65,31 +66,14 @@ class PropertyRentCard2Small extends StatelessWidget {
                     ),
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 18,
+                    horizontal: 5,
+                    vertical: 16,
                   ),
-                  child: GestureDetector(
-                    onTap: () {}, // Add controller logic if needed
-                    child: Container(
-                      width: 32,
-                      height: 32,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: ColorManager.cardBackground,
-                      ),
-                      child: Center(
-                        child: Assets.icons.favoriteFillIcon.svg(
-                          width: 16,
-                          colorFilter: ColorFilter.mode(
-                            model.isFavorite ? Colors.red : ColorManager.grey3,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                      ),
-                    ),
+                  child: FavoriteIconButton(
+                    propertyId: model.propertyId,
+                    initialIsFavorite: model.isFavorite,
                   ),
                 ),
 

@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/data/dto/tourism_dto.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
@@ -17,6 +16,7 @@ class TourismDetailsController extends GetxController {
   final loadingState = LoadingState.idle.obs;
   RxDouble rating = 4.0.obs;
   final TourismRepositories tourismRepo = Get.find<TourismRepositories>();
+  
   final RxInt sliderIndex = 0.obs;
   var isLoadingImages = true.obs;
   RxBool isFavorite = false.obs;
@@ -59,13 +59,12 @@ class TourismDetailsController extends GetxController {
     }
     tourismDetails = response.data;
     rating.value = tourismDetails!.avgRate;
+    isFavorite.value = tourismDetails!.isFavorite;
     // rating.value = tourismDetails!.rate;
     loadingState.value = LoadingState.doneWithData;
   }
 
-  void toggleFavorite() {
-    isFavorite.value = !isFavorite.value;
-  }
+
 
   //?
 

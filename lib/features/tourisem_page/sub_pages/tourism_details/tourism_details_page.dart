@@ -7,6 +7,7 @@ import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/app_button.dart';
 import 'package:property_ms/data/dto/tourism_dto.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
+import 'package:property_ms/features/widgets/favorite_icon_button.dart';
 import 'package:property_ms/features/widgets/office_card_style2.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/lacation_card.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/map_button.dart';
@@ -17,6 +18,7 @@ import 'package:property_ms/features/widgets/property_reusable_widget/image_caro
 import 'package:property_ms/features/widgets/tourisem_card.dart';
 import 'package:property_ms/features/widgets/tourisem_card_small.dart';
 import 'package:shimmer/shimmer.dart';
+
 import './tourism_details_controller.dart';
 
 class TourismDetailsPage extends GetView<TourismDetailsController> {
@@ -231,33 +233,11 @@ class TourismDetailsAppBar extends StatelessWidget {
         onPressed: () => Get.back(),
       ),
       actions: [
-        Obx(
-          () => Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 18),
-            child: GestureDetector(
-              onTap: () {
-                controller.toggleFavorite();
-              },
-              child: Container(
-                width: 32,
-                height: 32,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: ColorManager.cardBackground,
-                ),
-                child: Center(
-                  child: Assets.icons.favoriteFillIcon.svg(
-                    width: 16,
-                    colorFilter: ColorFilter.mode(
-                      controller.isFavorite.value
-                          ? Colors.red
-                          : ColorManager.grey3,
-                      BlendMode.srcIn,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 18),
+          child: FavoriteIconButton(
+            propertyId: controller.tourismDetails!.propertyId,
+            initialIsFavorite: controller.isFavorite.value, 
           ),
         ),
         const SizedBox(width: 8),
