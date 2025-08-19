@@ -1,5 +1,5 @@
 class EndPoints {
-  static const String baseUrl = "https://00f7f98ef28e.ngrok-free.app";
+  static const String baseUrl = "https://3d3046a011e1.ngrok-free.app";
   static const String templateT = "/templateT";
   //Map
   static const String mapExplore = "/map/explore";

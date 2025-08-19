@@ -9,6 +9,7 @@ import 'package:property_ms/data/models/app_response.dart';
 import 'package:property_ms/data/models/paginated_model.dart';
 import 'package:property_ms/data/models/property_model.dart';
 import 'package:property_ms/data/repos/property_repositories.dart';
+import 'package:property_ms/features/property_page/sub_pages/property_details/widget/reservation_bottom_sheet.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/select_property_bottom_sheet.dart';
 
 class PropertyDetailsController extends GetxController {
@@ -226,4 +227,14 @@ class PropertyDetailsController extends GetxController {
   }
 
   //? ====================
+
+  //!     Recervaion
+  double officePrice = 0.2;
+  double arbonPrice = 100.0;
+  final isInstallment = false.obs;
+  final reantNumberController = TextEditingController(text: "1");
+  final reantNumber = 1.obs;
+  openReservation() {
+    ReservationBottomSheetProperty.show();
+  }
 }

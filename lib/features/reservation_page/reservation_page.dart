@@ -11,6 +11,7 @@ class ReservationPage extends GetView<ReservationController> {
   @override
   Widget build(BuildContext context) {
     Get.put(ReservationController());
+  
     return Scaffold(
       appBar: const NormalAppBar(title: "الحجوزات"),
       body: Column(

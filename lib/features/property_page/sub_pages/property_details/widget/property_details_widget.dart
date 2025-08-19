@@ -79,7 +79,10 @@ class PropertyDetailsWidget extends StatelessWidget {
 
                 DetailItem(
                   label: "عدد الأقساط",
-                  value: model.sellDetails!.installmentDuration.toString(),
+                  value:
+                      model.sellDetails!.installmentAllowed
+                          ? model.sellDetails!.installmentDuration.toString()
+                          : "لا يقبل التقسيط",
                   icon: Icons.payments,
                 ),
                 DetailItem(

@@ -32,6 +32,7 @@ class ReservationController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    pageController = PageController(initialPage: pageIndex.value);
     initScrollControllers();
     getUserReservation();
     getUserReservationTourisem();

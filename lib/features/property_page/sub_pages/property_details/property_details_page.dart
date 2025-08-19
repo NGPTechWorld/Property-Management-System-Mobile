@@ -55,7 +55,7 @@ class PropertyDetailsPage extends StatelessWidget {
                                     ),
                                     child: GestureDetector(
                                       onTap: () {
-                                       // controller.toggleFavorite();
+                                        // controller.toggleFavorite();
                                       },
                                       child: Container(
                                         width: 32,
@@ -188,7 +188,7 @@ class PropertyDetailsPage extends StatelessWidget {
                                   ? '${controller.propertyDetails!.sellDetails!.sellingPrice} \$'
                                   : '${controller.propertyDetails!.rentDetails!.price} \$ ',
                           onPressed: () {
-                            // Booking logic here
+                            controller.openReservation();
                           },
                         ),
                       ),
