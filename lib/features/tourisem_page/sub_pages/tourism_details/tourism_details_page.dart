@@ -56,7 +56,7 @@ class TourismDetailsPage extends GetView<TourismDetailsController> {
                         child: PriceSection(
                           price: controller.tourismDetails!.price.toString(),
                           onPressed: () async {
-                            await controller.getTourismRelated();
+                            await controller.reservaion();
                           },
                           payrate: 'يومي',
                         ),
