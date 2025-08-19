@@ -8,11 +8,9 @@ import 'package:property_ms/core/utils/widgets/app_button.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
 import 'package:property_ms/data/dto/post_dto.dart';
-import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/features/profile_page/sub_pages/my_posts/bottom_sheets/add_post_bottom_sheet.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
-import 'package:property_ms/features/widgets/empty_card.dart';
-import 'package:property_ms/features/widgets/loading_card.dart';
+import 'package:property_ms/features/widgets/state_handler.dart';
 
 import './my_posts_controller.dart';
 
@@ -33,15 +31,10 @@ class MyPostsPage extends GetView<MyPostsController> {
               const SizedBox(height: AppSize.s8),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Obx(() {
-                  if (controller.loadingAllPosts.value ==
-                      LoadingState.loading) {
-                    return const Center(child: LoadingCard(isSmall: true));
-                  } else if (controller.loadingAllPosts.value ==
-                      LoadingState.doneWithNoData) {
-                    return const EmptyCard();
-                  } else {
-                    return Column(
+                child: Obx(
+                  () => StateHandler(
+                    state: controller.loadingAllPosts.value,
+                    dataWidget: Column(
                       children:
                           controller.filteredPostsList.map((post) {
                             return GestureDetector(
@@ -57,9 +50,9 @@ class MyPostsPage extends GetView<MyPostsController> {
                               child: PostCard(post: post),
                             );
                           }).toList(),
-                    );
-                  }
-                }),
+                    ),
+                  ),
+                ),
               ),
               const SizedBox(height: 100),
             ],

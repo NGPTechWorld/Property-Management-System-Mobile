@@ -7,7 +7,7 @@ import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
-import 'package:property_ms/features/widgets/loading_card.dart';
+import 'package:property_ms/features/widgets/state_handler.dart';
 
 import 'profile_controller.dart';
 
@@ -30,12 +30,11 @@ class ProfilePage extends GetView<ProfileController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Obx(
-                () =>
-                    controller.loadingState.value == LoadingState.loading
-                        ? const Center(child: LoadingCard(isSmall: true))
-                        : const CardUserInfo(),
+                () => StateHandler(
+                  state: controller.loadingState.value,
+                  dataWidget: const CardUserInfo(),
+                ),
               ),
-
               const FavAndPostCard(),
               const SizedBox(height: AppSize.s8),
               SettingsCard(

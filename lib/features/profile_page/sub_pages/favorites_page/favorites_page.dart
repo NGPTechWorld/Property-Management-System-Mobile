@@ -6,12 +6,11 @@ import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
 import 'package:property_ms/data/dto/property_dto.dart';
 import 'package:property_ms/data/dto/tourism_dto.dart';
-import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/features/profile_page/sub_pages/favorites_page/favorites_controller.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
-import 'package:property_ms/features/widgets/empty_card.dart';
 import 'package:property_ms/features/widgets/property_rent_card2_small.dart';
 import 'package:property_ms/features/widgets/property_sale_card2_small.dart';
+import 'package:property_ms/features/widgets/state_handler.dart';
 import 'package:property_ms/features/widgets/tourisem_card_small.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -43,10 +42,24 @@ class FavoritesPage extends GetView<FavoritesController> {
   }
 
   Widget favoriteBody() {
-    return Obx(() {
-      final state = controller.loadingFavortieState.value;
-      if (state == LoadingState.loading) {
-        return ListView.builder(
+    return Obx(
+      () => StateHandler(
+        state: controller.loadingFavortieState.value,
+        dataWidget: ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          controller: controller.scrollFavoritesController,
+          padding: const EdgeInsets.all(12),
+          itemCount: controller.favoriteList.length,
+          itemBuilder: (context, index) {
+            final item = controller.favoriteList[index];
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: _buildFavoriteCard(item),
+            );
+          },
+        ),
+        loadingWidget: ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           itemCount: 10,
@@ -63,28 +76,9 @@ class FavoritesPage extends GetView<FavoritesController> {
                   ),
                 ),
               ),
-        );
-      }
-      if (state == LoadingState.doneWithNoData) {
-        return const Center(
-          child: Padding(padding: EdgeInsets.all(24.0), child: EmptyCard()),
-        );
-      }
-      return ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        controller: controller.scrollFavoritesController,
-        padding: const EdgeInsets.all(12),
-        itemCount: controller.favoriteList.length,
-        itemBuilder: (context, index) {
-          final item = controller.favoriteList[index];
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: _buildFavoriteCard(item),
-          );
-        },
-      );
-    });
+        ),
+      ),
+    );
   }
 
   Widget _buildFavoriteCard(dynamic item) {
