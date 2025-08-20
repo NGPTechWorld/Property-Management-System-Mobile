@@ -18,13 +18,13 @@ class PanoramaUiController extends GetxController {
 
   void zoomIn() {
     final z = pano.getZoom();
-    final next = (z + 0.2).clamp(1.0, 5.0);
+    final next = (z + 0.2).clamp(0.3, 5.0);
     pano.setZoom(next);
   }
 
   void zoomOut() {
     final z = pano.getZoom();
-    final next = (z - 0.2).clamp(1.0, 5.0);
+    final next = (z - 0.2).clamp(0.3, 5.0);
     pano.setZoom(next);
   }
 

@@ -19,7 +19,9 @@ class PanoramaFullscreenPage extends StatelessWidget {
         children: [
           Obx(() {
             return pv.PanoramaViewer(
-              zoom: 1.0,
+              zoom: 0.5,
+              minZoom: 0.3,
+              maxZoom: 5.0,
               animSpeed: 0.0,
               sensorControl: c.sensorControl.value,
               panoramaController: c.pano,
