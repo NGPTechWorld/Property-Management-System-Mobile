@@ -11,7 +11,7 @@ class PanoramaFullscreenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final c = Get.put(PanoramaUiController());
+    final controller = Get.put(PanoramaUiController());
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -20,11 +20,11 @@ class PanoramaFullscreenPage extends StatelessWidget {
           Obx(() {
             return pv.PanoramaViewer(
               zoom: 0.5,
-              minZoom: 0.3,
-              maxZoom: 5.0,
+              minZoom: controller.minZoom,
+              maxZoom: controller.maxZoom,
               animSpeed: 0.0,
-              sensorControl: c.sensorControl.value,
-              panoramaController: c.pano,
+              sensorControl: controller.sensorControl.value,
+              panoramaController: controller.pano,
               child: Image.network(
                 imageUrl,
                 fit: BoxFit.fill,
@@ -50,22 +50,23 @@ class PanoramaFullscreenPage extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _Btn(icon: Icons.zoom_out, onTap: c.zoomOut),
+                _Btn(icon: Icons.zoom_out, onTap: controller.zoomOut),
                 const SizedBox(width: 16),
-                _Btn(icon: Icons.zoom_in, onTap: c.zoomIn),
+                _Btn(icon: Icons.zoom_in, onTap: controller.zoomIn),
                 const SizedBox(width: 16),
                 Obx(
                   () => _Btn(
                     icon: Icons.screen_rotation,
                     color:
-                        c.sensorControl.value == pv.SensorControl.orientation
+                        controller.sensorControl.value ==
+                                pv.SensorControl.orientation
                             ? Colors.green
                             : Colors.white,
-                    onTap: c.toggleGyroscope,
+                    onTap: controller.toggleGyroscope,
                   ),
                 ),
                 const SizedBox(width: 16),
-                _Btn(icon: Icons.refresh, onTap: c.resetView),
+                _Btn(icon: Icons.refresh, onTap: controller.resetView),
               ],
             ),
           ),

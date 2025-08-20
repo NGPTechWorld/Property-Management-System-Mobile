@@ -8,7 +8,8 @@ class PanoramaUiController extends GetxController {
 
   // package controller for programmatic control (zoom, view, anim)
   final pano = pv.PanoramaController();
-
+  final minZoom = 0.3;
+  final maxZoom = 5.0;
   void toggleGyroscope() {
     sensorControl.value =
         sensorControl.value == pv.SensorControl.none
@@ -18,13 +19,13 @@ class PanoramaUiController extends GetxController {
 
   void zoomIn() {
     final z = pano.getZoom();
-    final next = (z + 0.2).clamp(0.3, 5.0);
+    final next = (z + 0.2).clamp(minZoom, maxZoom);
     pano.setZoom(next);
   }
 
   void zoomOut() {
     final z = pano.getZoom();
-    final next = (z - 0.2).clamp(0.3, 5.0);
+    final next = (z - 0.2).clamp(minZoom, maxZoom);
     pano.setZoom(next);
   }
 
