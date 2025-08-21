@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
+import 'package:property_ms/data/dto/property_dto.dart';
 import 'package:property_ms/data/dto/tourism_dto.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/data/enums/property_furnishing_type.dart';
@@ -13,6 +16,7 @@ import 'package:property_ms/data/enums/tourism_place_extras.dart';
 import 'package:property_ms/data/enums/tourism_place_pool_status.dart';
 import 'package:property_ms/data/models/app_response.dart';
 import 'package:property_ms/data/models/paginated_model.dart';
+import 'package:property_ms/data/repos/property_repositories.dart';
 import 'package:property_ms/data/repos/tourism_repositories.dart';
 import 'package:property_ms/features/tourisem_page/widgets/filter_pro_tourisem.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
@@ -20,6 +24,7 @@ import 'package:property_ms/features/widgets/question_bottum_sheets/question_typ
 
 class TourisemController extends GetxController {
   final TourismRepositories tourismRepo = Get.find<TourismRepositories>();
+  final PropertyRepositories propertyRepo = Get.find<PropertyRepositories>();
 
   final searchController = TextEditingController();
   final sliderIndex = 0.obs;
@@ -258,6 +263,7 @@ class TourisemController extends GetxController {
     initScrollControllers();
     searchController.addListener(_onSearchChanged);
     getAllTourism();
+    getTopRateTourisem();
   }
 
   @override
@@ -271,7 +277,11 @@ class TourisemController extends GetxController {
     allTourismList.clear();
     pageAllTourism.value = 1;
     hasMoreAllTourism.value = true;
-    await getAllTourism();
+    getAllTourism();
+    topTourisemList.clear();
+    pageTopTourisem.value = 1;
+    hasMoreTopTourisem.value = true;
+    getTopRateTourisem();
   }
 
   void initScrollControllers() {
@@ -369,5 +379,56 @@ class TourisemController extends GetxController {
       isSearch.value = true;
     }
     await refreshPage();
+  }
+
+  //?=================
+  //? Get Top Tourisem
+
+  final loadingTopTourisemState = LoadingState.loading.obs;
+  final topTourisemList = <PropertyDto>[].obs;
+  final pageTopTourisem = 1.obs;
+  final hasMoreTopTourisem = false.obs;
+  final scrollTopTourisemController = ScrollController();
+
+  Future<void> getTopRateTourisem({bool firstPage = true}) async {
+    if (firstPage) {
+      pageTopTourisem.value = 1;
+      hasMoreTopTourisem.value = true;
+    }
+    if (!hasMoreTopTourisem.value) {
+      loadingTopTourisemState.value = LoadingState.doneWithNoData;
+      return;
+    }
+    loadingTopTourisemState.value = LoadingState.loading;
+    await Future.delayed(const Duration(seconds: 1));
+    final response = await propertyRepo.getTopRateProperty(
+      items: perPage,
+      page: pageTopTourisem.value,
+      type: "سياحي",
+    );
+    if (!response.success) {
+      loadingTopTourisemState.value = LoadingState.hasError;
+      hasMoreTopTourisem.value = false;
+      CustomToasts(
+        message: response.getErrorMessage(),
+        type: CustomToastType.error,
+      ).show();
+      return;
+    }
+    hasMoreTopTourisem.value = false;
+    firstPage
+        ? topTourisemList.value = response.data?.data ?? []
+        : topTourisemList.addAll(response.data!.data);
+    log(topTourisemList.length.toString());
+    log(response.data!.data.toString());
+    hasMoreTopTourisem.value =
+        topTourisemList.length < response.data!.totalItems;
+    loadingTopTourisemState.value =
+        firstPage && topTourisemList.isEmpty
+            ? LoadingState.doneWithNoData
+            : LoadingState.doneWithData;
+    if (hasMoreTopTourisem.value) {
+      pageTopTourisem.value++;
+    }
   }
 }
