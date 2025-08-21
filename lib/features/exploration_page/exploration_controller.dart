@@ -7,21 +7,15 @@ import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
+import 'package:property_ms/data/dto/office_dto.dart';
+import 'package:property_ms/data/dto/property_dto.dart';
+import 'package:property_ms/data/dto/tourism_dto.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/data/models/marker_model.dart';
-import 'package:property_ms/data/models/office_model.dart';
-import 'package:property_ms/data/models/property_model.dart';
-import 'package:property_ms/data/models/tourism_model.dart';
 import 'package:property_ms/data/repos/map_repositories.dart';
-import 'package:property_ms/data/repos/offices_repositories.dart';
-import 'package:property_ms/data/repos/property_repositories.dart';
-import 'package:property_ms/data/repos/tourism_repositories.dart';
 
 class ExplorationController extends GetxController {
   final MapRepositories mapRepo = Get.find<MapRepositories>();
-  final TourismRepositories tourismRepo = Get.find<TourismRepositories>();
-  final PropertyRepositories propertyRepo = Get.find<PropertyRepositories>();
-  final OfficesRepositories officeRepo = Get.find<OfficesRepositories>();
 
   final markerModlesList = <MarkerModel>[].obs;
   final markerList = <Marker>[].obs;
@@ -30,10 +24,10 @@ class ExplorationController extends GetxController {
   double lat = 33.5138; // دمشق
   double lng = 36.2765;
   Timer? _debounce;
-  //! Dto not model
-  var selectedProperty = Rxn<PropertyModel>();
-  var selectedTourism = Rxn<TourismModel>();
-  var selectedOffice = Rxn<OfficeModel>();
+
+  var selectedProperty = Rxn<PropertyDto>();
+  var selectedTourism = Rxn<TourismDto>();
+  var selectedOffice = Rxn<OfficeDto>();
   var isLoadingDetail = false.obs;
 
   @override
@@ -175,38 +169,28 @@ class ExplorationController extends GetxController {
 
   Future<void> fetchMarkerDetails(MarkerModel marker) async {
     isLoadingDetail.value = true;
-    await Future.delayed(const Duration(milliseconds: 300));
+    await Future.delayed(const Duration(milliseconds: 200));
     try {
       if (marker.type == "عقاري") {
-        final response = await propertyRepo.getProperty(id: marker.id);
-        if (response.success && response.data != null) {
-          selectedProperty.value = response.data;
-          selectedTourism.value = null;
-          selectedOffice.value = null;
-        }
+        selectedProperty.value = PropertyDto.fromJson(marker.card!);
+        selectedTourism.value = null;
+        selectedOffice.value = null;
       } else if (marker.type == "سياحي") {
-        final response = await tourismRepo.getTourism(id: marker.id);
-        if (response.success && response.data != null) {
-          selectedTourism.value = response.data;
-          selectedProperty.value = null;
-          selectedOffice.value = null;
-        }
+        selectedTourism.value = TourismDto.fromJson(marker.card!);
+        selectedProperty.value = null;
+        selectedOffice.value = null;
       } else {
-        final response = await officeRepo.getOffice(id: marker.id);
-        if (response.success && response.data != null) {
-          selectedOffice.value = response.data;
-          selectedProperty.value = null;
-          selectedTourism.value = null;
-        }
+        selectedOffice.value = OfficeDto.fromJson(marker.card!);
+        selectedProperty.value = null;
+        selectedTourism.value = null;
       }
     } catch (e) {
       const CustomToasts(
         message: 'تعذر جلب بيانات الموقع',
         type: CustomToastType.error,
-      );
+      ).show();
     } finally {
       isLoadingDetail.value = false;
     }
   }
 }
-// TourisemCardSmall
