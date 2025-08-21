@@ -19,11 +19,14 @@ class ExplorationController extends GetxController {
   final loadingState = LoadingState.idle.obs;
 
   final mapController = MapController();
-
+  double lat = 33.5138; // دمشق
+  double lng = 36.2765;
   Timer? _debounce;
 
   @override
   void onInit() {
+    lat = Get.arguments?['lat'] ?? lat;
+    lng = Get.arguments?['lng'] ?? lng;
     super.onInit();
     Future.delayed(const Duration(milliseconds: 300), () {
       exploreInView();
@@ -133,7 +136,7 @@ class ExplorationController extends GetxController {
 
     if (permission == LocationPermission.deniedForever) {
       Get.snackbar("مرفوض نهائياً", "اذهب للإعدادات وفعّل صلاحية الموقع");
-      await Geolocator.openAppSettings(); 
+      await Geolocator.openAppSettings();
       return;
     }
 
@@ -147,11 +150,7 @@ class ExplorationController extends GetxController {
         width: 60,
         height: 60,
         point: currentLatLng,
-        child: const Icon(
-          Icons.location_pin,
-          color: Colors.orange, 
-          size: 40,
-        ),
+        child: const Icon(Icons.location_pin, color: Colors.orange, size: 40),
       ),
     );
 

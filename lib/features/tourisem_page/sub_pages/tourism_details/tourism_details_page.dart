@@ -26,6 +26,10 @@ class TourismDetailsPage extends GetView<TourismDetailsController> {
 
   @override
   Widget build(BuildContext context) {
+    if (Get.isRegistered<TourismDetailsController>()) {
+      Get.delete<TourismDetailsController>();
+    }
+    final controller = Get.put(TourismDetailsController());
     const double appBarHeight = AppSize.s100 * 2.5;
     return Scaffold(
       body: SafeArea(
@@ -237,7 +241,7 @@ class TourismDetailsAppBar extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 18),
           child: FavoriteIconButton(
             propertyId: controller.tourismDetails!.propertyId,
-            initialIsFavorite: controller.isFavorite.value, 
+            initialIsFavorite: controller.isFavorite.value,
           ),
         ),
         const SizedBox(width: 8),
@@ -320,7 +324,7 @@ class RelatedTourismSection extends StatelessWidget {
                     (index) => GestureDetector(
                       onTap: () {
                         //! @OsamaZerkawi here toNamed should be
-                        Get.offNamed(
+                        Get.toNamed(
                           AppRoutes.tourismDetailsPage,
                           parameters: {
                             'id':
@@ -426,7 +430,13 @@ class LocationAndMapRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         LocationCard(location: controller.tourismDetails!.location),
-        const MapButton(),
+        MapButton(
+          lat:
+              double.tryParse(controller.tourismDetails?.latitude ?? '') ?? 0.0,
+          lng:
+              double.tryParse(controller.tourismDetails?.longitude ?? '') ??
+              0.0,
+        ),
       ],
     );
   }

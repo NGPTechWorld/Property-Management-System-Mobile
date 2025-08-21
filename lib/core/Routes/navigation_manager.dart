@@ -10,6 +10,7 @@ import 'package:property_ms/features/auth/signup/signup_controller.dart';
 import 'package:property_ms/features/auth/signup/signup_page.dart';
 import 'package:property_ms/features/auth/signup/sub_pages/signup_step2/signup_2_page.dart';
 import 'package:property_ms/features/contract_details/contract_details.dart';
+import 'package:property_ms/features/exploration_page/exploration_page.dart';
 import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/main_page/main_page.dart';
 import 'package:property_ms/features/notification_page/notification_controller.dart';
@@ -45,7 +46,6 @@ import 'package:property_ms/features/splash/splash_controller.dart';
 import 'package:property_ms/features/splash/splash_page.dart';
 import 'package:property_ms/features/tourisem_page/sub_pages/compare_tourism/compare_tourism_controller.dart';
 import 'package:property_ms/features/tourisem_page/sub_pages/compare_tourism/compare_tourism_page.dart';
-import 'package:property_ms/features/tourisem_page/sub_pages/tourism_details/tourism_details_controller.dart';
 import 'package:property_ms/features/tourisem_page/sub_pages/tourism_details/tourism_details_page.dart';
 import 'package:property_ms/features/tourisem_page/tourisem_controller.dart';
 import 'package:property_ms/features/tourisem_page/tourisem_page.dart';
@@ -126,7 +126,7 @@ abstract class NavigationManager {
     GetPage(
       name: AppRoutes.tourismDetailsPage,
       page: () => const TourismDetailsPage(),
-      binding: BindingsBuilder.put(() => TourismDetailsController()),
+      // binding: BindingsBuilder.put(() => TourismDetailsController()),
     ),
     GetPage(
       name: AppRoutes.mySalesRoute,
@@ -180,6 +180,11 @@ abstract class NavigationManager {
       name: AppRoutes.notificationsPage,
       page: () => const NotificationPage(),
       binding: BindingsBuilder.put(() => NotificationController()),
+    ),
+    GetPage(
+      name: AppRoutes.explorationPage,
+      page: () => const ExplorationPage(),
+      // binding: BindingsBuilder.put(() => ExplorationController()),
     ),
     // GetPage(
     //   name: AppRoutes.loginRoute,

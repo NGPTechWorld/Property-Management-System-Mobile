@@ -1,10 +1,10 @@
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:property_ms/data/enums/loading_state_enum.dart';
-import 'exploration_controller.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
+import 'package:property_ms/data/enums/loading_state_enum.dart';
+import 'exploration_controller.dart';
 
 class ExplorationPage extends GetView<ExplorationController> {
   const ExplorationPage({super.key});
@@ -19,7 +19,7 @@ class ExplorationPage extends GetView<ExplorationController> {
           FlutterMap(
             mapController: controller.mapController,
             options: MapOptions(
-              initialCenter: const LatLng(33.5138, 36.2765), // دمشق
+              initialCenter: LatLng(controller.lat, controller.lng),
               initialZoom: 13.0,
               onPositionChanged: (position, hasGesture) {
                 if (hasGesture) controller.onMapMoved();
