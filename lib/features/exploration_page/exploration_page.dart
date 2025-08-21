@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
+import 'package:property_ms/features/widgets/tourisem_card_small.dart';
+
 import 'exploration_controller.dart';
 
 class ExplorationPage extends GetView<ExplorationController> {
@@ -41,6 +43,56 @@ class ExplorationPage extends GetView<ExplorationController> {
                 child: const Center(child: CircularProgressIndicator()),
               );
             }
+            return const SizedBox.shrink();
+          }),
+          Obx(() {
+            if (controller.isLoadingDetail.value) {
+              return const Positioned(
+                bottom: 100,
+                left: 16,
+                right: 16,
+                child: Center(child: CircularProgressIndicator()),
+              );
+            }
+
+            if (controller.selectedProperty.value != null) {
+              return Positioned(
+                bottom: 48,
+                left: 16,
+                right: 5,
+
+                child: TourisemCardSmall(
+                  model:
+                      controller
+                          .selectedProperty
+                          .value!
+                          .sellDetails!
+                          .sellingPrice,
+                ),
+              );
+            }
+
+            if (controller.selectedTourism.value != null) {
+              return Positioned(
+                bottom: 48,
+                left: 16,
+                right: 5,
+                child: TourisemCardSmall(
+                  model: controller.selectedTourism.value!,
+                ), // create a TourismCard
+              );
+            }
+            if (controller.selectedOffice.value != null) {
+              return Positioned(
+                bottom: 48,
+                left: 16,
+                right: 5,
+                child: TourisemCardSmall(
+                  model: controller.selectedOffice.value!,
+                ), // create a selectedOffice
+              );
+            }
+
             return const SizedBox.shrink();
           }),
         ],
