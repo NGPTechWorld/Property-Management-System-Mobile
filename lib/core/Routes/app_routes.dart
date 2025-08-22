@@ -28,4 +28,6 @@ abstract class AppRoutes {
   static const String postDetailsPage = "/postDetailsPage";
   static const String notificationsPage = "/notificationsPage";
   static const String explorationPage = "/explorationPage";
+  static const String onboardingRoute = "/onboarding";
+  
 }

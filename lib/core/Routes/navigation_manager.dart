@@ -18,6 +18,8 @@ import 'package:property_ms/features/notification_page/notification_page.dart';
 import 'package:property_ms/features/offices_page/sub_pages/office_details/office_details_page.dart';
 import 'package:property_ms/features/offices_page/sub_pages/report/report_office_controller.dart';
 import 'package:property_ms/features/offices_page/sub_pages/report/report_office_page.dart';
+import 'package:property_ms/features/onboarding/onboarding_controller.dart';
+import 'package:property_ms/features/onboarding/onboarding_page.dart';
 import 'package:property_ms/features/profile_page/sub_pages/account_info_page/account_info_controller.dart';
 import 'package:property_ms/features/profile_page/sub_pages/account_info_page/account_info_page.dart';
 import 'package:property_ms/features/profile_page/sub_pages/favorites_page/favorites_controller.dart';
@@ -185,6 +187,11 @@ abstract class NavigationManager {
       name: AppRoutes.explorationPage,
       page: () => const ExplorationPage(),
       // binding: BindingsBuilder.put(() => ExplorationController()),
+    ),
+    GetPage(
+      name: AppRoutes.onboardingRoute,
+      page: () => const OnboardingPage(),
+      binding: BindingsBuilder.put(() => OnboardingController()),
     ),
     // GetPage(
     //   name: AppRoutes.loginRoute,
