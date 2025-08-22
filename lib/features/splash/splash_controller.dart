@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/services/cache/cache_keys.dart';
 import '../../core/routes/app_routes.dart';
 import '../../core/services/cache/cache_service.dart';
 
@@ -41,7 +42,12 @@ class SplashController extends GetxController
     if (!seenOnboarding) {
       Get.offAllNamed(AppRoutes.onboardingRoute);
     } else {
-      Get.offAllNamed(AppRoutes.loginRoute);
+      final user = cacheService.getData(key: kUserToken);
+      if (user == null) {
+        Get.offAllNamed(AppRoutes.loginRoute);
+      } else {
+        Get.offAllNamed(AppRoutes.mainRoute);
+      }
     }
   }
 
