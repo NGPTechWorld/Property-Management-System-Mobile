@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/Routes/app_routes.dart';
+import 'package:property_ms/core/config/app_binding.dart';
 import 'package:property_ms/core/services/cache/cache_keys.dart';
 import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
@@ -23,10 +24,11 @@ class LoginController extends GetxController {
     if (!formKey.currentState!.validate()) return;
     if (loadingState.value == LoadingState.loading) return;
     loadingState.value = LoadingState.loading;
-
+    String? fcm = await getFcmToken();
     final response = await userRepo.login(
       email: emailController.text,
       password: passwordController.text,
+      fcm: fcm,
     );
 
     if (!response.success) {

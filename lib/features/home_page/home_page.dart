@@ -6,6 +6,7 @@ import 'package:property_ms/features/home_page/widgets/top_property_home.dart';
 import 'package:property_ms/features/home_page/widgets/top_services_home.dart';
 import 'package:property_ms/features/home_page/widgets/top_tourisem_home.dart';
 import 'package:property_ms/features/home_page/widgets/top_offices_home.dart';
+import 'package:property_ms/features/notification_page/notification_controller.dart';
 import 'home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -14,6 +15,7 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     Get.put(HomeController());
+    Get.put(NotificationController());
     return Scaffold(
       appBar: const NormalAppBar(title: "الصفحة الرئيسة"),
       body: RefreshIndicator(

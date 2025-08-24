@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:get/get.dart';
 import 'package:property_ms/core/Routes/app_routes.dart';
@@ -29,7 +29,7 @@ abstract class UsersRepositories {
   Future<AppResponse<LoginDto>> login({
     required String email,
     required String password,
-    String fcm,
+    String? fcm,
   });
   Future<AppResponse<PaymentDto>> paymentCreate({required double amount});
   Future<AppResponse> resentOtp({
@@ -38,6 +38,7 @@ abstract class UsersRepositories {
   }); // Type = reset or signup
   Future<AppResponse> confirem({required String email, required String otp});
   Future<AppResponse<List<NotificationModel>>> myNotifications();
+  Future<AppResponse> readNotifications({required int id});
   Future<AppResponse> resetPassword({
     required String email,
     required String newPassword,
@@ -80,6 +81,20 @@ class ImpUsersRepositories extends GetxService implements UsersRepositories {
     return isLoggedIn;
   }
 
+  Future<String> getDeviceId() async {
+    final deviceInfo = DeviceInfoPlugin();
+
+    if (Platform.isAndroid) {
+      final androidInfo = await deviceInfo.androidInfo;
+      return androidInfo.id; // Unique device ID
+    } else if (Platform.isIOS) {
+      final iosInfo = await deviceInfo.iosInfo;
+      return iosInfo.identifierForVendor ?? 'unknown_device';
+    } else {
+      return 'unsupported_platform';
+    }
+  }
+
   @override
   Future<AppResponse<LoginDto>> login({
     required String email,
@@ -88,10 +103,16 @@ class ImpUsersRepositories extends GetxService implements UsersRepositories {
   }) async {
     AppResponse<LoginDto> appResponse = AppResponse(success: false);
     try {
+      String deviceId = await getDeviceId();
       final response = await apiService.request(
         url: EndPoints.login,
         method: Method.post,
-        params: {"email": email, "password": password},
+        params: {
+          "email": email,
+          "password": password,
+          "device_id": deviceId,
+          "fcm_token": fcm,
+        },
         requiredToken: false,
         withLogging: true,
       );
@@ -117,6 +138,25 @@ class ImpUsersRepositories extends GetxService implements UsersRepositories {
         requiredToken: false,
         withLogging: true,
         uploadImage: true,
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse> readNotifications({required int id}) async {
+    AppResponse appResponse = AppResponse(success: false);
+    try {
+      final response = await apiService.request(
+        url: EndPoints.notifications + "/" + id.toString() + "/read",
+        method: Method.put,
+        requiredToken: true,
+        withLogging: true,
       );
       appResponse.success = true;
       appResponse.successMessage = response.data['message'];
