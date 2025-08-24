@@ -2,29 +2,36 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:property_ms/core/Routes/app_routes.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
+import 'package:property_ms/data/dto/payment_dto.dart';
 import 'package:property_ms/data/dto/property_dto.dart';
+import 'package:property_ms/data/dto/residential_dto.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/data/models/app_response.dart';
 import 'package:property_ms/data/models/paginated_model.dart';
 import 'package:property_ms/data/models/property_model.dart';
+import 'package:property_ms/data/repos/offices_repositories.dart';
 import 'package:property_ms/data/repos/property_repositories.dart';
+import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/reservation_bottom_sheet.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/select_property_bottom_sheet.dart';
+import 'package:property_ms/data/repos/users_repositories.dart';
 
 class PropertyDetailsController extends GetxController {
   final rating = 4.0.obs;
   final myRating = 4.0.obs;
 
   final PropertyRepositories propertyRepo = Get.find<PropertyRepositories>();
+  final UsersRepositories userRepo = Get.find<UsersRepositories>();
+  final OfficesRepositories officeRepo = Get.find<OfficesRepositories>();
+  final MainController mainController = Get.find<MainController>();
   final loadingState = LoadingState.idle.obs;
   final RxInt sliderIndex = 0.obs;
   final isLoadingImages = true.obs;
   final isFavorite = true.obs;
   final int id = int.parse(Get.parameters['id']!);
   final ScrollController scrollController = ScrollController();
-
-  // late PropertyDetailsModel propertyDetails;
 
   PropertyModel? propertyDetails;
 
@@ -77,7 +84,7 @@ class PropertyDetailsController extends GetxController {
     loadingState.value = LoadingState.doneWithData;
   }
 
-  //? Get Top Property
+  //? Get Related Property
 
   final loadingTopPropertState = LoadingState.loading.obs;
   final topPropertList = <PropertyDto>[].obs;
@@ -229,12 +236,114 @@ class PropertyDetailsController extends GetxController {
   //? ====================
 
   //!     Recervaion
-  double officePrice = 0.2;
-  double arbonPrice = 100.0;
+  double officePrice = 0.0;
+  double arbonPrice = 0.0;
   final isInstallment = false.obs;
   final reantNumberController = TextEditingController(text: "1");
   final reantNumber = 1.obs;
-  openReservation() {
+  final loadingStateReservaion = LoadingState.idle.obs;
+
+  openReservation() async {
+    await getCommission();
+  }
+
+  Future<void> getCommission() async {
+    Future.delayed(const Duration(seconds: 3));
+    final response = await officeRepo.getCommissionOffice(
+      id: propertyDetails!.office!.id,
+    );
+
+    if (!response.success) {
+      CustomToasts(
+        message: response.getErrorMessage(),
+        type: CustomToastType.error,
+      ).show();
+      return;
+    }
+    officePrice = response.data!.commission;
+    arbonPrice = response.data!.deposit;
     ReservationBottomSheetProperty.show();
+  }
+
+  confirmReservation() async {
+    if (loadingStateReservaion.value == LoadingState.loading) return;
+    loadingStateReservaion.value = LoadingState.loading;
+
+    final response;
+    if (propertyDetails!.listingType == "بيع") {
+      response = await userRepo.paymentCreate(
+        amount: double.parse(
+          (arbonPrice * propertyDetails!.area).toStringAsFixed(2),
+        ),
+      );
+    } else {
+      double totalPrice =
+          (((propertyDetails!.rentDetails!.price * reantNumber.value) *
+                  officePrice) +
+              (propertyDetails!.rentDetails!.price * reantNumber.value)) /
+          reantNumber.value;
+      response = await userRepo.paymentCreate(
+        amount: double.parse(totalPrice.toStringAsFixed(2)),
+      );
+    }
+    if (!response.success) {
+      loadingStateReservaion.value = LoadingState.hasError;
+      CustomToasts(
+        message: response.getErrorMessage(),
+        type: CustomToastType.error,
+      ).show();
+      return;
+    }
+    final bool statePay = await mainController.makePayment(
+      response.data!.clientSecret,
+    );
+    log(statePay.toString());
+    if (statePay) {
+      await postBookTourism(response.data!);
+    } else {}
+    loadingStateReservaion.value = LoadingState.doneWithData;
+  }
+
+  postBookTourism(PaymentDto pay) async {
+    loadingStateReservaion.value = LoadingState.loading;
+    if (propertyDetails!.listingType == "بيع") {
+      double totalPrice =
+          (propertyDetails!.sellDetails!.sellingPrice * officePrice) +
+          propertyDetails!.sellDetails!.sellingPrice;
+      ResidentialDto residentialDto = ResidentialDto(
+        propertyId: propertyDetails!.propertyId,
+        installment: isInstallment.value,
+        paymentIntentId: pay.paymentId,
+        deposit: (propertyDetails!.sellDetails!.sellingPrice * officePrice),
+        totalPrice: totalPrice,
+      );
+
+      final response = await propertyRepo.getResidentialOffice(
+        residentialDto: residentialDto,
+      );
+      if (!response.success) {
+        loadingStateReservaion.value = LoadingState.hasError;
+        CustomToasts(
+          message: response.getErrorMessage(),
+          type: CustomToastType.error,
+        ).show();
+        return;
+      }
+      CustomToasts(
+        message: response.successMessage!,
+        type: CustomToastType.success,
+      ).show();
+
+      Get.offAllNamed(AppRoutes.mainRoute);
+      await Future.delayed(const Duration(seconds: 1));
+      mainController.changePage(4);
+    } else {
+      CustomToasts(
+        message: "يلا استنى ليجي api",
+        type: CustomToastType.success,
+      ).show();
+    }
+
+    loadingStateReservaion.value = LoadingState.doneWithData;
   }
 }

@@ -6,6 +6,7 @@ import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:property_ms/core/services/errors/error_handler.dart';
 import 'package:property_ms/data/dto/office_dto.dart';
 import 'package:property_ms/data/dto/property_dto.dart';
+import 'package:property_ms/data/dto/commission_dto.dart';
 import 'package:property_ms/data/models/app_response.dart';
 import 'package:property_ms/data/models/office_model.dart';
 import 'package:property_ms/data/models/paginated_model.dart';
@@ -16,6 +17,7 @@ abstract class OfficesRepositories {
     required int perPage,
     required int page,
   });
+  Future<AppResponse<CommissionDto>> getCommissionOffice({required int id});
   Future<AppResponse<PaginatedModel<OfficeDto>>> getOfficeList({
     required int perPage,
     required int page,
@@ -243,6 +245,28 @@ class ImpOfficesRepositories extends GetxService
         response.data,
         PropertyDto.fromJson,
       );
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse<CommissionDto>> getCommissionOffice({
+    required int id,
+  }) async {
+    AppResponse<CommissionDto> appResponse = AppResponse(success: false);
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.getCommissionOffice + id.toString(),
+        method: Method.get,
+        requiredToken: true,
+        withLogging: true,
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+      appResponse.data = CommissionDto.fromMap(response.data['data']);
     } catch (e) {
       appResponse.success = false;
       appResponse.networkFailure = ErrorHandler.handle(e).failure;

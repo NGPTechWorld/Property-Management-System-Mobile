@@ -6,6 +6,7 @@ import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:property_ms/core/services/errors/error_handler.dart';
 import 'package:property_ms/data/dto/property_dto.dart';
 import 'package:property_ms/data/dto/property_search_filter_dto.dart';
+import 'package:property_ms/data/dto/residential_dto.dart';
 import 'package:property_ms/data/models/app_response.dart';
 import 'package:property_ms/data/models/paginated_model.dart';
 import 'package:property_ms/data/models/property_model.dart';
@@ -50,6 +51,9 @@ abstract class PropertyRepositories {
     required int page,
   });
   Future<AppResponse> postPropertyRate({required int id, required double rate});
+  Future<AppResponse> getResidentialOffice({
+    required ResidentialDto residentialDto,
+  });
 }
 
 class ImpPropertyRepositories extends GetxService
@@ -318,6 +322,28 @@ class ImpPropertyRepositories extends GetxService
         response.data,
         PropertyDto.fromJson,
       );
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse> getResidentialOffice({
+    required ResidentialDto residentialDto,
+  }) async {
+    AppResponse appResponse = AppResponse(success: false);
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.getResidentialOffice,
+        method: Method.post,
+        requiredToken: true,
+        withLogging: true,
+        params: residentialDto.toJson(),
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
     } catch (e) {
       appResponse.success = false;
       appResponse.networkFailure = ErrorHandler.handle(e).failure;

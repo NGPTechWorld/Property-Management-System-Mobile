@@ -5,6 +5,7 @@ import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/widgets/app_button.dart';
 import 'package:property_ms/core/utils/widgets/custom_text_field.dart';
+import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/property_details_controller.dart';
 
 class ReservationBottomSheetProperty {
@@ -222,7 +223,7 @@ class ReservationBottomSheetProperty {
                             LabelRecevation(
                               title: "السعر الإجمالي:",
                               value:
-                                  "${((controller.propertyDetails!.rentDetails!.price * controller.reantNumber.value) * controller.officePrice) + (controller.propertyDetails!.rentDetails!.price * controller.reantNumber.value)} \$",
+                                  "${(((controller.propertyDetails!.rentDetails!.price * controller.reantNumber.value) * controller.officePrice) + (controller.propertyDetails!.rentDetails!.price * controller.reantNumber.value)).toStringAsFixed(2)} \$",
                             ),
                           ],
                         ),
@@ -265,7 +266,7 @@ class ReservationBottomSheetProperty {
                           child: Center(
                             child: Text(
                               controller.propertyDetails!.rentDetails != null
-                                  ? "${(((controller.propertyDetails!.rentDetails!.price * controller.reantNumber.value) * controller.officePrice) + (controller.propertyDetails!.rentDetails!.price * controller.reantNumber.value)) / controller.reantNumber.value} \$"
+                                  ? "${((((controller.propertyDetails!.rentDetails!.price * controller.reantNumber.value) * controller.officePrice) + (controller.propertyDetails!.rentDetails!.price * controller.reantNumber.value)) / controller.reantNumber.value).toStringAsFixed(2)} \$"
                                   : "${(controller.arbonPrice * controller.propertyDetails!.area).toStringAsFixed(2)} \$",
                               style: Get.textTheme.bodyMedium!.copyWith(
                                 fontWeight: FontWeight.bold,
@@ -279,15 +280,26 @@ class ReservationBottomSheetProperty {
                   ),
 
                   const SizedBox(height: AppSize.s24),
+                  Obx(
+                    () =>
+                        controller.propertyDetails!.listingType == "بيع"
+                            ? AppButton(
+                              text: "إدفع",
+                              onPressed: () => controller.confirmReservation(),
+                              loadingMode:
+                                  controller.loadingStateReservaion.value ==
+                                  LoadingState.loading,
+                              backgroundColor: ColorManager.primaryDark,
+                            )
+                            : AppButton(
+                              text: "إدفع",
 
-                  AppButton(
-                    text: "إدفع",
-                    // enabled: controller.selectedDaysCount.value >= 1,
-                    // onPressed: () => controller.confirmReservation(),
-                    // loadingMode:
-                    //       controller.loadingStateReservaion.value ==
-                    //       LoadingState.loading,
-                    backgroundColor: ColorManager.primaryDark,
+                              onPressed: () => controller.confirmReservation(),
+                              loadingMode:
+                                  controller.loadingStateReservaion.value ==
+                                  LoadingState.loading,
+                              backgroundColor: ColorManager.primaryDark,
+                            ),
                   ),
                 ],
               ),
