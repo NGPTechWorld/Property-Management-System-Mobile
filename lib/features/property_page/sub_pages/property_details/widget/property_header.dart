@@ -94,7 +94,13 @@ class PropertyHeader extends GetView<PropertyDetailsController> {
         const SizedBox(height: AppSize.s16),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [LocationCard(location: model.location), const MapButton()],
+          children: [
+            LocationCard(location: model.location),
+            MapButton(
+              lat: controller.propertyDetails!.coordinates.latitude,
+              lng: controller.propertyDetails!.coordinates.longitude,
+            ),
+          ],
         ),
       ],
     );

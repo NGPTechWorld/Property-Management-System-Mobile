@@ -5,6 +5,7 @@ import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
 import 'package:property_ms/data/dto/property_dto.dart';
+import 'package:property_ms/features/widgets/favorite_icon_button.dart';
 
 class PropertySaleCardModel {
   final String title;
@@ -54,25 +55,10 @@ class PropertySaleCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10,
-                    vertical: 14,
-                  ),
-                  child: CircleAvatar(
-                    backgroundColor: ColorManager.cardBackground,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Assets.icons.favoriteFillIcon.svg(
-                        colorFilter: const ColorFilter.mode(
-                          ColorManager.grey3,
-                          BlendMode.srcIn,
-                        ),
-                      ),
-                    ),
-                  ),
+                FavoriteIconButton(
+                  propertyId: model.propertyId,
+                  initialIsFavorite: model.isFavorite,
                 ),
-
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 12,

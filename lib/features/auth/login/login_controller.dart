@@ -55,7 +55,7 @@ class LoginController extends GetxController {
     ).show();
 
     cacheService.saveData(key: kUserToken, value: response.data!.accessToken);
-    Get.offAllNamed(AppRoutes.splashRoute);
+    Get.offAllNamed(AppRoutes.mainRoute);
     loadingState.value = LoadingState.doneWithData;
   }
 }

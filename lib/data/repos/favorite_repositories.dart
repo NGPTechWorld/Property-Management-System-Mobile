@@ -15,8 +15,8 @@ abstract class FavoriteRepositories {
     required T Function(Map<String, dynamic>) fromJson,
   });
 
-  // Future<AppResponse> addFavorite({required int propertyId });
-  // Future<AppResponse> removeFavorite({required int propertyId });
+  Future<AppResponse> addFavorite({required int propertyId});
+  Future<AppResponse> removeFavorite({required int propertyId});
 }
 
 class ImpFavoriteRepositories extends GetxService
@@ -46,6 +46,49 @@ class ImpFavoriteRepositories extends GetxService
       appResponse.data = PaginatedModel<T>.fromJson(response.data, fromJson);
     } catch (e) {
       Get.snackbar('Error in FavoriteRepositories', e.toString());
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse> addFavorite({required int propertyId}) async {
+    AppResponse appResponse = AppResponse(success: false);
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.addFavorites + propertyId.toString() + EndPoints.add,
+        method: Method.get,
+        requiredToken: true,
+        withLogging: true,
+        params: {"property_id": propertyId},
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+    } catch (e) {
+      Get.snackbar('Error in addFavorite', e.toString());
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse> removeFavorite({required int propertyId}) async {
+    AppResponse appResponse = AppResponse(success: false);
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.addFavorites + propertyId.toString() + EndPoints.remove,
+        method: Method.delete, 
+        requiredToken: true,
+        withLogging: true,
+        params: {"property_id": propertyId},
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+    } catch (e) {
+      //! @OsamaZerkawi add the same in update profile to see what is teh error
+      Get.snackbar('Error in removeFavorite', e.toString());
       appResponse.success = false;
       appResponse.networkFailure = ErrorHandler.handle(e).failure;
     }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/Routes/app_routes.dart';
-import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
@@ -10,6 +9,7 @@ import 'package:property_ms/features/property_page/sub_pages/property_details/wi
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/property_header.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/related_properties_widgets.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/room_details_widget.dart';
+import 'package:property_ms/features/widgets/favorite_icon_button.dart';
 import 'package:property_ms/features/widgets/office_card_style2.dart';
 import 'package:property_ms/features/widgets/price_section.dart';
 import 'package:property_ms/features/widgets/property_reusable_widget/image_carousel.dart';
@@ -47,37 +47,16 @@ class PropertyDetailsPage extends StatelessWidget {
                               toolbarHeight: kToolbarHeight + AppSize.s10,
                               elevation: 0,
                               actions: [
-                                Obx(
-                                  () => Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 18,
-                                    ),
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        // controller.toggleFavorite();
-                                      },
-                                      child: Container(
-                                        width: 32,
-                                        height: 32,
-                                        decoration: const BoxDecoration(
-                                          shape: BoxShape.circle,
-                                          color: ColorManager.cardBackground,
-                                        ),
-                                        child: Center(
-                                          child: Assets.icons.favoriteFillIcon
-                                              .svg(
-                                                width: 16,
-                                                colorFilter: ColorFilter.mode(
-                                                  controller.isFavorite.value
-                                                      ? Colors.red
-                                                      : ColorManager.grey3,
-                                                  BlendMode.srcIn,
-                                                ),
-                                              ),
-                                        ),
-                                      ),
-                                    ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 18,
+                                  ),
+                                  child: FavoriteIconButton(
+                                    propertyId:
+                                        controller.propertyDetails!.propertyId,
+                                    initialIsFavorite:
+                                        controller.isFavorite.value,
                                   ),
                                 ),
                                 const SizedBox(width: 8),

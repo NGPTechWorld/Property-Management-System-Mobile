@@ -97,7 +97,7 @@ class TourismModel {
             ? double.tryParse(json['rate'].toString()) ?? 0.0
             : 0.0,
     avgRate: (json['avg_rate'] ?? 0).toDouble(),
-    isFavorite: (json['is_favorite'] ?? 0) == 1,
+    isFavorite: json['is_favorite'] == 1 || json['is_favorite'] == true,
     office:
         json['office'] != null
             ? OfficeDto.fromJson(json['office'])

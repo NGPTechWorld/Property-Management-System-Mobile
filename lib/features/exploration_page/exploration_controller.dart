@@ -1,5 +1,5 @@
-import 'dart:developer';
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
@@ -7,6 +7,9 @@ import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
+import 'package:property_ms/data/dto/office_dto.dart';
+import 'package:property_ms/data/dto/property_dto.dart';
+import 'package:property_ms/data/dto/tourism_dto.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/data/models/marker_model.dart';
 import 'package:property_ms/data/repos/map_repositories.dart';
@@ -17,13 +20,20 @@ class ExplorationController extends GetxController {
   final markerModlesList = <MarkerModel>[].obs;
   final markerList = <Marker>[].obs;
   final loadingState = LoadingState.idle.obs;
-
   final mapController = MapController();
-
+  double lat = 33.5138; // دمشق
+  double lng = 36.2765;
   Timer? _debounce;
+
+  var selectedProperty = Rxn<PropertyDto>();
+  var selectedTourism = Rxn<TourismDto>();
+  var selectedOffice = Rxn<OfficeDto>();
+  var isLoadingDetail = false.obs;
 
   @override
   void onInit() {
+    lat = Get.arguments?['lat'] ?? lat;
+    lng = Get.arguments?['lng'] ?? lng;
     super.onInit();
     Future.delayed(const Duration(milliseconds: 300), () {
       exploreInView();
@@ -50,12 +60,15 @@ class ExplorationController extends GetxController {
           width: 60,
           height: 60,
           point: LatLng(e.lat, e.lng),
-          child:
-              e.type == "عقاري"
-                  ? Assets.icons.markerProperty.svg(width: 40)
-                  : e.type == "سياحي"
-                  ? Assets.icons.markerTourisem.svg(width: 40)
-                  : Assets.icons.markerOffice.svg(width: 40),
+          child: GestureDetector(
+            onTap: () => fetchMarkerDetails(e),
+            child:
+                e.type == "عقاري"
+                    ? Assets.icons.markerProperty.svg(width: 40)
+                    : e.type == "سياحي"
+                    ? Assets.icons.markerTourisem.svg(width: 40)
+                    : Assets.icons.markerOffice.svg(width: 40),
+          ),
         ),
       ),
     );
@@ -133,7 +146,7 @@ class ExplorationController extends GetxController {
 
     if (permission == LocationPermission.deniedForever) {
       Get.snackbar("مرفوض نهائياً", "اذهب للإعدادات وفعّل صلاحية الموقع");
-      await Geolocator.openAppSettings(); 
+      await Geolocator.openAppSettings();
       return;
     }
 
@@ -147,14 +160,37 @@ class ExplorationController extends GetxController {
         width: 60,
         height: 60,
         point: currentLatLng,
-        child: const Icon(
-          Icons.location_pin,
-          color: Colors.orange, 
-          size: 40,
-        ),
+        child: const Icon(Icons.location_pin, color: Colors.orange, size: 40),
       ),
     );
 
     log('📍 الموقع الحالي: ${position.latitude}, ${position.longitude}');
+  }
+
+  Future<void> fetchMarkerDetails(MarkerModel marker) async {
+    isLoadingDetail.value = true;
+    await Future.delayed(const Duration(milliseconds: 200));
+    try {
+      if (marker.type == "عقاري") {
+        selectedProperty.value = PropertyDto.fromJson(marker.card!);
+        selectedTourism.value = null;
+        selectedOffice.value = null;
+      } else if (marker.type == "سياحي") {
+        selectedTourism.value = TourismDto.fromJson(marker.card!);
+        selectedProperty.value = null;
+        selectedOffice.value = null;
+      } else {
+        selectedOffice.value = OfficeDto.fromJson(marker.card!);
+        selectedProperty.value = null;
+        selectedTourism.value = null;
+      }
+    } catch (e) {
+      const CustomToasts(
+        message: 'تعذر جلب بيانات الموقع',
+        type: CustomToastType.error,
+      ).show();
+    } finally {
+      isLoadingDetail.value = false;
+    }
   }
 }

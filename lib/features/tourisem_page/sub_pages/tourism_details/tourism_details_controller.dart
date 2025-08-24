@@ -68,13 +68,12 @@ class TourismDetailsController extends GetxController {
     }
     tourismDetails = response.data;
     rating.value = tourismDetails!.avgRate;
+    isFavorite.value = tourismDetails!.isFavorite;
     // rating.value = tourismDetails!.rate;
     loadingState.value = LoadingState.doneWithData;
   }
 
-  void toggleFavorite() {
-    isFavorite.value = !isFavorite.value;
-  }
+
 
   //?
 
