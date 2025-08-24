@@ -1,5 +1,5 @@
 class EndPoints {
-  static const String baseUrl = "https://4fb704e04c1c.ngrok-free.app";
+  static const String baseUrl = "https://80c7c85e6064.ngrok-free.app";
   static const String templateT = "/templateT";
   //Map
   static const String mapExplore = "/map/explore";
@@ -38,6 +38,7 @@ class EndPoints {
   static const String getOfficeProperty = "/properties";
   static const String getAdsOffice = "/ads";
   static const String getResidentialOffice = "/residential-office/purchases";
+  static const String getRentalOffice = "/rental-contracts/Rent";
   static const String getCommissionOffice = "/office/commission/";
 
   //Service

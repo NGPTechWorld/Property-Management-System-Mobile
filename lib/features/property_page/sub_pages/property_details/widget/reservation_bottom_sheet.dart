@@ -149,11 +149,11 @@ class ReservationBottomSheetProperty {
                               hint: "اكتب عدداً",
                               textEditingController:
                                   controller.reantNumberController,
-                              onChanged:
-                                  (p0) =>
-                                      controller.reantNumber.value = int.parse(
-                                        p0,
-                                      ),
+                              onChanged: (p0) {
+                                if (p0 != "") {
+                                  controller.reantNumber.value = int.parse(p0);
+                                }
+                              },
                               textInputType: TextInputType.number,
                             ),
                           ),

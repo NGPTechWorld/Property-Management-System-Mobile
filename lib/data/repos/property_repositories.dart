@@ -6,6 +6,7 @@ import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:property_ms/core/services/errors/error_handler.dart';
 import 'package:property_ms/data/dto/property_dto.dart';
 import 'package:property_ms/data/dto/property_search_filter_dto.dart';
+import 'package:property_ms/data/dto/rental_dto.dart';
 import 'package:property_ms/data/dto/residential_dto.dart';
 import 'package:property_ms/data/models/app_response.dart';
 import 'package:property_ms/data/models/paginated_model.dart';
@@ -54,6 +55,7 @@ abstract class PropertyRepositories {
   Future<AppResponse> getResidentialOffice({
     required ResidentialDto residentialDto,
   });
+  Future<AppResponse> getRentalOffice({required RentalDto rentalDto});
 }
 
 class ImpPropertyRepositories extends GetxService
@@ -341,6 +343,26 @@ class ImpPropertyRepositories extends GetxService
         requiredToken: true,
         withLogging: true,
         params: residentialDto.toJson(),
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse> getRentalOffice({required RentalDto rentalDto}) async {
+    AppResponse appResponse = AppResponse(success: false);
+    try {
+      dio.Response response = await apiService.request(
+        url: EndPoints.getRentalOffice,
+        method: Method.post,
+        requiredToken: true,
+        withLogging: true,
+        params: rentalDto.toJson(),
       );
       appResponse.success = true;
       appResponse.successMessage = response.data['message'];

@@ -55,9 +55,15 @@ class PropertySaleCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                FavoriteIconButton(
-                  propertyId: model.propertyId,
-                  initialIsFavorite: model.isFavorite,
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 14,
+                  ),
+                  child: FavoriteIconButton(
+                    propertyId: model.propertyId,
+                    initialIsFavorite: model.isFavorite,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(

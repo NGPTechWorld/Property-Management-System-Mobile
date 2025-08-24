@@ -31,7 +31,7 @@ class ContractDetails extends GetView<ContractDetailsController> {
           const HearderReservationDetails(),
 
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(vertical: 8),
             child:
                 controller.typeContract.value == ContractTypes.rentProperty
                     ? GestureDetector(

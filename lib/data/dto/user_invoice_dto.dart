@@ -41,7 +41,8 @@ class PurchaseItemDto {
         date: json['date'] ?? '',
         reason: json['reason'] ?? '',
         paymentMethod: json['payment_method'] ?? '',
-        amount: json['amount'] ?? 0.0,
+        amount:
+            json['amount'] != null ? (json['amount'] as num).toDouble() : 0.0,
         status: json['status'] ?? '',
         invoiceImage: json['invoiceImage'] ?? '',
       );
@@ -55,6 +56,7 @@ class PurchaseItemDto {
     'status': status,
     'invoiceImage': invoiceImage,
   };
+
   factory PurchaseItemDto.empty() => PurchaseItemDto(
     id: 0,
     date: '',
@@ -85,7 +87,8 @@ class CurrentPurchaseItemDto {
       CurrentPurchaseItemDto(
         id: json['id'] ?? 0,
         reason: json['reason'] ?? '',
-        amount: json['amount'] ?? 0.0,
+        amount:
+            json['amount'] != null ? (json['amount'] as num).toDouble() : 0.0,
         status: json['status'] ?? '',
         deadline: json['deadline'] ?? '',
       );

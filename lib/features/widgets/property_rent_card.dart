@@ -122,12 +122,14 @@ class PropertyRentCard extends StatelessWidget {
                           size: 18,
                         ),
                         const SizedBox(width: 4),
-                        Text(
-                          overflow: TextOverflow.ellipsis,
-                          model.location,
-                          style: Get.textTheme.bodySmall!.copyWith(
-                            fontSize: FontSize.s10,
-                            fontWeight: FontWeight.bold,
+                        Expanded(
+                          child: Text(
+                            overflow: TextOverflow.ellipsis,
+                            model.location,
+                            style: Get.textTheme.bodySmall!.copyWith(
+                              fontSize: FontSize.s10,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],

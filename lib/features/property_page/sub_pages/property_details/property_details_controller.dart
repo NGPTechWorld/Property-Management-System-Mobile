@@ -6,6 +6,7 @@ import 'package:property_ms/core/Routes/app_routes.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/data/dto/payment_dto.dart';
 import 'package:property_ms/data/dto/property_dto.dart';
+import 'package:property_ms/data/dto/rental_dto.dart';
 import 'package:property_ms/data/dto/residential_dto.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/data/models/app_response.dart';
@@ -314,7 +315,9 @@ class PropertyDetailsController extends GetxController {
         propertyId: propertyDetails!.propertyId,
         installment: isInstallment.value,
         paymentIntentId: pay.paymentId,
-        deposit: (propertyDetails!.sellDetails!.sellingPrice * officePrice),
+        deposit: double.parse(
+          (arbonPrice * propertyDetails!.area).toStringAsFixed(2),
+        ),
         totalPrice: totalPrice,
       );
 
@@ -338,10 +341,34 @@ class PropertyDetailsController extends GetxController {
       await Future.delayed(const Duration(seconds: 1));
       mainController.changePage(4);
     } else {
+      double totalPrice =
+          (((propertyDetails!.rentDetails!.price * reantNumber.value) *
+                  officePrice) +
+              (propertyDetails!.rentDetails!.price * reantNumber.value));
+      RentalDto rentalDto = RentalDto(
+        propertyId: propertyDetails!.propertyId,
+        periodCount: reantNumber.value,
+        totalPrice: totalPrice,
+        paymentIntentId: pay.paymentId,
+      );
+
+      final response = await propertyRepo.getRentalOffice(rentalDto: rentalDto);
+      if (!response.success) {
+        loadingStateReservaion.value = LoadingState.hasError;
+        CustomToasts(
+          message: response.getErrorMessage(),
+          type: CustomToastType.error,
+        ).show();
+        return;
+      }
       CustomToasts(
-        message: "يلا استنى ليجي api",
+        message: response.successMessage!,
         type: CustomToastType.success,
       ).show();
+
+      Get.offAllNamed(AppRoutes.mainRoute);
+      await Future.delayed(const Duration(seconds: 1));
+      mainController.changePage(3);
     }
 
     loadingStateReservaion.value = LoadingState.doneWithData;
