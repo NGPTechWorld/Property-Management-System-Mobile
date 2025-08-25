@@ -36,7 +36,7 @@ class TourisemReservation extends GetView<ReservationController> {
                           () => Get.toNamed(
                             AppRoutes.contractDetailsRoute,
                             parameters: {
-                              "typeContract": ContractTypes.rentProperty.name,
+                              "typeContract": ContractTypes.rentToursem.name,
                             },
                             arguments:
                                 controller.userReservationTourisemList[index],

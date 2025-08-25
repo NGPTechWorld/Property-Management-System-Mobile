@@ -18,6 +18,7 @@ import 'package:property_ms/data/repos/users_repositories.dart';
 import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/tourisem_page/sub_pages/tourism_details/widgets/reservation_bottom_sheet.dart';
 import 'package:property_ms/features/tourisem_page/sub_pages/tourism_details/widgets/select_tourism_bottom_sheet.dart';
+import 'package:property_ms/features/widgets/loading_diloag.dart';
 
 class TourismDetailsController extends GetxController {
   final TourismRepositories tourismRepo = Get.find<TourismRepositories>();
@@ -72,8 +73,6 @@ class TourismDetailsController extends GetxController {
     // rating.value = tourismDetails!.rate;
     loadingState.value = LoadingState.doneWithData;
   }
-
-
 
   //?
 
@@ -193,8 +192,10 @@ class TourismDetailsController extends GetxController {
   Future<void> getAvailability() async {
     if (loadingStateReservaion.value == LoadingState.loading) return;
     loadingStateReservaion.value = LoadingState.loading;
+    LoadingDiloag.show();
     await Future.delayed(const Duration(seconds: 1));
     final response = await tourismRepo.getTourismAvailability(id: id);
+    Get.back();
     if (!response.success) {
       loadingStateReservaion.value = LoadingState.hasError;
       CustomToasts(
@@ -296,10 +297,12 @@ class TourismDetailsController extends GetxController {
   confirmReservation() async {
     if (loadingStateReservaion.value == LoadingState.loading) return;
     loadingStateReservaion.value = LoadingState.loading;
+
     double amount = (arbonNaspeh * totalPrice.value);
     double rounded = double.parse(amount.toStringAsFixed(1));
-
+    LoadingDiloag.show();
     final response = await userRepo.paymentCreate(amount: rounded);
+    Get.back();
     if (!response.success) {
       loadingStateReservaion.value = LoadingState.hasError;
       CustomToasts(

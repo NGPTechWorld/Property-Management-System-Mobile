@@ -24,6 +24,7 @@ class PropertyDetailsPage extends StatelessWidget {
     }
     final controller = Get.put(PropertyDetailsController());
     const double appBarHeight = AppSize.s100 * 2.5;
+
     return Scaffold(
       body: SafeArea(
         top: false,
@@ -82,10 +83,12 @@ class PropertyDetailsPage extends StatelessWidget {
                                 titlePadding: EdgeInsets.zero,
                                 expandedTitleScale: 1.1,
                                 background: ImageCarousel(
-                                  images:
-                                      controller.propertyDetails!.images
-                                          .map((asset) => asset.imageUrl)
-                                          .toList(),
+                                  images: [
+                                    ...controller.propertyDetails!.images.map(
+                                      (asset) => asset.imageUrl,
+                                    ),
+                                    controller.propertyDetails!.postImage,
+                                  ],
                                   currentIndex: controller.sliderIndex,
                                   activeDotColor: ColorManager.primaryColor,
                                   inactiveDotColor: Colors.grey.shade300,
@@ -159,18 +162,21 @@ class PropertyDetailsPage extends StatelessWidget {
                           ),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: PriceSection(
-                          price:
-                              controller.propertyDetails!.sellDetails != null
-                                  ? '${controller.propertyDetails!.sellDetails!.sellingPrice} \$'
-                                  : '${controller.propertyDetails!.rentDetails!.price} \$ ',
-                          onPressed: () {
-                            controller.openReservation();
-                          },
-                        ),
-                      ),
+                      controller.propertyDetails!.status == "متوفر"
+                          ? Align(
+                            alignment: Alignment.bottomCenter,
+                            child: PriceSection(
+                              price:
+                                  controller.propertyDetails!.sellDetails !=
+                                          null
+                                      ? '${controller.propertyDetails!.sellDetails!.sellingPrice} \$'
+                                      : '${controller.propertyDetails!.rentDetails!.price} \$ ',
+                              onPressed: () {
+                                controller.openReservation();
+                              },
+                            ),
+                          )
+                          : Container(),
                     ],
                   )
                   : Container(),

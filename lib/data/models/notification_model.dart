@@ -1,5 +1,6 @@
 class NotificationModel {
   final int id;
+  final String name;
   final String title;
   final String body;
   final bool isRead;
@@ -8,6 +9,7 @@ class NotificationModel {
 
   NotificationModel({
     required this.id,
+    required this.name,
     required this.title,
     required this.body,
     required this.isRead,
@@ -19,6 +21,7 @@ class NotificationModel {
     return NotificationModel(
       id: json['id'] ?? 0,
       title: json['title'] ?? '',
+      name: json['name'] ?? '',
       body: json['body'] ?? '',
       isRead: json['isRead'] ?? false,
       sentAt: json['sent_at'] ?? '',

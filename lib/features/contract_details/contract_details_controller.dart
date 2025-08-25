@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/helper/app_functions.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
+import 'package:property_ms/data/dto/payment_dto.dart';
 import 'package:property_ms/data/dto/user_invoice_dto.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/data/repos/users_repositories.dart';
 import 'package:property_ms/features/contract_details/widgets/download_diloag.dart';
 import 'package:property_ms/features/main_page/main_controller.dart';
+import 'package:property_ms/features/widgets/loading_diloag.dart';
 
 class ContractDetailsController extends GetxController
     with GetSingleTickerProviderStateMixin {
@@ -85,6 +87,49 @@ class ContractDetailsController extends GetxController
     // open file
 
     AppFunctions.openFile(file.path);
+  }
+
+  //! Pay Invoice
+  final loadingStateReservaion = LoadingState.idle.obs;
+  confirmPay(CurrentPurchaseItemDto model) async {
+    if (loadingStateReservaion.value == LoadingState.loading) return;
+    loadingStateReservaion.value = LoadingState.loading;
+    LoadingDiloag.show();
+    final response = await userRepo.paymentCreate(amount: model.amount);
+    Get.back();
+    if (!response.success) {
+      loadingStateReservaion.value = LoadingState.hasError;
+      CustomToasts(
+        message: response.getErrorMessage(),
+        type: CustomToastType.error,
+      ).show();
+      return;
+    }
+
+    final bool statePay = await mainController.makePayment(
+      response.data!.clientSecret,
+    );
+
+    if (statePay) {
+      await postBook(response.data!, model.id);
+    } else {}
+    loadingStateReservaion.value = LoadingState.doneWithData;
+  }
+
+  postBook(PaymentDto pay, int id) async {
+    loadingStateReservaion.value = LoadingState.loading;
+    final response = await userRepo.payInvoice(id: id, payId: pay.paymentId);
+    if (!response.success) {
+      loadingStateReservaion.value = LoadingState.hasError;
+      CustomToasts(
+        message: response.getErrorMessage(),
+        type: CustomToastType.error,
+      ).show();
+      return;
+    }
+
+    refreshPage();
+    loadingStateReservaion.value = LoadingState.doneWithData;
   }
 }
 

@@ -23,17 +23,24 @@ class NotificationCard extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: const BorderRadius.all(Radius.circular(20)),
-          color: ColorManager.yello.withAlpha(50),
+          color:
+              model.isRead
+                  ? ColorManager.yello.withAlpha(20)
+                  : ColorManager.yello.withAlpha(50),
         ),
         child: Column(
           children: [
             const SizedBox(height: AppSize.s8),
             Row(
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: AppPadding.p16),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppPadding.p16,
+                  ),
                   child: Icon(
-                    Icons.notifications_active,
+                    model.isRead
+                        ? Icons.notifications
+                        : Icons.notifications_active,
                     color: ColorManager.yello,
                   ),
                 ),
@@ -41,7 +48,7 @@ class NotificationCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      model.title,
+                      model.name,
                       style: Get.textTheme.bodyLarge!.copyWith(
                         color: ColorManager.primary6Color,
                         fontSize: FontSize.s14,
@@ -57,6 +64,24 @@ class NotificationCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: AppSize.s16),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppPadding.p16,
+                    ),
+                    child: Text(
+                      model.title,
+                      style: Get.textTheme.bodyLarge!.copyWith(
+                        color: ColorManager.primary6Color,
+                        fontSize: FontSize.s12,
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
             Row(

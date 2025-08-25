@@ -6,7 +6,7 @@ import 'package:property_ms/features/contract_details/contract_details_controlle
 class DownloadDialog {
   final controller = Get.find<ContractDetailsController>();
 
-  void show() {
+   void show() {
     Get.dialog(
       Dialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

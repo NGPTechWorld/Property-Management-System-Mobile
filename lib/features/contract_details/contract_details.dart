@@ -47,8 +47,30 @@ class ContractDetails extends GetView<ContractDetailsController> {
                       child: ReservationCard(model: controller.userReservation),
                     )
                     : controller.typeContract.value == ContractTypes.rentToursem
-                    ? ReservationCard(model: controller.userReservation)
-                    : SaleCard(model: controller.userReservation),
+                    ? GestureDetector(
+                      onTap:
+                          () => Get.toNamed(
+                            AppRoutes.tourismDetailsPage,
+                            parameters: {
+                              "id":
+                                  controller.userReservation.propertyId
+                                      .toString(),
+                            },
+                          ),
+                      child: ReservationCard(model: controller.userReservation),
+                    )
+                    : GestureDetector(
+                      onTap:
+                          () => Get.toNamed(
+                            AppRoutes.propertyDetailsPage,
+                            parameters: {
+                              "id":
+                                  controller.userReservation.propertyId
+                                      .toString(),
+                            },
+                          ),
+                      child: SaleCard(model: controller.userReservation),
+                    ),
           ),
           TabTitle(
             tabs: controller.tabs,
@@ -72,6 +94,7 @@ class ContractDetails extends GetView<ContractDetailsController> {
                           controller.currentBillList.length,
                           (index) => CurrentBillCard(
                             model: controller.currentBillList[index],
+                            isFirst: index == 0,
                           ),
                         ),
                         controller.currentBillList.isEmpty &&
@@ -164,11 +187,13 @@ class ContractDetails extends GetView<ContractDetailsController> {
 
 class CurrentBillCard extends GetView<ContractDetailsController> {
   final CurrentPurchaseItemDto model;
+  final bool isFirst;
   final bool isLoaging;
   const CurrentBillCard({
     super.key,
     required this.model,
     this.isLoaging = false,
+    this.isFirst = false,
   });
 
   @override
@@ -264,20 +289,29 @@ class CurrentBillCard extends GetView<ContractDetailsController> {
               ),
             ),
             GestureDetector(
-              onTap:
-                  () => controller.mainController.makePayment("clientSecret"),
+              onTap: () {
+                if (isFirst) {
+                  controller.confirmPay(model);
+                }
+              },
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppPadding.p16,
                   vertical: AppPadding.p8,
                 ),
-                decoration: const BoxDecoration(
-                  color: ColorManager.primaryDark,
-                  borderRadius: BorderRadius.all(Radius.circular(AppSize.s16)),
+                decoration: BoxDecoration(
+                  color:
+                      isFirst
+                          ? ColorManager.primaryDark
+                          : ColorManager.primary4Color,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(AppSize.s16),
+                  ),
                 ),
                 child: Text(
                   "إدفع ",
                   overflow: TextOverflow.ellipsis,
+
                   style: Get.textTheme.bodyLarge!.copyWith(
                     fontSize: FontSize.s12,
                     color: ColorManager.whiteColor,

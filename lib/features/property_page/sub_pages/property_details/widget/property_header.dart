@@ -30,22 +30,57 @@ class PropertyHeader extends GetView<PropertyDetailsController> {
                 Text('تاريخ النشر :  ${model.postDate}'),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 4),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: ColorManager.primaryDark,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Text(
-                  model.listingType,
-                  style: Get.textTheme.bodySmall!.copyWith(
-                    color: ColorManager.whiteColor,
-                    fontWeight: FontWeight.bold,
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 4,
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
+                    decoration: BoxDecoration(
+                      color: ColorManager.primaryDark,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      model.listingType,
+                      style: Get.textTheme.bodySmall!.copyWith(
+                        color: ColorManager.whiteColor,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                model.status == "متوفر"
+                    ? Container()
+                    : Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 12,
+                        horizontal: 4,
+                      ),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: ColorManager.cardHead,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          model.status,
+                          style: Get.textTheme.bodySmall!.copyWith(
+                            color: ColorManager.whiteColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+              ],
             ),
           ],
         ),

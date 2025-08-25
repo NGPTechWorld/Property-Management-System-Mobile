@@ -54,6 +54,7 @@ class NotificationPage extends GetView<NotificationController> {
                                 model: NotificationModel(
                                   id: 1,
                                   title: "title",
+                                  name: "name",
                                   body: "body",
                                   isRead: true,
                                   sentAt: "sentAt",

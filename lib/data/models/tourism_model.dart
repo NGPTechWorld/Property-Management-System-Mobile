@@ -24,6 +24,7 @@ class TourismModel {
   final List<String> additionalServices;
   final double area;
   final String location;
+  final String status;
   final double price;
   final String listingType;
   final String type;
@@ -43,6 +44,7 @@ class TourismModel {
     required this.latitude,
     required this.roomCount,
     required this.bedroomCount,
+    required this.status,
     required this.livingRoomCount,
     required this.kitchenCount,
     required this.bathroomCount,
@@ -71,6 +73,7 @@ class TourismModel {
     postTitle: json['postTitle'] ?? '',
     description: json['description'] ?? '',
     date: json['date'] ?? '',
+    status: json['status'] ?? 'متوفر',
     images: List<String>.from(json['images'] ?? []),
     longitude: json['longitude'] ?? '',
     latitude: json['latitude'] ?? '',
@@ -142,6 +145,7 @@ class TourismModel {
     postTitle: 'عنوان سياحي',
     description: '',
     date: '',
+    status: '',
     images: [],
     longitude: '',
     latitude: '',

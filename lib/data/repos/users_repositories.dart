@@ -32,6 +32,7 @@ abstract class UsersRepositories {
     String? fcm,
   });
   Future<AppResponse<PaymentDto>> paymentCreate({required double amount});
+  Future<AppResponse> payInvoice({required int id, required String payId});
   Future<AppResponse> resentOtp({
     required String email,
     required String type,
@@ -324,7 +325,7 @@ class ImpUsersRepositories extends GetxService implements UsersRepositories {
     );
     try {
       dio.Response response = await apiService.request(
-        url: EndPoints.notifications,
+        url: EndPoints.getNotifications,
         method: Method.get,
         requiredToken: true,
         withLogging: true,
@@ -451,6 +452,29 @@ class ImpUsersRepositories extends GetxService implements UsersRepositories {
       );
       appResponse.success = true;
       appResponse.data = file;
+    } catch (e) {
+      appResponse.success = false;
+      appResponse.networkFailure = ErrorHandler.handle(e).failure;
+    }
+    return appResponse;
+  }
+
+  @override
+  Future<AppResponse> payInvoice({
+    required int id,
+    required String payId,
+  }) async {
+    AppResponse<PaymentDto> appResponse = AppResponse(success: false);
+    try {
+      final response = await apiService.request(
+        url: EndPoints.payInvoice + id.toString(),
+        method: Method.post,
+        params: {"paymentIntentId": payId},
+        requiredToken: true,
+        withLogging: true,
+      );
+      appResponse.success = true;
+      appResponse.successMessage = response.data['message'];
     } catch (e) {
       appResponse.success = false;
       appResponse.networkFailure = ErrorHandler.handle(e).failure;

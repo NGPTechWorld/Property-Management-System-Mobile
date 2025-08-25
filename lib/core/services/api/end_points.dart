@@ -1,5 +1,5 @@
 class EndPoints {
-  static const String baseUrl = "https://80c7c85e6064.ngrok-free.app";
+  static const String baseUrl = "https://2b5b011eb0e0.ngrok-free.app";
   static const String templateT = "/templateT";
   //Map
   static const String mapExplore = "/map/explore";
@@ -7,8 +7,10 @@ class EndPoints {
   //User
   static const String userReservation = "/user-reservation/own";
   static const String userInvoice = "/user-invoice/own/properties/";
+  static const String payInvoice = "/user-invoice/";
   static const String userMyPurchases = "/user/myPurchases";
   static const String notifications = "/notifications";
+  static const String getNotifications = "/notifications/mobile";
   //Auth
   static const String signup = "/mobile-auth/signup";
   static const String confirm = "/mobile-auth/confirm";

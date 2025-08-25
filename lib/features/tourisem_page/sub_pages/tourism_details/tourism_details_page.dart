@@ -57,17 +57,20 @@ class TourismDetailsPage extends GetView<TourismDetailsController> {
                         },
                         body: TourismDetailsBody(controller: controller),
                       ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: PriceSection(
-                          price: controller.tourismDetails!.price.toString(),
-                          onPressed: () async {
-                            await controller.reservaion();
-                          },
+                      controller.tourismDetails!.status == "متوفر"
+                          ? Align(
+                            alignment: Alignment.bottomCenter,
+                            child: PriceSection(
+                              price:
+                                  controller.tourismDetails!.price.toString(),
+                              onPressed: () async {
+                                await controller.reservaion();
+                              },
 
-                          payrate: 'يومي',
-                        ),
-                      ),
+                              payrate: 'يومي',
+                            ),
+                          )
+                          : Container(),
                     ],
                   )
                   : Container(),
@@ -253,8 +256,11 @@ class TourismDetailsAppBar extends StatelessWidget {
         titlePadding: EdgeInsets.zero,
         expandedTitleScale: 1.1,
         background: ImageCarousel(
-          images:
-              controller.tourismDetails!.images.map((asset) => asset).toList(),
+          images: [
+            ...controller.tourismDetails!.images.map((asset) => asset),
+            controller.tourismDetails!.postImage,
+          ],
+
           currentIndex: controller.sliderIndex,
           activeDotColor: ColorManager.primaryColor,
           inactiveDotColor: Colors.grey.shade300,

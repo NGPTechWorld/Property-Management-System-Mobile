@@ -18,6 +18,7 @@ import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/reservation_bottom_sheet.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/select_property_bottom_sheet.dart';
 import 'package:property_ms/data/repos/users_repositories.dart';
+import 'package:property_ms/features/widgets/loading_diloag.dart';
 
 class PropertyDetailsController extends GetxController {
   final rating = 4.0.obs;
@@ -249,11 +250,11 @@ class PropertyDetailsController extends GetxController {
   }
 
   Future<void> getCommission() async {
-    Future.delayed(const Duration(seconds: 3));
+    LoadingDiloag.show();
     final response = await officeRepo.getCommissionOffice(
       id: propertyDetails!.office!.id,
     );
-
+    Get.back();
     if (!response.success) {
       CustomToasts(
         message: response.getErrorMessage(),
@@ -269,8 +270,8 @@ class PropertyDetailsController extends GetxController {
   confirmReservation() async {
     if (loadingStateReservaion.value == LoadingState.loading) return;
     loadingStateReservaion.value = LoadingState.loading;
-
-    final response;
+    LoadingDiloag.show();
+    final AppResponse<PaymentDto> response;
     if (propertyDetails!.listingType == "بيع") {
       response = await userRepo.paymentCreate(
         amount: double.parse(
@@ -287,6 +288,7 @@ class PropertyDetailsController extends GetxController {
         amount: double.parse(totalPrice.toStringAsFixed(2)),
       );
     }
+    Get.back();
     if (!response.success) {
       loadingStateReservaion.value = LoadingState.hasError;
       CustomToasts(
