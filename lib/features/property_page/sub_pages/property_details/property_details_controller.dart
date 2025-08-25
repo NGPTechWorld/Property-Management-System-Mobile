@@ -140,7 +140,9 @@ class PropertyDetailsController extends GetxController {
 
   void openSelectPropertyBottomSheet() async {
     if (cacheService.getData(key: kUserToken) != null) {
+      LoadingDiloag.show();
       await getAllProperty();
+      Get.back();
       SelectPropertyBottomSheet.showAnswer();
     } else {
       const CustomToasts(

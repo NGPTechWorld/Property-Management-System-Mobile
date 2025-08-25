@@ -83,7 +83,9 @@ class TourismDetailsController extends GetxController {
 
   void openSelectTourismBottomSheet() async {
     if (cacheService.getData(key: kUserToken) != null) {
+      LoadingDiloag.show();
       await getAllTourism();
+      Get.back();
       SelectTourismBottomSheet.showAnswer();
     } else {
       const CustomToasts(
