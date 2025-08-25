@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/services/cache/cache_keys.dart';
+import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
+import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/data/models/app_response.dart';
 import 'package:property_ms/data/repos/favorite_repositories.dart';
+import 'package:property_ms/features/main_page/main_controller.dart';
 
 //! Controller
 class FavoriteIconController extends GetxController
     with GetSingleTickerProviderStateMixin {
   final int propertyId;
   final FavoriteRepositories favoriteRepo;
-
+  final mainController = Get.find<MainController>();
+  final CacheService cacheService = Get.find<CacheService>();
   FavoriteIconController({
     required this.propertyId,
     required this.favoriteRepo,
@@ -30,6 +35,13 @@ class FavoriteIconController extends GetxController
   var loading = false.obs;
 
   Future<void> toggleFavorite() async {
+    if (cacheService.getData(key: kUserToken) == null) {
+      const CustomToasts(
+        message: "يجب عليك تسجيل الدخول",
+        type: CustomToastType.warning,
+      ).show();
+      return;
+    }
     if (loading.value) return;
     loading.value = true;
 
@@ -45,7 +57,10 @@ class FavoriteIconController extends GetxController
     if (response.success) {
       isFavorite.value = !isFavorite.value;
     } else {
-      Get.snackbar('خطأ', response.networkFailure?.message ?? "فشل العملية");
+      CustomToasts(
+        message: response.networkFailure!.message,
+        type: CustomToastType.error,
+      ).show();
     }
 
     loading.value = false;

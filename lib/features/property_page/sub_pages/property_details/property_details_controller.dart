@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:property_ms/core/Routes/app_routes.dart';
+import 'package:property_ms/core/services/cache/cache_keys.dart';
+import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/data/dto/payment_dto.dart';
 import 'package:property_ms/data/dto/property_dto.dart';
@@ -28,6 +30,7 @@ class PropertyDetailsController extends GetxController {
   final UsersRepositories userRepo = Get.find<UsersRepositories>();
   final OfficesRepositories officeRepo = Get.find<OfficesRepositories>();
   final MainController mainController = Get.find<MainController>();
+  final CacheService cacheService = Get.find<CacheService>();
   final loadingState = LoadingState.idle.obs;
   final RxInt sliderIndex = 0.obs;
   final isLoadingImages = true.obs;
@@ -136,8 +139,15 @@ class PropertyDetailsController extends GetxController {
   //!    Compare Property
 
   void openSelectPropertyBottomSheet() async {
-    await getAllProperty();
-    SelectPropertyBottomSheet.showAnswer();
+    if (cacheService.getData(key: kUserToken) != null) {
+      await getAllProperty();
+      SelectPropertyBottomSheet.showAnswer();
+    } else {
+      const CustomToasts(
+        message: "يجب عليك تسجيل الدخول",
+        type: CustomToastType.warning,
+      ).show();
+    }
   }
   //? Get All Property Filters
 
@@ -212,7 +222,14 @@ class PropertyDetailsController extends GetxController {
   //?    Rating
   void updateRating(double newRating) async {
     myRating.value = newRating;
-    await postPropertyRate();
+    if (cacheService.getData(key: kUserToken) != null) {
+      await postPropertyRate();
+    } else {
+      const CustomToasts(
+        message: "يجب عليك تسجيل الدخول",
+        type: CustomToastType.warning,
+      ).show();
+    }
   }
 
   Future<void> postPropertyRate() async {
@@ -246,7 +263,14 @@ class PropertyDetailsController extends GetxController {
   final loadingStateReservaion = LoadingState.idle.obs;
 
   openReservation() async {
-    await getCommission();
+    if (cacheService.getData(key: kUserToken) != null) {
+      await getCommission();
+    } else {
+      const CustomToasts(
+        message: "يجب عليك تسجيل الدخول",
+        type: CustomToastType.warning,
+      ).show();
+    }
   }
 
   Future<void> getCommission() async {

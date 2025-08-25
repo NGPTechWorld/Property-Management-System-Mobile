@@ -87,6 +87,7 @@ class AppBarProperty extends GetView<PropertyController> {
         AppBarSearch(
           title: "عقارات",
           onTapFilter: controller.openFilterPagePro,
+          
           isLocation: true,
           isBack: true,
           controller: controller.searchController,

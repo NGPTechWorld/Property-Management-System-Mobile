@@ -2,6 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/Routes/app_routes.dart';
+import 'package:property_ms/core/services/cache/cache_keys.dart';
+import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/data/dto/property_dto.dart';
@@ -18,6 +21,7 @@ import 'package:property_ms/data/models/app_response.dart';
 import 'package:property_ms/data/models/paginated_model.dart';
 import 'package:property_ms/data/repos/property_repositories.dart';
 import 'package:property_ms/data/repos/tourism_repositories.dart';
+import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/tourisem_page/widgets/filter_pro_tourisem.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
 import 'package:property_ms/features/widgets/question_bottum_sheets/question_type_widget.dart';
@@ -25,7 +29,8 @@ import 'package:property_ms/features/widgets/question_bottum_sheets/question_typ
 class TourisemController extends GetxController {
   final TourismRepositories tourismRepo = Get.find<TourismRepositories>();
   final PropertyRepositories propertyRepo = Get.find<PropertyRepositories>();
-
+  final mainController = Get.find<MainController>();
+  final CacheService cacheService = Get.find<CacheService>();
   final searchController = TextEditingController();
   final sliderIndex = 0.obs;
 
@@ -192,7 +197,11 @@ class TourisemController extends GetxController {
       q.selectedIndices.value = [];
     }
     maxPrice.value = minPrice.value = 0;
-    FilterProTourisem.showAnswer(this);
+    if (cacheService.getData(key: kUserToken) != null) {
+      FilterProTourisem.showAnswer(this);
+    } else {
+      Get.offAllNamed(AppRoutes.loginRoute);
+    }
   }
 
   //! Pagination & Scroll

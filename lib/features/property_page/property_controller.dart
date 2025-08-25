@@ -2,6 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/Routes/app_routes.dart';
+import 'package:property_ms/core/services/cache/cache_keys.dart';
+import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/data/dto/property_dto.dart';
@@ -16,12 +19,15 @@ import 'package:property_ms/data/enums/syrian_governorate.dart';
 import 'package:property_ms/data/models/app_response.dart';
 import 'package:property_ms/data/models/paginated_model.dart';
 import 'package:property_ms/data/repos/property_repositories.dart';
+import 'package:property_ms/features/main_page/main_controller.dart';
 import 'package:property_ms/features/property_page/widgets/filter_pro_property.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
 import 'package:property_ms/features/widgets/question_bottum_sheets/question_type_widget.dart';
 
 class PropertyController extends GetxController {
   final PropertyRepositories propertyRepo = Get.find<PropertyRepositories>();
+  final CacheService cacheService = Get.find<CacheService>();
+  final mainController = Get.find<MainController>();
   final searchController = TextEditingController();
   final sliderIndex = 0.obs;
 
@@ -223,7 +229,11 @@ class PropertyController extends GetxController {
       q.selectedIndices.value = [];
     }
     maxPrice.value = minPrice.value = 0;
-    FilterProProperty.showAnswer(this);
+    if (cacheService.getData(key: kUserToken) != null) {
+      FilterProProperty.showAnswer(this);
+    } else {
+      Get.offAllNamed(AppRoutes.loginRoute);
+    }
   }
 
   //! ===============================================

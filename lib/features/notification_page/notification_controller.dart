@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/data/models/notification_model.dart';
 import 'package:property_ms/data/repos/users_repositories.dart';
@@ -27,10 +26,10 @@ class NotificationController extends GetxController {
 
     if (!response.success) {
       loadingState.value = LoadingState.hasError;
-      CustomToasts(
-        message: response.getErrorMessage(),
-        type: CustomToastType.error,
-      ).show();
+      // CustomToasts(
+      //   message: response.getErrorMessage(),
+      //   type: CustomToastType.error,
+      // ).show();
       return;
     }
     notificationsList.addAll(response.data!);

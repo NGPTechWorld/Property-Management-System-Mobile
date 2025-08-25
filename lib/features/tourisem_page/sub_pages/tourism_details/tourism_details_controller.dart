@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:property_ms/core/Routes/app_routes.dart';
+import 'package:property_ms/core/services/cache/cache_keys.dart';
+import 'package:property_ms/core/services/cache/cache_service.dart';
 
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/data/dto/payment_dto.dart';
@@ -24,6 +26,7 @@ class TourismDetailsController extends GetxController {
   final TourismRepositories tourismRepo = Get.find<TourismRepositories>();
   final UsersRepositories userRepo = Get.find<UsersRepositories>();
   final mainController = Get.find<MainController>();
+  final CacheService cacheService = Get.find<CacheService>();
   final loadingState = LoadingState.idle.obs;
   RxDouble rating = 4.0.obs;
 
@@ -79,8 +82,15 @@ class TourismDetailsController extends GetxController {
   //!    Compare Tourism
 
   void openSelectTourismBottomSheet() async {
-    await getAllTourism();
-    SelectTourismBottomSheet.showAnswer();
+    if (cacheService.getData(key: kUserToken) != null) {
+      await getAllTourism();
+      SelectTourismBottomSheet.showAnswer();
+    } else {
+      const CustomToasts(
+        message: "يجب عليك تسجيل الدخول",
+        type: CustomToastType.warning,
+      ).show();
+    }
   }
   //? Get All Property Filters
 
@@ -185,8 +195,14 @@ class TourismDetailsController extends GetxController {
   reservaion() async {
     celenderReservaion.clear();
     selectedDaysCount.value = 0;
-
-    await getAvailability();
+    if (cacheService.getData(key: kUserToken) != null) {
+      await getAvailability();
+    } else {
+      const CustomToasts(
+        message: "يجب عليك تسجيل الدخول",
+        type: CustomToastType.warning,
+      ).show();
+    }
   }
 
   Future<void> getAvailability() async {

@@ -26,7 +26,7 @@ class ServiceDto {
     location: json['location'] ?? '',
     career: json['career'] ?? '',
     userPhone: json['userPhone'] ?? '',
-    rate: (json['avgRate'] ?? 0).toDouble(),
+    rate: (json['avgRate'] ?? json['rate'] ?? 0).toDouble(),
     ratingCount: json['rating_count'] ?? 0,
   );
 

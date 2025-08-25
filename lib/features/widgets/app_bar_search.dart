@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/custom_text_field.dart';
+import 'package:property_ms/features/main_page/main_controller.dart';
 
 class AppBarSearch extends StatelessWidget {
   final String title;
@@ -106,7 +108,15 @@ class AppBarSearch extends StatelessWidget {
 
                   isLocation ? const SizedBox(width: 8) : Container(),
                   isLocation
-                      ? Assets.icons.mapIcon.svg(width: 30)
+                      ? GestureDetector(
+                        onTap: () async {
+                          final mainController = Get.find<MainController>();
+                          Get.offAllNamed(AppRoutes.mainRoute);
+                          await Future.delayed(const Duration(seconds: 1));
+                          mainController.changePage(2);
+                        },
+                        child: Assets.icons.mapIcon.svg(width: 30),
+                      )
                       : Container(),
                 ],
               ),

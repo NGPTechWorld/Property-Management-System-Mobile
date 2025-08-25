@@ -34,17 +34,17 @@ class MainController extends GetxController {
   void changePage(int newIndex) {
     // delete old controller (if it exists)
     if (pageIndex.value == 0 && Get.isRegistered<HomeController>()) {
-      Get.delete<HomeController>();
+      // Get.delete<HomeController>();
     } else if (pageIndex.value == 1 && Get.isRegistered<OfficesController>()) {
-      Get.delete<OfficesController>();
+      //Get.delete<OfficesController>();
     } else if (pageIndex.value == 2 &&
         Get.isRegistered<ExplorationController>()) {
-      Get.delete<ExplorationController>();
+      // Get.delete<ExplorationController>();
     } else if (pageIndex.value == 3 &&
         Get.isRegistered<ReservationController>()) {
       Get.delete<ReservationController>();
     } else if (pageIndex.value == 4 && Get.isRegistered<ProfileController>()) {
-      Get.delete<ProfileController>();
+      //Get.delete<ProfileController>();
     }
 
     // update the index

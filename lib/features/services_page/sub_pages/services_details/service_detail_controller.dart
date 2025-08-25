@@ -1,12 +1,17 @@
 import 'package:get/get.dart';
+import 'package:property_ms/core/services/cache/cache_keys.dart';
+import 'package:property_ms/core/services/cache/cache_service.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
 import 'package:property_ms/data/enums/loading_state_enum.dart';
 
 import 'package:property_ms/data/models/service_model.dart';
 import 'package:property_ms/data/repos/services_repositories.dart';
+import 'package:property_ms/features/main_page/main_controller.dart';
 
 class ServiceDetailController extends GetxController {
   final ServicesRepositories serviceRepo = Get.find<ServicesRepositories>();
+  final mainController = Get.find<MainController>();
+  final CacheService cacheService = Get.find<CacheService>();
   final loadingState = LoadingState.idle.obs;
   final int id = int.parse(Get.parameters['id']!);
   RxDouble rating = 4.0.obs;
@@ -46,7 +51,14 @@ class ServiceDetailController extends GetxController {
   //?    Rating
   void updateRating(double newRating) async {
     myRating.value = newRating;
-    await postPropertyRate();
+    if (cacheService.getData(key: kUserToken) != null) {
+      await postPropertyRate();
+    } else {
+      const CustomToasts(
+        message: "يجب عليك تسجيل الدخول",
+        type: CustomToastType.warning,
+      ).show();
+    }
   }
 
   Future<void> postPropertyRate() async {
