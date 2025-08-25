@@ -137,8 +137,8 @@ class ServiceDetailPage extends GetView<ServiceDetailController> {
                                           .closingTime,
                                 ),
                                 const SizedBox(height: AppSize.s24),
-                                const SectionLabel(title: 'تواصل مع المكتب:'),
-                                const SizedBox(height: AppSize.s16),
+                                //const SectionLabel(title: 'تواصل مع المكتب:'),
+                                const SizedBox(height: AppSize.s24),
                                 // SocialIconsRow(
                                 //   instagramUrl: service.,
                                 //   whatsappUrl: service.whatsappUrl,
@@ -152,9 +152,12 @@ class ServiceDetailPage extends GetView<ServiceDetailController> {
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
-                      child: ContactCard(
-                        phoneNumber: controller.serviceDetaitModel!.userPhone,
-                        name: controller.serviceDetaitModel!.name,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        child: ContactCard(
+                          phoneNumber: controller.serviceDetaitModel!.userPhone,
+                          name: controller.serviceDetaitModel!.name,
+                        ),
                       ),
                     ),
                   ],
