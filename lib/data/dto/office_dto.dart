@@ -4,6 +4,7 @@ class OfficeDto {
   final String logo;
   final String location;
   final String type;
+  final bool stripePayment;
   final double rate;
   final int ratingCount;
 
@@ -15,6 +16,7 @@ class OfficeDto {
     required this.type,
     required this.rate,
     required this.ratingCount,
+    required this.stripePayment,
   });
 
   factory OfficeDto.fromJson(Map<String, dynamic> json) => OfficeDto(
@@ -23,6 +25,7 @@ class OfficeDto {
     logo: json['logo'] ?? '',
     location: json['location'] ?? '',
     type: json['type'] ?? '',
+    stripePayment: json['stripe_payment'] ?? false,
     rate: double.tryParse(json['rate']?.toString() ?? '') ?? 0.0,
     ratingCount: json['rating_count'] ?? 0,
   );
@@ -36,6 +39,7 @@ class OfficeDto {
       type: "النوع",
       rate: 0,
       ratingCount: 0,
+      stripePayment: false,
     );
   }
 

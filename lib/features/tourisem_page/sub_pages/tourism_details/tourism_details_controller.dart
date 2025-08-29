@@ -198,7 +198,14 @@ class TourismDetailsController extends GetxController {
     celenderReservaion.clear();
     selectedDaysCount.value = 0;
     if (cacheService.getData(key: kUserToken) != null) {
-      await getAvailability();
+      if (tourismDetails!.office!.stripePayment) {
+        await getAvailability();
+      } else {
+        const CustomToasts(
+          message: "هذا المكتب لايدعم الدفع الإلكتروني يمكنك الحجز ضمن المكتب",
+          type: CustomToastType.warning,
+        ).show();
+      }
     } else {
       const CustomToasts(
         message: "يجب عليك تسجيل الدخول",

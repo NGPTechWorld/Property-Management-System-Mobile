@@ -266,7 +266,14 @@ class PropertyDetailsController extends GetxController {
 
   openReservation() async {
     if (cacheService.getData(key: kUserToken) != null) {
-      await getCommission();
+      if (propertyDetails!.office!.stripePayment) {
+        await getCommission();
+      } else {
+        const CustomToasts(
+          message: "هذا المكتب لايدعم الدفع الإلكتروني يمكنك الحجز ضمن المكتب",
+          type: CustomToastType.warning,
+        ).show();
+      }
     } else {
       const CustomToasts(
         message: "يجب عليك تسجيل الدخول",

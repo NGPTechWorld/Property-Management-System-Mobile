@@ -77,6 +77,7 @@ class ContractDetailsController extends GetxController
         message: response.getErrorMessage(),
         type: CustomToastType.error,
       ).show();
+      Get.back();
       return;
     }
 

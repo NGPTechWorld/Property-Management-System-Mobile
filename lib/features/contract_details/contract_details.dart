@@ -48,15 +48,15 @@ class ContractDetails extends GetView<ContractDetailsController> {
                     )
                     : controller.typeContract.value == ContractTypes.rentToursem
                     ? GestureDetector(
-                      onTap:
-                          () => Get.toNamed(
-                            AppRoutes.tourismDetailsPage,
-                            parameters: {
-                              "id":
-                                  controller.userReservation.propertyId
-                                      .toString(),
-                            },
-                          ),
+                      // onTap:
+                      //     () => Get.toNamed(
+                      //       AppRoutes.tourismDetailsPage,
+                      //       parameters: {
+                      //         "id":
+                      //             controller.userReservation.propertyId
+                      //                 .toString(),
+                      //       },
+                      //     ),
                       child: ReservationCard(model: controller.userReservation),
                     )
                     : GestureDetector(
@@ -326,7 +326,7 @@ class CurrentBillCard extends GetView<ContractDetailsController> {
   }
 }
 
-class PastBillCard extends StatelessWidget {
+class PastBillCard extends GetView<ContractDetailsController> {
   final PurchaseItemDto model;
   final bool isLoaging;
   const PastBillCard({super.key, required this.model, this.isLoaging = false});
@@ -473,24 +473,29 @@ class PastBillCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppPadding.p16,
-                    vertical: AppPadding.p8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: ColorManager.primary5Color,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(AppSize.s16),
+                GestureDetector(
+                  onTap: () {
+                    controller.downloadFile(model.invoiceImage);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppPadding.p16,
+                      vertical: AppPadding.p8,
                     ),
-                    border: Border.all(color: ColorManager.primary6Color),
-                  ),
-                  child: Text(
-                    "عرض الفاتورة ",
-                    overflow: TextOverflow.ellipsis,
-                    style: Get.textTheme.bodyLarge!.copyWith(
-                      fontSize: FontSize.s12,
-                      color: ColorManager.whiteColor,
+                    decoration: BoxDecoration(
+                      color: ColorManager.primary5Color,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(AppSize.s16),
+                      ),
+                      border: Border.all(color: ColorManager.primary6Color),
+                    ),
+                    child: Text(
+                      "عرض الفاتورة ",
+                      overflow: TextOverflow.ellipsis,
+                      style: Get.textTheme.bodyLarge!.copyWith(
+                        fontSize: FontSize.s12,
+                        color: ColorManager.whiteColor,
+                      ),
                     ),
                   ),
                 ),
@@ -531,7 +536,7 @@ class HearderReservationDetails extends GetView<ContractDetailsController> {
                     : controller.typeContract.value ==
                         ContractTypes.rentProperty
                     ? "${controller.userReservation.rentalPrice} \$ "
-                    : "",
+                    : "${controller.userReservation.rentalPrice} \$ ",
                 overflow: TextOverflow.ellipsis,
                 style: Get.textTheme.bodyLarge!.copyWith(
                   fontSize: FontSize.s24,

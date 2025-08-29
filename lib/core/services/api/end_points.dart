@@ -1,5 +1,6 @@
 class EndPoints {
-  static const String baseUrl = "https://2b5b011eb0e0.ngrok-free.app";
+  // static const String baseUrl = "http://192.168.1.103:3000/";
+  static const String baseUrl = "https://e3e6545d05e0.ngrok-free.app";
   static const String templateT = "/templateT";
   //Map
   static const String mapExplore = "/map/explore";
@@ -67,6 +68,7 @@ class EndPoints {
 
   //Profile
   static const String userProfileInfo = "/user/profile";
+  static const String getSupports = "/admin/supports/Pfaqs";
 
   //Posts
   static const String userPost = "/user-post/own";
