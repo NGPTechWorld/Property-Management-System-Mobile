@@ -62,10 +62,12 @@ class FilterProOffice {
                         textInputType: TextInputType.text,
                         fillColor: ColorManager.whiteColor,
                         onTap: () async {
-                          await QuestionTypeWidget.showAnswer(question: controller.govermentQuestion);
+                          await QuestionTypeWidget.showAnswer(
+                            question: controller.govermentQuestion,
+                          );
                           controller.onGovernorateSelected(
-                              controller.govermentQuestion.controller.text,
-                            );
+                            controller.govermentQuestion.controller.text,
+                          );
                         },
                         suffixIcon: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -104,9 +106,13 @@ class FilterProOffice {
                       const SizedBox(height: AppSize.s8),
                       _buildRatingRow(),
                       const SizedBox(height: AppSize.s24),
-                      const SizedBox(
+                      SizedBox(
                         width: double.infinity,
                         child: AppButton(
+                          onPressed: () {
+                            controller.refreshPage();
+                            Get.back();
+                          },
                           backgroundColor: ColorManager.secColor,
                           text: "تطبيق",
                         ),
@@ -154,7 +160,7 @@ class FilterProOffice {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        SizedBox(width: AppSize.s2),
+                        const SizedBox(width: AppSize.s2),
 
                         Icon(
                           Icons.star,

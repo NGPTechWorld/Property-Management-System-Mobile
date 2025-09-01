@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/custom_text_field.dart';
+import 'package:property_ms/features/main_page/main_controller.dart';
 
 class AppBarSearch extends StatelessWidget {
   final String title;
   final bool isLocation;
   final bool isBack;
   final Function onTapFilter;
+  final TextEditingController controller;
   const AppBarSearch({
     super.key,
     required this.title,
     required this.isLocation,
     required this.onTapFilter,
     this.isBack = false,
+    required this.controller,
   });
 
   @override
@@ -76,7 +79,7 @@ class AppBarSearch extends StatelessWidget {
                       hint: "بحث",
                       minHeight: 50,
                       borderRadius: 72,
-                      textEditingController: TextEditingController(),
+                      textEditingController: controller,
                       textInputType: TextInputType.text,
                       suffixIcon: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -105,7 +108,15 @@ class AppBarSearch extends StatelessWidget {
 
                   isLocation ? const SizedBox(width: 8) : Container(),
                   isLocation
-                      ? Assets.icons.mapIcon.svg(width: 30)
+                      ? GestureDetector(
+                        onTap: () async {
+                          final mainController = Get.find<MainController>();
+                          Get.offAllNamed(AppRoutes.mainRoute);
+                          await Future.delayed(const Duration(seconds: 1));
+                          mainController.changePage(2);
+                        },
+                        child: Assets.icons.mapIcon.svg(width: 30),
+                      )
                       : Container(),
                 ],
               ),

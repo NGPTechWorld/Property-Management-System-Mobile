@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
+import 'package:property_ms/data/dto/property_dto.dart';
+import 'package:property_ms/features/widgets/favorite_icon_button.dart';
 
 class PropertyRentCard2SmallModel {
   final String title;
@@ -23,9 +26,13 @@ class PropertyRentCard2SmallModel {
 }
 
 class PropertyRentCard2Small extends StatelessWidget {
-  final PropertyRentCard2SmallModel model;
-
-  const PropertyRentCard2Small({super.key, required this.model});
+  final PropertyDto model;
+  final bool isLoaging;
+  const PropertyRentCard2Small({
+    super.key,
+    required this.model,
+    this.isLoaging = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +43,8 @@ class PropertyRentCard2Small extends StatelessWidget {
         height: AppSize.sHeight * 0.15,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: Colors.white,
+          color: isLoaging ? Colors.transparent : ColorManager.white,
+          border: isLoaging ? Border.all() : null,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,39 +58,22 @@ class PropertyRentCard2Small extends StatelessWidget {
                 Center(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: model.image.image(
+                    child: CustomCachedNetworkImage(
+                      imageUrl: model.postImage,
                       height: AppSize.sHeight * 0.12,
                       width: AppSize.sWidth * 0.33,
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 18,
+                    horizontal: 5,
+                    vertical: 16,
                   ),
-                  child: GestureDetector(
-                    onTap: () {}, // Add controller logic if needed
-                    child: Container(
-                      width: 32,
-                      height: 32,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: ColorManager.cardBackground,
-                      ),
-                      child: Center(
-                        child: Assets.icons.favoriteFillIcon.svg(
-                          width: 16, // 👈 حجم الأيقونة
-
-                          colorFilter: const ColorFilter.mode(
-                            ColorManager.grey3,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                      ),
-                    ),
+                  child: FavoriteIconButton(
+                    propertyId: model.propertyId,
+                    initialIsFavorite: model.isFavorite,
                   ),
                 ),
 
@@ -116,71 +107,77 @@ class PropertyRentCard2Small extends StatelessWidget {
             ),
 
             // Spacer(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: AppSize.s4),
-                  SizedBox(
-                    width: AppSize.sWidth * .30,
-                    child: Text(
-                      model.title,
-                      style: Get.textTheme.bodyLarge,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: AppSize.s4),
+                    Text(
+                      model.postTitle,
+                      style: Get.textTheme.bodyLarge!.copyWith(
+                        fontSize: FontSize.s14,
+                      ),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                     ),
-                  ),
-                  // const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.star,
-                        color: ColorManager.yello,
-                        size: 18,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        model.rate.toString(),
-                        style: Get.textTheme.bodyLarge,
-                      ),
-                    ],
-                  ),
-                  // const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.location_on,
-                        color: ColorManager.primary5Color,
-                        size: 18,
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        model.location,
-                        overflow: TextOverflow.ellipsis,
-                        style: Get.textTheme.bodySmall!.copyWith(
-                          fontSize: FontSize.s10,
-                          fontWeight: FontWeight.bold,
+                    // const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.star,
+                          color: ColorManager.yello,
+                          size: 18,
                         ),
-                      ),
-                    ],
-                  ),
-                  // const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Text('\$${model.price}', style: Get.textTheme.bodyLarge),
-                      Text(
-                        ' ${model.priceUnit}',
-                        style: Get.textTheme.bodyLarge!.copyWith(fontSize: 12),
-                      ),
-                    ],
-                  ),
-                ],
+                        const SizedBox(width: 4),
+                        Text(
+                          model.rate.toString(),
+                          style: Get.textTheme.bodyLarge!.copyWith(
+                            fontSize: FontSize.s12,
+                          ),
+                        ),
+                      ],
+                    ),
+                    // const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.location_on,
+                          color: ColorManager.primary5Color,
+                          size: 18,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          model.location,
+                          overflow: TextOverflow.ellipsis,
+                          style: Get.textTheme.bodySmall!.copyWith(
+                            fontSize: FontSize.s10,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Text(
+                          '\$${model.price}',
+                          style: Get.textTheme.bodyLarge,
+                        ),
+                        Text(
+                          ' ${model.rentalPeriod}',
+                          style: Get.textTheme.bodyLarge!.copyWith(
+                            fontSize: 10,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-
-            const Spacer(),
 
             Container(
               padding: const EdgeInsets.all(4),

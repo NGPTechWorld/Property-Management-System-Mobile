@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
+import 'package:property_ms/features/widgets/favorite_icon_button.dart';
 
 class TourisemCardSmallModel {
   final String title;
@@ -20,8 +22,15 @@ class TourisemCardSmallModel {
 }
 
 class TourisemCardSmall extends StatelessWidget {
-  final TourisemCardSmallModel model;
-  const TourisemCardSmall({super.key, required this.model});
+  // ignore: prefer_typing_uninitialized_variables
+  final model;
+  final bool isLoading;
+
+  const TourisemCardSmall({
+    super.key,
+    required this.model,
+    this.isLoading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +41,8 @@ class TourisemCardSmall extends StatelessWidget {
         height: AppSize.sHeight * 0.15,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: Colors.white,
+          color: isLoading ? Colors.transparent : Colors.white,
+          border: isLoading ? Border.all() : null,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -43,100 +53,42 @@ class TourisemCardSmall extends StatelessWidget {
                 Center(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: model.image.image(
+                    child: CustomCachedNetworkImage(
+                      imageUrl: model.postImage,
                       height: AppSize.sHeight * 0.12,
                       width: AppSize.sWidth * 0.33,
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
-
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(
-                //     horizontal: 8,
-                //     vertical: 18,
-                //   ),
-                //   child: CircleAvatar(
-                //     backgroundColor: ColorManager.cardBackground,
-                //     maxRadius: 16,
-                //     child: IconButton(
-                //       onPressed: () {},
-                //       icon: Assets.icons.favorite.svg(
-                //         colorFilter: const ColorFilter.mode(
-                //           ColorManager.redColor,
-                //           BlendMode.srcIn,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 18,
+                    horizontal: 5,
+                    vertical: 16,
                   ),
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      width: 32, // 👈 حجم الدائرة
-                      height: 32,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: ColorManager.cardBackground,
-                      ),
-                      child: Center(
-                        child: Assets.icons.favoriteFillIcon.svg(
-                          width: 16, // 👈 حجم الأيقونة
-
-                          colorFilter: const ColorFilter.mode(
-                            ColorManager.grey3,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                      ),
-                    ),
+                  child: FavoriteIconButton(
+                    propertyId: model.propertyId,
+                    initialIsFavorite: model.isFavorite,
                   ),
                 ),
               ],
             ),
-
-            // const SizedBox(width: 12),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisSize: Main,
                 children: [
                   const SizedBox(height: AppSize.s4),
-                  SizedBox(
-                    width: AppSize.sWidth * .30,
-                    child: Text(
-                      '${model.title}  ${model.area} م²',
-                      style: Get.textTheme.bodyLarge!.copyWith(
-                        // fontWeight: FontWeight.w600,
-                        // fontSize: FontSize.s15
-                      ),
-
-                      overflow: TextOverflow.ellipsis,
+                  Text(
+                    '${model.postTitle} ',
+                    style: Get.textTheme.bodyLarge!.copyWith(
+                      fontSize: FontSize.s14,
                     ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
                   ),
                   const SizedBox(height: 4),
-                  // Row(
-                  //   children: [
-                  //     const Icon(
-                  //       Icons.area_chart,
-                  //       color: ColorManager.primary5Color,
-                  //       size: 18,
-                  //     ),
-                  //     const SizedBox(width: 4),
-                  //     Text(
-                  //       model.area.toString(),
-                  //       style: Get.textTheme.bodyLarge,
-                  //     ),
-                  //   ],
-                  // ),
-                  // const SizedBox(height: 4),
                   Row(
                     children: [
                       const Icon(
@@ -161,16 +113,14 @@ class TourisemCardSmall extends StatelessWidget {
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      Text(
-                        ' \$${model.price.toString()}',
-                        style: Get.textTheme.bodyLarge,
-                      ),
+                      Text(' \$${model.price}', style: Get.textTheme.bodyLarge),
+                      const SizedBox(width: 8),
+                      const Text('يومي'),
                     ],
                   ),
                 ],
               ),
             ),
-
             const Spacer(),
             Container(
               padding: const EdgeInsets.all(4),

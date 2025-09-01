@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
+import 'package:property_ms/data/dto/property_dto.dart';
+import 'package:property_ms/features/widgets/favorite_icon_button.dart';
 
 class PropertySaleCard2SmallModel {
   final String title;
@@ -20,7 +23,7 @@ class PropertySaleCard2SmallModel {
 }
 
 class PropertySaleCard2Small extends StatelessWidget {
-  final PropertySaleCard2SmallModel model;
+  final PropertyDto model;
   const PropertySaleCard2Small({super.key, required this.model});
 
   @override
@@ -43,7 +46,8 @@ class PropertySaleCard2Small extends StatelessWidget {
                 Center(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: model.image.image(
+                    child: CustomCachedNetworkImage(
+                      imageUrl: model.postImage,
                       height: AppSize.sHeight * 0.12,
                       width: AppSize.sWidth * 0.33,
                       fit: BoxFit.cover,
@@ -51,50 +55,14 @@ class PropertySaleCard2Small extends StatelessWidget {
                   ),
                 ),
 
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(
-                //     horizontal: 8,
-                //     vertical: 18,
-                //   ),
-                //   child: CircleAvatar(
-                //     backgroundColor: ColorManager.cardBackground,
-                //     maxRadius: 16,
-                //     child: IconButton(
-                //       onPressed: () {},
-                //       icon: Assets.icons.favorite.svg(
-                //         colorFilter: const ColorFilter.mode(
-                //           ColorManager.redColor,
-                //           BlendMode.srcIn,
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 18,
+                    horizontal: 5,
+                    vertical: 16,
                   ),
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: Container(
-                      width: 32, // 👈 حجم الدائرة
-                      height: 32,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: ColorManager.cardBackground,
-                      ),
-                      child: Center(
-                        child: Assets.icons.favoriteFillIcon.svg(
-                          width: 16, // 👈 حجم الأيقونة
-
-                          colorFilter: const ColorFilter.mode(
-                            ColorManager.grey3,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                      ),
-                    ),
+                  child: FavoriteIconButton(
+                    propertyId: model.propertyId,
+                    initialIsFavorite: model.isFavorite,
                   ),
                 ),
 
@@ -127,54 +95,51 @@ class PropertySaleCard2Small extends StatelessWidget {
               ],
             ),
 
-            // const SizedBox(width: 12),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                // mainAxisSize: Main,
-                children: [
-                  const SizedBox(height: AppSize.s4),
-                  SizedBox(
-                    width: AppSize.sWidth * .30,
-                    child: Text(
-                      '${model.title}  ${model.area} م²',
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: AppSize.s4),
+                    Text(
+                      model.postTitle,
                       style: Get.textTheme.bodyLarge!.copyWith(
-                        // fontWeight: FontWeight.w600,
-                        // fontSize: FontSize.s15
+                        fontSize: FontSize.s14,
                       ),
 
                       overflow: TextOverflow.ellipsis,
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  // Row(
-                  //   children: [
-                  //     const Icon(
-                  //       Icons.area_chart,
-                  //       color: ColorManager.primary5Color,
-                  //       size: 18,
-                  //     ),
-                  //     const SizedBox(width: 4),
-                  //     Text(
-                  //       model.area.toString(),
-                  //       style: Get.textTheme.bodyLarge,
-                  //     ),
-                  //   ],
-                  // ),
-                  // const SizedBox(height: 4),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.location_on,
-                        color: ColorManager.orangeColor,
-                        size: 18,
-                      ),
-                      const SizedBox(width: 4),
-                      SizedBox(
-                        width: AppSize.sWidth * .30,
-                        child: Text(
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.area_chart,
+                          color: ColorManager.primary5Color,
+                          size: 18,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
+                          "${model.area} م²",
+                          style: Get.textTheme.bodySmall!.copyWith(
+                            fontWeight: FontWeight.bold,
+                            fontSize: FontSize.s12,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.location_on,
+                          color: ColorManager.primary5Color,
+                          size: 18,
+                        ),
+                        const SizedBox(width: 4),
+                        Text(
                           model.location,
                           style: Get.textTheme.bodySmall!.copyWith(
                             fontWeight: FontWeight.bold,
@@ -182,23 +147,22 @@ class PropertySaleCard2Small extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Text(
-                        ' \$${model.price.toString()}',
-                        style: Get.textTheme.bodyLarge,
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Text(
+                          ' \$${model.price.toString()}',
+                          style: Get.textTheme.bodyLarge,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
 
-            const Spacer(),
             Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(

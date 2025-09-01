@@ -6,7 +6,8 @@ import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 
 class EmptyCard extends StatelessWidget {
-  const EmptyCard({super.key});
+  final bool isSmall;
+  const EmptyCard({super.key, this.isSmall = false});
 
   @override
   Widget build(BuildContext context) {
@@ -27,9 +28,13 @@ class EmptyCard extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: AppPadding.p18),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
-                  child: Assets.images.box.image(width: AppSize.sWidth * 0.5),
+                  child: Assets.images.box.image(
+                    width:
+                        isSmall ? AppSize.sWidth * 0.2 : AppSize.sWidth * 0.5,
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
@@ -39,7 +44,7 @@ class EmptyCard extends StatelessWidget {
                     "لا يوجد عناصر !",
                     style: Get.textTheme.bodyLarge!.copyWith(
                       color: ColorManager.primary5Color,
-                      fontSize: FontSize.s18,
+                      fontSize: isSmall ? FontSize.s14 : FontSize.s18,
                     ),
                   ),
                 ),

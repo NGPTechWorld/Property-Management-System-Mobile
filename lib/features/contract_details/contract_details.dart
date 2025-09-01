@@ -2,14 +2,19 @@ import 'dart:developer';
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:property_ms/core/Routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/data/dto/user_invoice_dto.dart';
+import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/features/contract_details/contract_details_controller.dart';
 import 'package:property_ms/features/profile_page/sub_pages/my_sales_page/widgets/sale_card.dart';
 
 import 'package:property_ms/features/reservation_page/widgets/reservation_card.dart';
+import 'package:property_ms/features/widgets/empty_card.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/tab/tab_body.dart';
 import 'package:property_ms/features/widgets/office_profile_reusable_widgets/tab/tab_title.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ContractDetails extends GetView<ContractDetailsController> {
   const ContractDetails({super.key});
@@ -26,41 +31,45 @@ class ContractDetails extends GetView<ContractDetailsController> {
           const HearderReservationDetails(),
 
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(vertical: 8),
             child:
                 controller.typeContract.value == ContractTypes.rentProperty
-                    ? ReservationCard(
-                      model: ReservationCardModel(
-                        title: "بيت 200م",
-                        location: "دمشق , ميدان",
-                        endDate: '2025-12-20',
-                        startDate: '2025-05-20',
-                        image: "image",
-                        state: "مؤجر",
-                        type: "إيجار",
-                      ),
+                    ? GestureDetector(
+                      onTap:
+                          () => Get.toNamed(
+                            AppRoutes.propertyDetailsPage,
+                            parameters: {
+                              "id":
+                                  controller.userReservation.propertyId
+                                      .toString(),
+                            },
+                          ),
+                      child: ReservationCard(model: controller.userReservation),
                     )
                     : controller.typeContract.value == ContractTypes.rentToursem
-                    ? ReservationCard(
-                      model: ReservationCardModel(
-                        title: "فيلا 200م",
-                        location: "دمشق , ميدان",
-                        endDate: '2025-12-20',
-                        startDate: '2025-05-20',
-                        image: "image",
-                        state: "محجوز",
-                        type: "سياحي",
-                      ),
+                    ? GestureDetector(
+                      // onTap:
+                      //     () => Get.toNamed(
+                      //       AppRoutes.tourismDetailsPage,
+                      //       parameters: {
+                      //         "id":
+                      //             controller.userReservation.propertyId
+                      //                 .toString(),
+                      //       },
+                      //     ),
+                      child: ReservationCard(model: controller.userReservation),
                     )
-                    : SaleCard(
-                      model: SaleCardModel(
-                        title: "بيت 200م",
-                        location: "دمشق, ميدان",
-                        startDate: "2025-07-12",
-                        image: "",
-                        state: "تم البيع",
-                        price: "\$ 30k",
-                      ),
+                    : GestureDetector(
+                      onTap:
+                          () => Get.toNamed(
+                            AppRoutes.propertyDetailsPage,
+                            parameters: {
+                              "id":
+                                  controller.userReservation.propertyId
+                                      .toString(),
+                            },
+                          ),
+                      child: SaleCard(model: controller.userReservation),
                     ),
           ),
           TabTitle(
@@ -71,22 +80,101 @@ class ContractDetails extends GetView<ContractDetailsController> {
           TabBody(
             tabController: controller.tabController,
             children: [
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(height: AppSize.s4),
-                    ...List.generate(5, (index) => const CurrentBillCard()),
-                    const SizedBox(height: AppSize.s16),
-                  ],
+              RefreshIndicator(
+                onRefresh: () async {
+                  await controller.refreshPage();
+                },
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Obx(
+                    () => Column(
+                      children: [
+                        const SizedBox(height: AppSize.s4),
+                        ...List.generate(
+                          controller.currentBillList.length,
+                          (index) => CurrentBillCard(
+                            model: controller.currentBillList[index],
+                            isFirst: index == 0,
+                          ),
+                        ),
+                        controller.currentBillList.isEmpty &&
+                                controller.loadingState.value !=
+                                    LoadingState.loading
+                            ? const EmptyCard()
+                            : Container(),
+                        controller.loadingState.value == LoadingState.loading
+                            ? Column(
+                              children: List.generate(
+                                4,
+                                (index) => Shimmer.fromColors(
+                                  baseColor: ColorManager.shimmerBaseColor,
+                                  highlightColor:
+                                      ColorManager.shimmerHighlightColor,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      bottom: AppPadding.p12,
+                                    ),
+                                    child: CurrentBillCard(
+                                      model: CurrentPurchaseItemDto.empty(),
+                                      isLoaging: true,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                            : Container(),
+                        const SizedBox(height: AppSize.s16),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-              SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const SizedBox(height: AppSize.s4),
-                    ...List.generate(5, (index) => const PastBillCard()),
-                    const SizedBox(height: AppSize.s16),
-                  ],
+              RefreshIndicator(
+                onRefresh: () async {
+                  await controller.refreshPage();
+                },
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  child: Obx(
+                    () => Column(
+                      children: [
+                        const SizedBox(height: AppSize.s4),
+                        ...List.generate(
+                          controller.previousBillList.length,
+                          (index) => PastBillCard(
+                            model: controller.previousBillList[index],
+                          ),
+                        ),
+                        controller.previousBillList.isEmpty &&
+                                controller.loadingState.value !=
+                                    LoadingState.loading
+                            ? const EmptyCard()
+                            : Container(),
+                        controller.loadingState.value == LoadingState.loading
+                            ? Column(
+                              children: List.generate(
+                                3,
+                                (index) => Shimmer.fromColors(
+                                  baseColor: ColorManager.shimmerBaseColor,
+                                  highlightColor:
+                                      ColorManager.shimmerHighlightColor,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      bottom: AppPadding.p12,
+                                    ),
+                                    child: PastBillCard(
+                                      model: PurchaseItemDto.empty(),
+                                      isLoaging: true,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                            : Container(),
+                        const SizedBox(height: AppSize.s16),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],
@@ -98,7 +186,15 @@ class ContractDetails extends GetView<ContractDetailsController> {
 }
 
 class CurrentBillCard extends GetView<ContractDetailsController> {
-  const CurrentBillCard({super.key});
+  final CurrentPurchaseItemDto model;
+  final bool isFirst;
+  final bool isLoaging;
+  const CurrentBillCard({
+    super.key,
+    required this.model,
+    this.isLoaging = false,
+    this.isFirst = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -115,9 +211,13 @@ class CurrentBillCard extends GetView<ContractDetailsController> {
         width: AppSize.sWidth,
         // height: 75,
         decoration: BoxDecoration(
-          color: ColorManager.cardBack2,
           borderRadius: const BorderRadius.all(Radius.circular(AppSize.s16)),
-          border: Border.all(color: ColorManager.primary3Color),
+
+          color: isLoaging ? Colors.transparent : ColorManager.cardBack2,
+          border:
+              isLoaging
+                  ? Border.all()
+                  : Border.all(color: ColorManager.primary3Color),
         ),
         child: Row(
           children: [
@@ -126,15 +226,36 @@ class CurrentBillCard extends GetView<ContractDetailsController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "الشهر "
-                    "1",
+                    model.reason,
                     overflow: TextOverflow.ellipsis,
                     style: Get.textTheme.bodyLarge!.copyWith(
                       fontSize: FontSize.s12,
                     ),
                   ),
                   Text(
-                    "2025-05-20",
+                    model.deadline,
+                    overflow: TextOverflow.ellipsis,
+                    style: Get.textTheme.bodyLarge!.copyWith(
+                      fontSize: FontSize.s12,
+                      color: ColorManager.cardHead,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "المبلغ:",
+                    overflow: TextOverflow.ellipsis,
+                    style: Get.textTheme.bodyLarge!.copyWith(
+                      fontSize: FontSize.s12,
+                    ),
+                  ),
+                  Text(
+                    "${model.amount.toStringAsFixed(2)} \$",
                     overflow: TextOverflow.ellipsis,
                     style: Get.textTheme.bodyLarge!.copyWith(
                       fontSize: FontSize.s12,
@@ -155,6 +276,7 @@ class CurrentBillCard extends GetView<ContractDetailsController> {
                       fontSize: FontSize.s12,
                     ),
                   ),
+
                   Text(
                     "قيد الإنتظار",
                     overflow: TextOverflow.ellipsis,
@@ -167,20 +289,29 @@ class CurrentBillCard extends GetView<ContractDetailsController> {
               ),
             ),
             GestureDetector(
-              onTap:
-                  () => controller.mainController.makePayment("clientSecret"),
+              onTap: () {
+                if (isFirst) {
+                  controller.confirmPay(model);
+                }
+              },
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppPadding.p16,
                   vertical: AppPadding.p8,
                 ),
-                decoration: const BoxDecoration(
-                  color: ColorManager.primaryDark,
-                  borderRadius: BorderRadius.all(Radius.circular(AppSize.s16)),
+                decoration: BoxDecoration(
+                  color:
+                      isFirst
+                          ? ColorManager.primaryDark
+                          : ColorManager.primary4Color,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(AppSize.s16),
+                  ),
                 ),
                 child: Text(
                   "إدفع ",
                   overflow: TextOverflow.ellipsis,
+
                   style: Get.textTheme.bodyLarge!.copyWith(
                     fontSize: FontSize.s12,
                     color: ColorManager.whiteColor,
@@ -195,8 +326,10 @@ class CurrentBillCard extends GetView<ContractDetailsController> {
   }
 }
 
-class PastBillCard extends StatelessWidget {
-  const PastBillCard({super.key});
+class PastBillCard extends GetView<ContractDetailsController> {
+  final PurchaseItemDto model;
+  final bool isLoaging;
+  const PastBillCard({super.key, required this.model, this.isLoaging = false});
 
   @override
   Widget build(BuildContext context) {
@@ -213,9 +346,12 @@ class PastBillCard extends StatelessWidget {
         width: AppSize.sWidth,
 
         decoration: BoxDecoration(
-          color: ColorManager.cardBack2,
           borderRadius: const BorderRadius.all(Radius.circular(AppSize.s16)),
-          border: Border.all(color: ColorManager.primary3Color),
+          color: isLoaging ? Colors.transparent : ColorManager.cardBack2,
+          border:
+              isLoaging
+                  ? Border.all()
+                  : Border.all(color: ColorManager.primary3Color),
         ),
         child: Column(
           children: [
@@ -233,7 +369,7 @@ class PastBillCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "2025-05-20",
+                        model.date,
                         overflow: TextOverflow.ellipsis,
                         style: Get.textTheme.bodyLarge!.copyWith(
                           fontSize: FontSize.s12,
@@ -255,7 +391,7 @@ class PastBillCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "الشهر 1",
+                        model.reason,
                         overflow: TextOverflow.ellipsis,
                         style: Get.textTheme.bodyLarge!.copyWith(
                           fontSize: FontSize.s12,
@@ -278,7 +414,7 @@ class PastBillCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "تم الدفع",
+                        model.status,
                         overflow: TextOverflow.ellipsis,
                         style: Get.textTheme.bodyLarge!.copyWith(
                           fontSize: FontSize.s12,
@@ -305,7 +441,7 @@ class PastBillCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "\$500",
+                        "\$${model.amount}",
                         overflow: TextOverflow.ellipsis,
                         style: Get.textTheme.bodyLarge!.copyWith(
                           fontSize: FontSize.s12,
@@ -327,7 +463,7 @@ class PastBillCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "الكتروني",
+                        model.paymentMethod,
                         overflow: TextOverflow.ellipsis,
                         style: Get.textTheme.bodyLarge!.copyWith(
                           fontSize: FontSize.s12,
@@ -337,24 +473,29 @@ class PastBillCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppPadding.p16,
-                    vertical: AppPadding.p8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: ColorManager.primary5Color,
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(AppSize.s16),
+                GestureDetector(
+                  onTap: () {
+                    controller.downloadFile(model.invoiceImage);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppPadding.p16,
+                      vertical: AppPadding.p8,
                     ),
-                    border: Border.all(color: ColorManager.primary6Color),
-                  ),
-                  child: Text(
-                    "عرض الفاتورة ",
-                    overflow: TextOverflow.ellipsis,
-                    style: Get.textTheme.bodyLarge!.copyWith(
-                      fontSize: FontSize.s12,
-                      color: ColorManager.whiteColor,
+                    decoration: BoxDecoration(
+                      color: ColorManager.primary5Color,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(AppSize.s16),
+                      ),
+                      border: Border.all(color: ColorManager.primary6Color),
+                    ),
+                    child: Text(
+                      "عرض الفاتورة ",
+                      overflow: TextOverflow.ellipsis,
+                      style: Get.textTheme.bodyLarge!.copyWith(
+                        fontSize: FontSize.s12,
+                        color: ColorManager.whiteColor,
+                      ),
                     ),
                   ),
                 ),
@@ -390,8 +531,12 @@ class HearderReservationDetails extends GetView<ContractDetailsController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "250"
-                " \$ ",
+                controller.typeContract.value == ContractTypes.sale
+                    ? "${controller.userReservation.sellingPrice} \$ "
+                    : controller.typeContract.value ==
+                        ContractTypes.rentProperty
+                    ? "${controller.userReservation.rentalPrice} \$ "
+                    : "${controller.userReservation.rentalPrice} \$ ",
                 overflow: TextOverflow.ellipsis,
                 style: Get.textTheme.bodyLarge!.copyWith(
                   fontSize: FontSize.s24,
@@ -399,7 +544,7 @@ class HearderReservationDetails extends GetView<ContractDetailsController> {
               ),
               controller.typeContract.value == ContractTypes.rentProperty
                   ? Text(
-                    "شهرياً",
+                    controller.userReservation.rentalPeriod,
                     overflow: TextOverflow.ellipsis,
                     style: Get.textTheme.bodyLarge!.copyWith(
                       fontSize: FontSize.s14,

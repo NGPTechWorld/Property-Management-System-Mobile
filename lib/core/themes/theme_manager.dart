@@ -185,7 +185,7 @@ class LightModeTheme implements MainThemeApp {
       ),
       enabledBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: ColorManager.grey3, width: AppSize.s1_5),
-        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s10)),
+        borderRadius: BorderRadius.all(Radius.circular(AppSize.s10)),
       ),
       focusedBorder: const OutlineInputBorder(
         borderSide: BorderSide(color: ColorManager.grey3, width: AppSize.s1_5),

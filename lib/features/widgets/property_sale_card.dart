@@ -3,6 +3,9 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
+import 'package:property_ms/data/dto/property_dto.dart';
+import 'package:property_ms/features/widgets/favorite_icon_button.dart';
 
 class PropertySaleCardModel {
   final String title;
@@ -10,7 +13,7 @@ class PropertySaleCardModel {
   final double area;
   final double price;
   final AssetGenImage image;
-  
+
   PropertySaleCardModel({
     required this.title,
     required this.location,
@@ -21,7 +24,7 @@ class PropertySaleCardModel {
 }
 
 class PropertySaleCard extends StatelessWidget {
-  final PropertySaleCardModel model;
+  final PropertyDto model;
   const PropertySaleCard({super.key, required this.model});
 
   @override
@@ -44,7 +47,8 @@ class PropertySaleCard extends StatelessWidget {
                 Center(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
-                    child: model.image.image(
+                    child: CustomCachedNetworkImage(
+                      imageUrl: model.postImage,
                       height: AppSize.sHeight * 0.18,
                       width: AppSize.sWidth * 0.425,
                       fit: BoxFit.cover,
@@ -56,20 +60,11 @@ class PropertySaleCard extends StatelessWidget {
                     horizontal: 10,
                     vertical: 14,
                   ),
-                  child: CircleAvatar(
-                    backgroundColor: ColorManager.cardBackground,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Assets.icons.favoriteFillIcon.svg(
-                        colorFilter: const ColorFilter.mode(
-                          ColorManager.grey3,
-                          BlendMode.srcIn,
-                        ),
-                      ),
-                    ),
+                  child: FavoriteIconButton(
+                    propertyId: model.propertyId,
+                    initialIsFavorite: model.isFavorite,
                   ),
                 ),
-
                 Padding(
                   padding: const EdgeInsets.symmetric(
                     vertical: 12,
@@ -107,8 +102,11 @@ class PropertySaleCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    model.title,
-                    style: Get.textTheme.bodyLarge,
+                    model.postTitle,
+                    style: Get.textTheme.bodyLarge!.copyWith(
+                      fontSize: FontSize.s14,
+                    ),
+
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 4),

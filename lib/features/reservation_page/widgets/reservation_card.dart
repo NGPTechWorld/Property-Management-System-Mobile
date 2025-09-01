@@ -3,41 +3,28 @@ import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:flutter/material.dart';
-
-class ReservationCardModel {
-  final String title;
-  final String location;
-  final String startDate;
-  final String endDate;
-  final String state;
-  final String image;
-  final String type;
-
-  ReservationCardModel({
-    required this.title,
-    required this.location,
-    required this.endDate,
-    required this.startDate,
-    required this.image,
-    required this.state,
-    required this.type,
-  });
-}
+import 'package:property_ms/data/dto/user_reservation_dto.dart';
 
 class ReservationCard extends StatelessWidget {
-  final ReservationCardModel model;
-  const ReservationCard({super.key, required this.model});
+  final UserReservationDto model;
+  final bool isLoaging;
+  const ReservationCard({
+    super.key,
+    required this.model,
+    this.isLoaging = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 2),
       child: Container(
-        width: AppSize.sWidth * 0.99,
+        width: AppSize.sWidth * 1,
         height: AppSize.sHeight * 0.18,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: Colors.white,
+          color: isLoaging ? Colors.transparent : ColorManager.white,
+          border: isLoaging ? Border.all() : null,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,7 +44,7 @@ class ReservationCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                model.type == "إيجار"
+                model.type == "عقاري"
                     ? Padding(
                       padding: const EdgeInsets.symmetric(
                         vertical: 16,

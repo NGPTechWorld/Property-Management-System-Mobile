@@ -1,5 +1,5 @@
-import 'package:property_ms/core/utils/assets.gen.dart';
-import 'package:property_ms/features/widgets/office_card.dart';
+
+import 'package:property_ms/data/dto/office_dto.dart';
 
 class TourismDetailModel {
   final String title;
@@ -12,8 +12,8 @@ class TourismDetailModel {
   final String water;
   final String pool;
   final RoomDetails roomDetails;
-  final List<AssetGenImage> images;
-  final OfficeCardModel responsibleOffice;
+  final List<String> images;
+  final OfficeDto responsibleOffice;
   final List<String> features;
   final String price;
   final String payRate;

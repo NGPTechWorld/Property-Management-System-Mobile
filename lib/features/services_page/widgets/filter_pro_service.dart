@@ -23,7 +23,7 @@ class FilterProService {
       builder: (context) {
         return DraggableScrollableSheet(
           expand: false,
-          initialChildSize: 0.55,
+          initialChildSize: 0.4,
           minChildSize: 0.3,
           maxChildSize: 0.95,
           builder: (context, scrollController) {
@@ -102,15 +102,19 @@ class FilterProService {
                           ),
                         ),
                       ),
-                      Text("التقييم: ", style: Get.textTheme.titleMedium),
-                      const SizedBox(height: AppSize.s8),
-                      _buildRatingRow(),
-                      const SizedBox(height: AppSize.s24),
-                      const SizedBox(
+                      // Text("التقييم: ", style: Get.textTheme.titleMedium),
+                      // const SizedBox(height: AppSize.s8),
+                      // _buildRatingRow(),
+                      // const SizedBox(height: AppSize.s24),
+                      SizedBox(
                         width: double.infinity,
                         child: AppButton(
                           backgroundColor: ColorManager.secColor,
                           text: "تطبيق",
+                          onPressed: () {
+                            controller.refreshPage();
+                            Get.back();
+                          },
                         ),
                       ),
                     ],
@@ -124,52 +128,52 @@ class FilterProService {
     );
   }
 
-  static Widget _buildRatingRow() {
-    final controller = Get.find<ServicesController>();
-    List<int> stars = [1, 2, 3, 4, 5];
-    return Obx(
-      () => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children:
-            stars.map((e) {
-              bool isSelected = e == controller.selectedIndexRateFilter.value;
-              return GestureDetector(
-                onTap: () {
-                  controller.selectedIndexRateFilter.value = e;
-                },
-                child: Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: isSelected ? ColorManager.purble : Colors.white,
-                    border: Border.all(color: ColorManager.purble),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "$e",
-                          style: TextStyle(
-                            color: isSelected ? Colors.white : Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(width: AppSize.s2),
+  // static Widget _buildRatingRow() {
+  //   final controller = Get.find<ServicesController>();
+  //   List<int> stars = [1, 2, 3, 4, 5];
+  //   return Obx(
+  //     () => Row(
+  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //       children:
+  //           stars.map((e) {
+  //             bool isSelected = e == controller.selectedIndexRateFilter.value;
+  //             return GestureDetector(
+  //               onTap: () {
+  //                 controller.selectedIndexRateFilter.value = e;
+  //               },
+  //               child: Container(
+  //                 width: 48,
+  //                 height: 48,
+  //                 decoration: BoxDecoration(
+  //                   color: isSelected ? ColorManager.purble : Colors.white,
+  //                   border: Border.all(color: ColorManager.purble),
+  //                   borderRadius: BorderRadius.circular(12),
+  //                 ),
+  //                 child: Center(
+  //                   child: Row(
+  //                     mainAxisAlignment: MainAxisAlignment.center,
+  //                     children: [
+  //                       Text(
+  //                         "$e",
+  //                         style: TextStyle(
+  //                           color: isSelected ? Colors.white : Colors.black,
+  //                           fontWeight: FontWeight.bold,
+  //                         ),
+  //                       ),
+  //                       SizedBox(width: AppSize.s2),
 
-                        Icon(
-                          Icons.star,
-                          size: 16,
-                          color: isSelected ? Colors.white : Colors.amber,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            }).toList(),
-      ),
-    );
-  }
+  //                       Icon(
+  //                         Icons.star,
+  //                         size: 16,
+  //                         color: isSelected ? Colors.white : Colors.amber,
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 ),
+  //               ),
+  //             );
+  //           }).toList(),
+  //     ),
+  //   );
+  // }
 }

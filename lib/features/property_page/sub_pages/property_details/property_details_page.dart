@@ -1,171 +1,186 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:property_ms/core/routes/app_routes.dart';
-import 'package:property_ms/core/utils/assets.gen.dart';
+import 'package:property_ms/core/Routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/features/offices_page/widgets/office_card_style2.dart';
+import 'package:property_ms/data/enums/loading_state_enum.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/property_details_controller.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/property_details_widget.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/property_header.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/related_properties_widgets.dart';
 import 'package:property_ms/features/property_page/sub_pages/property_details/widget/room_details_widget.dart';
+import 'package:property_ms/features/widgets/favorite_icon_button.dart';
+import 'package:property_ms/features/widgets/office_card_style2.dart';
 import 'package:property_ms/features/widgets/price_section.dart';
 import 'package:property_ms/features/widgets/property_reusable_widget/image_carousel.dart';
-import 'package:shimmer/shimmer.dart';
 
-class PropertyDetailsPage extends GetView<PropertyDetailsController> {
+class PropertyDetailsPage extends StatelessWidget {
   const PropertyDetailsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    if (Get.isRegistered<PropertyDetailsController>()) {
+      Get.delete<PropertyDetailsController>();
+    }
+    final controller = Get.put(PropertyDetailsController());
     const double appBarHeight = AppSize.s100 * 2.5;
 
     return Scaffold(
       body: SafeArea(
         top: false,
-        child: NestedScrollView(
-          controller: controller.scrollController,
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return [
-              SliverAppBar(
-                expandedHeight: appBarHeight,
-                toolbarHeight: kToolbarHeight + AppSize.s10,
-                elevation: 0,
-                leading: IconButton(
-                  icon: Container(
-                    height: AppSize.s40,
-                    width: AppSize.s40,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: ColorManager.primaryColor,
-                    ),
-                    alignment: Alignment.center,
-                    child: const Icon(Icons.chevron_left, color: Colors.white),
-                  ),
-                  onPressed: () => Get.back(),
-                ),
-                flexibleSpace: FlexibleSpaceBar(
-                  collapseMode: CollapseMode.pin,
-                  titlePadding: EdgeInsets.zero,
-                  expandedTitleScale: 1.1,
-                  background: Obx(() {
-                    return controller.isLoadingImages.value
-                        ? Shimmer.fromColors(
-                          baseColor: Colors.grey[300]!,
-                          highlightColor: Colors.grey[100]!,
-                          child: Container(
-                            height: appBarHeight,
-                            width: double.infinity,
-                            color: Colors.white,
-                          ),
-                        )
-                        : ImageCarousel(
-                          images:
-                              controller.propertyDetails.images
-                                  .map<ImageProvider<Object>>(
-                                    (asset) => asset.provider(),
-                                  )
-                                  .toList(),
-                          currentIndex: controller.sliderIndex,
-                          activeDotColor: ColorManager.primaryColor,
-                          inactiveDotColor: Colors.grey.shade300,
-                        );
-                  }),
-                ),
-                actions: [
-                  Obx(
-                    () => GestureDetector(
-                      onTap: controller.toggleFavorite,
-                      child: Container(
-                        width: 32,
-                        height: 32,
-                        margin: const EdgeInsets.symmetric(horizontal: 12),
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: ColorManager.cardBackground,
-                        ),
-                        child: Center(
-                          child:
-                              controller.isFavorite.value
-                                  ? Assets.icons.favoriteFillIcon.svg(
-                                    width: 16,
-                                    colorFilter: const ColorFilter.mode(
-                                      Colors.red,
-                                      BlendMode.srcIn,
-                                    ),
-                                  )
-                                  : Assets.icons.favoriteFillIcon.svg(
-                                    width: 16, 
-                                    colorFilter: const ColorFilter.mode(
-                                      ColorManager.grey3,
-                                      BlendMode.srcIn,
-                                    ),
-                                  ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ];
-          },
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.only(bottom: AppPadding.p24),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(24),
-                    ),
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppPadding.p16,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        child: Obx(
+          () =>
+              controller.loadingState.value == LoadingState.loading
+                  ? const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [Center(child: CircularProgressIndicator())],
+                  )
+                  : controller.loadingState.value == LoadingState.doneWithData
+                  ? Stack(
                     children: [
-                      PropertyHeader(model: controller.propertyDetails),
-                      const SizedBox(height: AppSize.s24),
-                      Text(
-                        'المكتب المسؤول',
-                        style: Get.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: AppSize.s12),
-                      GestureDetector(
-                        onDoubleTap:
-                            () => Get.toNamed(
-                              AppRoutes.officeDetails,
-                              arguments:
-                                  controller.propertyDetails.responsibleOffice,
+                      NestedScrollView(
+                        controller: controller.scrollController,
+                        headerSliverBuilder: (context, innerBoxIsScrolled) {
+                          return [
+                            SliverAppBar(
+                              expandedHeight: appBarHeight,
+                              toolbarHeight: kToolbarHeight + AppSize.s10,
+                              elevation: 0,
+                              actions: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 18,
+                                  ),
+                                  child: FavoriteIconButton(
+                                    propertyId:
+                                        controller.propertyDetails!.propertyId,
+                                    initialIsFavorite:
+                                        controller.isFavorite.value,
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                              ],
+                              leading: IconButton(
+                                icon: Container(
+                                  height: AppSize.s40,
+                                  width: AppSize.s40,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: ColorManager.primaryColor,
+                                  ),
+                                  alignment: Alignment.center,
+                                  child: const Icon(
+                                    Icons.chevron_left,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                onPressed: () => Get.back(),
+                              ),
+                              flexibleSpace: FlexibleSpaceBar(
+                                collapseMode: CollapseMode.pin,
+                                titlePadding: EdgeInsets.zero,
+                                expandedTitleScale: 1.1,
+                                background: ImageCarousel(
+                                  images: [
+                                    ...controller.propertyDetails!.images.map(
+                                      (asset) => asset.imageUrl,
+                                    ),
+                                    controller.propertyDetails!.postImage,
+                                  ],
+                                  currentIndex: controller.sliderIndex,
+                                  activeDotColor: ColorManager.primaryColor,
+                                  inactiveDotColor: Colors.grey.shade300,
+                                ),
+                              ),
                             ),
-                        child: OfficeCardStyle2(
-                          model: controller.propertyDetails.responsibleOffice,
+                          ];
+                        },
+                        body: SingleChildScrollView(
+                          padding: const EdgeInsets.only(
+                            bottom: AppPadding.p24,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(24),
+                                  ),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: AppPadding.p16,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    PropertyHeader(
+                                      model: controller.propertyDetails!,
+                                    ),
+                                    const SizedBox(height: AppSize.s24),
+                                    Text(
+                                      'المكتب المسؤول',
+                                      style: Get.textTheme.titleMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                    const SizedBox(height: AppSize.s12),
+                                    GestureDetector(
+                                      onTap:
+                                          () => Get.toNamed(
+                                            AppRoutes.officeDetails,
+                                            arguments:
+                                                controller
+                                                    .propertyDetails!
+                                                    .office!
+                                                    .id,
+                                          ),
+                                      child: OfficeCardStyle2(
+                                        model:
+                                            controller.propertyDetails!.office!,
+                                      ),
+                                    ),
+                                    PropertyDetailsWidget(
+                                      model: controller.propertyDetails!,
+                                    ),
+                                    RoomDetailsWidget(
+                                      roomDetails:
+                                          controller
+                                              .propertyDetails!
+                                              .roomCounts,
+                                    ),
+                                    RelatedPropertiesWidgets(
+                                      controller: controller,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      PropertyDetailsWidget(model: controller.propertyDetails),
-                      RoomDetailsWidget(
-                        roomDetails: controller.propertyDetails.roomDetails,
-                      ),
-                      RelatedPropertiesWidgets(controller: controller),
+                      controller.propertyDetails!.status == "متوفر"
+                          ? Align(
+                            alignment: Alignment.bottomCenter,
+                            child: PriceSection(
+                              price:
+                                  controller.propertyDetails!.sellDetails !=
+                                          null
+                                      ? '${controller.propertyDetails!.sellDetails!.sellingPrice} \$'
+                                      : '${controller.propertyDetails!.rentDetails!.price} \$ ',
+                              onPressed: () {
+                                controller.openReservation();
+                              },
+                            ),
+                          )
+                          : Container(),
                     ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+                  )
+                  : Container(),
         ),
-      ),
-
-      bottomNavigationBar: PriceSection(
-        price: controller.propertyDetails.price,
-        onPressed: () {
-          // Booking logic here
-        },
       ),
     );
   }

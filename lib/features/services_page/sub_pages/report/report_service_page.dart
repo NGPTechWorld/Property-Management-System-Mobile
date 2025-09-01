@@ -55,7 +55,7 @@ class ReportServicePage extends GetView<ReportServiceController> {
             child: ReportForm(
               onSubmit: (text) async {
                 // Your submission logic
-                controller.submit(text);
+                controller.postOfficeReport(text);
                 await Future.delayed(const Duration(seconds: 2));
               },
             ),

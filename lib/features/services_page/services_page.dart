@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/features/home_page/home_page.dart';
-import 'package:property_ms/features/services_page/widgets/service_card_style2.dart';
+import 'package:property_ms/features/services_page/widgets/all_services.dart';
+import 'package:property_ms/features/services_page/widgets/top_services.dart';
 import 'package:property_ms/features/widgets/app_bar_search.dart';
 import 'package:property_ms/features/widgets/card_filter.dart';
-
 import 'services_controller.dart';
 
 class ServicesPage extends GetView<ServicesController> {
@@ -16,26 +14,31 @@ class ServicesPage extends GetView<ServicesController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AppBarServices(controller: controller),
-            const SizedBox(height: AppSize.s14),
-            TopServices(controller: controller),
-            AllServices(controller: controller),
-          ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await controller.refreshPage();
+        },
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          controller: controller.scrollAllServiceController,
+          child: const Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AppBarServices(),
+              SizedBox(height: AppSize.s14),
+              TopServices(),
+              AllServices(),
+            ],
+          ),
         ),
       ),
     );
   }
 }
 
-class AppBarServices extends StatelessWidget {
-  const AppBarServices({super.key, required this.controller});
-
-  final ServicesController controller;
+class AppBarServices extends GetView<ServicesController> {
+  const AppBarServices({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -77,51 +80,8 @@ class AppBarServices extends StatelessWidget {
           onTapFilter: controller.openFilterPagePro,
           isLocation: false,
           isBack: true,
+          controller: controller.searchController,
         ),
-      ],
-    );
-  }
-}
-
-class AllServices extends StatelessWidget {
-  const AllServices({super.key, required this.controller});
-
-  final ServicesController controller;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppPadding.p14),
-          child: Text(
-            "كل المزودين",
-            style: Get.textTheme.headlineMedium!.copyWith(
-              color: ColorManager.secColor,
-            ),
-          ),
-        ),
-        const SizedBox(height: AppSize.s18),
-        SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: List.generate(controller.topServices.length, (index) {
-              final item = controller.topServices[index];
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 6,
-                  horizontal: AppPadding.p14,
-                ),
-                child: GestureDetector(
-                  onTap: () => Get.toNamed(AppRoutes.serviceDetails),
-                  child: ServiceCardStyle2(model: item),
-                ),
-              );
-            }),
-          ),
-        ),
-        const SizedBox(height: AppSize.s16),
       ],
     );
   }

@@ -1,9 +1,12 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
+import 'package:property_ms/features/widgets/panorama_viewer/panorama_fullscreen_page.dart';
 
 class ImageCarousel extends StatelessWidget {
-  final List<ImageProvider> images;
+  final List<String> images;
   final double height;
   final RxInt? currentIndex;
   final Color activeDotColor;
@@ -42,12 +45,40 @@ class ImageCarousel extends StatelessWidget {
           ),
           items:
               images.map((image) {
-                return Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(image: image, fit: BoxFit.cover),
-                  ),
-                );
+                final isPanorama = image.toLowerCase().contains('_360_');
+                if (isPanorama) {
+                  return GestureDetector(
+                    onTap: () {
+                      Get.to(() => PanoramaFullscreenPage(imageUrl: image));
+                    },
+                    child: Stack(
+                      children: [
+                        CustomCachedNetworkImage(
+                          imageUrl: image,
+                          width: AppSize.sWidth,
+                          height: height,
+                          fit: BoxFit.cover,
+                        ),
+                        const Positioned(
+                          right: 16,
+                          bottom: 16,
+                          child: Icon(
+                            Icons.threesixty,
+                            color: Colors.white,
+                            size: 30,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                } else {
+                  // Normal image
+                  return CustomCachedNetworkImage(
+                    imageUrl: image,
+                    width: AppSize.sWidth,
+                    fit: BoxFit.cover,
+                  );
+                }
               }).toList(),
         ),
         Positioned(

@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:property_ms/core/Routes/app_routes.dart';
 import 'package:property_ms/core/services/cache/cache_keys.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
@@ -63,9 +64,10 @@ class MainPageNavBar extends GetView<MainController> {
             onTap: (index) {
               final user = controller.cacheService.getData(key: kUserToken);
               log(user.toString());
-              if (index == 4 && user == null) {
-                // Get.offAllNamed(AppRoutes.loginRoute);
-                controller.changePage(index);
+              if ((index >= 3) && user == null) {
+                Get.offAllNamed(AppRoutes.loginRoute);
+
+                // controller.changePage(index);
               } else {
                 controller.changePage(index);
               }

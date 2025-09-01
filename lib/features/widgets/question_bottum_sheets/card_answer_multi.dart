@@ -20,7 +20,7 @@ class CardAnswerMulti extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
+      padding: const EdgeInsets.symmetric(
         horizontal: AppPadding.p14,
         vertical: AppPadding.p4,
       ),
@@ -38,7 +38,7 @@ class CardAnswerMulti extends StatelessWidget {
               width: 2,
             ),
           ),
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
             horizontal: AppPadding.p12,
             vertical: AppPadding.p4,
           ),
@@ -49,7 +49,7 @@ class CardAnswerMulti extends StatelessWidget {
                 onChanged: (_) => onTap(),
                 activeColor: ColorManager.primaryDark,
               ),
-              SizedBox(width: AppSize.s14),
+              const SizedBox(width: AppSize.s14),
               Expanded(child: Text(text, style: Get.textTheme.bodyMedium)),
             ],
           ),

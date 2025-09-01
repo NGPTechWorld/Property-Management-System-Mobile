@@ -5,6 +5,7 @@ import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/helper/app_functions.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
+import 'package:property_ms/data/enums/loading_state_enum.dart';
 
 import 'support_controller.dart';
 
@@ -15,65 +16,75 @@ class SupportPage extends GetView<SupportController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const NormalAppBar(title: 'الدعم والمساعدة'),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppPadding.p16,
-          vertical: AppPadding.p20,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const ContactSupportCard(),
-            const SizedBox(height: AppSize.s24),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          controller.refreshPage();
+        },
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: const EdgeInsets.symmetric(
+            horizontal: AppPadding.p16,
+            vertical: AppPadding.p20,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const ContactSupportCard(),
+              const SizedBox(height: AppSize.s24),
 
-            Text(
-              'الأسئلة الشائعة',
-              style: Get.textTheme.headlineMedium!.copyWith(
-                color: ColorManager.secColor,
-                fontWeight: FontWeight.bold,
+              Text(
+                'الأسئلة الشائعة',
+                style: Get.textTheme.headlineMedium!.copyWith(
+                  color: ColorManager.secColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(height: AppSize.s16),
-            Obx(() {
-              return Column(
-                children:
-                    controller.faqItems
-                        .asMap()
-                        .entries
-                        .map(
-                          (entry) => FAQItemTile(
-                            index: entry.key,
-                            faq: entry.value,
-                            onToggle: () => controller.toggleFAQ(entry.key),
-                          ),
-                        )
-                        .toList(),
-              );
-            }),
-            const SizedBox(height: AppSize.s24),
-            Text(
-              'طرق أخرى للحصول على المساعدة',
-              style: Get.textTheme.headlineMedium!.copyWith(
-                color: ColorManager.secColor,
-                fontWeight: FontWeight.bold,
+              const SizedBox(height: AppSize.s16),
+              Obx(() {
+                return controller.loadingState.value == LoadingState.loading
+                    ? const CircularProgressIndicator()
+                    : Column(
+                      children:
+                          controller.faqItems
+                              .asMap()
+                              .entries
+                              .map(
+                                (entry) => FAQItemTile(
+                                  index: entry.key,
+                                  faq: entry.value,
+                                  onToggle:
+                                      () => controller.toggleFAQ(entry.key),
+                                ),
+                              )
+                              .toList(),
+                    );
+              }),
+              const SizedBox(height: AppSize.s24),
+              Text(
+                'طرق أخرى للحصول على المساعدة',
+                style: Get.textTheme.headlineMedium!.copyWith(
+                  color: ColorManager.secColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(height: AppSize.s16),
-            HelpOptionTile(
-              icon: Icons.email,
-              title: 'البريد الإلكتروني',
-              subtitle: 'support@propertyapp.com',
-              color: ColorManager.orangeColor,
-              onTap: () => AppFunctions.launchEmail('support@propertyapp.com'),
-            ),
-            HelpOptionTile(
-              icon: Icons.chat,
-              title: 'الدردشة الحية',
-              subtitle: 'متاحة من 8 صباحاً إلى 10 مساءً',
-              color: ColorManager.primaryDark,
-              onTap: () => Get.toNamed(AppRoutes.chatPage),
-            ),
-          ],
+              const SizedBox(height: AppSize.s16),
+              HelpOptionTile(
+                icon: Icons.email,
+                title: 'البريد الإلكتروني',
+                subtitle: 'support@propertyapp.com',
+                color: ColorManager.orangeColor,
+                onTap:
+                    () => AppFunctions.launchEmail('support@propertyapp.com'),
+              ),
+              HelpOptionTile(
+                icon: Icons.chat,
+                title: 'الدردشة الحية',
+                subtitle: 'متاحة من 8 صباحاً إلى 10 مساءً',
+                color: ColorManager.primaryDark,
+                onTap: () => Get.toNamed(AppRoutes.chatPage),
+              ),
+            ],
+          ),
         ),
       ),
     );

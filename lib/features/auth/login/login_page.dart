@@ -15,7 +15,7 @@ class LoginPage extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      // resizeToAvoidBottomInset: false,
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -35,7 +35,14 @@ class LoginPage extends GetView<LoginController> {
               ),
             ),
           ),
-          const ScreenBottomEffect(),
+          // if keyboard appear disable it
+          if (MediaQuery.of(context).viewInsets.bottom == 0)
+            const Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: ScreenBottomEffect(),
+            ),
         ],
       ),
     );

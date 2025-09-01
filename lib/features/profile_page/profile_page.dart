@@ -4,7 +4,9 @@ import 'package:property_ms/core/routes/app_routes.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
+import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
 import 'package:property_ms/core/utils/widgets/normal_app_bar.dart';
+import 'package:property_ms/features/widgets/state_handler.dart';
 
 import 'profile_controller.dart';
 
@@ -16,43 +18,54 @@ class ProfilePage extends GetView<ProfileController> {
     Get.put(ProfileController());
     return Scaffold(
       appBar: const NormalAppBar(title: "الملف الشخصي"),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const CardUserInfo(),
-            const FavAndPostCard(),
-            const SizedBox(height: AppSize.s8),
-            SettingsCard(
-              title: "معلومات حسابي",
-              icon: Assets.icons.users,
-              onTap: () {
-                Get.toNamed(AppRoutes.accountInfoRoute);
-              },
-            ),
-            SettingsCard(
-              title: "ممتلكاتي",
-              icon: Assets.icons.box,
-              onTap: () {
-                Get.toNamed(AppRoutes.mySalesRoute);
-              },
-            ),
-            SettingsCard(
-              title: "الدعم والمساعدة",
-              icon: Assets.icons.supportIcon,
-              onTap: () {
-                Get.toNamed(AppRoutes.supportPage);
-              },
-            ),
-            SettingsCard(
-              title: "تسجيل الخروج",
-              icon: Assets.icons.logout,
-              onTap: () {
-                controller.logout();
-              },
-            ),
-          ],
+      body: RefreshIndicator(
+        onRefresh: () async {
+          await controller.refreshPage();
+        },
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Obx(
+                () => StateHandler(
+                  state: controller.loadingState.value,
+                  dataWidget: const CardUserInfo(),
+                ),
+              ),
+              const FavAndPostCard(),
+              const SizedBox(height: AppSize.s8),
+              SettingsCard(
+                title: "معلومات حسابي",
+                icon: Assets.icons.users,
+                onTap: () {
+                  Get.toNamed(AppRoutes.accountInfoRoute);
+                },
+              ),
+              SettingsCard(
+                title: "ممتلكاتي",
+                icon: Assets.icons.box,
+                onTap: () {
+                  Get.toNamed(AppRoutes.mySalesRoute);
+                },
+              ),
+              SettingsCard(
+                title: "الدعم والمساعدة",
+                icon: Assets.icons.supportIcon,
+                onTap: () {
+                  Get.toNamed(AppRoutes.supportPage);
+                },
+              ),
+              SettingsCard(
+                title: "تسجيل الخروج",
+                icon: Assets.icons.logout,
+                onTap: () {
+                  controller.logout();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -128,13 +141,13 @@ class FavAndPostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => Get.toNamed(AppRoutes.myPostsPage),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
-        child: Row(
-          children: [
-            Expanded(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p16),
+      child: Row(
+        children: [
+          Expanded(
+            child: GestureDetector(
+              onTap: () => Get.toNamed(AppRoutes.myPostsPage),
               child: Container(
                 height: AppSize.sHeight * 0.15,
                 padding: const EdgeInsets.all(AppPadding.p14),
@@ -172,8 +185,11 @@ class FavAndPostCard extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: AppSize.s16),
-            Expanded(
+          ),
+          const SizedBox(width: AppSize.s16),
+          Expanded(
+            child: GestureDetector(
+              onTap: () => Get.toNamed(AppRoutes.favoritesRoute),
               child: Container(
                 height: AppSize.sHeight * 0.15,
                 padding: const EdgeInsets.all(AppPadding.p14),
@@ -211,8 +227,8 @@ class FavAndPostCard extends StatelessWidget {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -223,6 +239,8 @@ class CardUserInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<ProfileController>();
+
     return Padding(
       padding: const EdgeInsets.symmetric(
         horizontal: AppPadding.p16,
@@ -238,7 +256,19 @@ class CardUserInfo extends StatelessWidget {
         child: Row(
           children: [
             ClipOval(
-              child: Assets.images.user.image(height: AppSize.sHeight * 0.15),
+              child:
+                  controller.profileInfo!.photoUrl != null
+                      ? CustomCachedNetworkImage(
+                        imageUrl: controller.profileInfo!.photoUrl!,
+                        height: AppSize.sHeight * 0.15,
+                        width: AppSize.sHeight * 0.15,
+                        fit: BoxFit.cover,
+                      )
+                      : Assets.images.user.image(
+                        height: AppSize.sHeight * 0.15,
+                        width: AppSize.sHeight * 0.15,
+                        fit: BoxFit.cover,
+                      ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -261,7 +291,7 @@ class CardUserInfo extends StatelessWidget {
                     horizontal: AppPadding.p14,
                   ),
                   child: Text(
-                    "محمد علي النعيمي",
+                    '${controller.profileInfo!.firstName} ${controller.profileInfo!.lastName}',
                     style: Get.textTheme.bodyLarge!.copyWith(
                       color: ColorManager.cardHead,
                       fontSize: FontSize.s14,
@@ -287,7 +317,7 @@ class CardUserInfo extends StatelessWidget {
                     horizontal: AppPadding.p14,
                   ),
                   child: Text(
-                    "0912345678",
+                    controller.profileInfo!.phone,
                     style: Get.textTheme.bodyLarge!.copyWith(
                       color: ColorManager.cardHead,
                       fontSize: FontSize.s14,

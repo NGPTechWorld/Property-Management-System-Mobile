@@ -3,11 +3,17 @@ import 'package:get/get.dart';
 import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/data/entity/services_card_model.dart';
+import 'package:property_ms/core/utils/widgets/custom_cached_network_image_widget.dart';
+import 'package:property_ms/data/dto/service_dto.dart';
 
 class ServiceCardStyle2 extends StatelessWidget {
-  final ServicesCardModel model;
-  const ServiceCardStyle2({super.key, required this.model});
+  final ServiceDto model;
+  final bool isLoaging;
+  const ServiceCardStyle2({
+    super.key,
+    required this.model,
+    this.isLoaging = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +22,8 @@ class ServiceCardStyle2 extends StatelessWidget {
       height: AppSize.sHeight * 0.13,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: Colors.white,
+        color: isLoaging ? Colors.transparent : ColorManager.white,
+        border: isLoaging ? Border.all() : null,
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -26,11 +33,21 @@ class ServiceCardStyle2 extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: Center(
               child: ClipOval(
-                child: model.image.image(
-                  // height: AppSize.sHeight * 0.15,
-                  // width: AppSize.sWidth * 0.425,
-                  fit: BoxFit.cover,
-                ),
+                child:
+                    model.logo == ""
+                        ? ClipOval(
+                          child: Assets.images.officeServicesCard.image(
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                        : ClipOval(
+                          child: CustomCachedNetworkImage(
+                            imageUrl: model.logo,
+                            width: AppSize.sWidth * 0.23,
+                            height: AppSize.sWidth * 0.23,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
               ),
             ),
           ),
@@ -45,7 +62,7 @@ class ServiceCardStyle2 extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    model.title,
+                    model.name,
                     style: Get.textTheme.bodyLarge!.copyWith(
                       fontSize: FontSize.s14,
                     ),
@@ -61,7 +78,7 @@ class ServiceCardStyle2 extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(
                         overflow: TextOverflow.ellipsis,
-                        model.tupe,
+                        model.career,
                         style: Get.textTheme.bodySmall!.copyWith(
                           fontSize: FontSize.s10,
                           fontWeight: FontWeight.bold,

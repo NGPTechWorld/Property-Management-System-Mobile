@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:property_ms/core/services/cache/cache_keys.dart';
 import '../../core/routes/app_routes.dart';
+import '../../core/services/cache/cache_service.dart';
 
 class SplashController extends GetxController
     with GetSingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<double> scaleAnimation;
   late Animation<double> opacityAnimation;
+
+  final CacheService cacheService = Get.find<CacheService>();
 
   @override
   void onInit() {
@@ -27,8 +31,24 @@ class SplashController extends GetxController
     animationController.forward();
 
     Future.delayed(const Duration(seconds: 3), () {
-      Get.offAllNamed(AppRoutes.mainRoute);
+      navigate();
     });
+  }
+
+  Future<void> navigate() async {
+    final seenOnboarding =
+        cacheService.getData(key: 'seenOnboarding') as bool? ?? false;
+
+    if (!seenOnboarding) {
+      Get.offAllNamed(AppRoutes.onboardingRoute);
+    } else {
+      final user = cacheService.getData(key: kUserToken);
+      if (user == null) {
+        Get.offAllNamed(AppRoutes.loginRoute);
+      } else {
+        Get.offAllNamed(AppRoutes.mainRoute);
+      }
+    }
   }
 
   @override

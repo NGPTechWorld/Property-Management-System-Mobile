@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
-import 'package:property_ms/features/profile_page/sub_pages/my_posts/widgets/post_form.dart';
+import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
+import 'package:property_ms/features/profile_page/sub_pages/my_posts/bottom_sheets/widgets/post_form.dart';
+
 import '../my_posts_controller.dart';
 
 class AddPostBottomSheet extends StatelessWidget {
@@ -12,26 +14,26 @@ class AddPostBottomSheet extends StatelessWidget {
   final _locationController = TextEditingController();
   final _descriptionController = TextEditingController();
   final _priceController = TextEditingController();
-  final _propertyType = "إيجار".obs;
+  final _propertyType = "أجار".obs;
+  // final _governorate = ''.obs;
+  // final _regionId = 0.obs;
 
-  void _handleSubmit() {
+  void _handleSubmit() async {
     if (_formKey.currentState!.validate()) {
-      final newPost = PostModel(
-        id: '',
-        location: _locationController.text,
+      final controller = Get.find<MyPostsController>();
+      await controller.postRepo.createUserPost(
+        title: "طلب شراء عقار",
+        budget: double.parse(_priceController.text),
+        type: _propertyType.value,
         description: _descriptionController.text,
-        price: double.parse(_priceController.text),
-        propertyType: _propertyType.value,
-        date: DateTime.now(),
+        regionId: controller.selectedRegionId.value,
       );
-      Get.find<MyPostsController>().addPost(newPost);
       Get.back();
-      Get.snackbar(
-        'تمت الإضافة',
-        'تم إضافة المنشور بنجاح',
-        backgroundColor: ColorManager.primaryColor,
-        colorText: Colors.white,
-      );
+      await controller.refreshPage();
+      const CustomToasts(
+        message: 'تم إضافة المنشور بنجاح',
+        type: CustomToastType.success,
+      ).show();
     }
   }
 

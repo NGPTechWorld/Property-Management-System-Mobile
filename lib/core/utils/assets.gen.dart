@@ -189,9 +189,15 @@ class $AssetsIconsGen {
   /// File path: assets/icons/home_icon.svg
   SvgGenImage get homeIcon => const SvgGenImage('assets/icons/home_icon.svg');
 
+  /// File path: assets/icons/image.png
+  AssetGenImage get image => const AssetGenImage('assets/icons/image.png');
+
   /// File path: assets/icons/image_add_icon.svg
   SvgGenImage get imageAddIcon =>
       const SvgGenImage('assets/icons/image_add_icon.svg');
+
+  /// File path: assets/icons/image_icon.svg
+  SvgGenImage get imageIcon => const SvgGenImage('assets/icons/image_icon.svg');
 
   /// File path: assets/icons/insta.svg
   SvgGenImage get insta => const SvgGenImage('assets/icons/insta.svg');
@@ -222,6 +228,18 @@ class $AssetsIconsGen {
 
   /// File path: assets/icons/map_icon.svg
   SvgGenImage get mapIcon => const SvgGenImage('assets/icons/map_icon.svg');
+
+  /// File path: assets/icons/marker_office.svg
+  SvgGenImage get markerOffice =>
+      const SvgGenImage('assets/icons/marker_office.svg');
+
+  /// File path: assets/icons/marker_property.svg
+  SvgGenImage get markerProperty =>
+      const SvgGenImage('assets/icons/marker_property.svg');
+
+  /// File path: assets/icons/marker_tourisem.svg
+  SvgGenImage get markerTourisem =>
+      const SvgGenImage('assets/icons/marker_tourisem.svg');
 
   /// File path: assets/icons/more_icon.svg
   SvgGenImage get moreIcon => const SvgGenImage('assets/icons/more_icon.svg');
@@ -322,7 +340,7 @@ class $AssetsIconsGen {
   SvgGenImage get worksIcon => const SvgGenImage('assets/icons/works_icon.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values => [
+  List<dynamic> get values => [
     home,
     locationPin,
     managment,
@@ -361,7 +379,9 @@ class $AssetsIconsGen {
     graphics,
     helpIcon,
     homeIcon,
+    image,
     imageAddIcon,
+    imageIcon,
     insta,
     layoutGridIcon,
     layoutListIcon,
@@ -371,6 +391,9 @@ class $AssetsIconsGen {
     logout,
     mailIcon,
     mapIcon,
+    markerOffice,
+    markerProperty,
+    markerTourisem,
     moreIcon,
     notificationIcon,
     passwordIcon,
@@ -407,6 +430,10 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/box.png
   AssetGenImage get box => const AssetGenImage('assets/images/box.png');
+
+  /// File path: assets/images/box_error.png
+  AssetGenImage get boxError =>
+      const AssetGenImage('assets/images/box_error.png');
 
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
@@ -448,6 +475,7 @@ class $AssetsImagesGen {
   /// List of all assets
   List<AssetGenImage> get values => [
     box,
+    boxError,
     logo,
     officePropertyCard,
     officeServicesCard,

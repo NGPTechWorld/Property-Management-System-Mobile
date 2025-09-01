@@ -138,6 +138,6 @@ class AppFunctions {
   }
 
   static Future<void> openFile(String filePath) async {
-    await OpenFilex.open(filePath);
+    await OpenFilex.open(filePath, type: 'application/pdf');
   }
 }

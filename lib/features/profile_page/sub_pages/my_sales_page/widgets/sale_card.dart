@@ -3,28 +3,12 @@ import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:flutter/material.dart';
-
-class SaleCardModel {
-  final String title;
-  final String location;
-  final String startDate;
-  final String state;
-  final String image;
-  final String price;
-
-  SaleCardModel({
-    required this.title,
-    required this.location,
-    required this.startDate,
-    required this.image,
-    required this.state,
-    required this.price,
-  });
-}
+import 'package:property_ms/data/dto/user_purchases_dto.dart';
 
 class SaleCard extends StatelessWidget {
-  final SaleCardModel model;
-  const SaleCard({super.key, required this.model});
+  final UserPurchasesDto model;
+  final bool isLoaging;
+  const SaleCard({super.key, required this.model, this.isLoaging = false});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +19,8 @@ class SaleCard extends StatelessWidget {
         height: AppSize.sHeight * 0.18,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          color: Colors.white,
+          color: isLoaging ? Colors.transparent : ColorManager.white,
+          border: isLoaging ? Border.all() : null,
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -112,7 +97,7 @@ class SaleCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        model.location,
+                        model.address,
                         overflow: TextOverflow.ellipsis,
                         style: Get.textTheme.bodyLarge!.copyWith(
                           fontSize: FontSize.s12,
@@ -138,14 +123,14 @@ class SaleCard extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        model.state,
+                        model.status,
                         overflow: TextOverflow.ellipsis,
                         style: Get.textTheme.bodyLarge!.copyWith(
                           fontSize: FontSize.s12,
                           color:
-                              model.state == "تم البيع"
+                              model.status == "تم البيع"
                                   ? ColorManager.greenColor
-                                  : model.state == "محجوز"
+                                  : model.status == "محجوز"
                                   ? ColorManager.yello
                                   : ColorManager.redColor,
                         ),
@@ -162,7 +147,7 @@ class SaleCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        model.startDate,
+                        model.date,
                         style: Get.textTheme.bodyMedium!.copyWith(fontSize: 12),
                       ),
                     ],

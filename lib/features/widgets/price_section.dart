@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:property_ms/core/utils/assets.gen.dart';
 import 'package:property_ms/core/utils/color_manager.dart';
 import 'package:property_ms/core/utils/values_manager.dart';
 import 'package:property_ms/core/utils/widgets/app_button.dart';
@@ -7,12 +8,14 @@ class PriceSection extends StatelessWidget {
   final String price;
   final String? payrate;
   final VoidCallback onPressed;
+  final bool isLoading;
 
   const PriceSection({
     super.key,
     required this.price,
     this.payrate,
     required this.onPressed,
+    this.isLoading = false,
   });
 
   @override
@@ -77,10 +80,11 @@ class PriceSection extends StatelessWidget {
             AppButton(
               text: 'احجز الآن',
               onPressed: onPressed,
-              icon: const Icon(Icons.shopping_cart, color: Colors.white),
+              icon: Assets.icons.cartIcon.svg(color: ColorManager.white),
               backgroundColor: ColorManager.primaryDark,
               radius: AppSize.s20,
               iconOnLeft: true,
+              loadingMode: isLoading,
             ),
           ],
         ),
