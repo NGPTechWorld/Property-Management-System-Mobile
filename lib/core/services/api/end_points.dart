@@ -1,6 +1,6 @@
 class EndPoints {
-  // static const String baseUrl = "http://192.168.1.103:3000/";
-  static const String baseUrl = "https://e3e6545d05e0.ngrok-free.app";
+  // static const String baseUrl = "http://192.168.1.3:3000/";
+  static const String baseUrl = "https://a0cda5034d19.ngrok-free.app";
   static const String templateT = "/templateT";
   //Map
   static const String mapExplore = "/map/explore";

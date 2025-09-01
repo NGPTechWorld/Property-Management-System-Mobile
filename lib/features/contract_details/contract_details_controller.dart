@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:property_ms/core/utils/helper/app_functions.dart';
 import 'package:property_ms/core/utils/widgets/custom_toasts.dart';
@@ -70,7 +71,7 @@ class ContractDetailsController extends GetxController
 
     DownloadDialog().show();
 
-    final response = await userRepo.downloadDocument(path, "فاتورة", progress);
+    final response = await userRepo.downloadDocument(path, "F.pdf", progress);
 
     if (!response.success) {
       CustomToasts(
@@ -82,6 +83,7 @@ class ContractDetailsController extends GetxController
     }
 
     final file = response.data!;
+    log(file.path);
     // close dialog
     Get.back();
     progress.value = 0;
@@ -129,7 +131,7 @@ class ContractDetailsController extends GetxController
       return;
     }
 
-    refreshPage();
+    await refreshPage();
     loadingStateReservaion.value = LoadingState.doneWithData;
   }
 }

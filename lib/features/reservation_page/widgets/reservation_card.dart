@@ -17,9 +17,9 @@ class ReservationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 2),
       child: Container(
-        width: AppSize.sWidth * 0.99,
+        width: AppSize.sWidth * 1,
         height: AppSize.sHeight * 0.18,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
