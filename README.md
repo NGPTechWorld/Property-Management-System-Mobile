@@ -353,6 +353,11 @@ The **Office Manager Dashboard** provides real estate brokers with a complete co
 
 Check out the project promo here: [https://www.facebook.com/share/v/1EnyAFU64N/](https://www.facebook.com/share/v/1EnyAFU64N/).
 
+---
+## UI Design 🎨
+
+You can see the UI on Figma also: [https://www.figma.com/design/i8O1XfwFww6YLYuiNFRrVy/Project-1---Property-MS?node-id=0-1&t=P0NlvhvVdN1xohY4-1](https://www.figma.com/design/i8O1XfwFww6YLYuiNFRrVy/Project-1---Property-MS?node-id=0-1&t=P0NlvhvVdN1xohY4-1).
+
 ## 🛠 Tech Stack
 
 - **Framework**: [Flutter](https://flutter.dev/)
