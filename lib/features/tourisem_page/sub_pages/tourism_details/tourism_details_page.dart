@@ -330,7 +330,6 @@ class RelatedTourismSection extends StatelessWidget {
                     controller.tourismRelatedList.length,
                     (index) => GestureDetector(
                       onTap: () {
-                        //! @OsamaZerkawi here toNamed should be
                         Get.toNamed(
                           AppRoutes.tourismDetailsPage,
                           parameters: {
