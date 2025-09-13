@@ -31,7 +31,6 @@ class DoneCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Center(
-                  //! @OsamaZerkawi add icon
                   child: Assets.images.user2.image(
                     width:
                         isSmall ? AppSize.sWidth * 0.2 : AppSize.sWidth * 0.5,

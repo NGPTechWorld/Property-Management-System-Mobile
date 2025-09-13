@@ -87,7 +87,6 @@ class ImpFavoriteRepositories extends GetxService
       appResponse.success = true;
       appResponse.successMessage = response.data['message'];
     } catch (e) {
-      //! @OsamaZerkawi add the same in update profile to see what is teh error
       Get.snackbar('Error in removeFavorite', e.toString());
       appResponse.success = false;
       appResponse.networkFailure = ErrorHandler.handle(e).failure;
